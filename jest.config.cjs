@@ -16,6 +16,7 @@ module.exports = {
   },
 
   setupFiles: [
+    '<rootDir>/jest-setup-env.js',
     '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
     '<rootDir>/jest-setup.js'
   ],
