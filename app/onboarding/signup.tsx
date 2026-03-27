@@ -5,12 +5,14 @@ import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
+import PasswordStrength from '../../components/PasswordStrength';
 import { useAuth } from '../../context/AuthContext';
 
 export default function SignUpScreen() {
-  const { role } = useLocalSearchParams<{ role: string }>();
+  const params = useLocalSearchParams<{ role?: string; email?: string }>();
+  const role = params.role;
   const { signup } = useAuth();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(params.email || '');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [step, setStep] = useState<'initial' | 'details'>('initial');
@@ -60,9 +62,9 @@ export default function SignUpScreen() {
     setIsLoading(true);
     setError('');
 
-    const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
-      ? normalizedRole
-      : 'customer';
+      const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
+        ? (normalizedRole as 'customer' | 'tradesperson')
+        : 'customer';
     const result = await signup(email.trim(), password, name.trim(), selectedRole);
 
     if (result.success && result.needsVerification) {
@@ -239,6 +241,8 @@ export default function SignUpScreen() {
                 secureTextEntry
               />
             </View>
+
+            <PasswordStrength password={password} />
 
             <Text style={styles.passwordHint}>
               Password must be at least 8 characters

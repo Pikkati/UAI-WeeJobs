@@ -12,6 +12,16 @@ const mock = {
   ImageViewManager: {},
 };
 
+// Provide minimal StyleSheet and primitives used by components so tests can render
+mock.StyleSheet = { create: (s) => s, flatten: (s) => s };
+mock.Text = 'Text';
+mock.View = 'View';
+mock.TouchableOpacity = 'TouchableOpacity';
+mock.ScrollView = 'ScrollView';
+
+// Provide Dimensions mock used by some components
+mock.Dimensions = { get: (_key) => ({ width: 375, height: 667 }) };
+
 // Export shape that supports CommonJS and ESM default interop used by jest
 module.exports = mock;
 module.exports.__esModule = true;

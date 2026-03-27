@@ -1,6 +1,28 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14?target=deno";
+// Optional Sentry for Deno via esm.sh. If SENTRY_DSN is set in env, we'll attempt
+// to initialize Sentry to capture runtime errors from this function.
+let Sentry: any = null;
+try {
+  // @ts-ignore
+  Sentry = await import("https://esm.sh/@sentry/node@7?target=deno");
+  const dsn = Deno.env.get("SENTRY_DSN");
+  if (dsn) {
+    try {
+      Sentry.init({ dsn, environment: Deno.env.get("DEPLOYMENT_ENV") || "development" });
+      console.log("Sentry initialized for Edge Function");
+    } catch (e) {
+      console.warn("Sentry init failed:", e?.message || e);
+      Sentry = null;
+    }
+  } else {
+    Sentry = null;
+  }
+} catch (e) {
+  // Import failed or not available in this runtime; continue without Sentry
+  Sentry = null;
+}
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { rateLimit } from "https://deno.land/x/oak_rate_limit@0.1.0/mod.ts";
 // Deno runtime globals are used in this file; declare for TypeScript compile-time
@@ -71,6 +93,7 @@ serve(async (req) => {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
+      if (Sentry) Sentry.captureException(new Error('Unauthorised access to create-deposit-payment-intent'));
       return new Response(JSON.stringify({ error: "Unauthorised" }), {
         status: 401,
         headers: { "Content-Type": "application/json" },
@@ -84,6 +107,7 @@ serve(async (req) => {
       .single();
 
     if (jobError || !job) {
+      if (Sentry) Sentry.captureException(new Error(`Job not found: ${jobId}`));
       return new Response(JSON.stringify({ error: "Job not found" }), {
         status: 404,
         headers: { "Content-Type": "application/json" },
@@ -105,6 +129,7 @@ serve(async (req) => {
     }
 
     if (job.deposit_paid || job.status === "booked") {
+      if (Sentry) Sentry.captureException(new Error(`Deposit already paid for job: ${jobId}`));
       return new Response(JSON.stringify({ error: "Deposit already paid" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
@@ -150,6 +175,18 @@ serve(async (req) => {
       }
     );
   } catch (error) {
+    try {
+      if (Sentry) {
+        Sentry.captureException(error);
+        // flush to ensure events are sent before function exits (best-effort)
+        if (typeof Sentry.flush === 'function') {
+          await Sentry.flush(2000);
+        }
+      }
+    } catch (e) {
+      console.warn('Sentry capture failed', e?.message || e);
+    }
+
     return new Response(
       JSON.stringify({
         error: error instanceof Error ? error.message : "Unknown error",
