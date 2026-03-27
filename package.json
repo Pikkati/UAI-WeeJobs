@@ -20,7 +20,23 @@
     "ci:local": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-act.ps1 && .\\.bin\\act.exe -j \"check-base\" -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 --env-file .env --secret EAS_TOKEN=placeholder",
     "ci:local:all": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-act.ps1 && .\\.bin\\act.exe -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 --env-file .env --secret EAS_TOKEN=placeholder",
     "ci": "npm run ci:local",
-    "migrate": "node scripts/run-migrations.js"
+    "migrate": "node scripts/run-migrations.js",
+    "assets:icon-sprite": "node scripts/icon-sprite.js",
+    "assets:generate-icons": "node scripts/generate-app-icons.js",
+    "assets:optimize-svgs": "node scripts/optimize-svgs.js",
+    "assets:optimize": "npm run assets:icon-sprite && npm run assets:optimize-svgs"
+  },
+  "scripts": {
+    "assets:png-sprite": "node scripts/png-sprite.js",
+    "assets:lottie-fallbacks": "node scripts/lottie-fallbacks.js",
+    "assets:all": "npm run assets:optimize && npm run assets:png-sprite && npm run assets:lottie-fallbacks"
+  },
+  "scripts": {
+    "assets:check-rtl": "node scripts/check-rtl-assets.js"
+  },
+  "assetsScripts": {
+    "pngSprite": "node scripts/png-sprite.js",
+    "lottieFallbacks": "node scripts/lottie-fallbacks.js"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^3.0.2",
@@ -54,7 +70,6 @@
     "semantic-release": "^25.0.3",
     "typescript": "~6.0.2"
   },
-  
   "lint-staged": {
     "**/*.{js,ts,tsx,jsx}": [
       "npm run type",

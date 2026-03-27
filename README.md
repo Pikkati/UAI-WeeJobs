@@ -159,3 +159,27 @@ This mirrors the GitHub Actions job and ensures `npm ci` + `tsc` + `jest` run in
 If you find changes mistakenly merged into `main`, create a branch from the current `main` (for backup), then restore `main` to the intended stable commit and open PRs against `UAI-Development`.
 
 For full details and branch protection guidance see [Branch Policy and Protection](docs/BRANCH_POLICY.md).
+
+## Assets contribution quick guide
+
+- Place individual SVG icons in `assets/icons/` using kebab-case filenames (e.g. `search-outline.svg`).
+- Generate an SVG sprite with:
+
+```bash
+npm run assets:icon-sprite
+```
+
+- Optimize SVGs (requires `svgo`):
+
+```bash
+npm run assets:optimize
+```
+
+- To auto-generate platform PNG icons from a 1024x1024 master PNG, add `assets/icons/app-icon.png` and run:
+
+```bash
+npm run assets:generate-icons
+```
+
+Notes: `assets:generate-icons` uses `sharp` and `assets:optimize` uses `svgo` — install them as devDependencies locally to enable full automation.
+
