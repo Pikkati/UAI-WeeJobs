@@ -13,7 +13,8 @@ type AuthContextType = {
     password: string,
     name: string,
     role: User['role'] | 'tradie'
-  ) => Promise<{ success: boolean; error?: string; user?: User }>;
+  ) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }>;
+  sendPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   setHasSeenOnboarding: (value: boolean) => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -24,10 +25,30 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const normalizeUserRole = (role: User['role'] | 'tradie') =>
   role === 'tradie' ? 'tradesperson' : role;
 
-const buildNormalizedUser = (data: User & { role?: User['role'] | 'tradie' }): User => ({
-  ...data,
-  role: normalizeUserRole(data.role ?? 'customer'),
-});
+const buildNormalizedUser = (data: Partial<User> & { role?: User['role'] | 'tradie' }): User => {
+  const role = normalizeUserRole(data.role ?? 'customer');
+  return {
+    id: data.id ?? '',
+    email: data.email ?? '',
+    name: data.name ?? '',
+    role,
+    phone: data.phone,
+    area: data.area,
+    trade_categories: data.trade_categories,
+    average_rating: data.average_rating,
+    total_reviews: data.total_reviews,
+    is_verified_pro: data.is_verified_pro,
+    subscription_plan: data.subscription_plan,
+    jobs_completed: data.jobs_completed,
+    pricing_default: data.pricing_default,
+    hourly_rate: data.hourly_rate,
+    bio: data.bio,
+    areas_covered: data.areas_covered,
+    portfolio_photos: data.portfolio_photos,
+    created_at: data.created_at ?? new Date().toISOString(),
+    updated_at: data.updated_at ?? new Date().toISOString(),
+  } as User;
+};
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -233,6 +254,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const sendPasswordReset = async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      // supabase JS v2 provides resetPasswordForEmail; use any to avoid strict typing differences
+      const fn = (supabase.auth as any).resetPasswordForEmail || (supabase.auth as any).resetPasswordForEmail?.bind(supabase.auth);
+      if (typeof fn === 'function') {
+        const { error } = await fn(email);
+        if (error) return { success: false, error: error.message || 'Unable to send reset email.' };
+        return { success: true };
+      }
+
+      // Fallback: try signUp to trigger email in some flows (no-op for existing users), otherwise return success
+      return { success: false, error: 'Password reset is not supported in this environment.' };
+    } catch (err: any) {
+      return { success: false, error: err?.message || 'Unable to send reset email.' };
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -241,6 +279,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         hasSeenOnboarding,
         login,
         signup,
+        sendPasswordReset,
         logout,
         setHasSeenOnboarding,
         refreshUser,
