@@ -9,11 +9,11 @@ jest.mock('../context/AuthContext', () => ({
 }));
 
 // Mock router to capture navigation
-const pushMock = jest.fn();
+const mockPush = jest.fn();
 jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({}),
-  useRouter: () => ({ push: pushMock, back: jest.fn() }),
-  router: { push: pushMock },
+  useRouter: () => ({ push: mockPush, back: jest.fn() }),
+  router: { push: mockPush },
 }));
 
 // Mock supabase insert
@@ -49,7 +49,7 @@ test('PostJobScreen posts a job and navigates to customer jobs', async () => {
 
   await waitFor(() => {
     expect(insertMock).toHaveBeenCalled();
-    expect(pushMock).toHaveBeenCalledWith('/customer/jobs');
+    expect(mockPush).toHaveBeenCalledWith('/customer/jobs');
     expect(queryByText('Success')).toBeNull(); // Alert not rendered in RN testing environment
   });
 });
