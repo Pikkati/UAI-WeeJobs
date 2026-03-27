@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Colors, Spacing} from '../constants/theme';
 
-function scorePassword(pw: string) {
+export function scorePassword(pw: string) {
   let score = 0;
   if (!pw) return score;
   if (pw.length >= 8) score += 1;
