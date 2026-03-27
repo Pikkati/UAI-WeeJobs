@@ -1,0 +1,48 @@
+-- WARNING: This schema is for context only and is not meant to be run.
+-- Table order and constraints may not be valid for execution.
+
+CREATE TABLE public.jobs (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  customer_id uuid,
+  tradie_id uuid,
+  name character varying NOT NULL,
+  phone character varying NOT NULL,
+  email character varying,
+  area character varying NOT NULL,
+  category character varying NOT NULL,
+  description text,
+  timing character varying NOT NULL,
+  photos ARRAY,
+  status character varying DEFAULT 'open'::character varying CHECK (status::text = ANY (ARRAY['open'::character varying, 'accepted'::character varying, 'completed'::character varying, 'cancelled'::character varying]::text[])),
+  is_garage_clearance boolean DEFAULT false,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT jobs_pkey PRIMARY KEY (id),
+  CONSTRAINT jobs_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES public.users(id),
+  CONSTRAINT jobs_tradie_id_fkey FOREIGN KEY (tradie_id) REFERENCES public.users(id)
+);
+CREATE TABLE public.messages (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  job_id uuid,
+  sender_id uuid,
+  receiver_id uuid,
+  content text NOT NULL,
+  read boolean DEFAULT false,
+  created_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT messages_pkey PRIMARY KEY (id),
+  CONSTRAINT messages_job_id_fkey FOREIGN KEY (job_id) REFERENCES public.jobs(id),
+  CONSTRAINT messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.users(id),
+  CONSTRAINT messages_receiver_id_fkey FOREIGN KEY (receiver_id) REFERENCES public.users(id)
+);
+CREATE TABLE public.users (
+  id uuid NOT NULL DEFAULT uuid_generate_v4(),
+  email character varying NOT NULL UNIQUE,
+  name character varying NOT NULL,
+  role character varying NOT NULL CHECK (role::text = ANY (ARRAY['customer'::character varying, 'tradie'::character varying, 'admin'::character varying]::text[])),
+  phone character varying,
+  area character varying,
+  trade_categories ARRAY,
+  created_at timestamp with time zone DEFAULT now(),
+  updated_at timestamp with time zone DEFAULT now(),
+  CONSTRAINT users_pkey PRIMARY KEY (id)
+);

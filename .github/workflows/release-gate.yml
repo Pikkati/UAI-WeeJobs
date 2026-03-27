@@ -1,0 +1,29 @@
+name: Release Gate
+
+on:
+  pull_request:
+    types: [opened, synchronize, edited, reopened]
+    branches: [ UAI-Development ]
+    paths:
+      - 'package.json'
+      - 'CHANGELOG.md'
+
+jobs:
+  gate:
+    name: Release Changelog & Version Gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install deps (fast)
+        run: npm ci --legacy-peer-deps --no-audit --no-fund
+
+      - name: Run release gate checks
+        env:
+          GITHUB_BASE_REF: ${{ github.event.pull_request.base.ref }}
+        run: node scripts/check-release-gate.js

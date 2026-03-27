@@ -1,0 +1,17 @@
+# Require reviews from the core team for critical paths
+# Format: <pattern> <owner1> <owner2>
+
+# Ownership for app code and core logic
+/app/ @weejobs-team @backend-team
+/context/ @weejobs-team
+/lib/ @weejobs-team
+/supabase/ @weejobs-db
+/scripts/ @weejobs-team
+
+# Documentation and configuration
+/.github/ @weejobs-team
+/jest.config.cjs @weejobs-team
+/package.json @weejobs-team
+
+# Copilot-skill files should also be reviewed by the agent customization owners
+/copilot-skill/ @weejobs-team

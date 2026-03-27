@@ -1,0 +1,73 @@
+name: CI Triage
+
+on:
+  workflow_run:
+    workflows: ["CI"]
+    types: [completed]
+
+jobs:
+  triage:
+    if: >-
+      github.event.workflow_run.name == 'CI' &&
+      (github.event.workflow_run.head_branch == 'UAI-Development')
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Show workflow context
+        run: |
+          echo "Workflow run ${{ github.event.workflow_run.id }} concluded with ${{ github.event.workflow_run.conclusion }} on branch ${{ github.event.workflow_run.head_branch }}"
+
+      - name: Create issue for failures
+        if: ${{ github.event.workflow_run.conclusion != 'success' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            const repo = context.repo;
+            const runUrl = process.env.RUN_URL || (process.env.GITHUB_SERVER_URL + '/' + process.env.GITHUB_REPOSITORY + '/actions/runs/' + run.id);
+            const billingUrl = 'https://github.com/organizations/' + (process.env.GITHUB_REPOSITORY_OWNER || '') + '/settings/billing';
+            const lines = [];
+            lines.push('Automated CI triage: workflow run ' + run.id + ' for branch ' + run.head_branch + ' concluded with ' + run.conclusion + '.');
+            lines.push('');
+            lines.push('Run details: ' + runUrl);
+            lines.push('');
+            lines.push('Common cause: GitHub Actions billing/spending limits may block workflows. If you see annotations mentioning billing or payment failures, consider increasing repository billing limits or using self-hosted runners.');
+            lines.push('');
+            lines.push('Suggested actions:');
+            lines.push('- Check repository billing and usage at ' + billingUrl + ' (or organization billing settings).');
+            lines.push('- If billing cannot be increased, consider provisioning a self-hosted runner and updating workflows to use it.');
+            lines.push('- For EAS builds, ensure `EAS_TOKEN` is set in repo secrets.');
+            lines.push('');
+            lines.push('Please inspect the logs and triage.');
+            const body = lines.join('\n');
+            await github.issues.create({ owner: repo.owner, repo: repo.repo, title: 'Automated CI failure: ' + repo.repo + '#' + run.id, body });
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.event.workflow_run.id }}
+
+      - name: Run local smoke checks
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (legacy peer deps)
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        run: |
+          echo "Installing dependencies with --legacy-peer-deps"
+          npm ci --legacy-peer-deps --no-audit --no-fund
+
+      - name: Run TypeScript
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        run: npx tsc --noEmit
+
+      - name: Run ESLint
+        if: ${{ github.event.workflow_run.conclusion == 'success' }}
+        run: npx eslint "app/**" "components/**" "context/**" --ext .ts,.tsx

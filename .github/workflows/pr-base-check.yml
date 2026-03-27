@@ -1,0 +1,27 @@
+name: PR Base Branch Check
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+
+jobs:
+  check-base:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check PR base branch (shell)
+        run: |
+          EVENT_FILE="${GITHUB_EVENT_PATH:-.github/event.json}"
+          if [ -f "$EVENT_FILE" ]; then
+            BASE=$(jq -r '.pull_request.base.ref // empty' "$EVENT_FILE")
+            if [ "$BASE" != "UAI-Development" ]; then
+              echo "Pull requests must target UAI-Development (current: $BASE). Please retarget your PR to UAI-Development." >&2
+              exit 1
+            else
+              echo "PR base is UAI-Development — ok."
+            fi
+          else
+            echo "Event file not found; skipping base check."
+          fi

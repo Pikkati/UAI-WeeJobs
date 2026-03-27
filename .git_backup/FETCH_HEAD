@@ -1,0 +1,22 @@
+36c0c6b040d603b760712f62917a487f11a0589b		branch 'UAI-Development' of https://github.com/getnudged/weejobs
+3431e5003cb9f88a10169c0da406ead9432a3bd2	not-for-merge	branch 'audit/jest-expo-upgrade' of https://github.com/getnudged/weejobs
+c2cf8efc0cccd31de86ebb5a77e9a0d8991b4fda	not-for-merge	branch 'backup/main-post-merge' of https://github.com/getnudged/weejobs
+1afb629918b1b576d9e3ee4c54cb82e847c34530	not-for-merge	branch 'chore/ci/install-eas-local' of https://github.com/getnudged/weejobs
+652e9a41a0fb44eb5fe212c641849ade9526a533	not-for-merge	branch 'chore/deps/update-lockfile-2026-03-25' of https://github.com/getnudged/weejobs
+094f88784d850b850037df49c6283aca09922fb2	not-for-merge	branch 'chore/fix-jest-window-redirect' of https://github.com/getnudged/weejobs
+d26b1f41a91e331d0301cbaa3a4f85fe6e3e3e90	not-for-merge	branch 'chore/lockfile-update-2026-03-25' of https://github.com/getnudged/weejobs
+a9a27b4f536d20ba52a7e30f759a9b6cafaffba4	not-for-merge	branch 'chore/regen-lockfile' of https://github.com/getnudged/weejobs
+67499602c2df62f3bb3d8907801559e3a0f70cd8	not-for-merge	branch 'chore/remediate/ci-sprint-2026-03-26' of https://github.com/getnudged/weejobs
+afcac1400037bc834bed93fa7247c65cd504d5fb	not-for-merge	branch 'chore/remediate/deps-2026-03-25' of https://github.com/getnudged/weejobs
+14f1b539be08ecf06174ae323e04847983e4e80e	not-for-merge	branch 'chore/security/audit-report-2026-03-25' of https://github.com/getnudged/weejobs
+a5ae78ccbb114a00667efbba1a9778294b852076	not-for-merge	branch 'chore/security/auto-audit-fixes-2026-03-25' of https://github.com/getnudged/weejobs
+b1dd65faa758d906cced8177c1be9efe440fc1a2	not-for-merge	branch 'chore/security/remediate-jest-env-2026-03-25' of https://github.com/getnudged/weejobs
+631f7d0e26dab1c91fad6e4eef0b878729a8cb2d	not-for-merge	branch 'chore/security/remediate-jest-environment-jsdom-2026-03-25' of https://github.com/getnudged/weejobs
+41ec37510a219fb51a97b741c42658004639ddb9	not-for-merge	branch 'chore/upgrade/jest-expo-55' of https://github.com/getnudged/weejobs
+7ddad29926cd7b6e59f716510d4f2cbcfe58e329	not-for-merge	branch 'chore/upgrade/jest-expo-55.0.11' of https://github.com/getnudged/weejobs
+3be9c5a8b6c25df4cf29fc02f4a3045958fff055	not-for-merge	branch 'chore/upgrade/jest-expo-sandbox' of https://github.com/getnudged/weejobs
+27c783c8df56a8c94bee59fd6bd9d9eaacf16d2b	not-for-merge	branch 'dependabot/npm_and_yarn/eslint-10.1.0' of https://github.com/getnudged/weejobs
+528767a438f2c4ad5a0a0fb5eb55f137248f5b27	not-for-merge	branch 'dependabot/npm_and_yarn/stripe-21.0.1' of https://github.com/getnudged/weejobs
+cdc7a220ab0b12d3827eaaf67cd36c99414d799e	not-for-merge	branch 'dependabot/npm_and_yarn/types/expo__vector-icons-10.0.2' of https://github.com/getnudged/weejobs
+b8db55cf12b554b4c134336a2bff3daa4c7d21b5	not-for-merge	branch 'dependabot/npm_and_yarn/typescript-6.0.2' of https://github.com/getnudged/weejobs
+c2cf8efc0cccd31de86ebb5a77e9a0d8991b4fda	not-for-merge	branch 'main' of https://github.com/getnudged/weejobs

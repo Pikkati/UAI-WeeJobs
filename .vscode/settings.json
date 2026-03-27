@@ -1,0 +1,4 @@
+{
+  "weejobs.branchNote": "UAI-Development is the working branch. Do not merge directly into main.",
+  "git.defaultBranch": "UAI-Development"
+}

@@ -1,0 +1,5 @@
+0000000000000000000000000000000000000000 d26b1f41a91e331d0301cbaa3a4f85fe6e3e3e90 uai-bot <uai-bot@example.com> 1774482518 -0700	branch: Created from HEAD
+d26b1f41a91e331d0301cbaa3a4f85fe6e3e3e90 70bbfa02fc9f5586d38f5a3d5be6c5a5ce465f68 uai-bot <uai-bot@example.com> 1774482519 -0700	commit: chore(deps): upgrade jest-environment-jsdom to 30.3.0 (audit remediation)
+70bbfa02fc9f5586d38f5a3d5be6c5a5ce465f68 79068971b6268beb41e530111dd507b73ee9dd11 uai-bot <uai-bot@example.com> 1774482562 -0700	commit: chore(deps): update lockfile after jest-environment-jsdom upgrade
+79068971b6268beb41e530111dd507b73ee9dd11 c986475f5db6c174b2cdddff8e49319721070edd uai-bot <uai-bot@example.com> 1774539881 -0700	commit: test: ensure rn setup wrapper runs before other setup (avoid window redefine)
+c986475f5db6c174b2cdddff8e49319721070edd ef4eeb5673439ef4a6c305f84fa6dd97df915d71 uai-bot <uai-bot@example.com> 1774539919 -0700	commit: test: ensure react-native setup mock matches both 'setup' and 'setup.js' imports

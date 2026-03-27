@@ -1,0 +1,29 @@
+"shadow*" style props are deprecated. Use "boxShadow".
+ReferenceError: window is not defined
+    at getValue (/home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:63:52)
+    at /home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:39:21
+    at new Promise (<anonymous>)
+    at createPromise (/home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:37:10)
+    at Object.getItem (/home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:63:12)
+    at getItemAsync (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/lib/helpers.js:129:33)
+    at SupabaseAuthClient._recoverAndRefresh (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:1869:69)
+    at SupabaseAuthClient._initialize (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:296:24)
+    at fn (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:234:35)
+    at /home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:1122:36
+/home/runner/workspace/node_modules/expo/node_modules/@expo/cli/build/src/utils/errors.js:130
+    throw error;
+    ^
+
+ReferenceError: window is not defined
+    at getValue (/home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:63:52)
+    at /home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:39:21
+    at new Promise (<anonymous>)
+    at createPromise (/home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:37:10)
+    at Object.getItem (/home/runner/workspace/node_modules/@react-native-async-storage/async-storage/lib/commonjs/AsyncStorage.js:63:12)
+    at getItemAsync (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/lib/helpers.js:129:33)
+    at SupabaseAuthClient.__loadSession (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:1179:66)
+    at SupabaseAuthClient._useSession (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:1160:39)
+    at SupabaseAuthClient._emitInitialSession (/home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:1619:27)
+    at /home/runner/workspace/node_modules/@supabase/auth-js/dist/main/GoTrueClient.js:1613:22
+
+Node.js v22.22.0

@@ -1,0 +1,174 @@
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').order is not a function (it is undefined)] 
+
+Code: JobsContext.tsx
+  85 |         .from('jobs')
+  86 |         .select('*')
+> 87 |         .order('created_at', { ascending: false });
+     |               ^
+  88 |
+  89 |       if (error) throw error;
+  90 |       setJobs(data || []);
+Call Stack
+  fetchJobs (context/JobsContext.tsx:87:15)
+  useEffect$argument_0 (context/JobsContext.tsx:100:16) 
+
+Code: _layout.tsx
+  22 |   return (
+  23 |     <AuthProvider>
+> 24 |       <JobsProvider>
+     |       ^
+  25 |       <StatusBar style="light" />
+  26 |       <Stack
+  27 |         screenOptions={{
+Call Stack
+  RootLayout (app/_layout.tsx:24:7)
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').order is not a function (it is undefined)] 
+
+Code: JobsContext.tsx
+  85 |         .from('jobs')
+  86 |         .select('*')
+> 87 |         .order('created_at', { ascending: false });
+     |               ^
+  88 |
+  89 |       if (error) throw error;
+  90 |       setJobs(data || []);
+Call Stack
+  fetchJobs (context/JobsContext.tsx:87:15)
+  useEffect$argument_0 (app/customer/jobs.tsx:52:14) 
+
+Code: _layout.tsx
+   5 | export default function CustomerLayout() {
+   6 |   return (
+>  7 |     <Tabs
+     |     ^
+   8 |       screenOptions={{
+   9 |         headerShown: false,
+  10 |         tabBarStyle: {
+Call Stack
+  CustomerLayout (app/customer/_layout.tsx:7:5)
+  RootLayout (app/_layout.tsx:26:7)
+ LOG  Login error: [TypeError: _libSupabase.supabase.from('users').select('*').eq is not a function (it is undefined)]
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').order is not a function (it is undefined)] 
+
+Code: JobsContext.tsx
+  85 |         .from('jobs')
+  86 |         .select('*')
+> 87 |         .order('created_at', { ascending: false });
+     |               ^
+  88 |
+  89 |       if (error) throw error;
+  90 |       setJobs(data || []);
+Call Stack
+  fetchJobs (context/JobsContext.tsx:87:15)
+  useEffect$argument_0 (context/JobsContext.tsx:100:16) 
+
+Code: _layout.tsx
+  22 |   return (
+  23 |     <AuthProvider>
+> 24 |       <JobsProvider>
+     |       ^
+  25 |       <StatusBar style="light" />
+  26 |       <Stack
+  27 |         screenOptions={{
+Call Stack
+  RootLayout (app/_layout.tsx:24:7)
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').eq is not a function (it is undefined)] 
+
+Code: index.tsx
+  291 |         .from('jobs')
+  292 |         .select('*')
+> 293 |         .eq('status', 'open')
+      |            ^
+  294 |         .order('created_at', { ascending: false });
+  295 |
+  296 |       if (error) throw error;
+Call Stack
+  fetchJobs (app/tradie/index.tsx:293:12)
+  useEffect$argument_0 (app/tradie/index.tsx:306:14) 
+
+Code: _layout.tsx
+   5 | export default function TradieLayout() {
+   6 |   return (
+>  7 |     <Tabs
+     |     ^
+   8 |       screenOptions={{
+   9 |         headerShown: false,
+  10 |         tabBarStyle: {
+Call Stack
+  TradieLayout (app/tradie/_layout.tsx:7:5)
+  RootLayout (app/_layout.tsx:26:7)
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').eq is not a function (it is undefined)] 
+
+Code: index.tsx
+  291 |         .from('jobs')
+  292 |         .select('*')
+> 293 |         .eq('status', 'open')
+      |            ^
+  294 |         .order('created_at', { ascending: false });
+  295 |
+  296 |       if (error) throw error;
+Call Stack
+  fetchJobs (app/tradie/index.tsx:293:12) 
+
+Code: index.tsx
+  391 |             Check back later for new jobs{'\n'}in your area
+  392 |           </Text>
+> 393 |           <TouchableOpacity style={styles.refreshButton} onPress={fetchJobs}>
+      |           ^
+  394 |             <Ionicons name="refresh" size={20} color={Colors.background} />
+  395 |             <Text style={styles.refreshButtonText}>Refresh</Text>
+  396 |           </TouchableOpacity>
+Call Stack
+  TradieSwipeScreen (app/tradie/index.tsx:393:11)
+  TradieLayout (app/tradie/_layout.tsx:7:5)
+  RootLayout (app/_layout.tsx:26:7)
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').order is not a function (it is undefined)] 
+
+Code: JobsContext.tsx
+  85 |         .from('jobs')
+  86 |         .select('*')
+> 87 |         .order('created_at', { ascending: false });
+     |               ^
+  88 |
+  89 |       if (error) throw error;
+  90 |       setJobs(data || []);
+Call Stack
+  fetchJobs (context/JobsContext.tsx:87:15)
+  useEffect$argument_0 (app/tradie/current-jobs.tsx:97:14) 
+
+Code: _layout.tsx
+   5 | export default function TradieLayout() {
+   6 |   return (
+>  7 |     <Tabs
+     |     ^
+   8 |       screenOptions={{
+   9 |         headerShown: false,
+  10 |         tabBarStyle: {
+Call Stack
+  TradieLayout (app/tradie/_layout.tsx:7:5)
+  RootLayout (app/_layout.tsx:26:7)
+ ERROR  Error fetching jobs: [TypeError: _libSupabase.supabase.from('jobs').select('*').eq is not a function (it is undefined)] 
+
+Code: index.tsx
+  291 |         .from('jobs')
+  292 |         .select('*')
+> 293 |         .eq('status', 'open')
+      |            ^
+  294 |         .order('created_at', { ascending: false });
+  295 |
+  296 |       if (error) throw error;
+Call Stack
+  fetchJobs (app/tradie/index.tsx:293:12) 
+
+Code: index.tsx
+  391 |             Check back later for new jobs{'\n'}in your area
+  392 |           </Text>
+> 393 |           <TouchableOpacity style={styles.refreshButton} onPress={fetchJobs}>
+      |           ^
+  394 |             <Ionicons name="refresh" size={20} color={Colors.background} />
+  395 |             <Text style={styles.refreshButtonText}>Refresh</Text>
+  396 |           </TouchableOpacity>
+Call Stack
+  TradieSwipeScreen (app/tradie/index.tsx:393:11)
+  TradieLayout (app/tradie/_layout.tsx:7:5)
+  RootLayout (app/_layout.tsx:26:7)

@@ -1,0 +1,30 @@
+
+up to date, audited 1099 packages in 2s
+
+195 packages are looking for funding
+  run `npm fund` for details
+
+# npm audit report
+
+@tootallnate/once  <3.0.1
+@tootallnate/once vulnerable to Incorrect Control Flow Scoping - https://github.com/advisories/GHSA-vpq2-c234-7xj6
+fix available via `npm audit fix --force`
+Will install jest-environment-jsdom@30.3.0, which is a breaking change
+node_modules/@tootallnate/once
+  http-proxy-agent  4.0.1 - 5.0.0
+  Depends on vulnerable versions of @tootallnate/once
+  node_modules/http-proxy-agent
+    jsdom  16.6.0 - 22.1.0
+    Depends on vulnerable versions of http-proxy-agent
+    node_modules/jsdom
+      jest-environment-jsdom  27.0.1 - 30.0.0-rc.1
+      Depends on vulnerable versions of jsdom
+      node_modules/jest-environment-jsdom
+        jest-expo  >=48.0.0
+        Depends on vulnerable versions of jest-environment-jsdom
+        node_modules/jest-expo
+
+5 low severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force

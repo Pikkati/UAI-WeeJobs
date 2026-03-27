@@ -1,0 +1,2 @@
+0000000000000000000000000000000000000000 631f7d0e26dab1c91fad6e4eef0b878729a8cb2d uai-bot <uai-bot@example.com> 1774478930 -0700	branch: Created from HEAD
+631f7d0e26dab1c91fad6e4eef0b878729a8cb2d 2fccc2848f8b77ee58c3d7c630f21372f0bfdf3d uai-bot <uai-bot@example.com> 1774478937 -0700	commit: chore(types): add upstream packages and ambient stubs; docs: add app breakdown

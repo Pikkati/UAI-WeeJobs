@@ -1,0 +1,18 @@
+name: Test self-hosted runner
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: [self-hosted, macOS, X64]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check runner
+        run: |
+          echo "Hello from the self-hosted runner"
+          pwd
+          whoami
+          uname -a

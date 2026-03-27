@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [UAI-Development]
+  pull_request:
+    branches: [UAI-Development]
+
+jobs:
+  build:
+    runs-on: [self-hosted, macOS, X64]
+    env:
+      # Set to 'true' to run `npm run test:q` which auto-quits Jest (useful for local emulation)
+      USE_TEST_Q: 'false'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Restore node modules cache (explicit)
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies (deterministic `npm ci` with retries)
+        run: |
+          set -e
+          echo "Installing dependencies with npm ci"
+          for i in 1 2 3; do
+            npm ci --legacy-peer-deps --no-audit --no-fund && break || (echo "npm ci failed, retrying ($i)"; sleep 5)
+          done
+        env:
+          CI: true
+
+      - name: Run TypeScript
+        run: npx tsc --noEmit
+
+      - name: Run ESLint
+        run: npx eslint "app/**" "components/**" "context/**" "lib/**" --ext .ts,.tsx
+
+      - name: Run tests
+        run: |
+          if [ "$USE_TEST_Q" = 'true' ]; then
+            echo "Using test:q to run tests (auto-quit watch mode)"
+            npm run test:q -- --ci --passWithNoTests
+          else
+            npm test -- --ci --passWithNoTests
+          fi
+        env:
+          EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}

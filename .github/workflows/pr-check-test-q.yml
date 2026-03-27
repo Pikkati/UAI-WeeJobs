@@ -1,0 +1,30 @@
+name: PR Check - Require test:q mention
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  require-test-q:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR for test:q when code changes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const prNumber = pr.number;
+            const files = await github.paginate(github.pulls.listFiles, { owner, repo, pull_number: prNumber });
+            const codeChanged = files.some(f => f.filename.startsWith('app/') || f.filename.startsWith('components/') || f.filename.startsWith('lib/') || f.filename.startsWith('scripts/'));
+            if (!codeChanged) {
+              console.log('No relevant code changes detected; skipping test:q check.');
+              return;
+            }
+            const body = (pr.body || '').toLowerCase();
+            if (body.includes('npm run test:q') || body.includes('test:q')) {
+              console.log('PR body contains test:q reference.');
+              return;
+            }
+            core.setFailed('PR modifies code but does not mention running `npm run test:q` in the PR description. Please include "npm run test:q" in the PR body to indicate local emulation was used.');

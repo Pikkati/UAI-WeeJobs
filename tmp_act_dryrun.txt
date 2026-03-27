@@ -1,0 +1,73 @@
+time="2026-03-26T10:21:38-07:00" level=info msg="Using docker host 'npipe:////./pipe/docker_engine', and daemon socket 'npipe:////./pipe/docker_engine'"
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Set up job
+[Release Dry Run/Semantic Release (dry-run)] ≡ƒÜÇ  Start image=node:20-bullseye
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker pull image=node:20-bullseye platform= username= forcePull=true
+[Release Dry Run/Semantic Release (dry-run)] using DockerAuthConfig authentication for docker pull
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker create image=node:20-bullseye platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker run image=node:20-bullseye platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Set up job
+[Release Dry Run/Semantic Release (dry-run)]   Γÿü  git clone 'https://github.com/actions/setup-node' # ref=v4
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Checkout
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker cp src=D:\MyProjectsUAI\weejobs\. dst=/mnt/d/MyProjectsUAI/weejobs
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Checkout [5.0535893s]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Use Node.js
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker cp src=C:\Users\Sosuk\.cache\act/actions-setup-node@v4/ dst=/var/run/act/actions/actions-setup-node@v4/
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/setup/index.js] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   | Found in cache @ /opt/hostedtoolcache/node/20.20.2/x64
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô  ::group::Environment details
+[Release Dry Run/Semantic Release (dry-run)]   | node: v20.20.2
+[Release Dry Run/Semantic Release (dry-run)]   | npm: 10.8.2
+[Release Dry Run/Semantic Release (dry-run)]   | yarn: 1.22.22
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô  ::endgroup::
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/tsc.json
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-stylish.json
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-compact.json
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Use Node.js [5.8514525s]
+[Release Dry Run/Semantic Release (dry-run)]   ΓÜÖ  ::set-output:: node-version=v20.20.2
+[Release Dry Run/Semantic Release (dry-run)]   ΓÜÖ  ::add-path:: /opt/hostedtoolcache/node/20.20.2/x64/bin
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Install dependencies
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[sh -e /var/run/act/workflow/2.sh] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated whatwg-encoding@2.0.0: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | 
+[Release Dry Run/Semantic Release (dry-run)]   | added 1120 packages in 17s
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Install dependencies [16.8989009s]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Run semantic-release (dry-run)
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[sh -e /var/run/act/workflow/3.sh] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   | Running semantic-release in dry-run mode (no published releases)
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn exec The following package was not found and will be installed: semantic-release@24.2.9
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated semver-diff@5.0.0: Deprecated as the semver package now supports this built-in.
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:20 PM] [semantic-release] ΓÇ║ Γä╣  Running semantic-release version 24.2.9
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "verifyConditions" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "verifyConditions" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "analyzeCommits" from "@semantic-release/commit-analyzer"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "generateNotes" from "@semantic-release/release-notes-generator"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "prepare" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "publish" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "publish" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "addChannel" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "addChannel" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "success" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:21 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "fail" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:22:23 PM] [semantic-release] ΓÇ║ Γä╣  This test run was triggered on the branch chore/remediate/deps-2026-03-25, while semantic-release is configured to only publish from main, therefore a new version wonΓÇÖt be published.
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Run semantic-release (dry-run) [12.6125339s]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Post Use Node.js
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/cache-save/index.js] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Post Use Node.js [279.7766ms]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Complete job
+[Release Dry Run/Semantic Release (dry-run)] Cleaning up container for job Semantic Release (dry-run)
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Complete job
+[Release Dry Run/Semantic Release (dry-run)] ≡ƒÅü  Job succeeded

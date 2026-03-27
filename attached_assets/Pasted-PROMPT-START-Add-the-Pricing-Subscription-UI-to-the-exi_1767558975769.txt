@@ -1,0 +1,117 @@
+PROMPT START
+Add the Pricing & Subscription UI to the existing Wee Jobs React Native (Expo) app. This is UI-only — no backend logic. All components must be modern, polished, and visually convincing, using Wee Jobs’ bright, friendly design style.
+
+1. Create a new screen: PricingHomeScreen.tsx
+This screen must contain two large pricing cards:
+A. PAY AS YOU GO Card
+Visual style:
+* Soft white card
+* Rounded corners
+* Light shadow
+* Small PAYG label badge in grey
+Content inside card:
+* Title: PAY AS YOU GO
+* Subtitle: “Only pay when you need to”
+* Bullet list (ticks or icons):
+    * £2–£5 to unlock a job
+    * 10% completion fee
+    * No monthly cost
+    * “Perfect for beginners”
+* Button at bottom: Continue with PAYG (full-width, primary colour)
+
+B. PRO SUBSCRIPTION Card (Best Value)
+This card MUST look visually superior.
+Visual style:
+* Larger card
+* Gradient or highlighted border
+* Ribbon at top-left: MOST POPULAR
+* “Verified Pro” badge displayed on card
+* Slight glow or shadow enhancement
+Content inside card:
+* Title: PRO SUBSCRIPTION
+* Subtitle: “Grow your business with every job”
+* Price: £49/month (bold, large)
+* Bullet list:
+    * 5–7% completion fee
+    * Unlimited lead unlocks
+    * Priority placement on all jobs
+    * “Verified Pro” badge displayed on profile
+* Big call-to-action button: Upgrade to PRO
+
+Footer note under cards:
+Small text centred:
+“You can switch between PAYG and PRO at any time.”
+
+2. Add reusable component: PricingCard.tsx
+Props:
+* title
+* subtitle
+* price
+* features (array of strings)
+* button label
+* onPress
+* highlight (boolean)
+* ribbonText (optional)
+* showBadge (boolean)
+If highlight is true:
+* Use accented border
+* Slight elevation
+* Ribbon displayed
+Include icons for each bullet point (tick icons).
+
+3. Create the “Verified Pro” badge component
+File: VerifiedProBadge.tsx
+Style:
+* Gold/yellow circular icon
+* Checkmark inside
+* Text: Verified Pro
+* Used on:
+    * Pricing card
+    * Tradesman profile header
+    * Lead unlock modal (PRO users)
+
+4. Lead Unlock Modal (UI only)
+Create modal component: LeadUnlockModal.tsx
+Trigger: shown when tradesman (PAYG) swipes right on a job.
+Modal content:
+Header
+* Title: Unlock this job for £3
+* Job category icon and job title preview
+Body
+Show preview card:
+* Job description (short)
+* Distance
+* Budget if available
+* Small photo preview grid (if photos exist)
+Buttons (full width)
+* Unlock for £3 → style: primary
+* Cancel → style: outline
+Behaviour
+If user is PRO:
+* Modal should NOT appear
+* Show placeholder: “PRO users auto-accept jobs”
+(This behaviour is UI-only, not functional logic.)
+
+5. Add navigation route
+Add a new Stack screen:
+
+<Stack.Screen name="PricingHome" component={PricingHomeScreen} />
+Tradesman onboarding flow must include a step: “Choose your plan” → navigates to PricingHome.
+Add “Change Plan” button on Tradesman Profile, also linking to this screen.
+
+6. Style instructions
+* Use bright colours (blue, orange, white)
+* Rounded corners
+* Spacious layout
+* Big typography for value statements
+* Badge + ribbon elements must feel premium
+* Buttons must be large, with bold primary colours
+
+7. No backend logic
+All button actions should call placeholder functions:
+
+const handleSelectPAYG = () => console.log("PAYG selected");
+const handleSelectPRO = () => console.log("PRO subscription selected");
+Modal should open using local component state.
+
+PROMPT END
