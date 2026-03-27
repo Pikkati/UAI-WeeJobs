@@ -16,6 +16,7 @@ type AuthContextType = {
   ) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }>;
   sendPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
+  resendVerification: (email: string) => Promise<{ success: boolean; error?: string }>;
   setHasSeenOnboarding: (value: boolean) => Promise<void>;
   refreshUser: () => Promise<void>;
 };
@@ -268,6 +269,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return { success: false, error: 'Password reset is not supported in this environment.' };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Unable to send reset email.' };
+    }
+  };
+
+  const resendVerification = async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      // Try calling a server endpoint if configured. This endpoint should use a Supabase
+      // service role key to trigger a verification email resend for the given email.
+      const apiBase = (typeof process !== 'undefined' && (process.env as any)?.EXPO_PUBLIC_API_BASE) || '';
+      if (!apiBase) {
+        return { success: false, error: 'Resend endpoint not configured. Use Sign Up to re-trigger verification or contact support.' };
+      }
+
+      const res = await fetch(`${apiBase.replace(/\/$/, '')}/resend-verification`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => ({}));
+        return { success: false, error: body?.error || 'Failed to request verification resend.' };
+      }
+
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, error: err?.message || 'Unable to request verification resend.' };
     }
   };
 
