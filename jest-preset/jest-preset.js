@@ -17,7 +17,9 @@ const tryRequire = (names) => {
 const expoPreset = tryRequire(['jest-expo/jest-preset', 'jest-expo']);
 const preset = Object.assign({}, expoPreset || {});
 
-const isRNSetup = (v) => typeof v === 'string' && /react-native\/jest\/setup(\.js)?$/.test(v);
+const isRNSetup = (v) =>
+  typeof v === 'string' &&
+  /react-native[\\/]+jest[\\/]+setup(?:\.js)?$/.test(v);
 
 // Build an explicit, minimal set of setupFiles that ensures our wrapper
 // runs before anything that might attempt to redefine `window`.

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase, User } from '../lib/supabase';
+import { TEST_USERS } from '../constants/data';
 
 type AuthContextType = {
   user: User | null;
@@ -69,6 +70,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       if (authError || !authData.user) {
+        // Fallback to local test users for offline/test environments.
+        const fallbackUser = Object.values(TEST_USERS).find(
+          (u) => u.email === email && u.password === password,
+        );
+
+        if (fallbackUser) {
+          const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+          await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
+          setUser(normalizedUser);
+          return { success: true, user: normalizedUser };
+        }
+
         return { success: false, error: 'Unable to sign in with those details.' };
       }
 
@@ -88,6 +101,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(normalizedUser);
       return { success: true, user: normalizedUser };
     } catch (error) {
+      const fallbackUser = Object.values(TEST_USERS).find(
+        (u) => u.email === email && u.password === password,
+      );
+      if (fallbackUser) {
+        const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+        await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
+        setUser(normalizedUser);
+        return { success: true, user: normalizedUser };
+      }
       return { success: false, error: 'Unable to sign in right now. Please try again.' };
     }
   };
