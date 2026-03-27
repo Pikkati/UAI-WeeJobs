@@ -23,21 +23,38 @@ export default function TopBar() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.bar}>
         {/* Settings */}
-        <TouchableOpacity style={styles.iconButton} onPress={() => router.push('/settings')}>
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => router.push('/settings')}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Open settings"
+        >
           <Ionicons name="settings-outline" size={22} color={Colors.white} />
         </TouchableOpacity>
 
         {/* Logo */}
-        <View style={styles.logoWrap}>
-          <Text style={styles.logo}>WeeJobs</Text>
+        <View style={styles.logoWrap} accessible accessibilityLabel="WeeJobs logo">
+          <Text style={styles.logo} accessibilityRole="header">WeeJobs</Text>
         </View>
 
         {/* Bell + Avatar */}
         <View style={styles.rightGroup}>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Notifications"
+          >
             <Ionicons name="notifications-outline" size={22} color={Colors.white} />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.avatar} onPress={handleAvatarPress}>
+          <TouchableOpacity
+            style={styles.avatar}
+            onPress={handleAvatarPress}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Open profile"
+          >
             <Ionicons name="person" size={16} color={Colors.accent} />
           </TouchableOpacity>
         </View>

@@ -5,7 +5,10 @@ on:
 
 jobs:
   test:
-    runs-on: [self-hosted, macOS, X64]
+    strategy:
+      matrix:
+        os: [[self-hosted, macOS, X64], [self-hosted, windows]]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4

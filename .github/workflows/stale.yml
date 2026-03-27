@@ -1,0 +1,28 @@
+name: "Stale issues and PRs"
+
+on:
+  schedule:
+    - cron: '0 0 * * 0' # weekly on Sunday
+  workflow_dispatch: {}
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark stale issues and PRs
+        uses: actions/stale@v4
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-stale: 30
+          days-before-close: 7
+          stale-issue-message: |
+            This issue has been automatically marked as stale due to inactivity. If you still want this issue to remain open, please leave a comment.
+          stale-pr-message: |
+            This pull request has been marked as stale due to inactivity. If you are still working on this, please update the PR or leave a comment.
+          close-issue-message: |
+            Closing this issue as it was stale and had no recent activity. Please reopen if this is still relevant.
+          close-pr-message: |
+            Closing this pull request as it was stale and had no recent activity. Please reopen or open a new PR if needed.
+          exempt-issue-labels: 'pinned,security,do-not-close'
+          exempt-pr-labels: 'do-not-close'
+          operations-per-run: 30

@@ -30,6 +30,17 @@ export default function AdminDashboard() {
         supabase.from('users').select('role'),
       ]);
 
+      if (jobsRes.error) {
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(jobsRes.error);
+        throw jobsRes.error;
+      }
+      if (usersRes.error) {
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(usersRes.error);
+        throw usersRes.error;
+      }
+
       const jobs = jobsRes.data || [];
       const users = usersRes.data || [];
 
@@ -43,6 +54,8 @@ export default function AdminDashboard() {
         tradies: users.filter(u => u.role === 'tradesperson').length,
       });
     } catch (error) {
+      const sentry = require('../../lib/sentry');
+      sentry.captureException?.(error);
       console.error('Error fetching stats:', error);
     } finally {
       setIsLoading(false);
