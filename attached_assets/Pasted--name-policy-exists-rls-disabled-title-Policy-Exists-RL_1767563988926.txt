@@ -1,0 +1,110 @@
+[
+  {
+    "name": "policy_exists_rls_disabled",
+    "title": "Policy Exists RLS Disabled",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects cases where row level security (RLS) policies have been created, but RLS has not been enabled for the underlying table.",
+    "detail": "Table \\`public.job_interests\\` has RLS policies but RLS is not enabled on the table. Policies include {\"Allow all for job_interests\"}.",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0007_policy_exists_rls_disabled",
+    "metadata": {
+      "name": "job_interests",
+      "type": "table",
+      "schema": "public"
+    },
+    "cache_key": "policy_exists_rls_disabled_public_job_interests"
+  },
+  {
+    "name": "policy_exists_rls_disabled",
+    "title": "Policy Exists RLS Disabled",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects cases where row level security (RLS) policies have been created, but RLS has not been enabled for the underlying table.",
+    "detail": "Table \\`public.jobs\\` has RLS policies but RLS is not enabled on the table. Policies include {\"Allow all for development\",\"Allow read access for development\"}.",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0007_policy_exists_rls_disabled",
+    "metadata": {
+      "name": "jobs",
+      "type": "table",
+      "schema": "public"
+    },
+    "cache_key": "policy_exists_rls_disabled_public_jobs"
+  },
+  {
+    "name": "policy_exists_rls_disabled",
+    "title": "Policy Exists RLS Disabled",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects cases where row level security (RLS) policies have been created, but RLS has not been enabled for the underlying table.",
+    "detail": "Table \\`public.users\\` has RLS policies but RLS is not enabled on the table. Policies include {\"Allow read access for development\"}.",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0007_policy_exists_rls_disabled",
+    "metadata": {
+      "name": "users",
+      "type": "table",
+      "schema": "public"
+    },
+    "cache_key": "policy_exists_rls_disabled_public_users"
+  },
+  {
+    "name": "rls_disabled_in_public",
+    "title": "RLS Disabled in Public",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects cases where row level security (RLS) has not been enabled on tables in schemas exposed to PostgREST",
+    "detail": "Table \\`public.jobs\\` is public, but RLS has not been enabled.",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0013_rls_disabled_in_public",
+    "metadata": {
+      "name": "jobs",
+      "type": "table",
+      "schema": "public"
+    },
+    "cache_key": "rls_disabled_in_public_public_jobs"
+  },
+  {
+    "name": "rls_disabled_in_public",
+    "title": "RLS Disabled in Public",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects cases where row level security (RLS) has not been enabled on tables in schemas exposed to PostgREST",
+    "detail": "Table \\`public.users\\` is public, but RLS has not been enabled.",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0013_rls_disabled_in_public",
+    "metadata": {
+      "name": "users",
+      "type": "table",
+      "schema": "public"
+    },
+    "cache_key": "rls_disabled_in_public_public_users"
+  },
+  {
+    "name": "rls_disabled_in_public",
+    "title": "RLS Disabled in Public",
+    "level": "ERROR",
+    "facing": "EXTERNAL",
+    "categories": [
+      "SECURITY"
+    ],
+    "description": "Detects cases where row level security (RLS) has not been enabled on tables in schemas exposed to PostgREST",
+    "detail": "Table \\`public.job_interests\\` is public, but RLS has not been enabled.",
+    "remediation": "https://supabase.com/docs/guides/database/database-linter?lint=0013_rls_disabled_in_public",
+    "metadata": {
+      "name": "job_interests",
+      "type": "table",
+      "schema": "public"
+    },
+    "cache_key": "rls_disabled_in_public_public_job_interests"
+  }
+]

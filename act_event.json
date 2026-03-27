@@ -1,0 +1,11 @@
+{
+  "action": "opened",
+  "number": 1,
+  "pull_request": {
+    "number": 1,
+    "title": "Local test PR",
+    "user": { "login": "localtester" },
+    "base": { "ref": "UAI-Development" },
+    "head": { "ref": "feature/local-test" }
+  }
+}

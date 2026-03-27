@@ -1,0 +1,8 @@
+{
+  "workflow_run": {
+    "id": 999999999,
+    "name": "CI",
+    "head_branch": "UAI-Development",
+    "conclusion": "failure"
+  }
+}

@@ -1,0 +1,257 @@
+time="2026-03-26T10:22:41-07:00" level=info msg="Using docker host 'npipe:////./pipe/docker_engine', and daemon socket 'npipe:////./pipe/docker_engine'"
+[Dependency Audit/audit                    ] Γ¡É Run Set up job
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Set up job
+[CI/build                                  ] ≡ƒÜº  Skipping unsupported platform -- Try running with `-P self-hosted=...`
+[CI/build                                  ] ≡ƒÜº  Skipping unsupported platform -- Try running with `-P macOS=...`
+[Dependency Audit/audit                    ] ≡ƒÜÇ  Start image=node:16-buster-slim
+[CI/build                                  ] ≡ƒÜº  Skipping unsupported platform -- Try running with `-P X64=...`
+[Staging build (EAS preview)/eas-build     ] ≡ƒÜÇ  Start image=node:16-buster-slim
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Set up job
+[Release Dry Run/Semantic Release (dry-run)] ≡ƒÜÇ  Start image=node:20-bullseye
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker pull image=node:20-bullseye platform= username= forcePull=true
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker pull image=node:16-buster-slim platform= username= forcePull=true
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker pull image=node:16-buster-slim platform= username= forcePull=true
+[Release Dry Run/Semantic Release (dry-run)] using DockerAuthConfig authentication for docker pull
+[Staging build (EAS preview)/eas-build     ] using DockerAuthConfig authentication for docker pull
+[Dependency Audit/audit                    ] using DockerAuthConfig authentication for docker pull
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker create image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker create image=node:20-bullseye platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker run image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker run image=node:20-bullseye platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker create image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Dependency Audit/audit                    ]   Γ£à  Success - Set up job
+[Dependency Audit/audit                    ]   Γÿü  git clone 'https://github.com/actions/setup-node' # ref=v4
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker run image=node:16-buster-slim platform= entrypoint=["tail" "-f" "/dev/null"] cmd=[] network="host"
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Set up job
+[Release Dry Run/Semantic Release (dry-run)]   Γÿü  git clone 'https://github.com/actions/setup-node' # ref=v4
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker exec cmd=[node --no-warnings -e console.log(process.execPath)] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Set up job
+[Staging build (EAS preview)/eas-build     ]   Γÿü  git clone 'https://github.com/actions/setup-node' # ref=v4
+[Dependency Audit/audit                    ]   Γÿü  git clone 'https://github.com/actions/github-script' # ref=v7
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Checkout
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker cp src=D:\MyProjectsUAI\weejobs\. dst=/mnt/d/MyProjectsUAI/weejobs
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Main actions/checkout@v4
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker cp src=D:\MyProjectsUAI\weejobs\. dst=/mnt/d/MyProjectsUAI/weejobs
+[Dependency Audit/audit                    ] Γ¡É Run Main actions/checkout@v4
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker cp src=D:\MyProjectsUAI\weejobs\. dst=/mnt/d/MyProjectsUAI/weejobs
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Checkout [10.638787s]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Use Node.js
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker cp src=C:\Users\Sosuk\.cache\act/actions-setup-node@v4/ dst=/var/run/act/actions/actions-setup-node@v4/
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Main actions/checkout@v4 [12.9197761s]
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Main Set up Node.js
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker cp src=C:\Users\Sosuk\.cache\act/actions-setup-node@v4/ dst=/var/run/act/actions/actions-setup-node@v4/
+[Dependency Audit/audit                    ]   Γ£à  Success - Main actions/checkout@v4 [13.4716211s]
+[Dependency Audit/audit                    ] Γ¡É Run Main Use Node.js
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker cp src=C:\Users\Sosuk\.cache\act/actions-setup-node@v4/ dst=/var/run/act/actions/actions-setup-node@v4/
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/setup/index.js] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   | Found in cache @ /opt/hostedtoolcache/node/20.20.2/x64
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô  ::group::Environment details
+[Release Dry Run/Semantic Release (dry-run)]   | node: v20.20.2
+[Release Dry Run/Semantic Release (dry-run)]   | npm: 10.8.2
+[Release Dry Run/Semantic Release (dry-run)]   | yarn: 1.22.22
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô  ::endgroup::
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/tsc.json
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-stylish.json
+[Release Dry Run/Semantic Release (dry-run)]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-compact.json
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Use Node.js [14.1065046s]
+[Release Dry Run/Semantic Release (dry-run)]   ΓÜÖ  ::set-output:: node-version=v20.20.2
+[Release Dry Run/Semantic Release (dry-run)]   ΓÜÖ  ::add-path:: /opt/hostedtoolcache/node/20.20.2/x64/bin
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Install dependencies
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[sh -e /var/run/act/workflow/2.sh] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/setup/index.js] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   | Found in cache @ /opt/hostedtoolcache/node/20.20.2/x64
+[Staging build (EAS preview)/eas-build     ]   Γ¥ô  ::group::Environment details
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/setup/index.js] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   | node: v20.20.2
+[Staging build (EAS preview)/eas-build     ]   | npm: 10.8.2
+[Staging build (EAS preview)/eas-build     ]   | yarn: 1.22.19
+[Staging build (EAS preview)/eas-build     ]   Γ¥ô  ::endgroup::
+[Staging build (EAS preview)/eas-build     ]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/tsc.json
+[Staging build (EAS preview)/eas-build     ]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-stylish.json
+[Staging build (EAS preview)/eas-build     ]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-compact.json
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Main Set up Node.js [13.0789517s]
+[Staging build (EAS preview)/eas-build     ]   ΓÜÖ  ::set-output:: node-version=v20.20.2
+[Staging build (EAS preview)/eas-build     ]   ΓÜÖ  ::add-path:: /opt/hostedtoolcache/node/20.20.2/x64/bin
+[Dependency Audit/audit                    ]   | Found in cache @ /opt/hostedtoolcache/node/20.20.2/x64
+[Dependency Audit/audit                    ]   Γ¥ô  ::group::Environment details
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Main Install EAS CLI (local)
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=
+[Dependency Audit/audit                    ]   | node: v20.20.2
+[Dependency Audit/audit                    ]   | npm: 10.8.2
+[Dependency Audit/audit                    ]   | yarn: 1.22.19
+[Dependency Audit/audit                    ]   Γ¥ô  ::endgroup::
+[Dependency Audit/audit                    ]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/tsc.json
+[Dependency Audit/audit                    ]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-stylish.json
+[Dependency Audit/audit                    ]   Γ¥ô add-matcher /run/act/actions/actions-setup-node@v4/.github/eslint-compact.json
+[Dependency Audit/audit                    ]   Γ£à  Success - Main Use Node.js [12.1508365s]
+[Dependency Audit/audit                    ]   ΓÜÖ  ::set-output:: node-version=v20.20.2
+[Dependency Audit/audit                    ]   ΓÜÖ  ::add-path:: /opt/hostedtoolcache/node/20.20.2/x64/bin
+[Dependency Audit/audit                    ] Γ¡É Run Main Install dependencies
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker exec cmd=[bash -e /var/run/act/workflow/2] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[Dependency Audit/audit                    ]   | npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[Dependency Audit/audit                    ]   | npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+[Dependency Audit/audit                    ]   | npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[Dependency Audit/audit                    ]   | npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+[Dependency Audit/audit                    ]   | npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated whatwg-encoding@2.0.0: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated lodash.get@4.4.2: This package is deprecated. Use the optional chaining (?.) operator instead.
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | npm warn deprecated whatwg-encoding@2.0.0: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+[Release Dry Run/Semantic Release (dry-run)]   | 
+[Release Dry Run/Semantic Release (dry-run)]   | added 1120 packages in 39s
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Install dependencies [39.4649227s]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Main Run semantic-release (dry-run)
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[sh -e /var/run/act/workflow/3.sh] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   | Running semantic-release in dry-run mode (no published releases)
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@6.0.4: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated rimraf@2.4.5: Rimraf versions prior to v4 are no longer supported
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated @xmldom/xmldom@0.7.13: this version is no longer supported, please update to at least 0.8.*
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn exec The following package was not found and will be installed: semantic-release@24.2.9
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated tar@7.5.7: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated whatwg-encoding@2.0.0: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Dependency Audit/audit                    ]   | 
+[Dependency Audit/audit                    ]   | added 1120 packages in 43s
+[Dependency Audit/audit                    ]   Γ£à  Success - Main Install dependencies [43.2915505s]
+[Dependency Audit/audit                    ] Γ¡É Run Main Run npm audit
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[Dependency Audit/audit                    ]   | Running npm audit (fail on high)
+[Dependency Audit/audit                    ]   | # npm audit report
+[Dependency Audit/audit                    ]   | 
+[Dependency Audit/audit                    ]   | @tootallnate/once  <3.0.1
+[Dependency Audit/audit                    ]   | @tootallnate/once vulnerable to Incorrect Control Flow Scoping - https://github.com/advisories/GHSA-vpq2-c234-7xj6
+[Dependency Audit/audit                    ]   | fix available via `npm audit fix --force`
+[Dependency Audit/audit                    ]   | Will install jest-expo@47.0.1, which is a breaking change
+[Dependency Audit/audit                    ]   | node_modules/@tootallnate/once
+[Dependency Audit/audit                    ]   |   http-proxy-agent  4.0.1 - 5.0.0
+[Dependency Audit/audit                    ]   |   Depends on vulnerable versions of @tootallnate/once
+[Dependency Audit/audit                    ]   |   node_modules/jest-expo/node_modules/http-proxy-agent
+[Dependency Audit/audit                    ]   |     jsdom  16.6.0 - 22.1.0
+[Dependency Audit/audit                    ]   |     Depends on vulnerable versions of http-proxy-agent
+[Dependency Audit/audit                    ]   |     node_modules/jest-expo/node_modules/jsdom
+[Dependency Audit/audit                    ]   |       jest-environment-jsdom  27.0.1 - 30.0.0-rc.1
+[Dependency Audit/audit                    ]   |       Depends on vulnerable versions of jsdom
+[Dependency Audit/audit                    ]   |       node_modules/jest-expo/node_modules/jest-environment-jsdom
+[Dependency Audit/audit                    ]   |         jest-expo  >=48.0.0
+[Dependency Audit/audit                    ]   |         Depends on vulnerable versions of jest-environment-jsdom
+[Dependency Audit/audit                    ]   |         node_modules/jest-expo
+[Dependency Audit/audit                    ]   | 
+[Dependency Audit/audit                    ]   | 5 low severity vulnerabilities
+[Dependency Audit/audit                    ]   | 
+[Dependency Audit/audit                    ]   | To address all issues (including breaking changes), run:
+[Dependency Audit/audit                    ]   |   npm audit fix --force
+[Dependency Audit/audit                    ]   Γ£à  Success - Main Run npm audit [1.1927103s]
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | added 1404 packages, and audited 1405 packages in 45s
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | 220 packages are looking for funding
+[Staging build (EAS preview)/eas-build     ]   |   run `npm fund` for details
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | 12 vulnerabilities (6 low, 2 moderate, 4 high)
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | To address issues that do not require attention, run:
+[Staging build (EAS preview)/eas-build     ]   |   npm audit fix
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | To address all issues (including breaking changes), run:
+[Staging build (EAS preview)/eas-build     ]   |   npm audit fix --force
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | Run `npm audit` for details.
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Main Install EAS CLI (local) [45.1724151s]
+[Dependency Audit/audit                    ] Γ¡É Run Post Use Node.js
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Main Install dependencies
+[Dependency Audit/audit                    ]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/cache-save/index.js] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker exec cmd=[bash -e /var/run/act/workflow/3] user= workdir=
+[Dependency Audit/audit                    ]   Γ£à  Success - Post Use Node.js [313.7855ms]
+[Dependency Audit/audit                    ] Γ¡É Run Complete job
+[Dependency Audit/audit                    ] Cleaning up container for job audit
+[Dependency Audit/audit                    ]   Γ£à  Success - Complete job
+[Dependency Audit/audit                    ] ≡ƒÅü  Job succeeded
+[Release Dry Run/Semantic Release (dry-run)]   | npm warn deprecated semver-diff@5.0.0: Deprecated as the semver package now supports this built-in.
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated whatwg-encoding@3.1.1: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated whatwg-encoding@2.0.0: Use @exodus/bytes instead for a more spec-conformant and faster implementation
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γä╣  Running semantic-release version 24.2.9
+[Staging build (EAS preview)/eas-build     ]   | npm warn deprecated domexception@4.0.0: Use your platform's native DOMException instead
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "verifyConditions" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "verifyConditions" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "analyzeCommits" from "@semantic-release/commit-analyzer"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "generateNotes" from "@semantic-release/release-notes-generator"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "prepare" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "publish" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "publish" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "addChannel" from "@semantic-release/npm"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "addChannel" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "success" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:05 PM] [semantic-release] ΓÇ║ Γ£ö  Loaded plugin "fail" from "@semantic-release/github"
+[Release Dry Run/Semantic Release (dry-run)]   | [5:24:08 PM] [semantic-release] ΓÇ║ Γä╣  This test run was triggered on the branch chore/remediate/deps-2026-03-25, while semantic-release is configured to only publish from main, therefore a new version wonΓÇÖt be published.
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Main Run semantic-release (dry-run) [15.4628686s]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Post Use Node.js
+[Release Dry Run/Semantic Release (dry-run)]   ≡ƒÉ│  docker exec cmd=[/usr/local/bin/node /var/run/act/actions/actions-setup-node@v4/dist/cache-save/index.js] user= workdir=
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Post Use Node.js [279.3273ms]
+[Release Dry Run/Semantic Release (dry-run)] Γ¡É Run Complete job
+[Release Dry Run/Semantic Release (dry-run)] Cleaning up container for job Semantic Release (dry-run)
+[Release Dry Run/Semantic Release (dry-run)]   Γ£à  Success - Complete job
+[Release Dry Run/Semantic Release (dry-run)] ≡ƒÅü  Job succeeded
+[Staging build (EAS preview)/eas-build     ]   | 
+[Staging build (EAS preview)/eas-build     ]   | added 1120 packages in 12s
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Main Install dependencies [12.0996106s]
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Main Configure Expo token
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker exec cmd=[bash -e /var/run/act/workflow/4] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   | EAS token configured
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Main Configure Expo token [236.3604ms]
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Main Run EAS build (preview)
+[Staging build (EAS preview)/eas-build     ]   ≡ƒÉ│  docker exec cmd=[bash -e /var/run/act/workflow/7] user= workdir=
+[Staging build (EAS preview)/eas-build     ]   | An Expo user account is required to proceed.
+[Staging build (EAS preview)/eas-build     ]   | Either log in with eas login or set the EXPO_TOKEN environment variable if you're using EAS CLI on CI (Learn more: https://docs.expo.dev/accounts/programmatic-access/)
+[Staging build (EAS preview)/eas-build     ]   |     Error: build command failed.
+[Staging build (EAS preview)/eas-build     ]   Γ¥î  Failure - Main Run EAS build (preview) [1.7224409s]
+[Staging build (EAS preview)/eas-build     ] exitcode '1': failure
+[Staging build (EAS preview)/eas-build     ] Γ¡É Run Complete job
+[Staging build (EAS preview)/eas-build     ]   Γ£à  Success - Complete job
+[Staging build (EAS preview)/eas-build     ] ≡ƒÅü  Job failed
+Error: Job 'eas-build' failed

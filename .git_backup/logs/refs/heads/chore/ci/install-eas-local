@@ -1,0 +1,2 @@
+0000000000000000000000000000000000000000 7ddad29926cd7b6e59f716510d4f2cbcfe58e329 uai-bot <uai-bot@example.com> 1774488420 -0700	branch: Created from HEAD
+7ddad29926cd7b6e59f716510d4f2cbcfe58e329 1afb629918b1b576d9e3ee4c54cb82e847c34530 uai-bot <uai-bot@example.com> 1774488420 -0700	commit: ci: install eas-cli locally in staging workflow to avoid global npm EACCES in act

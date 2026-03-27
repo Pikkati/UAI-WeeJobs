@@ -1,0 +1,81 @@
+name: Staging build (EAS preview)
+
+on:
+  push:
+    branches: [ UAI-Development ]
+
+jobs:
+  eas-build:
+    runs-on: ubuntu-20.04
+    env:
+      EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
+      EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+      EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install EAS CLI (local)
+        run: npm install --no-save eas-cli
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --no-audit --no-fund
+
+      - name: Configure Expo token
+        env:
+          EAS_TOKEN: ${{ secrets.EAS_TOKEN }}
+        run: |
+          echo "EAS token configured"
+
+      - name: Install Sentry CLI
+        if: ${{ secrets.SENTRY_AUTH_TOKEN != '' }}
+        run: |
+          echo "Installing Sentry CLI"
+          npm install -g @sentry/cli@2 || true
+
+      - name: Create Sentry release (dry-run)
+        if: ${{ secrets.SENTRY_AUTH_TOKEN != '' }}
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        run: |
+          echo "Preparing Sentry release (dry-run)"
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Sentry release: $VERSION"
+          sentry-cli releases --org $SENTRY_ORG --project $SENTRY_PROJECT new $VERSION || true
+          sentry-cli releases --org $SENTRY_ORG --project $SENTRY_PROJECT finalize $VERSION || true
+
+      - name: Run EAS build (preview)
+        if: env.EAS_TOKEN != ''
+        env:
+          EXPO_PUBLIC_SUPABASE_URL: ${{ env.EXPO_PUBLIC_SUPABASE_URL }}
+          EXPO_PUBLIC_SUPABASE_ANON_KEY: ${{ env.EXPO_PUBLIC_SUPABASE_ANON_KEY }}
+          EAS_TOKEN: ${{ env.EAS_TOKEN }}
+        run: |
+          set -e
+          eas build --platform all --profile preview --non-interactive
+
+      - name: Create Sentry release and deploy marker
+        if: ${{ secrets.SENTRY_AUTH_TOKEN != '' && secrets.SENTRY_ORG != '' && secrets.SENTRY_PROJECT != '' && env.EAS_TOKEN != '' }}
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          VERSION: ${{ steps.__version.outputs.version || (node -p "require('./package.json').version") }}
+        run: |
+          echo "Creating Sentry release $VERSION"
+          npm install -g @sentry/cli@2 || true
+          sentry-cli releases --org $SENTRY_ORG --project $SENTRY_PROJECT new $VERSION || true
+          sentry-cli releases --org $SENTRY_ORG --project $SENTRY_PROJECT set-commits --auto $VERSION || true
+          sentry-cli releases --org $SENTRY_ORG --project $SENTRY_PROJECT finalize $VERSION || true
+          sentry-cli releases --org $SENTRY_ORG --project $SENTRY_PROJECT deploys $VERSION new -e preview || true
+
+      - name: Skip EAS build when token missing
+        if: env.EAS_TOKEN == ''
+        run: |
+          echo "EAS_TOKEN not set — skipping EAS build in CI. Set secret EAS_TOKEN to enable builds."

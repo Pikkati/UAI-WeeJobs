@@ -1,0 +1,296 @@
+Replit prompt: Deposit + Final Payment flow (UI-only, Stripe later)
+
+PROMPT START
+
+We already have most screens built. Implement the Option A payments flow (Deposit to book + Quote approval + Final payment) in the existing React Native (Expo) Wee Jobs app. This must be UI-only with mocked data and placeholder async functions (no Stripe integration yet). Use UK English spelling in all copy.
+
+Goals
+
+Customer pays a deposit to book a chosen tradesman.
+
+Tradesman travels to job with live tracking UI.
+
+Tradesman sends a final quote in-app.
+
+Customer approves & pays remaining balance.
+
+Job completes with dual confirmation and a payout status UI.
+
+Required job statuses (implement as a local state machine)
+
+Use this exact enum:
+
+open
+
+pending_customer_choice
+
+booked (deposit paid)
+
+on_the_way
+
+in_progress
+
+awaiting_quote_approval
+
+awaiting_final_payment
+
+paid
+
+awaiting_confirmation
+
+completed
+
+cancelled
+
+Create a helper getNextActionsByRole(jobStatus, role) that returns buttons/actions.
+
+Data model (front-end only)
+
+Create TypeScript types:
+
+type UserRole = "customer" | "business" | "tradesman";
+
+type TradesmanPlan = "payg" | "pro";
+
+type Job = {
+  id: string;
+  category: string;
+  description: string;
+  photos: string[];
+  postcode: string;
+  lat?: number;
+  lng?: number;
+  budgetBand?: string;
+  status: JobStatus;
+  customerId: string;
+  assignedTradesmanId?: string;
+  selectedTradesman?: TradesmanPreview;
+  depositAmount?: number;
+  quote?: Quote;
+  totalAmount?: number;
+  amountPaidDeposit?: boolean;
+  amountPaidFinal?: boolean;
+};
+
+type TradesmanPreview = {
+  id: string;
+  name: string;
+  distanceMiles: number;
+  isVerifiedPro: boolean;
+  plan: TradesmanPlan;
+  rating?: number;
+};
+
+type Quote = {
+  labour: number;
+  materials: number;
+  notes?: string;
+  total: number;
+};
+
+
+Create a mock store using React Context:
+
+JobsContext with jobs, updateJob(jobId, patch), selectTradesman(jobId, tradesman), sendQuote(jobId, quote), markOnTheWay(jobId), etc.
+
+Include mock jobs + mock tradesmen interested list.
+
+New screens to add (UI + navigation routes)
+
+Add these screens and wire them into existing navigation:
+
+Customer flow screens
+
+ChooseTradesmanScreen
+
+For a job in pending_customer_choice, show a list of interested tradesmen cards.
+
+Each card shows: name, distance, Verified Pro badge, plan (PAYG/PRO), small rating placeholder.
+
+CTA: Select & Book
+
+On press: set selectedTradesman and navigate to Deposit screen.
+
+PayDepositScreen
+
+Title: “Pay deposit to book”
+
+Show deposit calculation:
+
+Default: 10% of estimated job value with caps (min £10, max £50). If no estimate, default £20.
+
+Copy: “This deposit secures your booking and helps prevent no-shows.”
+
+Button: Pay deposit (primary)
+
+Button: Cancel booking (outline)
+
+On “Pay deposit”: call placeholder mockStripePayDeposit(jobId, amount) and set:
+
+depositAmount, amountPaidDeposit=true, status="booked"
+
+open chat automatically (navigate to Chat screen)
+
+Show a “Powered by Stripe” note (visual only).
+
+JobTrackingScreen
+
+Shows status timeline pills: Booked → On the way → In progress → Quote → Payment → Complete
+
+Includes MapPlaceholder component showing:
+
+customer pin
+
+tradesman moving dot (simulated)
+
+ETA text (simulated)
+
+If status is on_the_way, show “Tradesman is on the way” and live updates.
+
+ApproveQuoteScreen
+
+Visible when job status awaiting_quote_approval.
+
+Shows quote breakdown:
+
+labour, materials, notes, total
+
+Buttons:
+
+Approve quote → sets status awaiting_final_payment and navigates to Final Payment screen
+
+Request change → opens a message composer modal and returns to chat
+
+PayFinalBalanceScreen
+
+Title: “Pay remaining balance”
+
+Show:
+
+Deposit paid: £X
+
+Quote total: £Y
+
+Remaining due: £(Y-X)
+
+Button: Pay now
+
+On press: placeholder mockStripePayFinal(jobId, remaining) then set:
+
+amountPaidFinal=true, status="paid"
+
+show receipt UI (simple)
+
+After paid, show “Waiting for completion confirmation”.
+
+ReceiptScreen (simple)
+
+Summary:
+
+total, deposit, remaining, date/time, job ID
+
+Button: “Back to Home”
+
+Tradesman flow screens
+
+TradesmanJobDetailScreen (if not present, add)
+
+Show job details, photos, distance, and customer postcode.
+
+Buttons depending on status:
+
+If booked: Start navigation (sets status on_the_way)
+
+If on_the_way: Arrived / Start job (sets in_progress)
+
+If in_progress: Send quote
+
+If paid: Mark complete
+
+Show plan badge (PAYG/PRO) visually.
+
+SendQuoteScreen
+
+Fields:
+
+Labour (£)
+
+Materials (£)
+
+Notes
+
+Live total
+
+Button: Send quote
+
+On send: save quote in job and set status awaiting_quote_approval
+
+PayoutStatusScreen (visual only)
+
+After job is completed, show:
+
+“Payment received”
+
+“Payout scheduled” / “Instant payout available” (placeholder)
+
+Include a small note: “Payout timings depend on verification and bank processing.”
+
+Shared / system UI
+
+JobStatusTimeline component
+
+Renders steps with current highlighted.
+
+StripePaymentPlaceholder components
+
+StripeCheckoutStub (opens a modal with “Simulated Stripe Checkout” and a success button)
+
+Must be used by both Pay screens.
+
+Where to link these in existing UI
+
+Customer “Job detail” screen should route to:
+
+ChooseTradesmanScreen when status pending_customer_choice
+
+PayDepositScreen if tradesman selected but not paid
+
+JobTrackingScreen for booked/on the way/in progress
+
+ApproveQuoteScreen when quote sent
+
+PayFinalBalanceScreen when approved
+
+ReceiptScreen after paid
+
+Tradesman “My Jobs” list should route to TradesmanJobDetailScreen.
+
+Tradesman “Send quote” button opens SendQuoteScreen.
+
+Add a “Track customer” button in tradesman job detail that opens JobTrackingScreen in tradesman mode (read-only map).
+
+Simulated location tracking (UI only)
+
+Implement a simple interval timer in JobTrackingScreen that updates a dummy tradesman location point every 2 seconds along a straight line and updates ETA text. Do NOT use background location yet.
+
+No real payments yet
+
+All “Pay” buttons must call mocked async functions like:
+
+async function mockStripePayDeposit(jobId: string, amount: number) { await wait(800); return { ok: true, id: "pi_mock_deposit" }; }
+async function mockStripePayFinal(jobId: string, amount: number) { await wait(800); return { ok: true, id: "pi_mock_final" }; }
+
+
+and transition status accordingly.
+
+UI polish requirements
+
+Deposit screen and final payment screen must feel trustworthy and modern.
+
+Use clear headings, spacing, subtle icons, and a consistent Wee Jobs look.
+
+Include small helper text about deposits preventing no-shows and balances due after quote approval.
+
+Deliver the code changes as new screens/components plus navigation routes. Keep it clean and modular.
+
+PROMPT END

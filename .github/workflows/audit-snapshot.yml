@@ -1,0 +1,38 @@
+name: Audit Snapshot
+
+on:
+  schedule:
+    - cron: '0 3 * * 0' # weekly on Sunday at 03:00 UTC
+  workflow_dispatch: {}
+
+jobs:
+  snapshot:
+    name: Generate and upload npm audit snapshot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm ci --legacy-peer-deps --no-audit --no-fund
+
+      - name: Run npm audit and save JSON snapshot
+        run: |
+          TIMESTAMP=$(date -u +"%Y%m%dT%H%M%SZ")
+          OUTFILE="audit-snapshot-${TIMESTAMP}.json"
+          echo "Running npm audit, writing to ${OUTFILE}"
+          npm audit --json > ${OUTFILE} || true
+          ls -lh ${OUTFILE}
+          echo "::set-output name=outfile::${OUTFILE}"
+
+      - name: Upload audit snapshot artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: audit-snapshot
+          path: audit-snapshot-*.json

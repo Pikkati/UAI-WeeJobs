@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 8512b9a32909d31f985fd3836dfdbaa3188f3578 uai-bot <uai-bot@example.com> 1774459643 -0700	branch: Created from origin/UAI-Development
+8512b9a32909d31f985fd3836dfdbaa3188f3578 85bb53392dcde956f00e75ce8e7fbf602c160533 uai-bot <uai-bot@example.com> 1774459786 -0700	commit: chore(security): attempt controlled jest-expo downgrade to 47.0.1 for audit remediation (test)
+85bb53392dcde956f00e75ce8e7fbf602c160533 2213d8da5bbc7bab186ee4e957965a8d0576ce7e uai-bot <uai-bot@example.com> 1774460234 -0700	commit: test(jest): adjust preset to jest-expo and add jsdom env to support controlled toolchain upgrade
+2213d8da5bbc7bab186ee4e957965a8d0576ce7e 831da590f860bb43a1a124a5c5a64668f7d7ec04 uai-bot <uai-bot@example.com> 1774460326 -0700	commit: chore(security): upgrade jest-expo to v55 and iterate config fixes; tests passing locally

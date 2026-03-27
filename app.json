@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "WeeJobs",
+    "slug": "weejobs",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "weejobs",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.weejobs.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.weejobs.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "spa",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "WeeJobs needs access to your photos to attach images to job postings."
+        }
+      ],
+      "@stripe/stripe-react-native"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

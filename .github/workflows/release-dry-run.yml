@@ -1,0 +1,46 @@
+name: Release Dry Run
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: [ UAI-Development ]
+
+jobs:
+  semantic-release-dry-run:
+    name: Semantic Release (dry-run)
+    runs-on: ubuntu-latest
+    container:
+      image: node:20-bullseye
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm ci --legacy-peer-deps --no-audit --no-fund
+
+      - name: Cache npm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.npm
+            node_modules
+          key: ${{ runner.os }}-npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-npm-
+
+      - name: Run semantic-release (dry-run)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "Running semantic-release in dry-run mode (no published releases)"
+          npx semantic-release --dry-run

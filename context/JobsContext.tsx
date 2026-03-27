@@ -1,0 +1,671 @@
+import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
+import { Job, JobStatus, JobInterest, Quote, supabase, PricingType } from '../lib/supabase';
+import { useAuth } from './AuthContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export type Estimate = {
+  hours: number;
+  hourlyRate: number;
+  materials: number;
+  notes?: string;
+  total: number;
+};
+
+export type Invoice = {
+  hours: number;
+  hourlyRate: number;
+  materials: number;
+  notes?: string;
+  total: number;
+};
+
+type ActionButton = {
+  label: string;
+  action: string;
+  variant: 'primary' | 'secondary' | 'outline' | 'danger';
+};
+
+interface JobsContextType {
+  jobs: Job[];
+  interests: JobInterest[];
+  loading: boolean;
+  fetchJobs: () => Promise<void>;
+  fetchInterests: (jobId: string) => Promise<JobInterest[]>;
+  expressInterest: (jobId: string, unlockFeePaid: boolean, unlockFeeAmount?: number) => Promise<boolean>;
+  closeApplications: (jobId: string) => Promise<boolean>;
+  selectTradesman: (jobId: string, tradieId: string, pricingType: PricingType) => Promise<boolean>;
+payDeposit: (jobId: string) => Promise<{
+  paymentIntent: string;
+  ephemeralKey: string;
+  customer: string;
+  merchantDisplayName: string;
+}>;
+  markOnTheWay: (jobId: string) => Promise<boolean>;
+  markArrived: (jobId: string) => Promise<boolean>;
+  sendEstimate: (jobId: string, estimate: Estimate) => Promise<boolean>;
+  acknowledgeEstimate: (jobId: string) => Promise<boolean>;
+  sendQuote: (jobId: string, quote: Quote) => Promise<boolean>;
+  approveQuote: (jobId: string) => Promise<boolean>;
+  sendInvoice: (jobId: string, invoice: Invoice) => Promise<boolean>;
+  payInvoice: (jobId: string, amount: number) => Promise<{ ok: boolean; id: string }>;
+  payFinalBalance: (jobId: string, amount: number) => Promise<{ ok: boolean; id: string }>;
+  confirmCompletion: (jobId: string, role: 'customer' | 'tradesperson') => Promise<boolean>;
+  cancelJob: (jobId: string, role: 'customer' | 'tradie', reason?: string) => Promise<boolean>;
+  getNextActionsByRole: (jobStatus: JobStatus, role: 'customer' | 'tradesperson', pricingType?: PricingType) => ActionButton[];
+  calculateDeposit: (budgetString?: string) => number;
+  refreshJobs: () => void;
+}
+
+const JobsContext = createContext<JobsContextType | undefined>(undefined);
+
+const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function mockStripePayFinal(jobId: string, amount: number): Promise<{ ok: boolean; id: string }> {
+  await wait(800);
+  console.log(`Mock Stripe: Final payment of £${amount} for job ${jobId}`);
+  return { ok: true, id: `pi_mock_final_${Date.now()}` };
+}
+
+export function JobsProvider({ children }: { children: ReactNode }) {
+  const { user } = useAuth();
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [interests, setInterests] = useState<JobInterest[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
+
+  const refreshJobs = useCallback(() => {
+    setRefreshTrigger(prev => prev + 1);
+  }, []);
+
+  // Key for local job cache
+  const JOBS_CACHE_KEY = 'weejobs_jobs_cache';
+
+  // Fetch jobs from Supabase, cache locally; on error, load from cache
+  const fetchJobs = useCallback(async () => {
+    if (!user) return;
+    setLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from('jobs')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setJobs(data || []);
+      // Cache jobs locally
+      await AsyncStorage.setItem(JOBS_CACHE_KEY, JSON.stringify(data || []));
+    } catch (error) {
+      console.error('Error fetching jobs:', error);
+      // On error, try to load from cache
+      try {
+        const cached = await AsyncStorage.getItem(JOBS_CACHE_KEY);
+        if (cached) {
+          setJobs(JSON.parse(cached));
+        }
+      } catch (cacheErr) {
+        console.error('Error loading jobs from cache:', cacheErr);
+      }
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
+  // On mount, try to load jobs from cache first for fast startup
+  useEffect(() => {
+    let didCancel = false;
+    async function loadFromCacheFirst() {
+      if (!user) return;
+      try {
+        const cached = await AsyncStorage.getItem(JOBS_CACHE_KEY);
+        if (cached && !didCancel) {
+          setJobs(JSON.parse(cached));
+        }
+      } catch {}
+      // Always fetch latest from server
+      if (!didCancel) fetchJobs();
+    }
+    loadFromCacheFirst();
+    return () => { didCancel = true; };
+  }, [user, fetchJobs, refreshTrigger]);
+
+  const fetchInterests = useCallback(async (jobId: string): Promise<JobInterest[]> => {
+    try {
+      const { data, error } = await supabase
+        .from('job_interests')
+        .select(`
+          *,
+          tradie:users!tradie_id(*)
+        `)
+        .eq('job_id', jobId)
+        .in('status', ['interested', 'shortlisted', 'selected']);
+
+      if (error) throw error;
+      setInterests(data || []);
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching interests:', error);
+      return [];
+    }
+  }, []);
+
+  const expressInterest = useCallback(async (
+    jobId: string, 
+    unlockFeePaid: boolean, 
+    unlockFeeAmount?: number
+  ): Promise<boolean> => {
+    if (!user) return false;
+    try {
+      const isPro = user.subscription_plan === 'pro';
+      
+      const { error } = await supabase
+        .from('job_interests')
+        .insert({
+          job_id: jobId,
+          tradie_id: user.id,
+          status: 'interested',
+          unlock_fee_paid: unlockFeePaid,
+          unlock_fee_amount: unlockFeeAmount,
+          is_pro_at_time: isPro,
+        });
+
+      if (error) throw error;
+
+      const MAX_INTERESTED = 5;
+
+      const { data: interestCount } = await supabase
+        .from('job_interests')
+        .select('id')
+        .eq('job_id', jobId)
+        .in('status', ['interested', 'shortlisted']);
+
+      if (interestCount && interestCount.length >= MAX_INTERESTED) {
+        await supabase
+          .from('jobs')
+          .update({ status: 'awaiting_customer_choice' })
+          .eq('id', jobId);
+      }
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error expressing interest:', error);
+      return false;
+    }
+  }, [user, fetchJobs]);
+
+  const closeApplications = useCallback(async (jobId: string): Promise<boolean> => {
+    try {
+      const { error } = await supabase
+        .from('jobs')
+        .update({ status: 'awaiting_customer_choice' })
+        .eq('id', jobId)
+        .in('status', ['open', 'pending_customer_choice']);
+
+      if (error) throw error;
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error closing applications:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const selectTradesman = useCallback(async (jobId: string, tradieId: string, pricingType: PricingType): Promise<boolean> => {
+    try {
+      await supabase
+        .from('job_interests')
+        .update({ status: 'rejected' })
+        .eq('job_id', jobId)
+        .neq('tradie_id', tradieId);
+
+      await supabase
+        .from('job_interests')
+        .update({ status: 'selected' })
+        .eq('job_id', jobId)
+        .eq('tradie_id', tradieId);
+
+      await supabase
+        .from('jobs')
+        .update({ tradie_id: tradieId, pricing_type: pricingType })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error selecting tradesman:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const payDeposit = useCallback(
+    async (jobId: string): Promise<{
+      paymentIntent: string;
+      ephemeralKey: string;
+      customer: string;
+      merchantDisplayName: string;
+    }> => {
+      const { data, error } = await supabase.functions.invoke('create-deposit-payment-intent', {
+        body: { jobId },
+      });
+
+      if (error) {
+        throw new Error(error.message || 'Failed to create deposit payment intent');
+     }
+
+     if (!data?.paymentIntent || !data?.ephemeralKey || !data?.customer) {
+       throw new Error('Invalid payment response from server');
+     }
+
+     return {
+       paymentIntent: data.paymentIntent,
+       ephemeralKey: data.ephemeralKey,
+       customer: data.customer,
+       merchantDisplayName: data.merchantDisplayName ?? 'WeeJobs',
+     };
+   },
+   []
+ );
+
+  const markArrived = useCallback(async (jobId: string): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({ status: 'in_progress' })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error marking arrived:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const sendEstimate = useCallback(async (jobId: string, estimate: Estimate): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({
+          estimate_hours: estimate.hours,
+          estimate_hourly_rate: estimate.hourlyRate,
+          estimate_materials: estimate.materials,
+          estimate_notes: estimate.notes,
+          estimate_total: estimate.total,
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error sending estimate:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const acknowledgeEstimate = useCallback(async (jobId: string): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({ 
+          status: 'estimate_acknowledged',
+          estimate_acknowledged_at: new Date().toISOString(),
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error acknowledging estimate:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const sendQuote = useCallback(async (jobId: string, quote: Quote): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({
+          status: 'awaiting_quote_approval',
+          quote_labour: quote.labour,
+          quote_materials: quote.materials,
+          quote_notes: quote.notes,
+          quote_total: quote.total,
+          quote_sent_at: new Date().toISOString(),
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error sending quote:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const approveQuote = useCallback(async (jobId: string): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({ status: 'awaiting_final_payment' })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error approving quote:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const markOnTheWay = useCallback(async (jobId: string): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({ status: 'on_the_way' })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error marking on the way:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const sendInvoice = useCallback(async (jobId: string, invoice: Invoice): Promise<boolean> => {
+    try {
+      await supabase
+        .from('jobs')
+        .update({
+          status: 'awaiting_invoice_payment',
+          invoice_hours: invoice.hours,
+          invoice_hourly_rate: invoice.hourlyRate,
+          invoice_materials: invoice.materials,
+          invoice_notes: invoice.notes,
+          invoice_total: invoice.total,
+          invoice_sent_at: new Date().toISOString(),
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error sending invoice:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const payInvoice = useCallback(async (jobId: string, amount: number): Promise<{ ok: boolean; id: string }> => {
+    const result = await mockStripePayFinal(jobId, amount);
+    
+    if (result.ok) {
+      await supabase
+        .from('jobs')
+        .update({
+          status: 'paid',
+          final_payment_amount: amount,
+          final_payment_paid: true,
+          final_payment_paid_at: new Date().toISOString(),
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+    }
+    
+    return result;
+  }, [fetchJobs]);
+
+  const payFinalBalance = useCallback(async (jobId: string, amount: number): Promise<{ ok: boolean; id: string }> => {
+    const result = await mockStripePayFinal(jobId, amount);
+    
+    if (result.ok) {
+      await supabase
+        .from('jobs')
+        .update({
+          status: 'paid',
+          final_payment_amount: amount,
+          final_payment_paid: true,
+          final_payment_paid_at: new Date().toISOString(),
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+    }
+    
+    return result;
+  }, [fetchJobs]);
+
+  const confirmCompletion = useCallback(async (
+    jobId: string, 
+    role: 'customer' | 'tradesperson'
+  ): Promise<boolean> => {
+    try {
+      const updateField = role === 'customer' ? 'customer_confirmed' : 'tradie_confirmed';
+      
+      await supabase
+        .from('jobs')
+        .update({ [updateField]: true })
+        .eq('id', jobId);
+
+      const { data } = await supabase
+        .from('jobs')
+        .select('customer_confirmed, tradie_confirmed')
+        .eq('id', jobId)
+        .single();
+
+      if (data?.customer_confirmed && data?.tradie_confirmed) {
+        await supabase
+          .from('jobs')
+          .update({ 
+            status: 'completed',
+            completed_at: new Date().toISOString(),
+          })
+          .eq('id', jobId);
+      } else {
+        await supabase
+          .from('jobs')
+          .update({ status: 'awaiting_confirmation' })
+          .eq('id', jobId);
+      }
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error confirming completion:', error);
+      return false;
+    }
+  }, [fetchJobs]);
+
+  const cancelJob = useCallback(async (
+    jobId: string,
+    role: 'customer' | 'tradie',
+    reason?: string
+  ): Promise<boolean> => {
+    try {
+      const currentJob = jobs.find(j => j.id === jobId);
+      // Refund policy: tradie cancels → always full refund
+      // Customer cancels while booked → full refund
+      // Customer cancels after tradie on_the_way → no refund
+      const depositRefunded = role === 'tradie' ? true : currentJob?.status === 'booked';
+      const newStatus = role === 'customer' ? 'cancelled_by_customer' : 'cancelled_by_tradie';
+
+      await supabase
+        .from('jobs')
+        .update({
+          status: newStatus,
+          cancelled_by: role,
+          cancellation_reason: reason,
+          deposit_refunded: depositRefunded,
+        })
+        .eq('id', jobId);
+
+      await fetchJobs();
+      return true;
+    } catch (error) {
+      console.error('Error cancelling job:', error);
+      return false;
+    }
+  }, [fetchJobs, jobs]);
+
+  const getNextActionsByRole = useCallback((
+    jobStatus: JobStatus, 
+    role: 'customer' | 'tradesperson',
+    pricingType?: PricingType
+  ): ActionButton[] => {
+    const isHourly = pricingType === 'hourly';
+    
+    if (role === 'customer') {
+      switch (jobStatus) {
+        case 'pending_customer_choice':
+        case 'awaiting_customer_choice':
+          return [{ label: 'Choose Tradesperson', action: 'choose_tradesperson', variant: 'primary' }];
+        case 'booked':
+          return [
+            { label: isHourly ? 'View Estimate' : 'Track Job', action: 'track_job', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+            { label: 'Cancel Job', action: 'cancel_job', variant: 'danger' },
+          ];
+        case 'estimate_acknowledged':
+          return [
+            { label: 'Track Progress', action: 'track_job', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+          ];
+        case 'on_the_way':
+          return [
+            { label: 'Track Progress', action: 'track_job', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+            { label: 'Cancel Job', action: 'cancel_job', variant: 'danger' },
+          ];
+        case 'in_progress':
+          return [
+            { label: 'Track Progress', action: 'track_job', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+          ];
+        case 'awaiting_quote_approval':
+          return [
+            { label: 'Review Quote', action: 'approve_quote', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+          ];
+        case 'awaiting_invoice_payment':
+          return [{ label: 'Pay Invoice', action: 'pay_invoice', variant: 'primary' }];
+        case 'awaiting_final_payment':
+          return [{ label: 'Pay Now', action: 'pay_final', variant: 'primary' }];
+        case 'paid':
+          return [{ label: 'Confirm Complete', action: 'confirm_complete', variant: 'primary' }];
+        case 'awaiting_confirmation':
+          return [{ label: 'Confirm Complete', action: 'confirm_complete', variant: 'primary' }];
+        case 'completed':
+          return [{ label: 'Leave Review', action: 'leave_review', variant: 'primary' }];
+        default:
+          return [];
+      }
+    } else {
+      switch (jobStatus) {
+        case 'booked':
+          if (isHourly) {
+            return [
+              { label: 'Send Estimate', action: 'send_estimate', variant: 'primary' },
+              { label: 'Message', action: 'message', variant: 'secondary' },
+              { label: 'Cancel Job', action: 'cancel_job', variant: 'danger' },
+            ];
+          }
+          return [
+            { label: 'Start Navigation', action: 'start_navigation', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+            { label: 'Cancel Job', action: 'cancel_job', variant: 'danger' },
+          ];
+        case 'estimate_acknowledged':
+          return [
+            { label: 'Start Navigation', action: 'start_navigation', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+          ];
+        case 'on_the_way':
+          return [
+            { label: "I've Arrived", action: 'mark_arrived', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+          ];
+        case 'in_progress':
+          if (isHourly) {
+            return [
+              { label: 'Send Invoice', action: 'send_invoice', variant: 'primary' },
+              { label: 'Message', action: 'message', variant: 'secondary' },
+            ];
+          }
+          return [
+            { label: 'Send Quote', action: 'send_quote', variant: 'primary' },
+            { label: 'Message', action: 'message', variant: 'secondary' },
+          ];
+        case 'awaiting_quote_approval':
+          return [{ label: 'Waiting for Approval', action: 'none', variant: 'secondary' }];
+        case 'awaiting_invoice_payment':
+          return [{ label: 'Waiting for Payment', action: 'none', variant: 'secondary' }];
+        case 'awaiting_final_payment':
+          return [{ label: 'Waiting for Payment', action: 'none', variant: 'secondary' }];
+        case 'paid':
+          return [{ label: 'Mark Complete', action: 'confirm_complete', variant: 'primary' }];
+        case 'awaiting_confirmation':
+          return [{ label: 'Mark Complete', action: 'confirm_complete', variant: 'primary' }];
+        case 'completed':
+          return [
+            { label: 'View Payout', action: 'view_payout', variant: 'primary' },
+            { label: 'Review Customer', action: 'review_customer', variant: 'outline' },
+          ];
+        default:
+          return [];
+      }
+    }
+  }, []);
+
+  const calculateDeposit = useCallback((budgetString?: string): number => {
+    if (!budgetString) return 20;
+    
+    const match = budgetString.match(/£?(\d+)/);
+    if (!match) return 20;
+    
+    const budget = parseInt(match[1], 10);
+    let deposit = Math.round(budget * 0.1);
+    
+    deposit = Math.max(10, Math.min(50, deposit));
+    
+    return deposit;
+  }, []);
+
+  return (
+    <JobsContext.Provider value={{
+      jobs,
+      interests,
+      loading,
+      fetchJobs,
+      fetchInterests,
+      expressInterest,
+      closeApplications,
+      selectTradesman,
+      payDeposit,
+      markOnTheWay,
+      markArrived,
+      sendEstimate,
+      acknowledgeEstimate,
+      sendQuote,
+      approveQuote,
+      sendInvoice,
+      payInvoice,
+      payFinalBalance,
+      confirmCompletion,
+      cancelJob,
+      getNextActionsByRole,
+      calculateDeposit,
+      refreshJobs,
+    }}>
+      {children}
+    </JobsContext.Provider>
+  );
+}
+
+export function useJobs() {
+  const context = useContext(JobsContext);
+  if (context === undefined) {
+    throw new Error('useJobs must be used within a JobsProvider');
+  }
+  return context;
+}

@@ -1,0 +1,386 @@
+WeeJobs Mobile App – Expo (React Native) Build Prompt
+
+You are building WeeJobs, a mobile-first handyman marketplace app for the Causeway Coast & Glens, Northern Ireland.
+
+WeeJobs connects local customers with local tradespeople for small to medium jobs.
+Tagline: “No Job Too Wee” — no task is too small.
+
+This is an MVP focused on UX, flow, and structure.
+Authentication will be mocked (no real auth yet).
+Database: Supabase (tables + basic reads/writes only).
+
+Core Concept
+
+Customers post jobs quickly via the app
+
+Tradespeople swipe through available jobs and accept ones they want
+
+Messaging opens once a job is accepted
+
+Admin has a lightweight dashboard (separate entry point)
+
+Tech Stack
+
+Expo (React Native)
+
+TypeScript
+
+Supabase (Postgres + client SDK)
+
+No real authentication yet
+
+Simple mocked login using email + password
+
+Temporary Login Accounts (NO AUTH SYSTEM)
+
+Hard-code two users for now:
+
+Tradesperson
+
+Name: John
+
+Email: john@weejobs.test
+
+Password: password123
+
+Role: tradie
+
+Customer
+
+Name: Sarah
+
+Email: sarah@weejobs.test
+
+Password: password123
+
+Role: customer
+
+Login screen should simply check these values locally and route users based on role.
+
+Branding & Design System
+
+Primary background: Dark navy #0a1628
+
+Accent: Yellow / gold #fcd34d
+
+Text: White on dark backgrounds
+
+Typography: Bold, italic headings (Marbelism-style impact)
+
+Tone: Friendly, local, confident
+
+Key stat: “380+ Jobs Completed”
+
+Tagline: “No Job Too Wee”
+
+App Structure Overview
+App Entry
+
+Splash Screen
+
+WeeJobs logo
+
+Tagline: No Job Too Wee
+
+Intro Slides (3 screens)
+
+Slide 1 (Customers): “Post a job in minutes”
+
+Slide 2 (Trades): “Swipe jobs that suit you”
+
+Slide 3 (Local): “Built for Causeway Coast & Glens”
+
+CTA: Get Started
+
+Choose Your Role
+
+Button: I Need a Job Done
+
+Button: I’m a Tradesperson
+
+Customer App Flow
+Customer Bottom Navigation
+
+Home
+
+Post Job
+
+Jobs
+
+Messages
+
+Profile
+
+Customer Home Screen
+
+Hero text: No Job Too Wee
+
+Subtitle: Serving Causeway Coast & Glens
+
+Services grid (icons)
+
+Stat: 380+ Jobs Completed
+
+CTA: Post a Job
+
+Post a Job Screen
+
+Form fields:
+
+Name (required)
+
+Phone (required)
+
+Email (optional)
+
+Area (dropdown – required)
+
+Job Category (dropdown – required)
+
+Description (optional)
+
+When do you need this? (dropdown – required)
+
+Photo upload (up to 5 images, max 10MB each)
+
+Submit button
+
+On submit:
+
+Save job to Supabase
+
+Job status = open
+
+Job becomes visible in trades swipe feed
+
+Customer Jobs Screen
+
+List of posted jobs
+
+Status badges:
+
+Open
+
+Accepted
+
+Completed
+
+Tap job → job detail screen
+
+Customer Messages
+
+Shows conversations with tradespeople
+
+Messaging only unlocks once a tradie accepts the job
+
+Customer Profile
+
+Name
+
+Contact details
+
+Area
+
+Simple settings
+
+Legal links
+
+Tradesperson App Flow
+Tradesperson Bottom Navigation
+
+Swipe Jobs
+
+Current Jobs
+
+Messages
+
+Profile
+
+Swipe Jobs Screen (Core Feature)
+
+Tinder-style swipe cards
+
+Each card shows:
+
+Job category
+
+Area
+
+Short description
+
+Timing
+
+Swipe right = accept job
+
+Swipe left = skip
+
+On accept:
+
+Job status → accepted
+
+Assigned to tradie
+
+Messaging unlocked
+
+Current Jobs Screen
+
+List of accepted jobs
+
+Job detail view
+
+Button to mark job as Completed
+
+Tradesperson Messages
+
+Chat with customers for accepted jobs only
+
+Tradesperson Profile
+
+Name
+
+Trade categories
+
+Service area
+
+Simple settings
+
+Admin Access (Hidden Entry)
+
+Small “Admin Login” text button at bottom of login screen
+
+Separate admin layout
+
+Admin can:
+
+View all jobs
+
+View job status
+
+View users
+
+No complex permissions yet
+
+Garage Clearance (Special Job Type)
+
+Special flow for Garage Clearance jobs:
+
+Hero text
+
+Pricing note: Starting from £199
+
+Photo upload required
+
+Same fields as normal job
+
+Timing options slightly different
+
+Dropdown Data (Hard-coded for MVP)
+Areas Served
+
+Portrush
+
+Portstewart
+
+Coleraine
+
+Bushmills
+
+Ballycastle
+
+Ballymoney
+
+Limavady
+
+Moyle
+
+Cushendall
+
+Cushendun
+
+Other (Causeway Coast & Glens)
+
+Job Categories
+
+General Repairs
+
+Plumbing
+
+Electrical
+
+Carpentry
+
+Painting & Decorating
+
+Flat Pack Assembly
+
+Garden & Outdoor
+
+Christmas Jobs
+
+Tiling
+
+Flooring
+
+Gutters & Roofing
+
+Other
+
+Timing (Main Jobs)
+
+Urgent (24–48 hours)
+
+This Week
+
+Next Week
+
+Flexible
+
+Christmas
+
+Timing (Garage Clearance)
+
+Urgent (24–48 hours)
+
+This Week
+
+Next Week
+
+Flexible / Anytime
+
+Supabase Data Models (Initial)
+
+Tables:
+
+users
+
+jobs
+
+messages
+
+Keep schemas simple and flexible.
+
+MVP Rules
+
+Focus on UI, flows, and data wiring
+
+No payments yet
+
+No real authentication yet
+
+No push notifications yet
+
+Everything should feel fast, local, and simple
+
+Build this as a clean, production-ready MVP foundation that can later add:
+
+Real auth
+
+Payments
+
+Subscriptions
+
+Push notifications
+
+Admin controls
+
+Verification badges

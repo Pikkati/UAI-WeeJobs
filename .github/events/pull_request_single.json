@@ -1,0 +1,10 @@
+{
+  "action": "opened",
+  "number": 26,
+  "pull_request": {
+    "number": 26,
+    "title": "PR 26 local emulation",
+    "base": { "ref": "UAI-Development" },
+    "head": { "ref": "chore/remediate/deps-2026-03-25" }
+  }
+}

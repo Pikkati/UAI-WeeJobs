@@ -1,0 +1,71 @@
+0000000000000000000000000000000000000000 42b1b902669895dc06d050f87e964f864972490a Pikkati <pikkati@github.com> 1774384390 -0700	branch: Created from HEAD
+42b1b902669895dc06d050f87e964f864972490a 751fc4fa5f0f005367fe24a751dac4421bc45ff3 Pikkati <pikkati@github.com> 1774384932 -0700	commit: Add example environment file and update TypeScript declarations
+751fc4fa5f0f005367fe24a751dac4421bc45ff3 b2b926f789b592b4ec7b818f2e9521f81400b824 Pikkati <pikkati@github.com> 1774385040 -0700	commit: Fix: update TypeScript declarations for React Native components and add types for expo-vector-icons
+b2b926f789b592b4ec7b818f2e9521f81400b824 c29e266d307e756bd783c9822abb2dbf7087d0b5 Pikkati <pikkati@github.com> 1774385189 -0700	commit: Fix: update TypeScript declarations for role colors and labels, and adjust job status types
+c29e266d307e756bd783c9822abb2dbf7087d0b5 5f096d9ce7eea3548d639df660a4a86e8d281ae7 Pikkati <pikkati@github.com> 1774385325 -0700	commit: Fix: update role terminology from 'tradie' to 'tradesperson' across multiple components and adjust TypeScript types accordingly
+5f096d9ce7eea3548d639df660a4a86e8d281ae7 98f3337d25b5b9b6f4ac9b43b434b3dd26406baf Pikkati <pikkati@github.com> 1774385348 -0700	commit: Fix: update TypeScript refs in LoginScreen to use 'any' type for input references
+98f3337d25b5b9b6f4ac9b43b434b3dd26406baf 60fafbfc84493d8de64bcd91b8cf97a10e7d6f1a Pikkati <pikkati@github.com> 1774385440 -0700	commit: docs: Add gaps and next steps; lint fixes
+60fafbfc84493d8de64bcd91b8cf97a10e7d6f1a a3b2b75beea70a0466e5c034620dac4052d2075c Pikkati <pikkati@github.com> 1774385667 -0700	commit: chore: add GAP_ANALYSIS and test/audit summary
+a3b2b75beea70a0466e5c034620dac4052d2075c 749373705c713d5028edfcb25746a3e9f750bccf Pikkati <pikkati@github.com> 1774385766 -0700	commit: ci: add GitHub Actions CI and initial test
+749373705c713d5028edfcb25746a3e9f750bccf 75994d1bfae4bf90906d49182058140b208c84b1 Pikkati <pikkati@github.com> 1774386022 -0700	commit: Tighten declarations, add tests, run audit fix
+75994d1bfae4bf90906d49182058140b208c84b1 9324ac09995328e39d2ed1250053632a1ecec576 Pikkati <pikkati@github.com> 1774386059 -0700	commit: Mock AsyncStorage in supabase test
+9324ac09995328e39d2ed1250053632a1ecec576 bb9cb60b96c4bf6e89119099e2bbae68fa977caf Pikkati <pikkati@github.com> 1774386087 -0700	commit: Set supabase env vars for tests
+bb9cb60b96c4bf6e89119099e2bbae68fa977caf cfde1be0dca279f06cbdeccfaa4078955afa504b Pikkati <pikkati@github.com> 1774386119 -0700	commit: Mock supabase client and AsyncStorage for tests
+cfde1be0dca279f06cbdeccfaa4078955afa504b f567f9f4ad58709666f79591a88677055db1d41f Pikkati <pikkati@github.com> 1774386146 -0700	commit: Fix supabase mock for tests
+f567f9f4ad58709666f79591a88677055db1d41f 6d547cafe4a634f77208f8f6b01ebdbcd21583b2 Pikkati <pikkati@github.com> 1774386859 -0700	commit: Replace expo-image imports, add minimal shims, install @types/jest, fix icon types
+6d547cafe4a634f77208f8f6b01ebdbcd21583b2 601faabd81ee8dcc86f80daf6afe7d541e751f02 Pikkati <pikkati@github.com> 1774386932 -0700	commit: Upgrade jest-expo to 55.0.11, run audit and tests
+601faabd81ee8dcc86f80daf6afe7d541e751f02 423631b662bfc3623f27bb9d0d80e0ee52281eb6 Pikkati <pikkati@github.com> 1774387077 -0700	commit: Add focused expo-image types; remove temporary shims
+423631b662bfc3623f27bb9d0d80e0ee52281eb6 92ee15bb58ee8e4f347f93016051ffe5535460e6 Pikkati <pikkati@github.com> 1774387130 -0700	commit: Replace temporary shims with focused expo-image types; remove broad shims; fix defaultProps casts; add tests
+92ee15bb58ee8e4f347f93016051ffe5535460e6 b95cfcddb78cf55d33d9c52cfe3817a8f2888b71 Pikkati <pikkati@github.com> 1774387258 -0700	commit: Add AuthContext integration test; install testing libs
+b95cfcddb78cf55d33d9c52cfe3817a8f2888b71 ecb13d56b0c782ed44285c816fba7781421e81bf Pikkati <pikkati@github.com> 1774387650 -0700	commit: Add PR draft file with summary
+ecb13d56b0c782ed44285c816fba7781421e81bf 10459484353e19efc437c58a259aa222ba4e7435 Pikkati <pikkati@github.com> 1774387695 -0700	commit: CI: add npm cache and pass Supabase secrets to tests
+10459484353e19efc437c58a259aa222ba4e7435 d0fc6c8e17ac4e2bdcb146805b1364a7e4c11043 Pikkati <pikkati@github.com> 1774389787 -0700	commit: ci: trigger workflow run
+d0fc6c8e17ac4e2bdcb146805b1364a7e4c11043 2b9c4c5ed9a587fe7bd27a1620949bc8e1e3bcbf Pikkati <pikkati@github.com> 1774389845 -0700	commit: CI: use Node 20 to match package engines
+2b9c4c5ed9a587fe7bd27a1620949bc8e1e3bcbf e250f9af2f497d002c0457c943eb320a0a45c430 Pikkati <pikkati@github.com> 1774389913 -0700	commit: chore: update package-lock.json to match package.json
+e250f9af2f497d002c0457c943eb320a0a45c430 3ef653583a8f405a31e2d4fdabf9a0bc55c6f1b2 Pikkati <pikkati@github.com> 1774390072 -0700	commit: chore(types): narrow icon props to Ionicons name type
+3ef653583a8f405a31e2d4fdabf9a0bc55c6f1b2 a5f1d101860f65b6010f74dfc833e4fc5277e007 Pikkati <pikkati@github.com> 1774390712 -0700	commit: chore: npm audit fix --force
+a5f1d101860f65b6010f74dfc833e4fc5277e007 71ddcc17a373e67b2324243499421d85fac9ba59 Pikkati <pikkati@github.com> 1774391108 -0700	commit: chore: regenerate lockfile and apply lint fixes
+71ddcc17a373e67b2324243499421d85fac9ba59 3b83e2c06bed1afd3abb42d5ef9812c991839b76 Pikkati <pikkati@github.com> 1774391474 -0700	commit: ci: fallback to npm install when npm ci fails
+3b83e2c06bed1afd3abb42d5ef9812c991839b76 51d3ed4f1553ad88af92aacd59029ccd52b5c239 Pikkati <pikkati@github.com> 1774391654 -0700	commit: fix(hooks): resolve missing react-hooks dependencies in several components
+51d3ed4f1553ad88af92aacd59029ccd52b5c239 c211b9393e2ec40dc46690c8656f45daa159bf65 Pikkati <pikkati@github.com> 1774392219 -0700	commit: Removed unused imports. And never used code.
+c211b9393e2ec40dc46690c8656f45daa159bf65 4d78e2ee331111346737a9420d0d09cd8f60097e Pikkati <pikkati@github.com> 1774395720 -0700	commit: test: upgrade jest tooling, add jest config and shims, make supabase env defensive
+4d78e2ee331111346737a9420d0d09cd8f60097e b8d9433849e2de99643dd4ac8bf733a0242b3433 Pikkati <pikkati@github.com> 1774395994 -0700	commit: chore: apply npm audit --force fixes
+b8d9433849e2de99643dd4ac8bf733a0242b3433 4ac11dd0f59345fd9e82d6c57d6f6c79980d45e0 Pikkati <pikkati@github.com> 1774396072 -0700	commit: test: add native modules mock for updated jest-expo
+4ac11dd0f59345fd9e82d6c57d6f6c79980d45e0 6ce8f2ec6c454c6d4f2b3f9520d9b773b1c3e292 Pikkati <pikkati@github.com> 1774398477 -0700	commit: chore: regenerate lockfile and stage jest config formatting
+6ce8f2ec6c454c6d4f2b3f9520d9b773b1c3e292 4ac11dd0f59345fd9e82d6c57d6f6c79980d45e0 Pikkati <pikkati@github.com> 1774398939 -0700	reset: moving to 4ac11dd0f59345fd9e82d6c57d6f6c79980d45e0
+4ac11dd0f59345fd9e82d6c57d6f6c79980d45e0 76e448b2279f200108f5779f2bd214a2439311c5 Pikkati <pikkati@github.com> 1774399399 -0700	commit: test: align jest (27.x) with jest-expo@47 and map react-native NativeModules mock
+76e448b2279f200108f5779f2bd214a2439311c5 bd67431d5e3b7085c3a8d6f7f0a9e549fb7f460d Pikkati <pikkati@github.com> 1774399447 -0700	rebase (finish): refs/heads/UAI-Development onto 6ce8f2ec6c454c6d4f2b3f9520d9b773b1c3e292
+bd67431d5e3b7085c3a8d6f7f0a9e549fb7f460d 58815b895fdce5d50f6df1afa9d6d33c81fd063d Pikkati <pikkati@github.com> 1774399852 -0700	commit: chore(audit): add npm audit triage report
+58815b895fdce5d50f6df1afa9d6d33c81fd063d e6d6dc42ce022e91e3f3fe40ab7829d2bc40a82b Pikkati <pikkati@github.com> 1774400814 -0700	commit: chore(audit): sync deps and fix jest mocks for UAI-Development
+e6d6dc42ce022e91e3f3fe40ab7829d2bc40a82b e5beeaaf40b26fc034f1f66e6de558117545e72a Pikkati <pikkati@github.com> 1774400893 -0700	commit: ci: trigger CI run
+e5beeaaf40b26fc034f1f66e6de558117545e72a 2c2887588286a942a1540daa4da768b0e23158e1 Pikkati <pikkati@github.com> 1774401147 -0700	commit: ci: fallback to npm install --legacy-peer-deps on install failures
+2c2887588286a942a1540daa4da768b0e23158e1 13744ade13678e2ae095fc78580c14413c0f9ed2 Pikkati <pikkati@github.com> 1774401510 -0700	commit (merge): chore: resolve merge conflicts (mocks + lockfile)
+13744ade13678e2ae095fc78580c14413c0f9ed2 498e0cb1778ff516c5bd24ecb310f9b5164d59dc Pikkati <pikkati@github.com> 1774401857 -0700	commit: chore: update package.json dependencies and add audit report
+498e0cb1778ff516c5bd24ecb310f9b5164d59dc ab3bb1a6f6edc010d0dce88b3bafdf0a49430a8b Pikkati <pikkati@github.com> 1774402052 -0700	commit: chore: add PR checklist and number files
+ab3bb1a6f6edc010d0dce88b3bafdf0a49430a8b 053e894143120c1fe3c3d7ef4bd472ff962f994d Pikkati <pikkati@github.com> 1774402679 -0700	commit (merge): docs: resolve README merge; add branch policy SKILL and workspace setting
+053e894143120c1fe3c3d7ef4bd472ff962f994d dd79a3b89cdb164451c1baa6f7d2ebc31b38d25d Pikkati <pikkati@github.com> 1774402847 -0700	commit (cherry-pick): docs: document branch policy and agent notes; add workspace branch setting
+dd79a3b89cdb164451c1baa6f7d2ebc31b38d25d 4f25a462edb126774fb8b41cb4bc05756ade2ee6 Pikkati <pikkati@github.com> 1774402914 -0700	commit: ci: trigger CI on UAI-Development
+4f25a462edb126774fb8b41cb4bc05756ade2ee6 b5c23e579278f51df2963671e7f278a0e996fb07 Pikkati <pikkati@github.com> 1774403022 -0700	commit: ci: force install with --legacy-peer-deps on CI to avoid ERESOLVE failures
+b5c23e579278f51df2963671e7f278a0e996fb07 220edce440314c26d496db3b88172cf1a8a4657b Pikkati <pikkati@github.com> 1774403082 -0700	commit: chore: remove @types/jest to avoid ETARGET in CI
+220edce440314c26d496db3b88172cf1a8a4657b 59e6798d5ecfade08953c98b2357e9732ea28af4 Pikkati <pikkati@github.com> 1774403168 -0700	commit: chore: add @types/jest@^27.4.1 to provide test globals for tsc
+59e6798d5ecfade08953c98b2357e9732ea28af4 558a2ecc43a65f89ea18af49e39c3fb62e2b8769 Pikkati <pikkati@github.com> 1774403249 -0700	commit: ci: exclude test files from tsc to avoid test-type errors in CI
+558a2ecc43a65f89ea18af49e39c3fb62e2b8769 571183efd6e5a78f35dbf2864075ebf6b97ce945 Pikkati <pikkati@github.com> 1774403565 -0700	commit: ci: include jest and node types in tsconfig to ensure test globals in CI
+571183efd6e5a78f35dbf2864075ebf6b97ce945 cbf28845d875c66c1173d0eed8baf729a1f068e5 uai-bot <uai-bot@example.com> 1774413624 -0700	pull origin UAI-Development: Fast-forward
+cbf28845d875c66c1173d0eed8baf729a1f068e5 e3bd8d877ee6c5b768545016e577c316cd3dfd12 uai-bot <uai-bot@example.com> 1774415432 -0700	commit: chore(types): add temporary jest globals decls to satisfy tsc in CI
+e3bd8d877ee6c5b768545016e577c316cd3dfd12 0f7918713b5d14c96ba3c1700ee34b7861c31244 uai-bot <uai-bot@example.com> 1774416352 -0700	commit: chore: add .env.example and remove temporary jest globals (use @types/jest)
+0f7918713b5d14c96ba3c1700ee34b7861c31244 679e34c08b194ac47c4e0d72e69f897ee23c9a80 uai-bot <uai-bot@example.com> 1774420598 -0700	commit: ci: use npm ci with retries; add type script
+679e34c08b194ac47c4e0d72e69f897ee23c9a80 a9a968e4f69437085c4dcfc942e6052857cafe65 uai-bot <uai-bot@example.com> 1774420634 -0700	commit: ci: use npm ci --legacy-peer-deps with retries
+a9a968e4f69437085c4dcfc942e6052857cafe65 32fa28bd4263700cbaacafd6d4dec5d082200c27 uai-bot <uai-bot@example.com> 1774420821 -0700	commit: chore: pin react-test-renderer@19.1.0 to satisfy testing-library peer deps
+32fa28bd4263700cbaacafd6d4dec5d082200c27 3f5a7bb8ed3e5ed2bb337940d8cb3bdccb9a7251 uai-bot <uai-bot@example.com> 1774421031 -0700	commit: chore(staging): add staging docs, EAS preview workflow, eas.json and npm script
+3f5a7bb8ed3e5ed2bb337940d8cb3bdccb9a7251 196e16bc988c2f178d7f6dea937135c305732c51 uai-bot <uai-bot@example.com> 1774421248 -0700	commit: feat(payments): add Stripe webhook scaffold and docs; add stripe dependency and start:webhook script
+196e16bc988c2f178d7f6dea937135c305732c51 ca7363860663ad68594e713b13967289a590b9fd uai-bot <uai-bot@example.com> 1774421263 -0700	commit: chore: update lockfile after adding stripe
+ca7363860663ad68594e713b13967289a590b9fd aad95f0dc495860339f94050b4634b6772c1845f uai-bot <uai-bot@example.com> 1774454756 -0700	pull --tags origin UAI-Development: Fast-forward
+aad95f0dc495860339f94050b4634b6772c1845f 8a21727d746088ece818a1ea3b7a194fbc8071c8 uai-bot <uai-bot@example.com> 1774454761 -0700	commit: feat: enhance Stripe integration with webhook handling and environment setup; add production RLS migration and indexing documentation
+8a21727d746088ece818a1ea3b7a194fbc8071c8 d89adff8ec3acda2bcc1cbc6c6c7f0408f8c4b59 uai-bot <uai-bot@example.com> 1774458171 -0700	commit: chore: update dependencies and devDependencies in package.json
+d89adff8ec3acda2bcc1cbc6c6c7f0408f8c4b59 cdfa53bac7b827328418c8e642840f9684308f78 uai-bot <uai-bot@example.com> 1774458185 -0700	commit: chore: align deps, fix jest config, add PR template (target UAI-Development)
+cdfa53bac7b827328418c8e642840f9684308f78 f9c8d5f96eec1c9e1648e4194bfbab85893c7161 uai-bot <uai-bot@example.com> 1774458381 -0700	commit: chore(ci): restrict workflows to UAI-Development; add CODEOWNERS
+f9c8d5f96eec1c9e1648e4194bfbab85893c7161 d570e5409962ce8690e529f38b68873e24ea06ee uai-bot <uai-bot@example.com> 1774458439 -0700	commit: chore(branch-policy): add branch protection guidance and docs; enforce UAI-Development CI
+d570e5409962ce8690e529f38b68873e24ea06ee 6603d6235012e034e6883fa53eedafcb1f845ecd uai-bot <uai-bot@example.com> 1774458526 -0700	commit: chore(policy): add audit branch naming, branch protection setup docs, and PR base-check workflow
+6603d6235012e034e6883fa53eedafcb1f845ecd 8512b9a32909d31f985fd3836dfdbaa3188f3578 uai-bot <uai-bot@example.com> 1774458571 -0700	commit: chore(ci): add dependency-audit workflow; add production readiness checklist
+8512b9a32909d31f985fd3836dfdbaa3188f3578 ff0b71eb479e686c467a9a32500c1ffc60911d76 uai-bot <uai-bot@example.com> 1774460399 -0700	pull origin UAI-Development: Fast-forward
+ff0b71eb479e686c467a9a32500c1ffc60911d76 36c0c6b040d603b760712f62917a487f11a0589b uai-bot <uai-bot@example.com> 1774632240 -0700	branch: Reset to HEAD
