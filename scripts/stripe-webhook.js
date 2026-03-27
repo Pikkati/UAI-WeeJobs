@@ -139,6 +139,42 @@ async function processStripeEvent(event, supabaseClient) {
       return await upsertJobRefund(charge);
     }
 
+    case 'payment_intent.canceled': {
+      const paymentIntent = event.data.object;
+      if (!paymentIntent || !paymentIntent.metadata?.job_id || !supabaseClient) {
+        console.log('payment_intent.canceled missing job_id or supabase; skipped DB update');
+        return null;
+      }
+
+      const jobId = paymentIntent.metadata.job_id;
+      const updates = {
+        stripe_payment_intent: paymentIntent.id,
+        status: 'cancelled_by_customer',
+      };
+
+      const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+      if (error) throw error;
+      return data;
+    }
+
+    case 'invoice.payment_failed': {
+      const invoice = event.data.object;
+      if (!invoice || !invoice.metadata?.job_id || !supabaseClient) {
+        console.log('invoice.payment_failed missing job_id or supabase; skipped DB update');
+        return null;
+      }
+
+      const jobId = invoice.metadata.job_id;
+      const updates = {
+        status: 'payment_failed',
+        last_payment_error: invoice.closed ? 'invoice closed' : invoice.failure_reason || null,
+      };
+
+      const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+      if (error) throw error;
+      return data;
+    }
+
     default:
       console.log('Unhandled event type:', event.type);
       return null;

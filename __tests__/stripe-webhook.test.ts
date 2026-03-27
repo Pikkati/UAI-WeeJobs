@@ -26,6 +26,59 @@ describe('processStripeEvent', () => {
     expect(result).toEqual([{ id: 'job123' }]);
   });
 
+  it('handles payment_intent.canceled', async () => {
+    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job456' }], error: null });
+    const update = jest.fn(() => ({ eq }));
+    const from = jest.fn(() => ({ update }));
+    const supabaseMock = { from };
+
+    const event = {
+      type: 'payment_intent.canceled',
+      data: {
+        object: {
+          id: 'pi_2',
+          metadata: { job_id: 'job456' },
+        },
+      },
+    };
+
+    const result = await processStripeEvent(event, supabaseMock);
+    expect(from).toHaveBeenCalledWith('jobs');
+    expect(update).toHaveBeenCalledWith({
+      stripe_payment_intent: 'pi_2',
+      status: 'cancelled_by_customer',
+    });
+    expect(eq).toHaveBeenCalledWith('id', 'job456');
+    expect(result).toEqual([{ id: 'job456' }]);
+  });
+
+  it('handles invoice.payment_failed', async () => {
+    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job789' }], error: null });
+    const update = jest.fn(() => ({ eq }));
+    const from = jest.fn(() => ({ update }));
+    const supabaseMock = { from };
+
+    const event = {
+      type: 'invoice.payment_failed',
+      data: {
+        object: {
+          metadata: { job_id: 'job789' },
+          closed: true,
+          failure_reason: 'card_declined',
+        },
+      },
+    };
+
+    const result = await processStripeEvent(event, supabaseMock);
+    expect(from).toHaveBeenCalledWith('jobs');
+    expect(update).toHaveBeenCalledWith({
+      status: 'payment_failed',
+      last_payment_error: 'invoice closed',
+    });
+    expect(eq).toHaveBeenCalledWith('id', 'job789');
+    expect(result).toEqual([{ id: 'job789' }]);
+  });
+
   it('returns null for unknown event type', async () => {
     const supabaseMock = { from: jest.fn() };
     const event = {
