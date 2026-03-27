@@ -2,10 +2,26 @@ import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14?target=deno";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { rateLimit } from "https://deno.land/x/oak_rate_limit@0.1.0/mod.ts";
 // Deno runtime globals are used in this file; declare for TypeScript compile-time
 declare const Deno: any;
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 10, // Limit each IP to 10 requests per windowMs
+});
+
 serve(async (req) => {
+  const ip = req.headers.get("x-forwarded-for") || req.conn.remoteAddr.hostname;
+  const limited = limiter(ip);
+
+  if (limited) {
+    return new Response(JSON.stringify({ error: "Too many requests" }), {
+      status: 429,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   try {
     if (req.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });

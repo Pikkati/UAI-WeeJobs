@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+// Initialize Sentry (safe no-op if not configured)
+import '../lib/sentry';
 import { View, StyleSheet, Dimensions , Text } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
@@ -34,23 +36,27 @@ export default function SplashScreen() {
   }, [isLoading, user, hasSeenOnboarding]);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} accessible accessibilityLabel="WeeJobs splash screen">
       <Image
         source={require('../assets/images/hero-handyman.png')}
         style={styles.heroImage}
         contentFit="cover"
+        accessibilityLabel="Handyman hero image"
+        accessible
       />
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0,0.6)', 'rgba(0,0,0,0.95)']}
         style={styles.gradient}
       />
-      <View style={styles.content}>
+      <View style={styles.content} accessible accessibilityLabel="WeeJobs logo and tagline">
         <Image
           source={require('../assets/images/weejobs-logo.png')}
           style={styles.logo}
           contentFit="contain"
+          accessibilityLabel="WeeJobs logo"
+          accessible
         />
-        <Text style={styles.tagline}>No Job Too Wee</Text>
+        <Text style={styles.tagline} accessibilityRole="header">No Job Too Wee</Text>
       </View>
     </View>
   );

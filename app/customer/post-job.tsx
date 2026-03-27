@@ -199,12 +199,18 @@ export default function PostJobScreen() {
         is_garage_clearance: isGarageClearance,
       });
 
-      if (error) throw error;
+      if (error) {
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(error);
+        throw error;
+      }
 
       Alert.alert('Success', 'Your job has been posted!', [
         { text: 'OK', onPress: () => router.push('/customer/jobs') },
       ]);
     } catch (error) {
+      const sentry = require('../../lib/sentry');
+      sentry.captureException?.(error);
       Alert.alert('Error', 'Failed to post job. Please try again.');
       console.error(error);
     } finally {
