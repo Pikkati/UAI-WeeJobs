@@ -1,5 +1,0 @@
-0000000000000000000000000000000000000000 094f88784d850b850037df49c6283aca09922fb2 uai-bot <uai-bot@example.com> 1774630279 -0700	branch: Created from HEAD
-094f88784d850b850037df49c6283aca09922fb2 96e25d4210ab2fefe2ecb71d2dd3d0a675e69252 uai-bot <uai-bot@example.com> 1774630287 -0700	commit: chore(deps): upgrade jest-expo to 55.0.11 (sandbox)
-96e25d4210ab2fefe2ecb71d2dd3d0a675e69252 e807cd815251aff4fa980dc044b54751b571774d uai-bot <uai-bot@example.com> 1774630804 -0700	commit: chore(deps): update lockfile for jest-expo@55.0.11
-e807cd815251aff4fa980dc044b54751b571774d 41ec37510a219fb51a97b741c42658004639ddb9 uai-bot <uai-bot@example.com> 1774631127 -0700	commit: chore(pr): add PR description for jest-expo@55 upgrade
-41ec37510a219fb51a97b741c42658004639ddb9 837675e8f2727b036872302e446a2c2a4f59bb34 uai-bot <uai-bot@example.com> 1774631874 -0700	reset: moving to origin/main

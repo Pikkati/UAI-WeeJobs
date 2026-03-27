@@ -16,7 +16,7 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const prNumber = pr.number;
-            const files = await github.paginate(github.pulls.listFiles, { owner, repo, pull_number: prNumber });
+            const files = await github.paginate(github.rest.pulls.listFiles, { owner, repo, pull_number: prNumber });
             const codeChanged = files.some(f => f.filename.startsWith('app/') || f.filename.startsWith('components/') || f.filename.startsWith('lib/') || f.filename.startsWith('scripts/'));
             if (!codeChanged) {
               console.log('No relevant code changes detected; skipping test:q check.');

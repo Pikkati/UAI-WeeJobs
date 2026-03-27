@@ -36,11 +36,11 @@ const stripe = Stripe && stripeSecret ? Stripe(stripeSecret) : null;
 const supabase = supabaseUrl && supabaseKey ? require('@supabase/supabase-js').createClient(supabaseUrl, supabaseKey) : null;
 const app = express ? express() : null;
 
-const upsertJobPaymentIntent = async (paymentIntent) => {
+const upsertJobPaymentIntent = async (paymentIntent, supabaseClient = supabase) => {
   const metadata = paymentIntent.metadata || {};
   const jobId = metadata.job_id;
   const paymentType = metadata.payment_type || 'deposit';
-  if (!jobId || !supabase) {
+  if (!jobId || !supabaseClient) {
     return null;
   }
 
@@ -61,15 +61,15 @@ const upsertJobPaymentIntent = async (paymentIntent) => {
     }
   }
 
-  const { data, error } = await supabase.from('jobs').update(updates).eq('id', jobId);
+  const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
   if (error) {
     throw error;
   }
   return data;
 };
 
-const upsertJobRefund = async (charge) => {
-  if (!supabase) {
+const upsertJobRefund = async (charge, supabaseClient = supabase) => {
+  if (!supabaseClient) {
     return null;
   }
 
@@ -91,7 +91,7 @@ const upsertJobRefund = async (charge) => {
     status: 'cancelled_by_customer',
   };
 
-  const { data, error } = await supabase.from('jobs').update(updates).eq('id', jobId);
+  const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
   if (error) {
     throw error;
   }
@@ -110,7 +110,7 @@ async function processStripeEvent(event, supabaseClient) {
         console.log('payment_intent.succeeded missing job_id; skipped DB update');
         return null;
       }
-      return await upsertJobPaymentIntent(paymentIntent);
+      return await upsertJobPaymentIntent(paymentIntent, supabaseClient || supabase);
     }
 
     case 'payment_intent.payment_failed': {
@@ -136,7 +136,7 @@ async function processStripeEvent(event, supabaseClient) {
 
     case 'charge.refunded': {
       const charge = event.data.object;
-      return await upsertJobRefund(charge);
+      return await upsertJobRefund(charge, supabaseClient || supabase);
     }
 
     case 'payment_intent.canceled': {

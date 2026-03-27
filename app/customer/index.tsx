@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, TextInput, FlatList, ActivityIndicator } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { JOB_CATEGORIES, CATEGORY_ICONS } from '../../constants/data';
+import { supabase, Job } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
 const { width } = Dimensions.get('window');
@@ -13,11 +15,34 @@ const GRID_ITEM_SIZE = (width - Spacing.xl * 2 - Spacing.md * 2) / 3;
 export default function CustomerHome() {
   const { user } = useAuth();
 
+  const [query, setQuery] = React.useState('');
+  const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
+  const [results, setResults] = React.useState<Job[]>([]);
+  const [searching, setSearching] = React.useState(false);
+
   const handleCategoryPress = (category: string) => {
-    router.push({
-      pathname: '/customer/post-job',
-      params: { category },
-    });
+    // If user taps a category from grid, pre-filter search
+    setSelectedCategory(category === selectedCategory ? null : category);
+    router.push({ pathname: '/customer/post-job', params: { category } });
+  };
+
+  const runSearch = async () => {
+    setSearching(true);
+    try {
+      let qb = supabase.from('jobs').select('*').eq('status', 'open').order('created_at', { ascending: false });
+      if (selectedCategory) qb = qb.eq('category', selectedCategory);
+      if (query && query.trim()) {
+        const q = `%${query.trim()}%`;
+        qb = qb.or(`name.ilike.${q},description.ilike.${q}`);
+      }
+      const { data, error } = await qb;
+      if (error) throw error;
+      setResults(data || []);
+    } catch (err) {
+      console.error('Search error:', err);
+    } finally {
+      setSearching(false);
+    }
   };
 
   return (
@@ -37,6 +62,57 @@ export default function CustomerHome() {
         <Text style={styles.greeting}>Hi {user?.name || 'there'}!</Text>
         <Text style={styles.heroTitle}>No Job Too Wee</Text>
         <Text style={styles.heroSubtitle}>Serving Causeway Coast & Glens</Text>
+      </View>
+
+      <View style={{ marginBottom: Spacing.lg }}>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search jobs or description"
+          placeholderTextColor={Colors.textSecondary}
+          value={query}
+          onChangeText={setQuery}
+          returnKeyType="search"
+          onSubmitEditing={runSearch}
+        />
+        <View style={{ flexDirection: 'row', gap: Spacing.md, marginTop: Spacing.sm }}>
+          <TouchableOpacity
+            style={[styles.filterButton, selectedCategory === null && styles.filterButtonActive]}
+            onPress={() => { setSelectedCategory(null); runSearch(); }}
+          >
+            <Text style={styles.filterText}>All</Text>
+          </TouchableOpacity>
+          {JOB_CATEGORIES.slice(0, 6).map((c) => (
+            <TouchableOpacity
+              key={c}
+              style={[styles.filterButton, selectedCategory === c && styles.filterButtonActive]}
+              onPress={() => { setSelectedCategory(selectedCategory === c ? null : c); }}
+            >
+              <Text style={styles.filterText}>{c}</Text>
+            </TouchableOpacity>
+          ))}
+          <TouchableOpacity style={styles.searchRunButton} onPress={runSearch}>
+            <Ionicons name="search" size={18} color={Colors.white} />
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      <View style={{ marginBottom: Spacing.lg }}>
+        <Text style={styles.sectionTitle}>Search Results</Text>
+        {searching ? (
+          <ActivityIndicator color={Colors.accent} />
+        ) : (
+          <FlatList
+            data={results}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <TouchableOpacity style={styles.resultCard} onPress={() => router.push(`/job/${item.id}`)}>
+                <Text style={styles.resultTitle}>{item.name}</Text>
+                <Text style={styles.resultMeta}>{item.area} • {item.category}</Text>
+              </TouchableOpacity>
+            )}
+            ListEmptyComponent={<Text style={styles.emptyText}>No jobs found</Text>}
+          />
+        )}
       </View>
 
       <View style={styles.statsCard}>
@@ -201,5 +277,52 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 18,
     fontWeight: '700',
+  },
+  searchInput: {
+    backgroundColor: Colors.card,
+    borderColor: Colors.border,
+    borderWidth: 1,
+    borderRadius: BorderRadius.md,
+    padding: Spacing.md,
+    color: Colors.text,
+  },
+  filterButton: {
+    backgroundColor: Colors.card,
+    paddingHorizontal: Spacing.md,
+    paddingVertical: Spacing.sm,
+    borderRadius: BorderRadius.full,
+  },
+  filterButtonActive: {
+    backgroundColor: Colors.accent,
+  },
+  filterText: {
+    color: Colors.textSecondary,
+  },
+  searchRunButton: {
+    backgroundColor: Colors.accent,
+    padding: Spacing.sm,
+    borderRadius: BorderRadius.full,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  resultCard: {
+    backgroundColor: Colors.card,
+    borderRadius: BorderRadius.md,
+    padding: Spacing.md,
+    marginBottom: Spacing.sm,
+    borderWidth: 1,
+    borderColor: Colors.border,
+  },
+  resultTitle: {
+    color: Colors.white,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  resultMeta: {
+    color: Colors.textSecondary,
+  },
+  emptyText: {
+    color: Colors.textSecondary,
+    padding: Spacing.md,
   },
 });
