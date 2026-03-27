@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { AuthProvider, useAuth } from '../context/AuthContext';
 
 // Mock AsyncStorage
@@ -33,40 +34,17 @@ jest.mock('../lib/supabase', () => ({
   },
 }));
 
-function TestConsumer() {
+function TestInvoker({ email, cb }: { email: string; cb: (res: any) => void }) {
   const { login } = useAuth();
-  const [result, setResult] = React.useState<any>(null);
 
-  return (
-    <>
-      <ButtonTest
-        onPress={async () => {
-          const r = await login('test@example.com', 'password');
-          setResult(r);
-        }}
-      />
-      <ResultText result={result} />
-    </>
-  );
-}
+  React.useEffect(() => {
+    (async () => {
+      const res = await login(email, 'password');
+      cb(res);
+    })();
+  }, [email]);
 
-function ButtonTest({ onPress }: { onPress: () => void }) {
-  return (
-    // TouchableOpacity is fine; using a plain Text with onPress for the test
-    <></>
-  );
-}
-
-function ResultText({ result }: { result: any }) {
-  return (
-    <>
-      {result ? <TextTest>{JSON.stringify(result)}</TextTest> : null}
-    </>
-  );
-}
-
-function TextTest({ children }: { children: any }) {
-  return <>{children}</>;
+  return null;
 }
 
 describe('AuthContext', () => {
@@ -80,58 +58,38 @@ describe('AuthContext', () => {
     mockSignInWithPassword.mockResolvedValueOnce({ data: { user: { id: 'u1', email: 'test@example.com', confirmed_at: new Date().toISOString() } }, error: null });
     mockFrom.mockResolvedValueOnce({ data: { id: 'u1', email: 'test@example.com', name: 'Tester', role: 'customer', created_at: new Date().toISOString(), updated_at: new Date().toISOString() }, error: null });
 
-    const { getByText, queryByText } = render(
+    let result: any = null;
+
+    render(
       <AuthProvider>
-        <HookInvoker action="login" />
+        <TestInvoker email="test@example.com" cb={(r) => (result = r)} />
       </AuthProvider>
     );
 
-    fireEvent.press(getByText('invoke'));
-
-    await waitFor(() => expect(queryByText(/success/)).toBeTruthy());
+    await waitFor(() => {
+      expect(result).not.toBeNull();
+      expect(result.success).toBe(true);
+      expect(result.user).toBeDefined();
+    });
   });
 
   test('login for unconfirmed user returns needsVerification', async () => {
     mockSignInWithPassword.mockResolvedValueOnce({ data: { user: { id: 'u2', email: 'unverified@example.com', confirmed_at: null } }, error: { message: 'User not confirmed' } });
 
-    const { getByText, queryByText } = render(
+    let result2: any = null;
+
+    render(
       <AuthProvider>
-        <HookInvoker action="login-unverified" />
+        <TestInvoker email="unverified@example.com" cb={(r) => (result2 = r)} />
       </AuthProvider>
     );
 
-    fireEvent.press(getByText('invoke'));
-
-    await waitFor(() => expect(queryByText(/needsVerification/)).toBeTruthy());
+    await waitFor(() => {
+      expect(result2).not.toBeNull();
+      expect(result2.success).toBe(false);
+      expect(result2.needsVerification).toBeTruthy();
+    });
   });
 });
 
-// HookInvoker is a helper component that exposes actions for tests via buttons
-function HookInvoker({ action }: { action: 'login' | 'login-unverified' }) {
-  const { login } = useAuth();
-  const [out, setOut] = React.useState<string>('');
-
-  const run = async () => {
-    if (action === 'login') {
-      const res = await login('test@example.com', 'password');
-      setOut(JSON.stringify(res));
-    } else {
-      const res = await login('unverified@example.com', 'password');
-      setOut(JSON.stringify(res));
-    }
-  };
-
-  return (
-    <>
-      <TextButton onPress={run}>invoke</TextButton>
-      {out ? <TextButton>{out}</TextButton> : null}
-    </>
-  );
-}
-
-function TextButton({ children, onPress }: { children?: any; onPress?: () => void }) {
-  if (onPress) {
-    return <button onClick={onPress}>{children}</button> as any;
-  }
-  return <div>{children}</div> as any;
-}
+// (HookInvoker/TextButton removed — using TestConsumer with TouchableOpacity/Text)
