@@ -47,4 +47,3 @@ android/extracted_app.apk
 android/tmp_app_release.zip
 android/tmp_apk_rebuilt_extracted/
 android/*.apk
-android/*.zip

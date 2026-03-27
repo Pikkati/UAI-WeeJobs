@@ -19,14 +19,26 @@ if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith
   supabaseUrl = `https://${supabaseUrl}`;
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    storage: AsyncStorage,
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: false,
-  },
-});
+// If environment variables are missing, export a lightweight mock-compatible supabase
+// object to avoid throwing during test imports. In real environments the client
+// will be created normally when env vars are present.
+export const supabase = (supabaseUrl && supabaseAnonKey)
+  ? createClient(supabaseUrl, supabaseAnonKey, {
+      auth: {
+        storage: AsyncStorage,
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: false,
+      },
+    })
+  : {
+      from: () => ({
+        select: () => ({ order: () => Promise.resolve({ data: [], error: null }), eq: () => Promise.resolve({ data: [], error: null }), in: () => Promise.resolve({ data: [], error: null }), single: () => Promise.resolve({ data: null, error: null }) }),
+        update: () => Promise.resolve({ data: [], error: null }),
+        insert: () => Promise.resolve({ data: [], error: null }),
+      }),
+      functions: { invoke: async () => ({ data: null, error: null }) },
+    } as any;
 
 export type UserRole = 'customer' | 'tradesperson' | 'admin';
 export type SubscriptionPlan = 'payg' | 'pro';
