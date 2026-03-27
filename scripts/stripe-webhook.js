@@ -3,14 +3,27 @@
    - Expects STRIPE_SECRET and STRIPE_ENDPOINT_SECRET in env or .env
    - Use `npm run start:webhook` to start locally.
 */
-const express = require('express');
-const Stripe = require('stripe');
+let express;
+let Stripe;
 
-const port = process.env.PORT || 4242;
-const stripeSecret = process.env.STRIPE_SECRET || process.env.EXPO_PUBLIC_STRIPE_SECRET;
-const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET || process.env.STRIPE_WEBHOOK_SECRET;
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY;
+try {
+  express = require('express');
+} catch (e) {
+  express = null;
+}
+
+try {
+  Stripe = require('stripe');
+} catch (e) {
+  Stripe = null;
+}
+
+const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+const port = env.PORT || 4242;
+const stripeSecret = env.STRIPE_SECRET || env.EXPO_PUBLIC_STRIPE_SECRET;
+const endpointSecret = env.STRIPE_ENDPOINT_SECRET || env.STRIPE_WEBHOOK_SECRET;
+const supabaseUrl = env.SUPABASE_URL;
+const supabaseKey = env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_KEY;
 
 if (!stripeSecret) {
   console.warn('Warning: STRIPE_SECRET not set. Webhook verification will be skipped.');
@@ -19,9 +32,9 @@ if (!supabaseUrl || !supabaseKey) {
   console.warn('Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.');
 }
 
-const stripe = stripeSecret ? Stripe(stripeSecret) : null;
+const stripe = Stripe && stripeSecret ? Stripe(stripeSecret) : null;
 const supabase = supabaseUrl && supabaseKey ? require('@supabase/supabase-js').createClient(supabaseUrl, supabaseKey) : null;
-const app = express();
+const app = express ? express() : null;
 
 const upsertJobPaymentIntent = async (paymentIntent) => {
   const metadata = paymentIntent.metadata || {};
@@ -85,11 +98,59 @@ const upsertJobRefund = async (charge) => {
   return data;
 };
 
-app.post('/webhook', express.raw({ type: '*/*' }), async (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  const buf = req.body;
+async function processStripeEvent(event, supabaseClient) {
+  if (!event || !event.type) {
+    throw new Error('Invalid Stripe event payload');
+  }
 
-  if (stripe && endpointSecret && sig) {
+  switch (event.type) {
+    case 'payment_intent.succeeded': {
+      const paymentIntent = event.data.object;
+      if (!paymentIntent || !paymentIntent.metadata?.job_id) {
+        console.log('payment_intent.succeeded missing job_id; skipped DB update');
+        return null;
+      }
+      return await upsertJobPaymentIntent(paymentIntent);
+    }
+
+    case 'payment_intent.payment_failed': {
+      const paymentIntent = event.data.object;
+      if (!paymentIntent || !paymentIntent.metadata?.job_id || !supabaseClient) {
+        console.log('payment_intent.payment_failed missing job_id or supabase; skipped DB update');
+        return null;
+      }
+
+      const jobId = paymentIntent.metadata.job_id;
+      const updates = {
+        stripe_payment_intent: paymentIntent.id,
+        status: 'payment_failed',
+        last_payment_error: paymentIntent.last_payment_error?.message || null,
+      };
+
+      const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+      if (error) {
+        throw error;
+      }
+      return data;
+    }
+
+    case 'charge.refunded': {
+      const charge = event.data.object;
+      return await upsertJobRefund(charge);
+    }
+
+    default:
+      console.log('Unhandled event type:', event.type);
+      return null;
+  }
+}
+
+if (app && express) {
+  app.post('/webhook', express.raw({ type: '*/*' }), async (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    const buf = req.body;
+
+    if (stripe && endpointSecret && sig) {
     let event;
     try {
       event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
@@ -98,58 +159,13 @@ app.post('/webhook', express.raw({ type: '*/*' }), async (req, res) => {
       return res.status(400).send(`Webhook Error: ${err.message}`);
     }
     console.log('Received event:', event.type);
-    // Handle key Stripe event types
-    switch (event.type) {
-      case 'payment_intent.succeeded':
-        console.log('Payment succeeded:', event.data.object.id);
-        try {
-          const updated = await upsertJobPaymentIntent(event.data.object);
-          console.log('Updated job for payment_intent.succeeded:', updated ? 'ok' : 'skipped');
-        } catch (dbErr) {
-          console.error('Failed to update job status after payment_intent.succeeded', dbErr);
-          return res.status(500).send('DB update failed');
-        }
-        break;
-      case 'payment_intent.payment_failed':
-        console.log('Payment failed:', event.data.object.id);
-        try {
-          const paymentIntent = event.data.object;
-          const metadata = paymentIntent.metadata || {};
-          const jobId = metadata.job_id;
-          if (jobId && supabase) {
-            const { data: updated, error } = await supabase
-              .from('jobs')
-              .update({
-                stripe_payment_intent: paymentIntent.id,
-                status: 'payment_failed',
-                last_payment_error: paymentIntent.last_payment_error?.message || null,
-              })
-              .eq('id', jobId);
-            if (error) throw error;
-            console.log('Updated job for payment_intent.payment_failed:', updated ? 'ok' : 'skipped');
-          } else {
-            console.log('No job_id metadata found for payment_intent.payment_failed; skipped DB update.');
-          }
-        } catch (dbErr) {
-          console.error('Failed to update job status after payment_intent.payment_failed', dbErr);
-          return res.status(500).send('DB update failed');
-        }
-        break;
-      case 'charge.refunded':
-        console.log('Charge refunded:', event.data.object.id);
-        try {
-          const updated = await upsertJobRefund(event.data.object);
-          console.log('Updated job for charge.refunded:', updated ? 'ok' : 'skipped');
-        } catch (dbErr) {
-          console.error('Failed to update job status after charge.refunded', dbErr);
-          return res.status(500).send('DB update failed');
-        }
-        break;
-      default:
-        // Log unhandled event types
-        console.log('Unhandled event type:', event.type);
+    try {
+      await processStripeEvent(event, supabase);
+      return res.json({ received: true });
+    } catch (dbErr) {
+      console.error('Failed to process Stripe event', dbErr);
+      return res.status(500).send('DB update failed');
     }
-    return res.json({ received: true });
   }
 
   // Fallback parsing if stripe not configured — attempt JSON parse
@@ -161,8 +177,15 @@ app.post('/webhook', express.raw({ type: '*/*' }), async (req, res) => {
     console.error('Failed to parse webhook body', err.message);
     return res.status(400).send('Invalid payload');
   }
-});
+  });
 
-app.get('/', (req, res) => res.send('Stripe webhook listener. POST /webhook'));
+  app.get('/', (req, res) => res.send('Stripe webhook listener. POST /webhook'));
 
-app.listen(port, () => console.log(`Stripe webhook listener running on http://localhost:${port}/webhook`));
+  app.listen(port, () => console.log(`Stripe webhook listener running on http://localhost:${port}/webhook`));
+}
+
+module.exports = {
+  processStripeEvent,
+  upsertJobPaymentIntent,
+  upsertJobRefund,
+};
