@@ -2,12 +2,14 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase, User } from '../lib/supabase';
 import { TEST_USERS } from '../constants/data';
+import { parseServerError } from '../lib/error';
+import * as analytics from '../lib/analytics';
 
 type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   hasSeenOnboarding: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }>;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }>;
   signup: (
     email: string,
     password: string,
@@ -19,6 +21,7 @@ type AuthContextType = {
   resendVerification: (email: string) => Promise<{ success: boolean; error?: string }>;
   setHasSeenOnboarding: (value: boolean) => Promise<void>;
   refreshUser: () => Promise<void>;
+  // Additional properties for rate limiting
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -92,17 +95,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
 
       const serverMessage = (authError?.message || '').toLowerCase();
+      const parsed = parseServerError(authError);
 
       if (authError || !authData?.user) {
         if (serverMessage.includes('confirm') || serverMessage.includes('verification') || serverMessage.includes('not confirmed')) {
+          analytics.track('login_unverified_email', { email });
           return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
         }
 
         if (serverMessage.includes('invalid') || serverMessage.includes('invalid login') || serverMessage.includes('invalid credentials')) {
+          analytics.track('login_failure', { email, reason: 'invalid_credentials' });
           return { success: false, error: 'Invalid email or password.' };
         }
 
         if (serverMessage.includes('too many') || serverMessage.includes('rate limit') || serverMessage.includes('too many requests')) {
+          analytics.track('login_rate_limited', { email });
           return { success: false, error: 'Too many attempts. Please try again later.' };
         }
 
@@ -115,6 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
           await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
           setUser(normalizedUser);
+          analytics.track('login_success', { userId: normalizedUser.id, method: 'fallback' });
           return { success: true, user: normalizedUser };
         }
 
@@ -123,6 +131,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!authData.user.confirmed_at) {
         await supabase.auth.signOut();
+        analytics.track('login_unverified_email', { email });
         return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
       }
 
@@ -140,6 +149,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const normalizedUser = buildNormalizedUser(data as User);
       await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
       setUser(normalizedUser);
+      analytics.track('login_success', { userId: normalizedUser.id, method: 'password' });
       return { success: true, user: normalizedUser };
     } catch (err: any) {
       const fallbackUser = Object.values(TEST_USERS).find(
@@ -152,12 +162,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: true, user: normalizedUser };
       }
 
-      const errMsg = (err?.message || '').toLowerCase();
+      const parsed = parseServerError(err);
+      if (parsed.isRateLimited) {
+        analytics.track('login_rate_limited', { email });
+        return { success: false, error: parsed.message, isRateLimited: true, retryAfter: parsed.retryAfterSeconds ?? null };
+      }
+
+      const errMsg = (err?.message || parsed.message || '').toLowerCase();
       if (errMsg.includes('network') || errMsg.includes('fetch')) {
+        analytics.track('login_error', { email, message: err?.message || parsed.message });
         return { success: false, error: 'Network error. Check your connection and try again.' };
       }
 
-      return { success: false, error: err?.message || 'Unable to sign in right now. Please try again.' };
+      analytics.track('login_error', { email, message: err?.message || parsed.message });
+      return { success: false, error: err?.message || parsed.message || 'Unable to sign in right now. Please try again.' };
     }
   };
 
@@ -178,19 +196,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (signupError || !signupData.user) {
         const message = signupError?.message?.toLowerCase() || '';
 
-        if (message.includes('already registered') || message.includes('already been registered')) {
-          return { success: false, error: 'An account with this email already exists.' };
-        }
+          if (message.includes('already registered') || message.includes('already been registered')) {
+            analytics.track('signup_failure', { email, reason: 'already_registered' });
+            return { success: false, error: 'An account with this email already exists.' };
+          }
 
-        if (message.includes('password')) {
-          return { success: false, error: 'Password does not meet the required security rules.' };
-        }
+          if (message.includes('password')) {
+            analytics.track('signup_failure', { email, reason: 'weak_password' });
+            return { success: false, error: 'Password does not meet the required security rules.' };
+          }
 
-        return { success: false, error: 'Unable to create your account right now. Please try again.' };
+          analytics.track('signup_failure', { email, reason: 'unknown_signup_error', message: signupError?.message });
+          return { success: false, error: 'Unable to create your account right now. Please try again.' };
       }
 
       // If user.confirmed_at is null, email verification is required
       if (!signupData.user.confirmed_at) {
+        analytics.track('signup_requires_verification', { email });
         return { success: true, needsVerification: true };
       }
 
@@ -205,6 +227,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         });
 
       if (profileError) {
+        analytics.track('signup_failure', { email, reason: 'profile_error' });
         await supabase.auth.signOut();
         return { success: false, error: 'Your account was created, but your profile could not be set up. Please try again.' };
       }
@@ -220,8 +243,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       await AsyncStorage.setItem('weejobs_user', JSON.stringify(newUser));
       setUser(newUser);
+      analytics.track('signup_success', { userId: newUser.id, email: newUser.email });
       return { success: true, user: newUser };
     } catch (error) {
+      analytics.track('signup_error', { email, message: (error as any)?.message });
       return { success: false, error: 'Unable to create your account right now. Please try again.' };
     }
   };

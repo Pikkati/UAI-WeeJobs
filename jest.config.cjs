@@ -11,9 +11,20 @@ module.exports = {
     '^react-native/Libraries/BatchedBridge/NativeModules$': '<rootDir>/__mocks__/rn-native-modules.js',
     '^react-native$': '<rootDir>/__mocks__/rn-native-modules.js',
     '^react-native/jest/setup(\\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js'
+    ,
+    '^@/(.*)$': '<rootDir>/$1'
   },
+
   setupFiles: [
     '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
     '<rootDir>/jest-setup.js'
   ],
+  coverageThreshold: {
+    global: {
+      statements: 50,
+      branches: 40,
+      functions: 35,
+      lines: 50
+    }
+  },
 };

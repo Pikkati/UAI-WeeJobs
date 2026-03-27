@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, TextInput, FlatList, ActivityIndicator } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';

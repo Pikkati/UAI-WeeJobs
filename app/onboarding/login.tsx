@@ -87,6 +87,13 @@ export default function LoginScreen() {
 
     const result = await login(signInEmail, signInPassword);
 
+    if (result.isRateLimited) {
+      const retry = result.retryAfter ? ` Try again in ${Math.ceil((result.retryAfter || 0) / 60)} minutes.` : '';
+      setSignInError(result.error || `Too many attempts. Please try again later.${retry}`);
+      setSignInLoading(false);
+      return;
+    }
+
     if (result.needsVerification) {
       setSignInNeedsVerification(true);
       setSignInError(result.error || 'Please verify your email to continue.');
