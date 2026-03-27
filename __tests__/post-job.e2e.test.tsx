@@ -17,10 +17,10 @@ jest.mock('expo-router', () => ({
 }));
 
 // Mock supabase insert
-const insertMock = jest.fn(async () => ({ data: null, error: null }));
+const mockInsert = jest.fn(async () => ({ data: null, error: null }));
 jest.mock('../lib/supabase', () => ({
   supabase: {
-    from: (table: string) => ({ insert: insertMock }),
+    from: (table: string) => ({ insert: mockInsert }),
   },
 }));
 
@@ -48,7 +48,7 @@ test('PostJobScreen posts a job and navigates to customer jobs', async () => {
   fireEvent.press(postButton);
 
   await waitFor(() => {
-    expect(insertMock).toHaveBeenCalled();
+    expect(mockInsert).toHaveBeenCalled();
     expect(mockPush).toHaveBeenCalledWith('/customer/jobs');
     expect(queryByText('Success')).toBeNull(); // Alert not rendered in RN testing environment
   });
