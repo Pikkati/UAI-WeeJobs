@@ -1,6 +1,15 @@
 import * as analytics from '../lib/analytics';
 
 describe('analytics.track', () => {
+  const origConsole = console.log;
+  const origFetch = (global as any).fetch;
+
+  afterEach(() => {
+    console.log = origConsole;
+    (global as any).fetch = origFetch;
+    delete (process as any).env.ANALYTICS_ENDPOINT;
+  });
+
   test('logs to console when no endpoint', async () => {
     const spy = jest.spyOn(console, 'log').mockImplementation(() => {});
     await analytics.track('test_event', { a: 1 });

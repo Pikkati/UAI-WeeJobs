@@ -1,4 +1,4 @@
-import {parseServerError} from '../lib/error';
+import { parseServerError } from '../lib/error';
 
 describe('parseServerError', () => {
   test('handles null/undefined', () => {
@@ -21,5 +21,10 @@ describe('parseServerError', () => {
   test('detects rate-limit from message text', () => {
     const p = parseServerError({ message: 'Rate limit exceeded' });
     expect(p.isRateLimited).toBe(true);
+  });
+
+  test('handles string fallback', () => {
+    const parsed = parseServerError('simple error');
+    expect(parsed.message).toBe('simple error');
   });
 });
