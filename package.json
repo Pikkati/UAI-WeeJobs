@@ -4,7 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "assets:check-rtl": "node scripts/check-rtl-assets.js",
-    "optimize:assets": "node scripts/optimize-assets.js"
+    "optimize:assets": "node scripts/optimize-assets.js",
+    "smoke": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js '.*smoke.*' --runInBand -i",
+    "test:ci": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js --coverage --runInBand -i"
   },
   "assetsScripts": {
     "pngSprite": "node scripts/png-sprite.js",

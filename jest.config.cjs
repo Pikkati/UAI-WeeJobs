@@ -13,6 +13,7 @@ module.exports = {
     '^react-native$': '<rootDir>/__mocks__/rn-native-modules.js',
     '^react-native/jest/setup(\\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js'
     ,
+    '^@react-native-async-storage/async-storage$': '<rootDir>/__mocks__/async-storage-module.js',
     '^@/(.*)$': '<rootDir>/$1'
   },
 

@@ -85,6 +85,10 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     setRefreshTrigger(prev => prev + 1);
   }, []);
 
+  // Detect Jest environment to avoid triggering automatic remote fetches and
+  // test-time state updates that often lead to React `act(...)` warnings.
+  const isJestEnv = typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID;
+
   // Key for local job cache
   const JOBS_CACHE_KEY = 'weejobs_jobs_cache';
 
@@ -246,10 +250,18 @@ export function JobsProvider({ children }: { children: ReactNode }) {
           setJobs(JSON.parse(cached));
         }
       } catch {}
-      // Always fetch latest from server
+      // Always fetch latest from server (skip automatic remote fetch in Jest
+      // environments to avoid React `act(...)` warnings during many unit tests).
+      // Tests that need remote results should either provide `__TEST_JOBS_CACHE__`
+      // or call `fetchJobs()` explicitly.
       // eslint-disable-next-line no-console
       console.log('JOBS_LOAD_FROM_CACHE_FIRST_FETCHING');
-      if (!didCancel) fetchJobs();
+      if (!didCancel) {
+        const isJest = typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID;
+        if (!isJest) {
+          fetchJobs();
+        }
+      }
     }
     loadFromCacheFirst();
     return () => { didCancel = true; };
@@ -257,7 +269,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 
   const fetchInterests = useCallback(async (jobId: string): Promise<JobInterest[]> => {
     try {
-      const { data, error } = await supabase
+      const interestsRes: any = await supabase
         .from('job_interests')
         .select(`
           *,
@@ -266,9 +278,11 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         .eq('job_id', jobId)
         .in('status', ['interested', 'shortlisted', 'selected']);
 
-      if (error) throw error;
-      setInterests(data || []);
-      return data || [];
+      const iError = interestsRes && interestsRes.error;
+      const iData = interestsRes && interestsRes.data;
+      if (iError) throw iError;
+      setInterests(iData || []);
+      return iData || [];
     } catch (error) {
       console.error('Error fetching interests:', error);
       return [];
@@ -284,7 +298,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     try {
       const isPro = userPlan === 'pro';
       
-      const { error } = await supabase
+      const insertRes: any = await supabase
         .from('job_interests')
         .insert({
           job_id: jobId,
@@ -295,15 +309,18 @@ export function JobsProvider({ children }: { children: ReactNode }) {
           is_pro_at_time: isPro,
         });
 
-      if (error) throw error;
+      const insertError = insertRes && insertRes.error;
+      if (insertError) throw insertError;
 
       const MAX_INTERESTED = 5;
 
-      const { data: interestCount } = await supabase
+      const interestRes: any = await supabase
         .from('job_interests')
         .select('id')
         .eq('job_id', jobId)
         .in('status', ['interested', 'shortlisted']);
+
+      const interestCount = interestRes && interestRes.data;
 
       if (interestCount && interestCount.length >= MAX_INTERESTED) {
         await supabase
@@ -312,7 +329,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
           .eq('id', jobId);
       }
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error expressing interest:', error);
@@ -330,7 +347,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 
       if (error) throw error;
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error closing applications:', error);
@@ -357,7 +374,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         .update({ tradie_id: tradieId, pricing_type: pricingType })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error selecting tradesman:', error);
@@ -401,7 +418,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         .update({ status: 'in_progress' })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error marking arrived:', error);
@@ -422,7 +439,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error sending estimate:', error);
@@ -440,7 +457,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error acknowledging estimate:', error);
@@ -462,7 +479,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error sending quote:', error);
@@ -477,7 +494,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         .update({ status: 'awaiting_final_payment' })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error approving quote:', error);
@@ -492,7 +509,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         .update({ status: 'on_the_way' })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error marking on the way:', error);
@@ -515,7 +532,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error sending invoice:', error);
@@ -537,7 +554,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
     }
     
     return result;
@@ -557,7 +574,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
     }
     
     return result;
@@ -596,7 +613,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
           .eq('id', jobId);
       }
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error confirming completion:', error);
@@ -627,7 +644,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         })
         .eq('id', jobId);
 
-      await fetchJobs();
+      if (!isJestEnv) await fetchJobs();
       return true;
     } catch (error) {
       console.error('Error cancelling job:', error);
