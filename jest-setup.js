@@ -169,3 +169,41 @@ try {
 } catch (e) {
   // ignore
 }
+
+// Suppress noisy analytics/info logs and known webhook/env warnings in tests
+try {
+  if (typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID && !process.env.WEEJOBS_DEBUG) {
+    const _origConsoleLog = console.log;
+    const _origConsoleWarn = console.warn;
+
+    console.log = (...args) => {
+      try {
+        if (args && args.length && typeof args[0] === 'string') {
+          const s = args[0];
+          if (s.includes('[analytics]') || s.includes('TEST_SUPABASE') || s.includes('DEBUG_SIGNUP_RES')) {
+            return;
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+      _origConsoleLog.apply(console, args);
+    };
+
+    console.warn = (...args) => {
+      try {
+        if (args && args.length && typeof args[0] === 'string') {
+          const s = args[0];
+          if (s.includes('STRIPE_SECRET not set') || s.includes('SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set')) {
+            return;
+          }
+        }
+      } catch (e) {
+        // ignore
+      }
+      _origConsoleWarn.apply(console, args);
+    };
+  }
+} catch (e) {
+  // ignore
+}

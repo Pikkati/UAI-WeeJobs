@@ -13,7 +13,7 @@ try {
       Sentry.init({ dsn, environment: Deno.env.get("DEPLOYMENT_ENV") || "development" });
       console.log("Sentry initialized for Edge Function");
     } catch (e) {
-      console.warn("Sentry init failed:", e?.message || e);
+      console.warn("Sentry init failed:", (e as any)?.message || e);
       Sentry = null;
     }
   } else {
@@ -184,7 +184,7 @@ serve(async (req) => {
         }
       }
     } catch (e) {
-      console.warn('Sentry capture failed', e?.message || e);
+      console.warn('Sentry capture failed', (e as any)?.message || e);
     }
 
     return new Response(

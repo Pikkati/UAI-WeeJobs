@@ -80,6 +80,19 @@ mock.Platform = {
   select: (obj) => (obj && (obj.ios ?? obj.default ?? obj.android ?? null)),
 };
 
+// Provide UIManager.getViewManagerConfig used by some native libraries
+// (e.g. @react-navigation/elements). Return reasonable metadata when present
+// otherwise a safe empty object to avoid runtime import-time errors in Jest.
+mock.UIManager.getViewManagerConfig = (name) => {
+  try {
+    return mock.NativeUnimoduleProxy && mock.NativeUnimoduleProxy.viewManagersMetadata
+      ? mock.NativeUnimoduleProxy.viewManagersMetadata[name] || {}
+      : {};
+  } catch (e) {
+    return {};
+  }
+};
+
 // Export shape that supports CommonJS and ESM default interop used by jest
 module.exports = mock;
 module.exports.__esModule = true;
