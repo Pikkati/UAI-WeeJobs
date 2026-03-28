@@ -33,4 +33,30 @@ try {
   // ignore in weird CI envs
 }
 
+// Ensure `StyleSheet.create` is safe to call during module initialization in tests.
+// Some environments run module-eval before our mocks are fully applied; this
+// wrapper makes `StyleSheet.create` a no-op fallback when it would throw.
+try {
+  const rn = require('react-native');
+  if (rn) {
+    rn.StyleSheet = rn.StyleSheet || {};
+    const orig = rn.StyleSheet.create;
+    if (typeof orig === 'function') {
+      rn.StyleSheet.create = (styles) => {
+        try {
+          return orig(styles);
+        } catch (err) {
+          return styles;
+        }
+      };
+    } else {
+      rn.StyleSheet.create = rn.StyleSheet.create || ((s) => s);
+    }
+    rn.StyleSheet.flatten = rn.StyleSheet.flatten || ((s) => s);
+    rn.StyleSheet.absoluteFillObject = rn.StyleSheet.absoluteFillObject || { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 };
+  }
+} catch (e) {
+  // ignore; best-effort shim for testing environments
+}
+
 // No process.env manipulation here; tests that need env vars should set them explicitly.
