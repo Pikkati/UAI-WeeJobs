@@ -63,7 +63,11 @@ const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function mockStripePayFinal(jobId: string, amount: number): Promise<{ ok: boolean; id: string }> {
   await wait(800);
-  debugLog(`Mock Stripe: Final payment of £${amount} for job ${jobId}`);
+  // Only log when explicitly enabled to avoid noisy output in CI
+  if (typeof process !== 'undefined' && process.env && process.env.WEEJOBS_DEBUG) {
+    // eslint-disable-next-line no-console
+    console.log(`Mock Stripe: Final payment of £${amount} for job ${jobId}`);
+  }
   return { ok: true, id: `pi_mock_final_${Date.now()}` };
 }
 
