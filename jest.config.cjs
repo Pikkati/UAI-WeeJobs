@@ -7,7 +7,7 @@ module.exports = {
   ],
   // Use Jest's default resolver to avoid react-native's custom resolver
   // which can break moduleNameMapper mappings on some platforms (Windows).
-  resolver: '<rootDir>/node_modules/jest-resolve/build/defaultResolver.js',
+  resolver: require.resolve('jest-resolve'),
   moduleNameMapper: {
     '^expo$': '<rootDir>/__mocks__/expo-shim.js',
     '^expo(/.*)?$': '<rootDir>/__mocks__/expo-shim.js',
