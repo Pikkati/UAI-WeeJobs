@@ -62,7 +62,11 @@ export default function ReviewCustomerScreen() {
         reviewer_role: 'tradesperson',
       });
 
-      if (error) throw error;
+      if (error) {
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(error);
+        throw error;
+      }
 
       Alert.alert(
         'Review Submitted!',
@@ -70,6 +74,8 @@ export default function ReviewCustomerScreen() {
         [{ text: 'OK', onPress: () => router.push('/tradie') }]
       );
     } catch (error: any) {
+      const sentry = require('../../lib/sentry');
+      sentry.captureException?.(error);
       if (error.code === '23505') {
         Alert.alert('Already Reviewed', 'You have already submitted a review for this job.');
       } else {

@@ -1,3 +1,15 @@
+-- ============================================
+-- AUDIT LOGS TABLE
+-- ============================================
+CREATE TABLE IF NOT EXISTS audit_logs (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  admin_id UUID REFERENCES users(id) ON DELETE SET NULL,
+  action VARCHAR(100) NOT NULL,
+  target_id UUID,
+  target_table VARCHAR(100),
+  details JSONB,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 -- WeeJobs Production Database Schema for Supabase
 -- Run this in your Supabase SQL Editor to set up the production database
 

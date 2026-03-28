@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import { StripeProvider } from '@stripe/stripe-react-native';
 import { AuthProvider } from '../context/AuthContext';
+import { ThemeProvider } from '../context/ThemeContext';
 import { JobsProvider } from '../context/JobsContext';
 import { Colors } from '../constants/theme';
 import { View, ActivityIndicator, Text, TextInput } from 'react-native';
@@ -39,18 +40,20 @@ export default function RootLayout() {
 
   return (
     <StripeProvider publishableKey={publishableKey}>
-      <AuthProvider>
-        <JobsProvider>
-          <StatusBar style="light" />
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: Colors.background },
-              animation: 'fade',
-            }}
-          />
-        </JobsProvider>
-      </AuthProvider>
+      <ThemeProvider>
+        <AuthProvider>
+          <JobsProvider>
+            <StatusBar style="light" />
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: Colors.background },
+                animation: 'fade',
+              }}
+            />
+          </JobsProvider>
+        </AuthProvider>
+      </ThemeProvider>
     </StripeProvider>
   );
 }

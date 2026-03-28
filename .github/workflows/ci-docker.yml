@@ -40,7 +40,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Smoke: npm ci + test (with retry fallback)
         run: |
-          npm ci --no-audit --no-fund
+          npm ci --legacy-peer-deps --no-audit --no-fund
           npm run test:ci:retry || npm test -- --ci --runInBand
 
       - name: Coverage and upload
