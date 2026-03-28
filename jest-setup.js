@@ -4,6 +4,21 @@ if (typeof global.TextDecoderStream === 'undefined') {
   global.TextDecoderStream = function TextDecoderStream() {};
 }
 
+// Provide minimal `globalThis.expo` shape required by newer `jest-expo` presets
+try {
+  if (typeof globalThis !== 'undefined') {
+    if (!globalThis.expo) globalThis.expo = {};
+    if (!globalThis.expo.EventEmitter) {
+      // Node's EventEmitter is compatible for tests that only need the constructor
+      // eslint-disable-next-line global-require
+      const { EventEmitter } = require('events');
+      globalThis.expo.EventEmitter = EventEmitter;
+    }
+  }
+} catch (e) {
+  // ignore environment/shim failures
+}
+
 if (typeof global.TextDecoder === 'undefined') {
   global.TextDecoder = require('util').TextDecoder;
 }
