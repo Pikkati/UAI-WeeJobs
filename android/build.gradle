@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+  repositories {
+    google()
+    mavenCentral()
+  }
+  dependencies {
+    classpath('com.android.tools.build:gradle')
+    classpath('com.facebook.react:react-native-gradle-plugin')
+    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:2.3.10')
+  }
+}
+
+allprojects {
+  repositories {
+    // Local maven repo for @react-native-async-storage
+    maven { url uri("$rootDir/../node_modules/@react-native-async-storage/async-storage/android/local_repo") }
+    google()
+    mavenCentral()
+    maven { url 'https://www.jitpack.io' }
+  }
+}
+
+// Workaround: allow Kotlin to skip metadata-version checks so modules
+// compiled with a newer Kotlin metadata version don't fail the build.
+subprojects {
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions.freeCompilerArgs += ['-Xskip-metadata-version-check']
+  }
+}
+
+apply plugin: "expo-root-project"
+apply plugin: "com.facebook.react.rootproject"
+
+// Helper task: assemble, install debug APK and print start instructions.
+task installDebugAndRun {
+  group = "run"
+  description = "Assemble debug, install on connected device/emulator, and print start command."
+  dependsOn ":app:installDebug"
+  doLast {
+    println "Installed debug APK to connected device(s)."
+    println "Start the app with: adb shell am start -n com.weejobs.app/.MainActivity"
+  }
+}

@@ -1,53 +1,52 @@
-#!/usr/bin/env node
-/*
- Simple asset optimization script. Requires dev dependencies:
-  - svgo
-  - imagemin
-  - imagemin-mozjpeg
-  - imagemin-pngquant
-
- Run: node scripts/optimize-assets.js
-*/
-const { optimize } = require('svgo');
 const fs = require('fs');
 const path = require('path');
-const imagemin = require('imagemin');
-const mozjpeg = require('imagemin-mozjpeg');
-const pngquant = require('imagemin-pngquant');
 
-async function optimizeSvgs(dir) {
-  const files = fs.readdirSync(dir).filter(f => f.endsWith('.svg'));
-  for (const file of files) {
-    const p = path.join(dir, file);
-    const input = fs.readFileSync(p, 'utf8');
-    const result = optimize(input, { path: p });
-    fs.writeFileSync(p, result.data, 'utf8');
-    console.log('Optimized', p);
+function collectFiles(dir, exts = ['.png', '.jpg', '.jpeg', '.svg']) {
+  const out = [];
+  if (!fs.existsSync(dir)) return out;
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const e of entries) {
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) out.push(...collectFiles(p, exts));
+    else if (exts.includes(path.extname(e.name).toLowerCase())) out.push(p);
   }
+  return out;
 }
 
-async function optimizeRasters(dir) {
-  const files = fs.readdirSync(dir).filter(f => /\.(png|jpg|jpeg)$/i.test(f));
-  if (files.length === 0) return;
-  const paths = files.map(f => path.join(dir, f));
-  await imagemin(paths, {
-    destination: dir,
-    plugins: [mozjpeg({ quality: 75 }), pngquant({ quality: [0.7, 0.85] })],
-  });
-  console.log('Optimized rasters in', dir);
-}
-
-async function run() {
-  try {
-    const iconsDir = path.join(__dirname, '..', 'assets', 'icons');
-    const imagesDir = path.join(__dirname, '..', 'assets', 'images');
-    if (fs.existsSync(iconsDir)) await optimizeSvgs(iconsDir);
-    if (fs.existsSync(imagesDir)) await optimizeRasters(imagesDir);
-    console.log('Optimization complete');
-  } catch (err) {
-    console.error('Optimization error', err);
-    process.exitCode = 1;
+async function checkAssets(opts = {}) {
+  const root = opts.dir || path.join(__dirname, '..', 'assets', 'images');
+  const maxSize = typeof opts.maxSizeBytes === 'number' ? opts.maxSizeBytes : 500 * 1024;
+  const files = collectFiles(root);
+  const oversized = [];
+  for (const f of files) {
+    try {
+      const s = fs.statSync(f).size;
+      if (s > maxSize) oversized.push({ path: f, size: s });
+    } catch (err) {
+      // ignore
+    }
   }
+  return { scanned: files.length, oversized };
 }
 
-run();
+if (require.main === module) {
+  (async () => {
+    const argv = process.argv.slice(2);
+    const maxIdx = argv.indexOf('--max');
+    const maxSize = maxIdx >= 0 ? Number(argv[maxIdx + 1]) : undefined;
+    try {
+      const res = await checkAssets({ maxSizeBytes: maxSize });
+      console.log(`Scanned ${res.scanned} files, ${res.oversized.length} oversized`);
+      if (res.oversized.length > 0) {
+        console.log('Oversized files:');
+        res.oversized.forEach((r) => console.log(r.path, r.size));
+        process.exitCode = 2;
+      } else process.exitCode = 0;
+    } catch (err) {
+      console.error(err);
+      process.exitCode = 1;
+    }
+  })();
+}
+
+module.exports = { checkAssets };

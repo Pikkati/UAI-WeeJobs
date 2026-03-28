@@ -1,9 +1,7 @@
-module.exports = ({ style, ...rest } = {}) => {
-  // Return a simple object placeholder for expo-image usage during tests.
-  return null;
-};
 const React = require('react');
+const { View } = require('react-native');
 
+// Simple mock for expo-image: render a plain View in tests
 module.exports = {
-  Image: (props) => React.createElement('View', props),
+  Image: (props) => React.createElement(View, props),
 };

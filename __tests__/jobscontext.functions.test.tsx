@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { render } from '@testing-library/react-native';
+import { render, waitFor } from '@testing-library/react-native';
 
 // Ensure AuthContext returns no user so JobsProvider doesn't call fetchJobs
 jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: null }) }));
@@ -46,8 +46,8 @@ describe('JobsContext functions (pure behavior)', () => {
       </JobsProvider>
     );
 
-    // Allow effects to run
-    await new Promise((r) => setTimeout(r, 10));
+    // Allow effects to run and settle
+    await waitFor(() => expect(captured.depositDefault).toBeDefined());
 
     expect(captured.depositDefault).toBe(20);
     expect(captured.depositSmall).toBe(10);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { render } from '@testing-library/react-native';
+import { render, waitFor } from '@testing-library/react-native';
 import { JobsProvider, useJobs } from '../context/JobsContext';
 import { AuthProvider } from '../context/AuthContext';
 
@@ -34,9 +34,8 @@ describe('JobsContext helpers', () => {
       </AuthProvider>
     );
 
-    // give effects a tick
-    await new Promise((res) => setTimeout(res, 5));
-
+    // wait for effects to settle
+    await waitFor(() => expect(result).toBeTruthy());
     expect(result).toBeTruthy();
     expect(result.depositDefault).toBe(20);
     expect(result.deposit200).toBe(20);
