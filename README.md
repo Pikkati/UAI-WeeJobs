@@ -15,6 +15,9 @@ This project includes a scaffold for Stripe payment integration and webhook hand
 4. Implement event handlers in `scripts/stripe-webhook.js` for events like `payment_intent.succeeded`.
 
 See `docs/STRIPE.md` for more details and security notes.
+ 
+<!-- Codecov badge -->
+[![codecov](https://codecov.io/gh/Pikkati/UAI-WeeJobs/branch/UAI-Development/graph/badge.svg)](https://codecov.io/gh/Pikkati/UAI-WeeJobs)
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
@@ -137,6 +140,20 @@ Notes:
 These badges reflect the latest run status for the named workflows. If a badge indicates a failure, open the corresponding workflow run in GitHub Actions to inspect logs.
 
 If you want, I can: install missing typings for `expo-image`, fix the remaining lint warnings, and open a PR with these documentation changes.
+
+### Running tests and CI locally
+
+To reproduce the GitHub Actions CI job locally and run the tests with coverage use the following steps. The CI installs with `--legacy-peer-deps` to accommodate some Expo canary peer-dependencies.
+
+```bash
+# install deps (mirror CI)
+npm ci --legacy-peer-deps --no-audit --no-fund
+
+# run the same scripted CI test job (produces coverage/ folder)
+npm run test:ci
+```
+
+The repository's CI workflow then uploads the `coverage` directory as an artifact and sends coverage to Codecov using `codecov/codecov-action@v4` (see `.github/workflows/ci-tests.yml`). If your repo is private, set the `CODECOV_TOKEN` secret in GitHub repository settings before relying on Codecov uploads.
 
 ## Running CI tests locally (Docker)
 
