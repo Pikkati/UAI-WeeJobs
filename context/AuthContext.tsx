@@ -96,7 +96,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let instSupabase: any;
       try {
         const mod = require('../lib/supabase') as any;
-        instSupabase = (typeof mod.getSupabaseClient === 'function') ? mod.getSupabaseClient() : (mod.supabase || supabase);
+        // Prefer the module's exported `supabase` wrapper when available so
+        // tests that `jest.spyOn(supabase.auth, '...')` work reliably. Fall
+        // back to `getSupabaseClient` if `supabase` export is not present.
+        instSupabase = mod && mod.supabase ? mod.supabase : (typeof mod.getSupabaseClient === 'function' ? mod.getSupabaseClient() : supabase);
       } catch (e) {
         instSupabase = supabase;
       }
@@ -254,7 +257,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let instSupabase2: any;
       try {
         const mod = require('../lib/supabase') as any;
-        instSupabase2 = (typeof mod.getSupabaseClient === 'function') ? mod.getSupabaseClient() : (mod.supabase || supabase);
+        // Prefer the exported `supabase` wrapper so per-test spies apply to
+        // the same object used by consumers. Fall back to getSupabaseClient.
+        instSupabase2 = mod && mod.supabase ? mod.supabase : (typeof mod.getSupabaseClient === 'function' ? mod.getSupabaseClient() : supabase);
       } catch (e) {
         instSupabase2 = supabase;
       }

@@ -37,6 +37,11 @@ jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' 
   functions: { invoke: async () => ({ data: null, error: null }) },
 };
 
+// Provide a synchronous test cache so JobsProvider can load cached jobs
+// deterministically during tests (avoids AsyncStorage/mock timing issues).
+// eslint-disable-next-line no-undef
+(global as any).__TEST_JOBS_CACHE__ = [{ id: 'cached1', title: 'Cached Job' }];
+
 import { JobsProvider, useJobs } from '../context/JobsContext';
 
 function Consumer() {
