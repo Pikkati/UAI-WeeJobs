@@ -85,8 +85,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       ]);
       
       if (storedUser) {
-        const parsedUser = JSON.parse(storedUser) as User & { role?: User['role'] | 'tradie' };
-        setUser(buildNormalizedUser(parsedUser));
+        const parsedUser = JSON.parse(storedUser) as unknown as User & { role?: User['role'] | 'tradie' };
+          setUser(buildNormalizedUser(parsedUser));
       }
       setHasSeenOnboardingState(onboarded === 'true');
     } catch (error) {
