@@ -13,7 +13,7 @@ type AuthContextType = {
     password: string,
     name: string,
     role: User['role'] | 'tradie'
-  ) => Promise<{ success: boolean; error?: string; user?: User }>;
+  ) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }>;
   logout: () => Promise<void>;
   setHasSeenOnboarding: (value: boolean) => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -51,8 +51,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       ]);
       
       if (storedUser) {
-        const parsedUser = JSON.parse(storedUser) as User & { role?: User['role'] | 'tradie' };
-        setUser(buildNormalizedUser(parsedUser));
+        const parsedUser = JSON.parse(storedUser) as unknown as User & { role?: User['role'] | 'tradie' };
+          setUser(buildNormalizedUser(parsedUser));
       }
       setHasSeenOnboardingState(onboarded === 'true');
     } catch (error) {
@@ -90,7 +90,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         );
 
         if (fallbackUser) {
-          const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+          const normalizedUser = buildNormalizedUser(fallbackUser as unknown as User & { role?: User['role'] | 'tradie' });
           await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
           setUser(normalizedUser);
           return { success: true, user: normalizedUser };
@@ -124,7 +124,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (u) => u.email === email && u.password === password,
       );
       if (fallbackUser) {
-        const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+        const normalizedUser = buildNormalizedUser(fallbackUser as unknown as User & { role?: User['role'] | 'tradie' });
         await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
         setUser(normalizedUser);
         return { success: true, user: normalizedUser };

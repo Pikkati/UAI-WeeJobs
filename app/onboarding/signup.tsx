@@ -63,7 +63,7 @@ export default function SignUpScreen() {
     const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
       ? normalizedRole
       : 'customer';
-    const result = await signup(email.trim(), password, name.trim(), selectedRole);
+    const result = await signup(email.trim(), password, name.trim(), selectedRole as any);
 
     if (result.success && result.needsVerification) {
       setShowVerifyMsg(true);
@@ -89,7 +89,7 @@ export default function SignUpScreen() {
     setResendError('');
     try {
       // Supabase does not provide a direct resend endpoint, so trigger signUp again
-      const { error } = await signup(email.trim(), password, name.trim(), normalizedRole);
+      const { error } = await signup(email.trim(), password, name.trim(), normalizedRole as any);
       if (error) {
         setResendError(error);
       }
