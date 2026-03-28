@@ -3,7 +3,12 @@ const mock = {
   NativeUnimoduleProxy: {
     viewManagersMetadata: {},
   },
-  UIManager: {},
+  UIManager: {
+    // Provide a safe stub for view manager lookups used by some RN libs
+    getViewManagerConfig: () => ({}),
+    // Backwards-compatible alias used by some packages
+    getConstants: () => ({}),
+  },
   Linking: {
     openURL: jest.fn(),
     canOpenURL: jest.fn(() => Promise.resolve(true)),
@@ -13,7 +18,11 @@ const mock = {
 };
 
 // Provide minimal StyleSheet and primitives used by components so tests can render
-mock.StyleSheet = { create: (s) => s, flatten: (s) => s };
+mock.StyleSheet = {
+  create: (s) => s,
+  flatten: (s) => s,
+  absoluteFillObject: { position: 'absolute', left: 0, top: 0, right: 0, bottom: 0 },
+};
 // Create tiny functional component mocks so tests can access props/defaultProps
 const React = require('react');
 const createComponent = (name, host = 'View') => {
