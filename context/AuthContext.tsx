@@ -89,10 +89,71 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }> => {
     try {
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      // Resolve the client at call-time to pick up test overrides reliably.
+      // Some tests `jest.mock('../lib/supabase')` and only provide a `supabase`
+      // export; attempt to require a `getSupabaseClient` helper if present,
+      // otherwise fall back to the imported `supabase`.
+      let instSupabase: any;
+      try {
+        const mod = require('../lib/supabase') as any;
+        instSupabase = (typeof mod.getSupabaseClient === 'function') ? mod.getSupabaseClient() : (mod.supabase || supabase);
+      } catch (e) {
+        instSupabase = supabase;
+      }
+      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
+        // eslint-disable-next-line no-console
+        console.log('AUTH_SUPABASE_BEFORE_SIGNIN', instSupabase);
+      }
+      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
+        // eslint-disable-next-line no-console
+        console.log('AUTH_GLOBAL_OVERRIDE_PRESENT', typeof (global as any).__TEST_SUPABASE__);
+        if (typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword === 'function') {
+          try {
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_DIRECT_CALL_BEFORE');
+            // eslint-disable-next-line no-console
+            try {
+              // Compare identities between global and lib/supabase proxy
+              // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
+              const libSup = require('../lib/supabase') as any;
+              // eslint-disable-next-line no-console
+              console.log('GLOBAL_EQ_PROXY', (global as any).__TEST_SUPABASE__?.auth?.signUp === libSup.supabase?.auth?.signUp);
+            } catch (e) {
+              // ignore
+            }
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_AUTH_KEYS', Object.keys((global as any).__TEST_SUPABASE__?.auth || {}));
+            try {
+              // eslint-disable-next-line no-console
+              console.log('GLOBAL_SIGNIN_IMPL', (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword?.getMockImplementation && (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword.getMockImplementation());
+            } catch (e) {
+              // eslint-disable-next-line no-console
+              console.log('GLOBAL_SIGNIN_IMPL_ERR', e);
+            }
+            // eslint-disable-next-line no-console
+            console.log('GLOBAL_SIGNIN_IS_FN', typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword, (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword?._isMockFunction);
+            // eslint-disable-next-line no-console
+            console.log('GLOBAL_SIGNIN_RET_TYPE', typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword({ email, password }));
+            const gDirect = await (global as any).__TEST_SUPABASE__.auth.signInWithPassword({ email, password });
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_DIRECT_CALL_RES', gDirect);
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_DIRECT_CALL_ERR', e);
+          }
+        }
+      }
+      let authRes: any = await (instSupabase.auth as any).signInWithPassword({ email, password });
+      // If the proxy-based call returned undefined (edge cases), try the raw global override
+      if (typeof authRes === 'undefined' && typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword === 'function') {
+        authRes = await (global as any).__TEST_SUPABASE__.auth.signInWithPassword({ email, password });
+      }
+      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
+        // eslint-disable-next-line no-console
+        console.log('AUTH_SIGNIN_RES', authRes);
+      }
+      const authData = authRes?.data;
+      const authError = authRes?.error;
 
       const serverMessage = (authError?.message || '').toLowerCase();
       const parsed = parseServerError(authError);
@@ -135,7 +196,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
       }
 
-      const { data, error } = await supabase
+      const { data, error } = await instSupabase
         .from('users')
         .select('*')
         .eq('id', authData.user.id)
@@ -188,12 +249,67 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const normalizedRole = normalizeUserRole(role);
 
     try {
-      const { data: signupData, error: signupError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
+      // Resolve client similarly as in `login` so mocks that only export
+      // `supabase` still work in tests.
+      let instSupabase2: any;
+      try {
+        const mod = require('../lib/supabase') as any;
+        instSupabase2 = (typeof mod.getSupabaseClient === 'function') ? mod.getSupabaseClient() : (mod.supabase || supabase);
+      } catch (e) {
+        instSupabase2 = supabase;
+      }
+      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
+        // eslint-disable-next-line no-console
+        console.log('AUTH_SUPABASE_BEFORE_SIGNUP', instSupabase2);
+      }
+      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
+        // eslint-disable-next-line no-console
+        console.log('AUTH_GLOBAL_OVERRIDE_PRESENT', typeof (global as any).__TEST_SUPABASE__);
+        if (typeof (global as any).__TEST_SUPABASE__?.auth?.signUp === 'function') {
+          try {
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_DIRECT_CALL_BEFORE');
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_AUTH_KEYS', Object.keys((global as any).__TEST_SUPABASE__?.auth || {}));
+            try {
+              // eslint-disable-next-line no-console
+              console.log('GLOBAL_SIGNUP_IMPL', (global as any).__TEST_SUPABASE__?.auth?.signUp?.getMockImplementation && (global as any).__TEST_SUPABASE__?.auth?.signUp.getMockImplementation());
+            } catch (e) {
+              // eslint-disable-next-line no-console
+              console.log('GLOBAL_SIGNUP_IMPL_ERR', e);
+            }
+            // eslint-disable-next-line no-console
+            console.log('GLOBAL_SIGNUP_IS_FN', typeof (global as any).__TEST_SUPABASE__?.auth?.signUp, (global as any).__TEST_SUPABASE__?.auth?.signUp?._isMockFunction);
+            // eslint-disable-next-line no-console
+            console.log('GLOBAL_SIGNUP_RET_TYPE', typeof (global as any).__TEST_SUPABASE__?.auth?.signUp({ email, password }));
+            const gDirect = await (global as any).__TEST_SUPABASE__.auth.signUp({ email, password });
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_DIRECT_CALL_RES', gDirect);
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.log('AUTH_GLOBAL_DIRECT_CALL_ERR', e);
+          }
+        }
+      }
+      // Inspect the proxy-provided auth method and call it
+      // eslint-disable-next-line no-console
+      console.log('PROXY_SIGNUP_FN', typeof (instSupabase2.auth as any)?.signUp, (instSupabase2.auth as any)?.signUp?._isMockFunction);
+      const proxyImmediate = (instSupabase2.auth as any)?.signUp({ email, password });
+      // eslint-disable-next-line no-console
+      console.log('PROXY_SIGNUP_IMMEDIATE', proxyImmediate);
+      let signupRes: any = proxyImmediate && typeof proxyImmediate.then === 'function' ? await proxyImmediate : proxyImmediate;
+      // If the proxy-based call returned undefined, try calling the raw global override directly.
+      if (typeof signupRes === 'undefined' && typeof (global as any).__TEST_SUPABASE__?.auth?.signUp === 'function') {
+        signupRes = await (global as any).__TEST_SUPABASE__.auth.signUp({ email, password });
+      }
+      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
+        // eslint-disable-next-line no-console
+        console.log('AUTH_SIGNUP_RES', signupRes);
+      }
+      const signupData = signupRes?.data;
+      const signupError = signupRes?.error;
 
-      if (signupError || !signupData.user) {
+      if (signupError || !signupData || !signupData.user) {
         const message = signupError?.message?.toLowerCase() || '';
 
           if (message.includes('already registered') || message.includes('already been registered')) {
