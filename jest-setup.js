@@ -37,8 +37,8 @@ try {
 // outside of an AuthProvider due to module cache or test isolation order.
 try {
   if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
-      if (!global.__TEST_USE_AUTH__) {
-        global.__TEST_USE_AUTH__ = () => ({
+    if (!global.__TEST_USE_AUTH__) {
+      global.__TEST_USE_AUTH__ = () => ({
         user: { id: 'u1', email: 'test@example.com', name: 'Test User', role: 'customer' },
         isLoading: false,
         hasSeenOnboarding: false,
@@ -143,9 +143,29 @@ try {
     // Tests may override `global.__TEST_JOBS_CACHE__` to provide a synchronous
     // cache for JobsProvider. Do not set a default here to avoid surprising
     // other tests that expect an empty cache.
+    // Inform React's testing utils that we are running in an environment
+    // where `act` should be enabled. This reduces noisy act() warnings.
+    try {
+      if (typeof globalThis !== 'undefined') {
+        // eslint-disable-next-line no-undef
+        globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+      }
+    } catch (e) {
+      // ignore in weird CI envs
+    }
   }
 } catch (err) {
   // ignore test fallback setup errors
+// Inform React's testing utils that we are running in an environment
+// where `act` should be enabled. This reduces noisy act() warnings.
+try {
+  if (typeof globalThis !== 'undefined') {
+    // eslint-disable-next-line no-undef
+    globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+  }
+} catch (e) {
+  // ignore in weird CI envs
+>>>>>>> 5b2d6a4 (test: add chainable supabase mock, Expo mocks, smoke harness, and test setup tweaks)
 }
 
 // No process.env manipulation here; tests that need env vars should set them explicitly.
