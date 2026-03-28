@@ -22,4 +22,15 @@ try {
   // If we cannot define it (non-configurable), ignore and let upstream handle it.
 }
 
+// Inform React's testing utils that we are running in an environment
+// where `act` should be enabled. This reduces noisy act() warnings.
+try {
+  if (typeof globalThis !== 'undefined') {
+    // eslint-disable-next-line no-undef
+    globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+  }
+} catch (e) {
+  // ignore in weird CI envs
+}
+
 // No process.env manipulation here; tests that need env vars should set them explicitly.
