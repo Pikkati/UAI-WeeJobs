@@ -1,6 +1,5 @@
-const openBrowserAsync = jest.fn(async (url) => ({ url }));
+const openBrowserAsync = jest.fn(async (url) => ({ type: 'opened', url }));
 
-module.exports = { openBrowserAsync };
 module.exports = {
-  openBrowserAsync: async () => ({ type: 'opened' }),
+  openBrowserAsync,
 };

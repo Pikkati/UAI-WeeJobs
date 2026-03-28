@@ -149,3 +149,23 @@ try {
 }
 
 // No process.env manipulation here; tests that need env vars should set them explicitly.
+
+// Suppress noisy react-test-renderer deprecation warning during tests by
+// filtering the specific message. Set WEEJOBS_DEBUG=true to re-enable all logs.
+try {
+  if (typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID) {
+    const _origConsoleError = console.error;
+    console.error = (...args) => {
+      try {
+        if (args && args.length && typeof args[0] === 'string' && args[0].includes('react-test-renderer is deprecated')) {
+          return;
+        }
+      } catch (e) {
+        // ignore filter errors
+      }
+      _origConsoleError.apply(console, args);
+    };
+  }
+} catch (e) {
+  // ignore
+}

@@ -6,40 +6,7 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import { useJobs } from '../../context/JobsContext';
 import { Job, JobStatus, supabase } from '../../lib/supabase';
-
-const STATUS_COLORS: Partial<Record<JobStatus, string>> = {
-  open: Colors.accent,
-  pending_customer_choice: '#22c55e',
-  awaiting_customer_choice: '#22c55e',
-  booked: Colors.success,
-  on_the_way: '#3b82f6',
-  in_progress: '#8b5cf6',
-  awaiting_quote_approval: '#f59e0b',
-  awaiting_final_payment: '#ef4444',
-  paid: Colors.success,
-  awaiting_confirmation: '#3b82f6',
-  completed: Colors.textSecondary,
-  cancelled: Colors.error,
-  cancelled_by_customer: Colors.error,
-  cancelled_by_tradie: Colors.error,
-};
-
-const STATUS_LABELS: Partial<Record<JobStatus, string>> = {
-  open: 'Open',
-  pending_customer_choice: 'Tradies Interested!',
-  awaiting_customer_choice: 'Choose a Tradie',
-  booked: 'Booked',
-  on_the_way: 'Tradie On Way',
-  in_progress: 'In Progress',
-  awaiting_quote_approval: 'Quote Ready',
-  awaiting_final_payment: 'Pay Now',
-  paid: 'Paid',
-  awaiting_confirmation: 'Confirm Complete',
-  completed: 'Completed',
-  cancelled: 'Cancelled',
-  cancelled_by_customer: 'Cancelled by You',
-  cancelled_by_tradie: 'Cancelled by Tradie',
-};
+import { STATUS_COLORS, STATUS_LABELS, canEditOrDelete, getActionText } from './jobs.helpers';
 
 export default function CustomerJobsScreen() {
   

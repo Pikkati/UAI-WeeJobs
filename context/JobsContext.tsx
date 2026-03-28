@@ -69,9 +69,15 @@ async function mockStripePayFinal(jobId: string, amount: number): Promise<{ ok: 
 
 export function JobsProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
-  // Debug: log the resolved user so tests that mock `useAuth` can be validated
-  // eslint-disable-next-line no-console
-  console.log('JOBS_PROVIDER_USER', user);
+  // Debugging helper — logs only when WEEJOBS_DEBUG is set in the env
+  const WEEJOBS_DEBUG = typeof process !== 'undefined' && !!process.env && !!process.env.WEEJOBS_DEBUG;
+  const debugLog = (...args: any[]) => {
+    if (WEEJOBS_DEBUG) {
+      // eslint-disable-next-line no-console
+      console.log(...args);
+    }
+  };
+  debugLog('JOBS_PROVIDER_USER', user);
   // Use stable scalar values for effect dependencies to avoid re-running
   // effects when auth provider returns new object identities.
   const userId = user?.id;
@@ -96,10 +102,8 @@ export function JobsProvider({ children }: { children: ReactNode }) {
   const fetchJobs = useCallback(async () => {
     if (!user) return;
     // Debug: log fetch start and supabase shape
-    // eslint-disable-next-line no-console
-    console.log('JOBS_FETCH_START');
-    // eslint-disable-next-line no-console
-    console.log('JOBS_FETCH_SUPABASE_FROM', typeof supabase.from, typeof supabase);
+    debugLog('JOBS_FETCH_START');
+    debugLog('JOBS_FETCH_SUPABASE_FROM', typeof supabase.from, typeof supabase);
     setLoading(true);
     try {
       const { data, error } = await supabase
@@ -128,14 +132,13 @@ export function JobsProvider({ children }: { children: ReactNode }) {
             const testCache = (typeof global !== 'undefined' && (global as any).__TEST_JOBS_CACHE__);
             if (testCache) {
               try {
-                const parsed = typeof testCache === 'string' ? JSON.parse(testCache) : testCache;
-                // eslint-disable-next-line no-console
-                console.log('JOBS_FETCH_TEST_CACHE_PARSED', parsed);
-                setJobs(parsed);
-                return;
-              } catch (_) {
-                // fall through to AsyncStorage
-              }
+                  const parsed = typeof testCache === 'string' ? JSON.parse(testCache) : testCache;
+                  debugLog('JOBS_FETCH_TEST_CACHE_PARSED', parsed);
+                  setJobs(parsed);
+                  return;
+                } catch (_) {
+                  // fall through to AsyncStorage
+                }
             }
 
             // eslint-disable-next-line no-console
@@ -148,16 +151,12 @@ export function JobsProvider({ children }: { children: ReactNode }) {
             } catch (e) {
               AsyncStorageLocal = undefined;
             }
-            // eslint-disable-next-line no-console
-            console.log('JOBS_FETCH_ASYNCSTORAGE_TYPE', typeof AsyncStorageLocal, AsyncStorageLocal);
-            // eslint-disable-next-line no-console
-            console.log('JOBS_CACHE_KEY', JOBS_CACHE_KEY);
+            debugLog('JOBS_FETCH_ASYNCSTORAGE_TYPE', typeof AsyncStorageLocal, AsyncStorageLocal);
+            debugLog('JOBS_CACHE_KEY', JOBS_CACHE_KEY);
             let cached = AsyncStorageLocal && AsyncStorageLocal.getItem ? await AsyncStorageLocal.getItem(JOBS_CACHE_KEY) : undefined;
-            // eslint-disable-next-line no-console
-            console.log('JOBS_FETCH_GETITEM_CALLS', AsyncStorageLocal && (AsyncStorageLocal.getItem as any).mock && (AsyncStorageLocal.getItem as any).mock.calls);
+            debugLog('JOBS_FETCH_GETITEM_CALLS', AsyncStorageLocal && (AsyncStorageLocal.getItem as any).mock && (AsyncStorageLocal.getItem as any).mock.calls);
             // debug: log cached content to help diagnose test-time caching
-            // eslint-disable-next-line no-console
-            console.log('JOBS_FETCH_CACHED_RAW', cached);
+            debugLog('JOBS_FETCH_CACHED_RAW', cached);
 
             // If the mocked getItem exists but the awaited call yielded undefined
             // (observed in some test environments), attempt to call the mock
@@ -168,13 +167,11 @@ export function JobsProvider({ children }: { children: ReactNode }) {
               if ((AsyncStorageLocal.getItem as any).getMockImplementation) {
                 try {
                   const impl = (AsyncStorageLocal.getItem as any).getMockImplementation();
-                  // eslint-disable-next-line no-console
-                  console.log('JOBS_FETCH_IMPL_TYPE', typeof impl);
+                  debugLog('JOBS_FETCH_IMPL_TYPE', typeof impl);
                   if (typeof impl === 'function') {
                     const alt = impl(JOBS_CACHE_KEY);
                     const resolvedAlt = alt && typeof (alt as any).then === 'function' ? await alt : alt;
-                    // eslint-disable-next-line no-console
-                    console.log('JOBS_FETCH_CACHED_FROM_IMPL', resolvedAlt);
+                    debugLog('JOBS_FETCH_CACHED_FROM_IMPL', resolvedAlt);
                     if (resolvedAlt) cached = resolvedAlt;
                   }
                 } catch (e) {
@@ -188,8 +185,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
                 if (!cached && gm && Array.isArray(gm.results) && gm.results.length > 0) {
                   const last = gm.results[gm.results.length - 1].value;
                   const resolved = last && typeof (last as any).then === 'function' ? await last : last;
-                  // eslint-disable-next-line no-console
-                  console.log('JOBS_FETCH_CACHED_FROM_MOCK_RESULTS', resolved);
+                  debugLog('JOBS_FETCH_CACHED_FROM_MOCK_RESULTS', resolved);
                   if (resolved) cached = resolved;
                 }
               } catch (e) {
@@ -199,8 +195,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 
             if (cached) {
               const parsed = JSON.parse(cached);
-              // eslint-disable-next-line no-console
-              console.log('JOBS_FETCH_CACHED_PARSED', parsed);
+              debugLog('JOBS_FETCH_CACHED_PARSED', parsed);
               setJobs(parsed);
             }
       } catch (cacheErr) {
@@ -216,16 +211,14 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     let didCancel = false;
     async function loadFromCacheFirst() {
       if (!user) return;
-      // eslint-disable-next-line no-console
-      console.log('JOBS_LOAD_FROM_CACHE_FIRST_START');
+      debugLog('JOBS_LOAD_FROM_CACHE_FIRST_START');
       try {
         // Allow tests to inject a synchronous cache to avoid timing/import-order issues
         const testCache = (typeof global !== 'undefined' && (global as any).__TEST_JOBS_CACHE__);
         if (testCache && !didCancel) {
           try {
             const parsed = typeof testCache === 'string' ? JSON.parse(testCache) : testCache;
-            // eslint-disable-next-line no-console
-            console.log('JOBS_LOAD_FROM_CACHE_FIRST_TEST_PARSED', parsed);
+            debugLog('JOBS_LOAD_FROM_CACHE_FIRST_TEST_PARSED', parsed);
             setJobs(parsed);
             // In test mode with an explicit sync cache, skip the remote fetch to avoid
             // triggering async state updates that can cause act(...) warnings.
@@ -245,8 +238,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         }
         const cached = AsyncStorageLocal && AsyncStorageLocal.getItem ? await AsyncStorageLocal.getItem(JOBS_CACHE_KEY) : undefined;
         if (cached && !didCancel) {
-          // eslint-disable-next-line no-console
-          console.log('JOBS_LOAD_CACHE_FIRST', cached);
+          debugLog('JOBS_LOAD_CACHE_FIRST', cached);
           setJobs(JSON.parse(cached));
         }
       } catch {}
@@ -254,8 +246,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       // environments to avoid React `act(...)` warnings during many unit tests).
       // Tests that need remote results should either provide `__TEST_JOBS_CACHE__`
       // or call `fetchJobs()` explicitly.
-      // eslint-disable-next-line no-console
-      console.log('JOBS_LOAD_FROM_CACHE_FIRST_FETCHING');
+      debugLog('JOBS_LOAD_FROM_CACHE_FIRST_FETCHING');
       if (!didCancel) {
         const isJest = typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID;
         if (!isJest) {
