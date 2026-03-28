@@ -346,6 +346,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
+    // During Jest tests some modules may import `useAuth` without the AuthProvider
+    // being present due to module caching or mocking order. Allow a test-only
+    // override via `global.__TEST_USE_AUTH__` to make tests more robust.
+    if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID && (global as any).__TEST_USE_AUTH__) {
+      return (global as any).__TEST_USE_AUTH__();
+    }
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;

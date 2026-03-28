@@ -39,6 +39,7 @@ export default function LeadUnlockModal({
   tradieId,
 }: LeadUnlockModalProps) {
   const _insets = useSafeAreaInsets();
+  
   const [isReporting, setIsReporting] = useState(false);
   const [reportReason, setReportReason] = useState('');
   const [isSubmittingReport, setIsSubmittingReport] = useState(false);

@@ -1,3 +1,11 @@
+const React = require('react');
+const { Text } = require('react-native');
+
+function Link({ children, onPress, ...rest }) {
+  return React.createElement(Text, { onPress, ...rest }, children);
+}
+
+module.exports = { Link };
 const mockPush = jest.fn();
 const mockReplace = jest.fn();
 

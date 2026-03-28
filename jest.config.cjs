@@ -16,6 +16,11 @@ module.exports = {
     '^@/(.*)$': '<rootDir>/$1'
   },
 
+  // Improve test isolation by resetting/clearing mocks between tests
+  clearMocks: true,
+  resetMocks: true,
+  restoreMocks: true,
+
   setupFiles: [
     '<rootDir>/jest-setup-env.js',
     '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
@@ -23,10 +28,10 @@ module.exports = {
   ],
   coverageThreshold: {
     global: {
-      statements: 15,
-      branches: 10,
-      functions: 8,
-      lines: 15
+      statements: 25,
+      branches: 20,
+      functions: 25,
+      lines: 25
     }
   },
 };

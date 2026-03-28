@@ -1,40 +1,41 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
-// Mock AsyncStorage to avoid ESM/native import issues
+// Mock AsyncStorage to avoid ESM/native import issues (ESM-compatible)
 jest.mock('@react-native-async-storage/async-storage', () => ({
-  getItem: jest.fn(async () => null),
-  setItem: jest.fn(async () => null),
-  removeItem: jest.fn(async () => null),
+  __esModule: true,
+  default: {
+    getItem: jest.fn(async () => null),
+    setItem: jest.fn(async () => null),
+    removeItem: jest.fn(async () => null),
+  },
 }));
 
 // Mock supabase to control auth responses
-jest.mock('../lib/supabase', () => {
-  return {
-    supabase: {
-      auth: {
-        signUp: jest.fn(async ({ email }: any) => ({ data: { user: { id: 'new-id', email, confirmed_at: null } }, error: null })),
-        signInWithPassword: jest.fn(async ({ email, password }: any) => {
-          if (email === 'confirmed@example.com' && password === 'password') {
-            return { data: { user: { id: 'u1', email, confirmed_at: new Date().toISOString() } }, error: null };
-          }
-          return { data: null, error: { message: 'Invalid credentials' } };
-        }),
-        signOut: jest.fn(async () => ({ error: null })),
-        // For reset password (not used in these tests) provide a no-op
-        resetPasswordForEmail: jest.fn(async () => ({ error: null })),
-      },
-      from: (table: string) => ({
-        select: (_: string) => ({
-          eq: (_k: string, _v: string) => ({
-            single: async () => ({ data: { id: 'u1', email: 'confirmed@example.com', name: 'Confirmed User' }, error: null }),
-          }),
-        }),
-        insert: async (_obj: any) => ({ data: null, error: null }),
+// Provide a test-global supabase mock used by lib/supabase
+// eslint-disable-next-line no-undef
+(global as any).__TEST_SUPABASE__ = {
+  auth: {
+    signUp: jest.fn(async ({ email }: any) => ({ data: { user: { id: 'new-id', email, confirmed_at: null } }, error: null })),
+    signInWithPassword: jest.fn(async ({ email, password }: any) => {
+      if (email === 'confirmed@example.com' && password === 'password') {
+        return { data: { user: { id: 'u1', email, confirmed_at: new Date().toISOString() } }, error: null };
+      }
+      return { data: null, error: { message: 'Invalid credentials' } };
+    }),
+    signOut: jest.fn(async () => ({ error: null })),
+    resetPasswordForEmail: jest.fn(async () => ({ error: null })),
+  },
+  from: (table: string) => ({
+    select: (_: string) => ({
+      eq: (_k: string, _v: string) => ({
+        single: async () => ({ data: { id: 'u1', email: 'confirmed@example.com', name: 'Confirmed User' }, error: null }),
       }),
-    },
-  };
-});
+    }),
+    insert: async (_obj: any) => ({ data: null, error: null }),
+  }),
+  functions: { invoke: async () => ({ data: null, error: null }) },
+};
 
 import { AuthProvider, useAuth } from '../context/AuthContext';
 

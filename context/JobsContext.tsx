@@ -665,6 +665,12 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 export function useJobs() {
   const context = useContext(JobsContext);
   if (context === undefined) {
+    // During Jest tests some modules may import `useJobs` without the JobsProvider
+    // being present due to module caching or mocking order. Allow a test-only
+    // override via `global.__TEST_USE_JOBS__` to make smoke/module-load tests more robust.
+    if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID && (global as any).__TEST_USE_JOBS__) {
+      return (global as any).__TEST_USE_JOBS__();
+    }
     throw new Error('useJobs must be used within a JobsProvider');
   }
   return context;

@@ -22,23 +22,43 @@ if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith
 // If environment variables are missing, export a lightweight mock-compatible supabase
 // object to avoid throwing during test imports. In real environments the client
 // will be created normally when env vars are present.
-export const supabase = (supabaseUrl && supabaseAnonKey)
-  ? createClient(supabaseUrl, supabaseAnonKey, {
+const _fallbackSupabase = {
+  from: () => ({
+    select: () => ({
+      order: () => Promise.resolve({ data: [], error: null }),
+      eq: () => Promise.resolve({ data: [], error: null }),
+      in: () => Promise.resolve({ data: [], error: null }),
+      single: () => Promise.resolve({ data: null, error: null }),
+    }),
+    update: () => Promise.resolve({ data: [], error: null }),
+    insert: () => Promise.resolve({ data: [], error: null }),
+  }),
+  functions: { invoke: async () => ({ data: null, error: null }) },
+} as any;
+
+// Prefer a test-provided supabase mock when available (set via global.__TEST_SUPABASE__ in jest setup)
+export const supabase = ((): any => {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const g: any = typeof global !== 'undefined' ? (global as any) : (globalThis as any);
+    if (g && g.__TEST_SUPABASE__) return g.__TEST_SUPABASE__;
+  } catch (e) {
+    // ignore
+  }
+
+  if (supabaseUrl && supabaseAnonKey) {
+    return createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
         storage: AsyncStorage,
         autoRefreshToken: true,
         persistSession: true,
         detectSessionInUrl: false,
       },
-    })
-  : {
-      from: () => ({
-        select: () => ({ order: () => Promise.resolve({ data: [], error: null }), eq: () => Promise.resolve({ data: [], error: null }), in: () => Promise.resolve({ data: [], error: null }), single: () => Promise.resolve({ data: null, error: null }) }),
-        update: () => Promise.resolve({ data: [], error: null }),
-        insert: () => Promise.resolve({ data: [], error: null }),
-      }),
-      functions: { invoke: async () => ({ data: null, error: null }) },
-    } as any;
+    });
+  }
+
+  return _fallbackSupabase;
+})();
 
 export type UserRole = 'customer' | 'tradesperson' | 'admin';
 export type SubscriptionPlan = 'payg' | 'pro';
