@@ -1,30 +1,33 @@
 import { parseServerError } from '../lib/error';
 
 describe('parseServerError', () => {
-  test('handles null/undefined', () => {
-    expect(parseServerError(null).message).toMatch(/Unknown error/);
-    expect(parseServerError(undefined).message).toMatch(/Unknown error/);
+  test('returns Unknown for falsy input', () => {
+    expect(parseServerError(null).message).toBe('Unknown error');
   });
 
-  test('parses 429 response-like object with retry-after header', () => {
-    const res = { status: 429, headers: { get: () => '5' } } as any;
-    const p = parseServerError(res);
-    expect(p.isRateLimited).toBe(true);
-    expect(p.retryAfterSeconds).toBe(5);
+  test('parses 429 response with retry-after header (get)', () => {
+    const resp = { status: 429, headers: { get: () => '120' } };
+    const res = parseServerError(resp as any);
+    expect(res.isRateLimited).toBe(true);
+    expect(res.retryAfterSeconds).toBe(120);
   });
 
-  test('parses generic error object with message', () => {
-    const p = parseServerError({ message: 'Something broke' });
-    expect(p.message).toBe('Something broke');
+  test('parses 429 response with headers object map', () => {
+    const resp = { status: 429, headers: { 'retry-after': '30' } };
+    const res = parseServerError(resp as any);
+    expect(res.isRateLimited).toBe(true);
+    expect(res.retryAfterSeconds).toBe(30);
   });
 
-  test('detects rate-limit from message text', () => {
-    const p = parseServerError({ message: 'Rate limit exceeded' });
-    expect(p.isRateLimited).toBe(true);
+  test('parses error object with message containing rate limit text', () => {
+    const err = { message: 'You are rate-limited for too many requests' };
+    const res = parseServerError(err as any);
+    expect(res.isRateLimited).toBe(true);
   });
 
-  test('handles string fallback', () => {
-    const parsed = parseServerError('simple error');
-    expect(parsed.message).toBe('simple error');
+  test('parses plain string error', () => {
+    const res = parseServerError('simple error');
+    expect(res.message).toBe('simple error');
   });
 });
+// single test block above

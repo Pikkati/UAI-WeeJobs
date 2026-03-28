@@ -26,10 +26,10 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const normalizeUserRole = (role: User['role'] | 'tradie') =>
+export const normalizeUserRole = (role: User['role'] | 'tradie') =>
   role === 'tradie' ? 'tradesperson' : role;
 
-const buildNormalizedUser = (data: Partial<User> & { role?: User['role'] | 'tradie' }): User => {
+export const buildNormalizedUser = (data: Partial<User> & { role?: User['role'] | 'tradie' }): User => {
   const role = normalizeUserRole(data.role ?? 'customer');
   return {
     id: data.id ?? '',
@@ -335,6 +335,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logout,
         setHasSeenOnboarding,
         refreshUser,
+        resendVerification,
       }}
     >
       {children}
