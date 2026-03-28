@@ -1,5 +1,0 @@
-0000000000000000000000000000000000000000 41b52cba4726f6841f6bd904431ccaf9a02e46d9 uai-bot <uai-bot@example.com> 1774574486 -0700	branch: Created from HEAD
-41b52cba4726f6841f6bd904431ccaf9a02e46d9 bf0d434658fc315470b6243459c0bffd08ce1deb uai-bot <uai-bot@example.com> 1774574486 -0700	commit: chore(ci): avoid RN jest setup redefinition of window in CI; add preload shim, wrapper and postinstall redirect
-bf0d434658fc315470b6243459c0bffd08ce1deb 55f643e730829c76f69bde0a1dd73647f84d5a5a uai-bot <uai-bot@example.com> 1774628418 -0700	commit: ci: add Dockerfile, CI workflow, preset wrapper, env test; harden jest env
-55f643e730829c76f69bde0a1dd73647f84d5a5a 44dbd1bbe66bc28b12d7a01503c80e1d227cc59a uai-bot <uai-bot@example.com> 1774629643 -0700	commit: docs: add local Docker CI instructions; update CI workflow with retry and coverage
-44dbd1bbe66bc28b12d7a01503c80e1d227cc59a 094f88784d850b850037df49c6283aca09922fb2 uai-bot <uai-bot@example.com> 1774630230 -0700	commit: chore(ci): audit upgrade plan; add husky + lint-staged config

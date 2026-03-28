@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="InstallDebugAndRun" type="GradleRunConfiguration" factoryName="Gradle">
+    <option name="externalProjectPath" value="$PROJECT_DIR$" />
+    <option name="taskNames" value="installDebugAndRun" />
+    <option name="scriptParameters" value="" />
+    <option name="vmOptions" value="" />
+    <option name="useGradleWrapper" value="true" />
+    <option name="passParentEnvs" value="true" />
+    <method v="2" />
+  </configuration>
+</component>

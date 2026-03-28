@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
+import { useAuth } from '../../context/AuthContext';
+import { View, Text, StyleSheet, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -24,6 +25,7 @@ const ROLE_ICONS = {
 };
 
 export default function AdminUsersScreen() {
+  const { user: adminUser } = useAuth();
   const insets = useSafeAreaInsets();
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,9 +57,42 @@ export default function AdminUsersScreen() {
     fetchUsers();
   };
 
+  const [promotingId, setPromotingId] = useState<string | null>(null);
+  const [promoteError, setPromoteError] = useState<string | null>(null);
+
+  const promoteToAdmin = async (targetUser: User) => {
+    if (!adminUser) return;
+    setPromotingId(targetUser.id);
+    setPromoteError(null);
+    try {
+      // Update user role
+      const { error: updateError } = await supabase
+        .from('users')
+        .update({ role: 'admin' })
+        .eq('id', targetUser.id);
+      if (updateError) throw updateError;
+
+      // Log to audit_logs
+      await supabase.from('audit_logs').insert({
+        admin_id: adminUser.id,
+        action: 'promote_to_admin',
+        target_id: targetUser.id,
+        target_table: 'users',
+        details: { email: targetUser.email, name: targetUser.name },
+      });
+
+      // Refresh users list
+      fetchUsers();
+    } catch (err: any) {
+      setPromoteError('Failed to promote user: ' + (err.message || err));
+    } finally {
+      setPromotingId(null);
+    }
+  };
+
   const renderUser = ({ item }: { item: User }) => (
     <View style={styles.userCard}>
-      <View style={[styles.avatar, { borderColor: ROLE_COLORS[item.role] }]}>
+      <View style={[styles.avatar, { borderColor: ROLE_COLORS[item.role] }]}> 
         <Ionicons
           name={ROLE_ICONS[item.role] as any}
           size={24}
@@ -68,13 +103,24 @@ export default function AdminUsersScreen() {
         <Text style={styles.userName}>{item.name}</Text>
         <Text style={styles.userEmail}>{item.email}</Text>
         <View style={styles.userMeta}>
-          <View style={[styles.roleBadge, { backgroundColor: ROLE_COLORS[item.role] }]}>
+          <View style={[styles.roleBadge, { backgroundColor: ROLE_COLORS[item.role] }]}> 
             <Text style={styles.roleText}>{ROLE_LABELS[item.role]}</Text>
           </View>
           {item.area && (
             <Text style={styles.areaText}>{item.area}</Text>
           )}
         </View>
+        {item.role !== 'admin' && (
+          <TouchableOpacity
+            style={styles.promoteButton}
+            onPress={() => promoteToAdmin(item)}
+            disabled={promotingId === item.id}
+          >
+            <Text style={styles.promoteButtonText}>
+              {promotingId === item.id ? 'Promoting...' : 'Promote to Admin'}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );
@@ -88,10 +134,12 @@ export default function AdminUsersScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
+    <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}> 
       <Text style={styles.title}>Users</Text>
       <Text style={styles.subtitle}>{users.length} registered users</Text>
-
+      {promoteError && (
+        <Text style={{ color: Colors.error, marginBottom: 8 }}>{promoteError}</Text>
+      )}
       <FlatList
         data={users}
         renderItem={renderUser}
@@ -117,6 +165,19 @@ export default function AdminUsersScreen() {
 }
 
 const styles = StyleSheet.create({
+  promoteButton: {
+    marginTop: 8,
+    backgroundColor: Colors.error,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    borderRadius: BorderRadius.full,
+    alignSelf: 'flex-start',
+  },
+  promoteButtonText: {
+    color: Colors.white,
+    fontWeight: '600',
+    fontSize: 14,
+  },
   container: {
     flex: 1,
     backgroundColor: Colors.background,
