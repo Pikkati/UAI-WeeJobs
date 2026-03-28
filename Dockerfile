@@ -8,4 +8,4 @@ RUN npm ci --legacy-peer-deps --no-audit --no-fund
 
 COPY . .
 
-CMD ["/bin/bash", "-lc", "npx tsc --noEmit && npm test -- --ci --runInBand"]
+CMD ["/bin/bash", "-lc", "npx tsc --noEmit && npm run test:ci"]
