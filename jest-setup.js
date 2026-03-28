@@ -51,6 +51,98 @@ try {
         refreshUser: async () => {},
       });
     }
+    if (!global.__TEST_USE_JOBS__) {
+      global.__TEST_USE_JOBS__ = () => ({
+        jobs: [],
+        interests: [],
+        loading: false,
+        fetchJobs: async () => {},
+        fetchInterests: async () => [],
+        expressInterest: async () => false,
+        closeApplications: async () => false,
+        selectTradesman: async () => false,
+        payDeposit: async () => ({ paymentIntent: '', ephemeralKey: '', customer: '', merchantDisplayName: '' }),
+        markOnTheWay: async () => false,
+        markArrived: async () => false,
+        sendEstimate: async () => false,
+        acknowledgeEstimate: async () => false,
+        sendQuote: async () => false,
+        approveQuote: async () => false,
+        sendInvoice: async () => false,
+        payInvoice: async () => ({ ok: false, id: '' }),
+        payFinalBalance: async () => ({ ok: false, id: '' }),
+        confirmCompletion: async () => false,
+        cancelJob: async () => false,
+        getNextActionsByRole: () => [],
+        calculateDeposit: () => 20,
+        refreshJobs: () => {},
+      });
+    }
+    // Provide a minimal, safe __TEST_SUPABASE__ so modules that import the
+    // supabase client during module evaluation see a stable object. Tests may
+    // overwrite this per-file with richer behavior; having this default avoids
+    // hoisting/import-order races.
+    // Create an internal container and expose it as `global.__TEST_SUPABASE__`.
+    // Tests often reassign `global.__TEST_SUPABASE__` at module scope which can
+    // happen after imports (due to hoisting). To avoid identity/race issues we
+    // expose a stable object and copy assigned values into it when tests
+    // reassign, so modules that captured the original object see updates.
+    if (typeof Object.getOwnPropertyDescriptor(global, '__TEST_SUPABASE__') === 'undefined') {
+      const createChain = (singleResult = false) => {
+        const promiseValue = singleResult ? { data: null, error: null } : { data: [], error: null };
+        const q = {
+          select: (..._args) => q,
+          order: (..._args) => q,
+          eq: (..._args) => q,
+          neq: (..._args) => q,
+          in: (..._args) => q,
+          update: (..._args) => q,
+          insert: (..._args) => q,
+          single: async () => ({ data: null, error: null }),
+          then: (onFulfilled, onRejected) => Promise.resolve(promiseValue).then(onFulfilled, onRejected),
+          catch: (onRejected) => Promise.resolve(promiseValue).catch(onRejected),
+        };
+        return q;
+      };
+
+      const __TEST_SUPABASE_INTERNAL = {
+        auth: {
+          signUp: async (_opts) => ({ data: { user: null }, error: null }),
+          signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
+          signOut: async () => ({ error: null }),
+          resetPasswordForEmail: async () => ({ error: null }),
+        },
+        from: (_table) => createChain(false),
+        functions: { invoke: async () => ({ data: null, error: null }) },
+      };
+
+      Object.defineProperty(global, '__TEST_SUPABASE__', {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return __TEST_SUPABASE_INTERNAL;
+        },
+        set(val) {
+          if (val && typeof val === 'object') {
+            // Remove existing keys and copy new ones so identity stays stable
+            Object.keys(__TEST_SUPABASE_INTERNAL).forEach((k) => delete __TEST_SUPABASE_INTERNAL[k]);
+            Object.assign(__TEST_SUPABASE_INTERNAL, val);
+          } else {
+            // Non-object assignment: replace the internal reference
+            // (rare in tests) — define directly for simplicity.
+            Object.defineProperty(global, '__TEST_SUPABASE__', {
+              configurable: true,
+              enumerable: true,
+              writable: true,
+              value: val,
+            });
+          }
+        },
+      });
+    }
+    // Tests may override `global.__TEST_JOBS_CACHE__` to provide a synchronous
+    // cache for JobsProvider. Do not set a default here to avoid surprising
+    // other tests that expect an empty cache.
   }
 } catch (err) {
   // ignore test fallback setup errors

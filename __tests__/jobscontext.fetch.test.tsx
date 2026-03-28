@@ -15,17 +15,9 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   },
 }), { virtual: true });
 
-// Mock supabase to simulate a network error when fetching jobs (ESM-compatible)
-jest.mock('../lib/supabase', () => ({
-  __esModule: true,
-  supabase: {
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        order: jest.fn(async () => ({ data: null, error: new Error('network') })),
-      })),
-    })),
-  },
-}), { virtual: true });
+// Note: tests provide a `global.__TEST_SUPABASE__` override below so we avoid
+// mocking the module shape here. The runtime `lib/supabase` module prefers the
+// global override which produces a stable, chainable test supabase instance.
 // Ensure AuthContext returns the test user
 jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' } }) }), { virtual: true });
 
