@@ -5,6 +5,9 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(@?expo|expo-modules-core|react-native|@react-native|@unimodules|@react-navigation|@supabase)/)'
   ],
+  // Use Jest's default resolver to avoid react-native's custom resolver
+  // which can break moduleNameMapper mappings on some platforms (Windows).
+  resolver: require.resolve('jest-resolve/build/defaultResolver'),
   moduleNameMapper: {
     '^expo$': '<rootDir>/__mocks__/expo-shim.js',
     '^expo(/.*)?$': '<rootDir>/__mocks__/expo-shim.js',
