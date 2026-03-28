@@ -141,6 +141,20 @@ These badges reflect the latest run status for the named workflows. If a badge i
 
 If you want, I can: install missing typings for `expo-image`, fix the remaining lint warnings, and open a PR with these documentation changes.
 
+### Running tests and CI locally
+
+To reproduce the GitHub Actions CI job locally and run the tests with coverage use the following steps. The CI installs with `--legacy-peer-deps` to accommodate some Expo canary peer-dependencies.
+
+```bash
+# install deps (mirror CI)
+npm ci --legacy-peer-deps --no-audit --no-fund
+
+# run the same scripted CI test job (produces coverage/ folder)
+npm run test:ci
+```
+
+The repository's CI workflow then uploads the `coverage` directory as an artifact and sends coverage to Codecov using `codecov/codecov-action@v4` (see `.github/workflows/ci-tests.yml`). If your repo is private, set the `CODECOV_TOKEN` secret in GitHub repository settings before relying on Codecov uploads.
+
 ## Running CI tests locally (Docker)
 
 You can reproduce CI test runs locally using Docker. From the project root:

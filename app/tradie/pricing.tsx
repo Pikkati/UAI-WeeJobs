@@ -11,7 +11,6 @@ export default function PricingHomeScreen() {
   const router = useRouter();
 
   const handleSelectPAYG = () => {
-    console.log("PAYG selected");
     Alert.alert(
       'Pay As You Go Selected',
       "You'll pay £2-5 to unlock each job, plus 10% on completion. Perfect for getting started!",
@@ -20,7 +19,6 @@ export default function PricingHomeScreen() {
   };
 
   const handleSelectPRO = () => {
-    console.log("PRO subscription selected");
     Alert.alert(
       'PRO Subscription',
       "£49/month gets you unlimited job unlocks, lower fees, and the Verified Pro badge. Coming soon!",
