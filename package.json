@@ -6,7 +6,10 @@
     "assets:check-rtl": "node scripts/check-rtl-assets.js",
     "optimize:assets": "node scripts/optimize-assets.js",
     "smoke": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js '.*smoke.*' --runInBand -i",
-    "test:ci": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js --coverage --runInBand -i"
+    "test:ci": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js --coverage --runInBand -i",
+    "type": "tsc --noEmit",
+    "lint": "eslint . --cache",
+    "test:q": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js -i"
   },
   "assetsScripts": {
     "pngSprite": "node scripts/png-sprite.js",
@@ -35,9 +38,16 @@
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.14",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
     "babel-preset-expo": "^55.0.13",
-    "eslint": "^10.1.0",
+    "eslint": "^8.0.0",
     "eslint-config-expo": "~55.0.0",
+    "eslint-import-resolver-typescript": "^4.4.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "30.3.0",
@@ -47,7 +57,7 @@
     "semantic-release": "^25.0.3",
     "sharp": "^0.32.1",
     "svgo": "^3.1.0",
-    "typescript": "~6.0.2"
+    "typescript": "^5.0.0"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx,jsx}": [

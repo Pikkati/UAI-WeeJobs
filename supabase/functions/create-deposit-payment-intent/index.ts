@@ -13,16 +13,17 @@ try {
       Sentry.init({ dsn, environment: Deno.env.get("DEPLOYMENT_ENV") || "development" });
       console.log("Sentry initialized for Edge Function");
     } catch (e) {
-      console.warn("Sentry init failed:", e?.message || e);
+      console.warn("Sentry init failed:", (e as any)?.message || e);
       Sentry = null;
     }
   } else {
     Sentry = null;
   }
-} catch (e) {
-  // Import failed or not available in this runtime; continue without Sentry
-  Sentry = null;
-}
+    } catch (e) {
+      // Import failed or not available in this runtime; continue without Sentry
+      console.warn("Sentry init failed:", (e as any)?.message || e);
+      Sentry = null;
+    }
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { rateLimit } from "https://deno.land/x/oak_rate_limit@0.1.0/mod.ts";
 // Deno runtime globals are used in this file; declare for TypeScript compile-time
@@ -184,7 +185,7 @@ serve(async (req) => {
         }
       }
     } catch (e) {
-      console.warn('Sentry capture failed', e?.message || e);
+      console.warn('Sentry capture failed', (e as any)?.message || e);
     }
 
     return new Response(
