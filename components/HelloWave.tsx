@@ -25,7 +25,7 @@ export function HelloWave() {
   }));
 
   return (
-    <Animated.View style={animatedStyle}>
+    <Animated.View style={animatedStyle} accessible accessibilityLabel="Waving hand emoji">
       <ThemedText style={styles.text}>👋</ThemedText>
     </Animated.View>
   );

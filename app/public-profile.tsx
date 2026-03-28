@@ -98,11 +98,11 @@ function StarDisplay({ rating, size = 14 }: { rating: number; size?: number }) {
   );
 }
 
-function formatDate(dateStr: string) {
+export function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }
 
-function formatMemberSince(dateStr: string) {
+export function formatMemberSince(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
 }
 

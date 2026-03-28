@@ -1,0 +1,32 @@
+name: Image optimization
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install optimizer deps
+        run: npm ci --legacy-peer-deps --no-audit --no-fund || npm install --no-audit --no-fund svgo imagemin imagemin-mozjpeg imagemin-pngquant
+      - name: Run optimizer
+        run: node scripts/optimize-assets.js
+      - name: Commit optimized assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets || true
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: optimize assets (ci)" || true
+            git push origin HEAD:$GITHUB_REF
+          else
+            echo "No changes"
+          fi

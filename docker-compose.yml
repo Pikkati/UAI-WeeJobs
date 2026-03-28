@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    command: sh -c "npm install --legacy-peer-deps --no-audit --no-fund && npx expo start --tunnel"
+    ports:
+      - "19000:19000"
+      - "19001:19001"
+    environment:
+      - EXPO_PUBLIC_SUPABASE_URL=http://db:5432
+      - EXPO_PUBLIC_SUPABASE_ANON_KEY=local-anon-key
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: weejobs_dev
+      POSTGRES_USER: weejobs
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

@@ -101,13 +101,22 @@ export default function ChatScreen() {
         read: false,
       });
 
-      if (error) throw error;
-      
+      if (error) {
+        // Enhanced error handling: log, send to Sentry if available
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(error);
+        console.error('Error sending message:', error);
+        throw error;
+      }
+
       await fetchMessages();
       setTimeout(() => {
         flatListRef.current?.scrollToEnd({ animated: true });
       }, 100);
     } catch (error) {
+      // Enhanced error handling: log, send to Sentry if available
+      const sentry = require('../../lib/sentry');
+      sentry.captureException?.(error);
       console.error('Error sending message:', error);
       setNewMessage(messageContent);
     } finally {
