@@ -15,6 +15,9 @@ This project includes a scaffold for Stripe payment integration and webhook hand
 4. Implement event handlers in `scripts/stripe-webhook.js` for events like `payment_intent.succeeded`.
 
 See `docs/STRIPE.md` for more details and security notes.
+ 
+<!-- Codecov badge -->
+[![codecov](https://codecov.io/gh/Pikkati/UAI-WeeJobs/branch/UAI-Development/graph/badge.svg)](https://codecov.io/gh/Pikkati/UAI-WeeJobs)
 # Welcome to your Expo app 👋
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
