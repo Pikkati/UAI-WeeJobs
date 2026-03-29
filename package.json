@@ -32,6 +32,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^3.0.2",
     "@supabase/supabase-js": "^2.100.1",
+    "eslint-plugin-react": "7.33.2",
     "expo": "^55.0.9",
     "expo-image-picker": "^55.0.15-canary-20260327-0789fbc",
     "expo-router": "^55.0.9-canary-20260327-0789fbc",
@@ -65,7 +66,7 @@
     "husky": "^9.1.7",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "30.3.0",
-    "jest-expo": "^47.0.1",
+    "jest-expo": "^55.0.11",
     "lint-staged": "^16.4.0",
     "react-test-renderer": "19.2.4",
     "semantic-release": "^25.0.3",

@@ -41,3 +41,26 @@ Notes:
 - Only repo admins can add secrets.
 - Do not commit secret values to the repo.
 - Once added, rerun the CI workflow or push a trivial commit to trigger it.
+
+## Troubleshooting & verification
+
+If a workflow appears to fail due to a missing secret, verify the secret is present in the repository settings (Settings → Secrets and variables → Actions).
+
+You can also add a short, temporary workflow step to assert a secret is available (the value will be masked in workflow logs). Example:
+
+```yaml
+- name: Verify secrets present
+	run: |
+		if [ -z "$EXPO_PUBLIC_SUPABASE_URL" ]; then
+			echo "MISSING: EXPO_PUBLIC_SUPABASE_URL"
+			exit 1
+		else
+			echo "OK: EXPO_PUBLIC_SUPABASE_URL present"
+		fi
+	env:
+		EXPO_PUBLIC_SUPABASE_URL: ${{ secrets.EXPO_PUBLIC_SUPABASE_URL }}
+```
+
+If a secret is missing in CI but present in the repo settings, confirm whether the workflow runs on a fork or from a contributor branch — repository secrets are not available to workflows triggered from forked repositories for security reasons.
+
+For organization-managed repositories, consider using organization-level secrets or environments with protection rules.
