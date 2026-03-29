@@ -7,6 +7,43 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useJobs } from '../../context/JobsContext';
 import { useAuth } from '../../context/AuthContext';
 import JobStatusTimeline from '../../components/JobStatusTimeline';
+import { JobStatus } from '../../lib/supabase';
+
+export function getStatusDescription(status: JobStatus): string {
+  switch (status) {
+    case 'booked':
+      return 'Job booked - waiting for tradesperson';
+    case 'on_the_way':
+      return 'Tradesperson is on the way';
+    case 'in_progress':
+      return 'Work in progress';
+    case 'awaiting_quote_approval':
+      return 'Quote sent - awaiting approval';
+    case 'awaiting_final_payment':
+      return 'Quote approved - awaiting payment';
+    case 'paid':
+      return 'Payment received';
+    case 'awaiting_confirmation':
+      return 'Waiting for completion confirmation';
+    case 'completed':
+      return 'Job completed!';
+    case 'cancelled_by_customer':
+      return 'Cancelled by customer';
+    case 'cancelled_by_tradie':
+      return 'Cancelled by tradesperson';
+    default:
+      return '';
+  }
+}
+
+export function getCancelRefundMessage(status: JobStatus, deposit_amount?: number) {
+  const depositText = deposit_amount ? `£${deposit_amount.toFixed(2)} deposit` : 'your deposit';
+  const refundMessage =
+    status === 'booked'
+      ? `You will receive a full refund of your ${depositText}.`
+      : `As the tradesperson is already on their way, your ${depositText} is non-refundable.`;
+  return { depositText, refundMessage };
+}
 
 
 export default function JobTrackingScreen() {
@@ -112,12 +149,7 @@ export default function JobTrackingScreen() {
         break;
       case 'cancel_job':
         if (isCustomer) {
-          const depositText = job.deposit_amount
-            ? `£${job.deposit_amount.toFixed(2)} deposit`
-            : 'your deposit';
-          const refundMessage = job.status === 'booked'
-            ? `You will receive a full refund of your ${depositText}.`
-            : `As the tradesperson is already on their way, your ${depositText} is non-refundable.`;
+          const { depositText, refundMessage } = getCancelRefundMessage(job.status, job.deposit_amount);
           Alert.alert(
             'Cancel Job',
             `Are you sure you want to cancel this job?\n\n${refundMessage}`,

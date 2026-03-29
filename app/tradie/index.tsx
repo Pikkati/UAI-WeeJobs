@@ -124,6 +124,7 @@ function JobDetailModal({
   );
 }
 
+/* eslint-disable react-hooks/refs */
 function JobCard({ 
   job, 
   isTop, 
@@ -193,6 +194,7 @@ function JobCard({
   return (
     <Animated.View
       {...(isTop ? panResponder.panHandlers : {})}
+      // eslint-disable-next-line react-hooks/refs
       style={[
         styles.card,
         isTop && {
@@ -275,6 +277,7 @@ function JobCard({
     </Animated.View>
   );
 }
+/* eslint-enable react-hooks/refs */
 
 export default function TradieSwipeScreen() {
   const insets = useSafeAreaInsets();

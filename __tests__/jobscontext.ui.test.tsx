@@ -1,6 +1,9 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
+import { JobsProvider, useJobs } from '../context/JobsContext';
+import { Text, View } from 'react-native';
+
 // Provide a user so JobsProvider will attempt to fetch; mock supabase to return empty lists
 jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1', role: 'customer' } }) }));
 
@@ -19,9 +22,6 @@ jest.mock('../lib/supabase', () => {
     PricingType: undefined,
   };
 }, { virtual: true });
-
-import { JobsProvider, useJobs } from '../context/JobsContext';
-import { Text, View } from 'react-native';
 
 function DebugConsumer() {
   const ctx = useJobs();

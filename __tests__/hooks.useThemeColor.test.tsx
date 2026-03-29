@@ -1,11 +1,11 @@
 import { Colors } from '../constants/Colors';
 
-jest.mock('../hooks/useColorScheme', () => ({ useColorScheme: () => 'dark' }));
-
 import { useThemeColor } from '../hooks/useThemeColor';
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { Text } from 'react-native';
+
+jest.mock('../hooks/useColorScheme', () => ({ useColorScheme: () => 'dark' }));
 
 function TestDisplay({ props, name }: { props: any; name: keyof typeof Colors.light & keyof typeof Colors.dark }) {
   const color = useThemeColor(props, name as any);

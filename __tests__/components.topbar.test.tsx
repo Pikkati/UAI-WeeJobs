@@ -1,6 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+import TopBar, { TOP_BAR_HEIGHT } from '../components/TopBar';
+import VerifiedProBadge from '../components/VerifiedProBadge';
+
 // Mock safe area insets
 jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
@@ -15,9 +18,6 @@ jest.mock('expo-router', () => ({
 jest.mock('../context/AuthContext', () => ({
   useAuth: () => ({ user: { id: 'u1', role: 'customer' } }),
 }));
-
-import TopBar, { TOP_BAR_HEIGHT } from '../components/TopBar';
-import VerifiedProBadge from '../components/VerifiedProBadge';
 
 describe('TopBar', () => {
   test('renders and contains accessibility labels', () => {

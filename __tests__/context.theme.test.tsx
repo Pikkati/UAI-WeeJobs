@@ -4,6 +4,8 @@ import { ThemeProvider, useTheme } from '../context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Colors } from '../constants/theme';
 
+import { Text } from 'react-native';
+
 jest.mock('@react-native-async-storage/async-storage', () => ({
   getItem: jest.fn(),
   setItem: jest.fn(),
@@ -22,8 +24,6 @@ function TestConsumer() {
     </>
   );
 }
-
-import { Text } from 'react-native';
 
 describe('ThemeProvider/useTheme', () => {
   beforeEach(() => {

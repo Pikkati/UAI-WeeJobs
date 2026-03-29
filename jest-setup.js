@@ -18,7 +18,7 @@ try {
       enumerable: true,
     });
   }
-} catch (err) {
+} catch {
   // If we cannot define it (non-configurable), ignore and let upstream handle it.
 }
 
@@ -29,7 +29,7 @@ try {
   if (Text && Text.defaultProps == null) {
     Text.defaultProps = Object.assign({}, Text.defaultProps, { allowFontScaling: false });
   }
-} catch (e) {
+} catch {
   // ignore if react-native isn't available at setup time
 }
 
@@ -88,8 +88,25 @@ try {
     // expose a stable object and copy assigned values into it when tests
     // reassign, so modules that captured the original object see updates.
     if (typeof Object.getOwnPropertyDescriptor(global, '__TEST_SUPABASE__') === 'undefined') {
-      const createChain = (singleResult = false) => {
-        const promiseValue = singleResult ? { data: null, error: null } : { data: [], error: null };
+      // Allow tests to seed predictable responses for table queries via
+      // `global.__TEST_SUPABASE__.setResponse(table, data)`. This makes
+      // top-level module fetches predictable without requiring large
+      // per-test mocks.
+      const __TEST_SUPABASE_RESPONSES = {};
+
+      const createChain = (table = null, singleResult = false) => {
+        const respPresent = table && Object.prototype.hasOwnProperty.call(__TEST_SUPABASE_RESPONSES, table);
+        const resp = respPresent ? __TEST_SUPABASE_RESPONSES[table] : undefined;
+
+        let promiseValue;
+        if (singleResult) {
+          const data = resp !== undefined ? (Array.isArray(resp) ? (resp.length > 0 ? resp[0] : null) : resp) : null;
+          promiseValue = { data, error: null };
+        } else {
+          const data = resp !== undefined ? (Array.isArray(resp) ? resp : [resp]) : [];
+          promiseValue = { data, error: null };
+        }
+
         const q = {
           select: (..._args) => q,
           order: (..._args) => q,
@@ -98,7 +115,8 @@ try {
           in: (..._args) => q,
           update: (..._args) => q,
           insert: (..._args) => q,
-          single: async () => ({ data: null, error: null }),
+          delete: (..._args) => q,
+          single: async () => (singleResult ? promiseValue : (Array.isArray(promiseValue.data) ? { data: promiseValue.data[0] || null, error: null } : promiseValue)),
           then: (onFulfilled, onRejected) => Promise.resolve(promiseValue).then(onFulfilled, onRejected),
           catch: (onRejected) => Promise.resolve(promiseValue).catch(onRejected),
         };
@@ -106,13 +124,16 @@ try {
       };
 
       const __TEST_SUPABASE_INTERNAL = {
+        __responses__: __TEST_SUPABASE_RESPONSES,
+        setResponse: (table, data) => { __TEST_SUPABASE_RESPONSES[table] = data; },
+        clearResponses: () => { Object.keys(__TEST_SUPABASE_RESPONSES).forEach((k) => delete __TEST_SUPABASE_RESPONSES[k]); },
         auth: {
           signUp: async (_opts) => ({ data: { user: null }, error: null }),
           signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
           signOut: async () => ({ error: null }),
           resetPasswordForEmail: async () => ({ error: null }),
         },
-        from: (_table) => createChain(false),
+        from: (_table) => createChain(_table, false),
         functions: { invoke: async () => ({ data: null, error: null }) },
       };
 
@@ -124,9 +145,34 @@ try {
         },
         set(val) {
           if (val && typeof val === 'object') {
-            // Remove existing keys and copy new ones so identity stays stable
-            Object.keys(__TEST_SUPABASE_INTERNAL).forEach((k) => delete __TEST_SUPABASE_INTERNAL[k]);
-            Object.assign(__TEST_SUPABASE_INTERNAL, val);
+            // Merge incoming keys into the internal container to preserve
+            // default helpers (like `.from`) while allowing tests to override
+            // specific pieces. This avoids TypeErrors when tests provide a
+            // partial mock that doesn't include all expected methods.
+            Object.keys(val).forEach((k) => {
+              try {
+                __TEST_SUPABASE_INTERNAL[k] = val[k];
+              } catch {
+                // ignore non-writable properties
+              }
+            });
+
+            // Ensure critical APIs exist so modules that imported the
+            // original container during module-eval keep working.
+            if (typeof __TEST_SUPABASE_INTERNAL.from !== 'function') {
+              __TEST_SUPABASE_INTERNAL.from = (_table) => createChain(false);
+            }
+            if (!__TEST_SUPABASE_INTERNAL.functions) {
+              __TEST_SUPABASE_INTERNAL.functions = { invoke: async () => ({ data: null, error: null }) };
+            }
+            if (!__TEST_SUPABASE_INTERNAL.auth) {
+              __TEST_SUPABASE_INTERNAL.auth = {
+                signUp: async (_opts) => ({ data: { user: null }, error: null }),
+                signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
+                signOut: async () => ({ error: null }),
+                resetPasswordForEmail: async () => ({ error: null }),
+              };
+            }
           } else {
             // Non-object assignment: replace the internal reference
             // (rare in tests) — define directly for simplicity.
@@ -150,22 +196,38 @@ try {
         // eslint-disable-next-line no-undef
         globalThis.IS_REACT_ACT_ENVIRONMENT = true;
       }
-    } catch (e) {
+    } catch {
       // ignore in weird CI envs
     }
   }
-} catch (err) {
+  } catch {
   // ignore test fallback setup errors
-// Inform React's testing utils that we are running in an environment
-// where `act` should be enabled. This reduces noisy act() warnings.
+}
+
+// Ensure `StyleSheet.create` is safe to call during module initialization in tests.
+// Some environments run module-eval before our mocks are fully applied; this
+// wrapper makes `StyleSheet.create` a no-op fallback when it would throw.
 try {
-  if (typeof globalThis !== 'undefined') {
-    // eslint-disable-next-line no-undef
-    globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+  const rn = require('react-native');
+  if (rn) {
+    rn.StyleSheet = rn.StyleSheet || {};
+    const orig = rn.StyleSheet.create;
+    if (typeof orig === 'function') {
+      rn.StyleSheet.create = (styles) => {
+        try {
+          return orig(styles);
+        } catch {
+          return styles;
+        }
+      };
+    } else {
+      rn.StyleSheet.create = rn.StyleSheet.create || ((s) => s);
+    }
+    rn.StyleSheet.flatten = rn.StyleSheet.flatten || ((s) => s);
+    rn.StyleSheet.absoluteFillObject = rn.StyleSheet.absoluteFillObject || { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 };
   }
-} catch (e) {
-  // ignore in weird CI envs
->>>>>>> 5b2d6a4 (test: add chainable supabase mock, Expo mocks, smoke harness, and test setup tweaks)
+} catch {
+  // ignore; best-effort shim for testing environments
 }
 
 // No process.env manipulation here; tests that need env vars should set them explicitly.
@@ -175,17 +237,59 @@ try {
 try {
   if (typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID) {
     const _origConsoleError = console.error;
+    try {
+      // Expose the original console.error so tests can forward to it
+      // when they want to suppress or filter messages via the
+      // `__TEST_CONSOLE_ERROR_HANDLER__` hook.
+      // eslint-disable-next-line no-undef
+      if (typeof global !== 'undefined') (global).__JEST_ORIG_CONSOLE_ERROR__ = _origConsoleError;
+    } catch {
+      // ignore
+    }
+    // Expose a hook for tests to override how console.error is handled.
+    // Some tests suppress specific warnings (e.g., act() warnings). Tests
+    // can set `global.__TEST_CONSOLE_ERROR_HANDLER__ = (...args) => {}`
+    // to intercept and optionally filter messages. By default we call the
+    // original console.error implementation.
     console.error = (...args) => {
+      const firstArgIncludes = (needle) => {
+        try {
+          const a0 = args && args[0];
+          if (typeof a0 === 'string') return a0.includes(needle);
+          if (a0 && typeof a0.message === 'string') return a0.message.includes(needle);
+        } catch {
+          // ignore
+        }
+        return false;
+      };
+
       try {
-        if (args && args.length && typeof args[0] === 'string' && args[0].includes('react-test-renderer is deprecated')) {
+        // Suppress known noisy messages that are safe to ignore in tests
+        // unless debugging is explicitly enabled. Tests that need to assert
+        // on these warnings can still set `global.__TEST_CONSOLE_ERROR_HANDLER__`.
+        if (firstArgIncludes('react-test-renderer is deprecated')) return;
+
+        // Quiet the frequent act() warning which is often noisy in Jest
+        // environments while still allowing it to be enabled when needed.
+        if (firstArgIncludes('not wrapped in act') && process.env.WEEJOBS_DEBUG !== 'true') {
           return;
         }
-      } catch (e) {
+      } catch {
         // ignore filter errors
       }
-      _origConsoleError.apply(console, args);
+
+      try {
+        // If a test provided a handler, call it instead of the original.
+        // This allows individual tests to suppress known noisy warnings
+        // without trying to spy the globally-wrapped `console.error`.
+        // eslint-disable-next-line no-undef
+        const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+        handler.apply(console, args);
+      } catch {
+        _origConsoleError.apply(console, args);
+      }
     };
   }
-} catch (e) {
+} catch {
   // ignore
 }

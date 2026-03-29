@@ -29,7 +29,7 @@ function walk(dir: string): string[] {
 
 describe('require-all directories (require-only)', () => {
   test('requires .ts/.tsx files under app, components, hooks, lib without throwing', () => {
-    const errors: Array<{file: string; err: any}> = [];
+    const errors: {file: string; err: any}[] = [];
     const optional = [
       // known optional/experimental files that may not be safe to import
       'app/admin/users',
