@@ -103,6 +103,7 @@ export default function ChatScreen() {
 
       if (error) {
         // Enhanced error handling: log, send to Sentry if available
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
         sentry.captureException?.(error);
         console.error('Error sending message:', error);
@@ -115,6 +116,7 @@ export default function ChatScreen() {
       }, 100);
     } catch (error) {
       // Enhanced error handling: log, send to Sentry if available
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
       const sentry = require('../../lib/sentry');
       sentry.captureException?.(error);
       console.error('Error sending message:', error);

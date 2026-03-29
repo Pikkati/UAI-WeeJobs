@@ -216,23 +216,25 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
       });
 
       if (error) {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
         sentry.captureException?.(error);
         throw error;
       }
 
       Alert.alert('Success', 'Your job has been posted!', [
-        { text: 'OK', onPress: () => {
+          { text: 'OK', onPress: () => {
           try {
             if (router && typeof (router as any).push === 'function') {
               (router as any).push('/customer/jobs');
             }
-          } catch (e) {
+          } catch {
             // swallow navigation errors during tests
           }
         } },
       ]);
     } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
       const sentry = require('../../lib/sentry');
       sentry.captureException?.(error);
       Alert.alert('Error', 'Failed to post job. Please try again.');

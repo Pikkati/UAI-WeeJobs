@@ -31,11 +31,15 @@ export default function AdminDashboard() {
       ]);
 
       if (jobsRes.error) {
+        // Allow require here to lazily load Sentry in environments where it's unavailable
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
         sentry.captureException?.(jobsRes.error);
         throw jobsRes.error;
       }
       if (usersRes.error) {
+        // Allow require here to lazily load Sentry in environments where it's unavailable
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
         sentry.captureException?.(usersRes.error);
         throw usersRes.error;
@@ -54,6 +58,7 @@ export default function AdminDashboard() {
         tradies: users.filter(u => u.role === 'tradesperson').length,
       });
     } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
       const sentry = require('../../lib/sentry');
       sentry.captureException?.(error);
       console.error('Error fetching stats:', error);

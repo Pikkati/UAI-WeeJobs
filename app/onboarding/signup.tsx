@@ -95,7 +95,7 @@ export default function SignUpScreen() {
       if (error) {
         setResendError(error);
       }
-    } catch (e) {
+    } catch {
       setResendError('Unable to resend verification email.');
     } finally {
       setResendLoading(false);

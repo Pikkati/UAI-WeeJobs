@@ -66,6 +66,7 @@ export default function ReviewScreen() {
       });
 
       if (error) {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
         sentry.captureException?.(error);
         throw error;
@@ -77,6 +78,7 @@ export default function ReviewScreen() {
         [{ text: 'OK', onPress: () => router.push('/customer') }]
       );
     } catch (error: any) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
       const sentry = require('../../lib/sentry');
       sentry.captureException?.(error);
       if (error.code === '23505') {
