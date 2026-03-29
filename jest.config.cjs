@@ -26,10 +26,12 @@ module.exports = {
     '^react-native/jest/setup(\\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js'
     ,
     '^react-native/jest/assetFileTransformer\\.js$': '<rootDir>/__mocks__/assetFileTransformer.js'
+    ,
+    '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/fileMock.js'
   },
-  transform: {
-    '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/assetFileTransformer.js'
-  },
+  // Avoid using a custom transformer for image assets; map them to a
+  // lightweight module via `moduleNameMapper` so Jest validation is
+  // less platform-sensitive.
   coverageThreshold: {
     global: {
       branches: 70,
