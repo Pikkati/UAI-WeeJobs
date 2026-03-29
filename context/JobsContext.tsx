@@ -75,12 +75,12 @@ export function JobsProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
   // Debugging helper — logs only when WEEJOBS_DEBUG is set in the env
   const WEEJOBS_DEBUG = typeof process !== 'undefined' && !!process.env && !!process.env.WEEJOBS_DEBUG;
-  const debugLog = (...args: any[]) => {
+  const debugLog = useCallback((...args: any[]) => {
     if (WEEJOBS_DEBUG) {
       // eslint-disable-next-line no-console
       console.log(...args);
     }
-  };
+  }, [WEEJOBS_DEBUG]);
   debugLog('JOBS_PROVIDER_USER', user);
   // Use stable scalar values for effect dependencies to avoid re-running
   // effects when auth provider returns new object identities.
@@ -104,7 +104,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 
   // Fetch jobs from Supabase, cache locally; on error, load from cache
   const fetchJobs = useCallback(async () => {
-    if (!user) return;
+    if (!userId) return;
     // Debug: log fetch start and supabase shape
     debugLog('JOBS_FETCH_START');
     debugLog('JOBS_FETCH_SUPABASE_FROM', typeof supabase.from, typeof supabase);
@@ -120,10 +120,12 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       // Cache jobs locally (require AsyncStorage at call-time so tests can mock it)
       let AsyncStorageLocal: any = undefined;
       try {
+        // Allow dynamic require so tests can mock AsyncStorage before import
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const asMod = require('@react-native-async-storage/async-storage');
         AsyncStorageLocal = asMod && asMod.default ? asMod.default : asMod;
-      } catch (e) {
-        AsyncStorageLocal = undefined;
+      } catch {
+        // ignore parse errors and fall back to AsyncStorage
       }
       if (AsyncStorageLocal && AsyncStorageLocal.setItem) {
         await AsyncStorageLocal.setItem(JOBS_CACHE_KEY, JSON.stringify(data || []));
@@ -140,7 +142,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
                   debugLog('JOBS_FETCH_TEST_CACHE_PARSED', parsed);
                   setJobs(parsed);
                   return;
-                } catch (_) {
+                } catch {
                   // fall through to AsyncStorage
                 }
             }
@@ -150,9 +152,10 @@ export function JobsProvider({ children }: { children: ReactNode }) {
             // JobsContext was imported earlier than the test's jest.mock.
             let AsyncStorageLocal: any = undefined;
             try {
+              // eslint-disable-next-line @typescript-eslint/no-require-imports
               const asMod = require('@react-native-async-storage/async-storage');
               AsyncStorageLocal = asMod && asMod.default ? asMod.default : asMod;
-            } catch (e) {
+            } catch {
               AsyncStorageLocal = undefined;
             }
             debugLog('JOBS_FETCH_ASYNCSTORAGE_TYPE', typeof AsyncStorageLocal, AsyncStorageLocal);
@@ -177,9 +180,9 @@ export function JobsProvider({ children }: { children: ReactNode }) {
                     debugLog('JOBS_FETCH_CACHED_FROM_IMPL', resolvedAlt);
                     if (resolvedAlt) cached = resolvedAlt;
                   }
-                } catch (e) {
-                  // ignore
-                }
+                    } catch {
+                      // ignore
+                    }
               }
               // If getMockImplementation didn't expose the implementation, check
               // the mock results recorded by Jest and await the last returned value.
@@ -191,7 +194,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
                   debugLog('JOBS_FETCH_CACHED_FROM_MOCK_RESULTS', resolved);
                   if (resolved) cached = resolved;
                 }
-              } catch (e) {
+              } catch {
                 // ignore
               }
             }
@@ -207,13 +210,13 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
-  }, [userId]);
+  }, [userId, debugLog]);
 
   // On mount, try to load jobs from cache first for fast startup
   useEffect(() => {
     let didCancel = false;
     async function loadFromCacheFirst() {
-      if (!user) return;
+      if (!userId) return;
       debugLog('JOBS_LOAD_FROM_CACHE_FIRST_START');
       try {
         // Allow tests to inject a synchronous cache to avoid timing/import-order issues
@@ -226,7 +229,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
             // In test mode with an explicit sync cache, skip the remote fetch to avoid
             // triggering async state updates that can cause act(...) warnings.
             return;
-          } catch (_) {
+          } catch {
             // ignore parse errors and fall back to AsyncStorage
           }
         }
@@ -234,9 +237,10 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         // Require AsyncStorage at call-time to allow per-test mocks to be applied
         let AsyncStorageLocal: any = undefined;
         try {
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
           const asMod = require('@react-native-async-storage/async-storage');
           AsyncStorageLocal = asMod && asMod.default ? asMod.default : asMod;
-        } catch (e) {
+        } catch {
           AsyncStorageLocal = undefined;
         }
         const cached = AsyncStorageLocal && AsyncStorageLocal.getItem ? await AsyncStorageLocal.getItem(JOBS_CACHE_KEY) : undefined;
@@ -251,15 +255,14 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       // or call `fetchJobs()` explicitly.
       debugLog('JOBS_LOAD_FROM_CACHE_FIRST_FETCHING');
       if (!didCancel) {
-        const isJest = typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID;
-        if (!isJest) {
+        if (!isJestEnv) {
           fetchJobs();
         }
       }
     }
     loadFromCacheFirst();
     return () => { didCancel = true; };
-  }, [userId, fetchJobs, refreshTrigger]);
+  }, [userId, fetchJobs, refreshTrigger, debugLog, isJestEnv]);
 
   const fetchInterests = useCallback(async (jobId: string): Promise<JobInterest[]> => {
     try {
@@ -329,7 +332,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error expressing interest:', error);
       return false;
     }
-  }, [userId, userPlan, fetchJobs]);
+  }, [userId, userPlan, fetchJobs, isJestEnv]);
 
   const closeApplications = useCallback(async (jobId: string): Promise<boolean> => {
     try {
@@ -347,7 +350,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error closing applications:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const selectTradesman = useCallback(async (jobId: string, tradieId: string, pricingType: PricingType): Promise<boolean> => {
     try {
@@ -374,7 +377,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error selecting tradesman:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const payDeposit = useCallback(
     async (jobId: string): Promise<{
@@ -418,7 +421,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error marking arrived:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const sendEstimate = useCallback(async (jobId: string, estimate: Estimate): Promise<boolean> => {
     try {
@@ -439,7 +442,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error sending estimate:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const acknowledgeEstimate = useCallback(async (jobId: string): Promise<boolean> => {
     try {
@@ -457,7 +460,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error acknowledging estimate:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const sendQuote = useCallback(async (jobId: string, quote: Quote): Promise<boolean> => {
     try {
@@ -479,7 +482,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error sending quote:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const approveQuote = useCallback(async (jobId: string): Promise<boolean> => {
     try {
@@ -494,7 +497,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error approving quote:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const markOnTheWay = useCallback(async (jobId: string): Promise<boolean> => {
     try {
@@ -509,7 +512,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error marking on the way:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const sendInvoice = useCallback(async (jobId: string, invoice: Invoice): Promise<boolean> => {
     try {
@@ -532,7 +535,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error sending invoice:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const payInvoice = useCallback(async (jobId: string, amount: number): Promise<{ ok: boolean; id: string }> => {
     const result = await mockStripePayFinal(jobId, amount);
@@ -552,7 +555,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     }
     
     return result;
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const payFinalBalance = useCallback(async (jobId: string, amount: number): Promise<{ ok: boolean; id: string }> => {
     const result = await mockStripePayFinal(jobId, amount);
@@ -572,7 +575,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     }
     
     return result;
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const confirmCompletion = useCallback(async (
     jobId: string, 
@@ -613,7 +616,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error confirming completion:', error);
       return false;
     }
-  }, [fetchJobs]);
+  }, [fetchJobs, isJestEnv]);
 
   const cancelJob = useCallback(async (
     jobId: string,
@@ -644,7 +647,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
       console.error('Error cancelling job:', error);
       return false;
     }
-  }, [fetchJobs, jobs]);
+  }, [fetchJobs, jobs, isJestEnv]);
 
   const getNextActionsByRole = useCallback((
     jobStatus: JobStatus, 

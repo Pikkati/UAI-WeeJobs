@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
+import { JobsProvider, useJobs } from '../context/JobsContext';
+
 // Ensure AuthContext returns no user so JobsProvider doesn't call fetchJobs
 jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: null }) }));
 
@@ -20,8 +22,6 @@ jest.mock('../lib/supabase', () => {
     PricingType: undefined,
   };
 }, { virtual: true });
-
-import { JobsProvider, useJobs } from '../context/JobsContext';
 
 let captured: any = {};
 

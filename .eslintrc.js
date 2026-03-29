@@ -1,4 +1,5 @@
 module.exports = {
+  env: { node: true },
   extends: [
     'expo',
   ],
@@ -43,6 +44,26 @@ module.exports = {
       files: ['app/**/*.ts', 'app/**/*.tsx', 'components/**/*.ts', 'components/**/*.tsx'],
       rules: {
         'import/no-unresolved': 'off'
+      }
+    }
+    ,
+    {
+      files: ['supabase/functions/**/*.{ts,tsx,js,jsx}'],
+      rules: {
+        'import/no-unresolved': 'off'
+      }
+    }
+    ,
+    {
+      files: ['**/__mocks__/**', '**/__tests__/**'],
+      env: { jest: true },
+      rules: {
+        '@typescript-eslint/no-require-imports': 'off',
+        'import/first': 'off',
+        'react/display-name': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        'no-unused-vars': 'off',
+        'react-hooks/exhaustive-deps': 'off'
       }
     }
   ],

@@ -54,7 +54,7 @@ type ActionConfig = {
   action: 'navigate' | 'on_the_way' | 'arrived' | 'send_quote' | 'send_estimate' | 'send_invoice' | 'confirm' | 'none';
 };
 
-const getActionForStatus = (status: JobStatus, pricingType?: string): ActionConfig | null => {
+export const getActionForStatus = (status: JobStatus, pricingType?: string): ActionConfig | null => {
   const isHourly = pricingType === 'hourly';
   
   switch (status) {

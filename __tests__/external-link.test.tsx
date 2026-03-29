@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 
+import * as WebBrowser from 'expo-web-browser';
+
 jest.mock('expo-web-browser', () => ({ openBrowserAsync: jest.fn(async () => ({})), }), { virtual: true });
 
 // Mock expo-router Link to a simple Text that calls onPress with a web-like event
@@ -15,8 +17,6 @@ jest.mock('expo-router', () => ({
     return React.createElement(Text, { onPress: handlePress, ...rest }, children);
   },
 }), { virtual: true });
-
-import * as WebBrowser from 'expo-web-browser';
 
 describe('ExternalLink', () => {
   beforeEach(() => {

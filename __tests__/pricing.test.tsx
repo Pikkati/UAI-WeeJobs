@@ -1,10 +1,10 @@
 // Ensure test environment has supabase env vars so createClient doesn't throw.
-process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
-process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
-
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
+
+process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
+process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 
 jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }) }));
 jest.mock('expo-router', () => ({

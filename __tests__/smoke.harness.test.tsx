@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+import PostJobScreen from '../app/customer/post-job';
+
 // Lightweight mocks for a quick smoke render of the Splash screen.
 jest.mock('../lib/sentry', () => ({}));
 jest.mock('expo-image', () => ({ Image: (props: any) => require('react').createElement('Image', props) }));
@@ -16,8 +18,6 @@ jest.mock('../lib/supabase', () => ({
     }),
   },
 }));
-
-import PostJobScreen from '../app/customer/post-job';
 
 test('PostJobScreen renders without crashing (smoke)', () => {
   const { getByText } = render(<PostJobScreen />);

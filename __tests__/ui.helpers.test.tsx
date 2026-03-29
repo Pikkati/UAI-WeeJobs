@@ -22,6 +22,7 @@ describe('UI helpers', () => {
     // call hook inside a component
     let value: number | null = null;
     function Test() {
+      // eslint-disable-next-line react-hooks/globals
       value = useBottomTabOverflow();
       return null;
     }

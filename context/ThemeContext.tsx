@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Colors, setThemeMode } from '../constants/theme';
+import { setThemeMode } from '../constants/theme';
 
 type ThemeContextType = {
   mode: 'light' | 'dark';
@@ -21,7 +21,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
         const initial = stored === 'light' ? 'light' : 'dark';
         setMode(initial);
         setThemeMode(initial);
-      } catch (e) {
+      } catch {
         // ignore
         setThemeMode('dark');
       } finally {

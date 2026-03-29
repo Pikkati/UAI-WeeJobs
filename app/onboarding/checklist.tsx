@@ -13,17 +13,14 @@ const ITEMS = [
 
 export default function OnboardingChecklist() {
   const [completed, setCompleted] = useState<Record<string, boolean>>({});
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
         const raw = await AsyncStorage.getItem(STORAGE_KEY);
         if (raw) setCompleted(JSON.parse(raw));
-      } catch (e) {
+      } catch {
         // ignore
-      } finally {
-        setLoaded(true);
       }
     })();
   }, []);
@@ -33,7 +30,7 @@ export default function OnboardingChecklist() {
     setCompleted(next);
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch (e) {
+    } catch {
       // ignore
     }
   };
@@ -44,14 +41,14 @@ export default function OnboardingChecklist() {
     setCompleted(next);
     try {
       await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch (e) {}
+    } catch {}
   };
 
   const reset = async () => {
     setCompleted({});
     try {
       await AsyncStorage.removeItem(STORAGE_KEY);
-    } catch (e) {}
+    } catch {}
   };
 
   return (

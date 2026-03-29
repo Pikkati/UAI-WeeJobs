@@ -104,12 +104,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // otherwise fall back to the imported `supabase`.
       let instSupabase: any;
       try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const mod = require('../lib/supabase') as any;
         // Prefer the module's exported `supabase` wrapper when available so
         // tests that `jest.spyOn(supabase.auth, '...')` work reliably. Fall
         // back to `getSupabaseClient` if `supabase` export is not present.
         instSupabase = mod && mod.supabase ? mod.supabase : (typeof mod.getSupabaseClient === 'function' ? mod.getSupabaseClient() : supabase);
-      } catch (e) {
+      } catch {
         instSupabase = supabase;
       }
       if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
@@ -122,10 +123,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             debugLog('AUTH_GLOBAL_DIRECT_CALL_BEFORE');
             try {
               // Compare identities between global and lib/supabase proxy
-              // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
+              // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
               const libSup = require('../lib/supabase') as any;
               debugLog('GLOBAL_EQ_PROXY', (global as any).__TEST_SUPABASE__?.auth?.signUp === libSup.supabase?.auth?.signUp);
-            } catch (e) {
+            } catch {
               // ignore
             }
             debugLog('AUTH_GLOBAL_AUTH_KEYS', Object.keys((global as any).__TEST_SUPABASE__?.auth || {}));
@@ -155,7 +156,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const authError = authRes?.error;
 
       const serverMessage = (authError?.message || '').toLowerCase();
-      const parsed = parseServerError(authError);
 
       if (authError || !authData?.user) {
         if (serverMessage.includes('confirm') || serverMessage.includes('verification') || serverMessage.includes('not confirmed')) {
@@ -252,11 +252,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // `supabase` still work in tests.
       let instSupabase2: any;
       try {
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const mod = require('../lib/supabase') as any;
         // Prefer the exported `supabase` wrapper so per-test spies apply to
         // the same object used by consumers. Fall back to getSupabaseClient.
         instSupabase2 = mod && mod.supabase ? mod.supabase : (typeof mod.getSupabaseClient === 'function' ? mod.getSupabaseClient() : supabase);
-      } catch (e) {
+      } catch {
         instSupabase2 = supabase;
       }
       if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
