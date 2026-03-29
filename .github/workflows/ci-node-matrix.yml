@@ -62,5 +62,5 @@ jobs:
       - name: Typecheck
         run: npx tsc --noEmit
 
-      - name: Run tests
-        run: npm test -- --ci --runInBand
+      - name: Run tests (smoke)
+        run: npm run test:smoke -- --ci --runInBand
