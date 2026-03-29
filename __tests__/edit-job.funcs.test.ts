@@ -1,37 +1,49 @@
 import { computeBudgetValue, validateEditJobFields } from '../app/customer/edit-job';
 
-describe('EditJob helpers', () => {
-  test('computeBudgetValue returns Need Quotation when requested', () => {
-    expect(computeBudgetValue(true, '100')).toBe('Need Quotation');
+describe('computeBudgetValue', () => {
+  it('returns Need Quotation when needsQuotation is true', () => {
+    expect(computeBudgetValue(true, '200')).toBe('Need Quotation');
   });
 
-  test('computeBudgetValue returns formatted budget when provided', () => {
+  it('returns formatted budget when provided', () => {
     expect(computeBudgetValue(false, '150')).toBe('£150');
+  });
+
+  it('returns null when no budget and not quotation', () => {
     expect(computeBudgetValue(false, '')).toBeNull();
     expect(computeBudgetValue(false, undefined)).toBeNull();
   });
+});
 
-  test('validateEditJobFields requires required fields', () => {
-    const base = {
-      name: 'A',
-      phone: '123',
-      area: 'Area',
-      category: 'Cat',
-      timing: 'Now',
-      isGarageClearance: false,
-      photos: [] as string[],
-    };
+describe('validateEditJobFields', () => {
+  const base = {
+    name: 'Test',
+    phone: '012345',
+    area: 'Area',
+    category: 'Some',
+    timing: 'ASAP',
+    isGarageClearance: false,
+    photos: [],
+  } as any;
 
-    expect(validateEditJobFields(base).valid).toBe(true);
+  it('fails when a required field is missing', () => {
+    const bad = { ...base, name: '' };
+    const res = validateEditJobFields(bad);
+    expect(res.valid).toBe(false);
+    expect(res.title).toMatch(/Required Fields/i);
+  });
 
-    const missing = { ...base, name: '' };
-    const resMissing = validateEditJobFields(missing as any);
-    expect(resMissing.valid).toBe(false);
-    expect(resMissing.title).toBe('Required Fields');
+  it('requires a photo for garage clearance', () => {
+    const bad = { ...base, category: 'Garage Clearance', isGarageClearance: true, photos: [] };
+    const res = validateEditJobFields(bad);
+    expect(res.valid).toBe(false);
+    expect(res.title).toMatch(/Photo Required/i);
+  });
 
-    const garageNoPhotos = { ...base, isGarageClearance: true, photos: [] };
-    const resGarage = validateEditJobFields(garageNoPhotos);
-    expect(resGarage.valid).toBe(false);
-    expect(resGarage.title).toBe('Photo Required');
+  it('returns valid for proper input', () => {
+    const ok = { ...base, photos: ['a.jpg'] };
+    const res = validateEditJobFields(ok);
+    expect(res.valid).toBe(true);
   });
 });
+

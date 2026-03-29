@@ -1,6 +1,20 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+// Replace `FlatList` with a synchronous mapping implementation so
+// messages render inside the test renderer for reliable assertions.
+jest.mock('react-native', () => {
+  const RN = jest.requireActual('react-native');
+  const ReactInner = require('react');
+  return {
+    ...RN,
+    FlatList: (props: any) => {
+      const { data, renderItem } = props || {};
+      return ReactInner.createElement(RN.View, {}, data && data.map((item: any, index: number) => renderItem({ item, index })));
+    },
+  };
+});
+
 // Mock router + params
 jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({ jobId: 'job1', recipientName: 'Alice', jobCategory: 'Plumbing' }),
