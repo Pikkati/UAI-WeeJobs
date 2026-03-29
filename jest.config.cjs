@@ -28,7 +28,7 @@ module.exports = {
     '^react-native/jest/assetFileTransformer\\.js$': '<rootDir>/__mocks__/assetFileTransformer.js'
   },
   transform: {
-    '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': require.resolve('./__mocks__/assetFileTransformer.js')
+    '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/assetFileTransformer.js'
   },
   coverageThreshold: {
     global: {
