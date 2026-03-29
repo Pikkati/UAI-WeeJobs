@@ -95,6 +95,36 @@ try {
   // ignore if react isn't available in this environment
 }
 
+// Provide a test-friendly FlatList implementation that renders all items
+// synchronously during tests so `renderItem` outputs are present for
+// assertions without per-test overrides.
+try {
+  const React = require('react');
+  module.exports.FlatList = module.exports.FlatList || function FlatListMock(props) {
+    const { data, renderItem, keyExtractor, ListEmptyComponent } = props || {};
+    if (!data || (Array.isArray(data) && data.length === 0)) {
+      if (ListEmptyComponent) {
+        return typeof ListEmptyComponent === 'function'
+          ? React.createElement(ListEmptyComponent)
+          : React.createElement('View', null, ListEmptyComponent);
+      }
+      return React.createElement('View', null);
+    }
+
+    return React.createElement(
+      'View',
+      null,
+      data.map((item, index) => {
+        const key = typeof keyExtractor === 'function' ? keyExtractor(item, index) : index;
+        const rendered = renderItem ? renderItem({ item, index }) : null;
+        return React.createElement('View', { key }, rendered);
+      })
+    );
+  };
+} catch (e) {
+  // ignore when react isn't available in the environment
+}
+
 // Ensure Animated API helpers exist for test environments (Value, timing, interpolate stub)
 module.exports.Animated = module.exports.Animated || {};
 if (!module.exports.Animated.Value) {
