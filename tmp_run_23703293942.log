@@ -1,0 +1,1079 @@
+test	Set up job	﻿2026-03-29T06:35:23.4016813Z Current runner version: '2.333.0'
+test	Set up job	2026-03-29T06:35:23.4053504Z ##[group]Runner Image Provisioner
+test	Set up job	2026-03-29T06:35:23.4054959Z Hosted Compute Agent
+test	Set up job	2026-03-29T06:35:23.4055936Z Version: 20260213.493
+test	Set up job	2026-03-29T06:35:23.4057011Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+test	Set up job	2026-03-29T06:35:23.4058324Z Build Date: 2026-02-13T00:28:41Z
+test	Set up job	2026-03-29T06:35:23.4059586Z Worker ID: {680630d0-6302-429a-adaf-e764019564e1}
+test	Set up job	2026-03-29T06:35:23.4060628Z Azure Region: eastus2
+test	Set up job	2026-03-29T06:35:23.4061515Z ##[endgroup]
+test	Set up job	2026-03-29T06:35:23.4064369Z ##[group]Operating System
+test	Set up job	2026-03-29T06:35:23.4065268Z Ubuntu
+test	Set up job	2026-03-29T06:35:23.4066046Z 24.04.4
+test	Set up job	2026-03-29T06:35:23.4066732Z LTS
+test	Set up job	2026-03-29T06:35:23.4067512Z ##[endgroup]
+test	Set up job	2026-03-29T06:35:23.4068806Z ##[group]Runner Image
+test	Set up job	2026-03-29T06:35:23.4069697Z Image: ubuntu-24.04
+test	Set up job	2026-03-29T06:35:23.4070485Z Version: 20260323.65.1
+test	Set up job	2026-03-29T06:35:23.4072154Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260323.65/images/ubuntu/Ubuntu2404-Readme.md
+test	Set up job	2026-03-29T06:35:23.4074861Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260323.65
+test	Set up job	2026-03-29T06:35:23.4076545Z ##[endgroup]
+test	Set up job	2026-03-29T06:35:23.4078233Z ##[group]GITHUB_TOKEN Permissions
+test	Set up job	2026-03-29T06:35:23.4081327Z Contents: read
+test	Set up job	2026-03-29T06:35:23.4082215Z Metadata: read
+test	Set up job	2026-03-29T06:35:23.4083012Z Packages: read
+test	Set up job	2026-03-29T06:35:23.4083944Z ##[endgroup]
+test	Set up job	2026-03-29T06:35:23.4086958Z Secret source: Actions
+test	Set up job	2026-03-29T06:35:23.4087979Z Prepare workflow directory
+test	Set up job	2026-03-29T06:35:23.4566718Z Prepare all required actions
+test	Set up job	2026-03-29T06:35:23.4623480Z Getting action download info
+test	Set up job	2026-03-29T06:35:23.8506529Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+test	Set up job	2026-03-29T06:35:23.9756605Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+test	Set up job	2026-03-29T06:35:24.0605447Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+test	Set up job	2026-03-29T06:35:24.1713231Z Download action repository 'codecov/codecov-action@v4' (SHA:b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238)
+test	Set up job	2026-03-29T06:35:24.5682352Z Complete job name: test
+test	Checkout	﻿2026-03-29T06:35:24.6421420Z ##[group]Run actions/checkout@v4
+test	Checkout	2026-03-29T06:35:24.6422322Z with:
+test	Checkout	2026-03-29T06:35:24.6422771Z   repository: Pikkati/UAI-WeeJobs
+test	Checkout	2026-03-29T06:35:24.6423492Z   token: ***
+test	Checkout	2026-03-29T06:35:24.6423896Z   ssh-strict: true
+test	Checkout	2026-03-29T06:35:24.6424304Z   ssh-user: git
+test	Checkout	2026-03-29T06:35:24.6424714Z   persist-credentials: true
+test	Checkout	2026-03-29T06:35:24.6425198Z   clean: true
+test	Checkout	2026-03-29T06:35:24.6425625Z   sparse-checkout-cone-mode: true
+test	Checkout	2026-03-29T06:35:24.6426129Z   fetch-depth: 1
+test	Checkout	2026-03-29T06:35:24.6426624Z   fetch-tags: false
+test	Checkout	2026-03-29T06:35:24.6427040Z   show-progress: true
+test	Checkout	2026-03-29T06:35:24.6427467Z   lfs: false
+test	Checkout	2026-03-29T06:35:24.6427854Z   submodules: false
+test	Checkout	2026-03-29T06:35:24.6428281Z   set-safe-directory: true
+test	Checkout	2026-03-29T06:35:24.6429228Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:24.7494244Z Syncing repository: Pikkati/UAI-WeeJobs
+test	Checkout	2026-03-29T06:35:24.7496194Z ##[group]Getting Git version info
+test	Checkout	2026-03-29T06:35:24.7496986Z Working directory is '/home/runner/work/UAI-WeeJobs/UAI-WeeJobs'
+test	Checkout	2026-03-29T06:35:24.7498064Z [command]/usr/bin/git version
+test	Checkout	2026-03-29T06:35:24.7530329Z git version 2.53.0
+test	Checkout	2026-03-29T06:35:24.7556480Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:24.7572464Z Temporarily overriding HOME='/home/runner/work/_temp/7d281552-ee27-4abb-85af-bc4eedaf8ac8' before making global git config changes
+test	Checkout	2026-03-29T06:35:24.7575145Z Adding repository directory to the temporary git global config as a safe directory
+test	Checkout	2026-03-29T06:35:24.7578851Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/UAI-WeeJobs/UAI-WeeJobs
+test	Checkout	2026-03-29T06:35:24.7612122Z Deleting the contents of '/home/runner/work/UAI-WeeJobs/UAI-WeeJobs'
+test	Checkout	2026-03-29T06:35:24.7615738Z ##[group]Initializing the repository
+test	Checkout	2026-03-29T06:35:24.7621007Z [command]/usr/bin/git init /home/runner/work/UAI-WeeJobs/UAI-WeeJobs
+test	Checkout	2026-03-29T06:35:24.7709143Z hint: Using 'master' as the name for the initial branch. This default branch name
+test	Checkout	2026-03-29T06:35:24.7711285Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+test	Checkout	2026-03-29T06:35:24.7712332Z hint: to use in all of your new repositories, which will suppress this warning,
+test	Checkout	2026-03-29T06:35:24.7713050Z hint: call:
+test	Checkout	2026-03-29T06:35:24.7713433Z hint:
+test	Checkout	2026-03-29T06:35:24.7714096Z hint: 	git config --global init.defaultBranch <name>
+test	Checkout	2026-03-29T06:35:24.7714754Z hint:
+test	Checkout	2026-03-29T06:35:24.7715631Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+test	Checkout	2026-03-29T06:35:24.7716586Z hint: 'development'. The just-created branch can be renamed via this command:
+test	Checkout	2026-03-29T06:35:24.7717310Z hint:
+test	Checkout	2026-03-29T06:35:24.7717689Z hint: 	git branch -m <name>
+test	Checkout	2026-03-29T06:35:24.7718149Z hint:
+test	Checkout	2026-03-29T06:35:24.7719053Z hint: Disable this message with "git config set advice.defaultBranchName false"
+test	Checkout	2026-03-29T06:35:24.7720092Z Initialized empty Git repository in /home/runner/work/UAI-WeeJobs/UAI-WeeJobs/.git/
+test	Checkout	2026-03-29T06:35:24.7722190Z [command]/usr/bin/git remote add origin https://github.com/Pikkati/UAI-WeeJobs
+test	Checkout	2026-03-29T06:35:24.7750313Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:24.7751116Z ##[group]Disabling automatic garbage collection
+test	Checkout	2026-03-29T06:35:24.7754179Z [command]/usr/bin/git config --local gc.auto 0
+test	Checkout	2026-03-29T06:35:24.7781095Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:24.7781806Z ##[group]Setting up auth
+test	Checkout	2026-03-29T06:35:24.7787659Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test	Checkout	2026-03-29T06:35:24.7816000Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test	Checkout	2026-03-29T06:35:24.8102568Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test	Checkout	2026-03-29T06:35:24.8130224Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test	Checkout	2026-03-29T06:35:24.8340893Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test	Checkout	2026-03-29T06:35:24.8377039Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test	Checkout	2026-03-29T06:35:24.8593494Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+test	Checkout	2026-03-29T06:35:24.8627096Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:24.8628829Z ##[group]Fetching the repository
+test	Checkout	2026-03-29T06:35:24.8637376Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ed0311a1481999e076fc9d1eb89176424a2d2f47:refs/remotes/pull/10/merge
+test	Checkout	2026-03-29T06:35:25.7849742Z From https://github.com/Pikkati/UAI-WeeJobs
+test	Checkout	2026-03-29T06:35:25.7854146Z  * [new ref]         ed0311a1481999e076fc9d1eb89176424a2d2f47 -> pull/10/merge
+test	Checkout	2026-03-29T06:35:25.7882060Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:25.7884123Z ##[group]Determining the checkout info
+test	Checkout	2026-03-29T06:35:25.7886290Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:25.7888283Z [command]/usr/bin/git sparse-checkout disable
+test	Checkout	2026-03-29T06:35:25.7926947Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+test	Checkout	2026-03-29T06:35:25.7955040Z ##[group]Checking out the ref
+test	Checkout	2026-03-29T06:35:25.7960861Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/10/merge
+test	Checkout	2026-03-29T06:35:25.9980469Z Note: switching to 'refs/remotes/pull/10/merge'.
+test	Checkout	2026-03-29T06:35:25.9983991Z 
+test	Checkout	2026-03-29T06:35:25.9985276Z You are in 'detached HEAD' state. You can look around, make experimental
+test	Checkout	2026-03-29T06:35:25.9987343Z changes and commit them, and you can discard any commits you make in this
+test	Checkout	2026-03-29T06:35:25.9989673Z state without impacting any branches by switching back to a branch.
+test	Checkout	2026-03-29T06:35:25.9990881Z 
+test	Checkout	2026-03-29T06:35:25.9991601Z If you want to create a new branch to retain commits you create, you may
+test	Checkout	2026-03-29T06:35:25.9993428Z do so (now or later) by using -c with the switch command. Example:
+test	Checkout	2026-03-29T06:35:25.9994916Z 
+test	Checkout	2026-03-29T06:35:25.9995344Z   git switch -c <new-branch-name>
+test	Checkout	2026-03-29T06:35:25.9996267Z 
+test	Checkout	2026-03-29T06:35:25.9996871Z Or undo this operation with:
+test	Checkout	2026-03-29T06:35:25.9997965Z 
+test	Checkout	2026-03-29T06:35:25.9998829Z   git switch -
+test	Checkout	2026-03-29T06:35:25.9999690Z 
+test	Checkout	2026-03-29T06:35:26.0001014Z Turn off this advice by setting config variable advice.detachedHead to false
+test	Checkout	2026-03-29T06:35:26.0003024Z 
+test	Checkout	2026-03-29T06:35:26.0005329Z HEAD is now at ed0311a Merge 3bf11e3230f192029acd60cd5ccc38f071609e97 into 60ebf0c44447687e4f182bf876f1048f588540cb
+test	Checkout	2026-03-29T06:35:26.0012421Z ##[endgroup]
+test	Checkout	2026-03-29T06:35:26.0044651Z [command]/usr/bin/git log -1 --format=%H
+test	Checkout	2026-03-29T06:35:26.0065858Z ed0311a1481999e076fc9d1eb89176424a2d2f47
+test	Use Node.js 18	﻿2026-03-29T06:35:26.0485341Z ##[group]Run actions/setup-node@v4
+test	Use Node.js 18	2026-03-29T06:35:26.0486472Z with:
+test	Use Node.js 18	2026-03-29T06:35:26.0487214Z   node-version: 18
+test	Use Node.js 18	2026-03-29T06:35:26.0488037Z   cache: npm
+test	Use Node.js 18	2026-03-29T06:35:26.0489096Z   always-auth: false
+test	Use Node.js 18	2026-03-29T06:35:26.0489976Z   check-latest: false
+test	Use Node.js 18	2026-03-29T06:35:26.0491122Z   token: ***
+test	Use Node.js 18	2026-03-29T06:35:26.0491868Z ##[endgroup]
+test	Use Node.js 18	2026-03-29T06:35:26.2302546Z Attempting to download 18...
+test	Use Node.js 18	2026-03-29T06:35:26.5732126Z Acquiring 18.20.8 - x64 from https://github.com/actions/node-versions/releases/download/18.20.8-14110393767/node-18.20.8-linux-x64.tar.gz
+test	Use Node.js 18	2026-03-29T06:35:26.9893868Z Extracting ...
+test	Use Node.js 18	2026-03-29T06:35:27.0003057Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/0c9ec935-07dd-4c88-8d98-ffd8407d33ed -f /home/runner/work/_temp/97cfadae-9286-48bc-93ec-177542d9c4af
+test	Use Node.js 18	2026-03-29T06:35:27.9729982Z Adding to the cache ...
+test	Use Node.js 18	2026-03-29T06:35:30.3631227Z ##[group]Environment details
+test	Use Node.js 18	2026-03-29T06:35:30.6001313Z node: v18.20.8
+test	Use Node.js 18	2026-03-29T06:35:30.6002095Z npm: 10.8.2
+test	Use Node.js 18	2026-03-29T06:35:30.6002459Z yarn: 1.22.22
+test	Use Node.js 18	2026-03-29T06:35:30.6003260Z ##[endgroup]
+test	Use Node.js 18	2026-03-29T06:35:30.6025075Z [command]/opt/hostedtoolcache/node/18.20.8/x64/bin/npm config get cache
+test	Use Node.js 18	2026-03-29T06:35:30.7151843Z /home/runner/.npm
+test	Use Node.js 18	2026-03-29T06:35:30.7858288Z npm cache is not found
+test	Install dependencies	﻿2026-03-29T06:35:30.8011631Z ##[group]Run npm ci --legacy-peer-deps --no-audit --no-fund
+test	Install dependencies	2026-03-29T06:35:30.8012184Z [36;1mnpm ci --legacy-peer-deps --no-audit --no-fund[0m
+test	Install dependencies	2026-03-29T06:35:30.8044242Z shell: /usr/bin/bash -e {0}
+test	Install dependencies	2026-03-29T06:35:30.8044540Z ##[endgroup]
+test	Install dependencies	2026-03-29T06:35:32.9615029Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9618029Z npm warn EBADENGINE   package: '@expo/env@2.1.1',
+test	Install dependencies	2026-03-29T06:35:32.9619063Z npm warn EBADENGINE   required: { node: '>=20.12.0' },
+test	Install dependencies	2026-03-29T06:35:32.9619858Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9620502Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9621005Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9621695Z npm warn EBADENGINE   package: 'metro-config@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9622460Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9623307Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9623861Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9624240Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9624646Z npm warn EBADENGINE   package: 'metro-runtime@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9625077Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9625528Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9625924Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9631753Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9632508Z npm warn EBADENGINE   package: '@octokit/auth-token@6.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9633315Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9634089Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9634699Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9635190Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9635889Z npm warn EBADENGINE   package: '@octokit/core@7.0.6',
+test	Install dependencies	2026-03-29T06:35:32.9636958Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9637735Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9638340Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9639019Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9639747Z npm warn EBADENGINE   package: '@octokit/endpoint@11.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9640450Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9641210Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9641861Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9642351Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9643052Z npm warn EBADENGINE   package: '@octokit/graphql@9.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9643759Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9644565Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9645188Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9645716Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9646502Z npm warn EBADENGINE   package: '@octokit/plugin-paginate-rest@14.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9647297Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9648051Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9648816Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9649342Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9650108Z npm warn EBADENGINE   package: '@octokit/plugin-retry@8.1.0',
+test	Install dependencies	2026-03-29T06:35:32.9650835Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9651589Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9652183Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9652665Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9653402Z npm warn EBADENGINE   package: '@octokit/plugin-throttling@11.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9654169Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9654931Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9655518Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9656304Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9656968Z npm warn EBADENGINE   package: '@octokit/request@10.0.8',
+test	Install dependencies	2026-03-29T06:35:32.9657663Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9658670Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9659267Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9659740Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9660443Z npm warn EBADENGINE   package: '@octokit/request-error@7.1.0',
+test	Install dependencies	2026-03-29T06:35:32.9661168Z npm warn EBADENGINE   required: { node: '>= 20' },
+test	Install dependencies	2026-03-29T06:35:32.9661921Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9662501Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9662985Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9663759Z npm warn EBADENGINE   package: '@react-native/assets-registry@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9664576Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9665376Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9665966Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9666498Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9667231Z npm warn EBADENGINE   package: '@react-native/codegen@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9667977Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9668929Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9669525Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9669995Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9670791Z npm warn EBADENGINE   package: '@react-native/community-cli-plugin@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9671684Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9672476Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9673269Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9673747Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9674533Z npm warn EBADENGINE   package: '@react-native/debugger-frontend@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9675389Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9676264Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9676858Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9677339Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9678098Z npm warn EBADENGINE   package: '@react-native/debugger-shell@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9679086Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9679869Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9680458Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9680930Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9681696Z npm warn EBADENGINE   package: '@react-native/dev-middleware@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9682513Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9683302Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9683890Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9684354Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9685137Z npm warn EBADENGINE   package: '@react-native/debugger-frontend@0.83.4',
+test	Install dependencies	2026-03-29T06:35:32.9685945Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9686722Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9687337Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9687807Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9688721Z npm warn EBADENGINE   package: '@react-native/debugger-shell@0.83.4',
+test	Install dependencies	2026-03-29T06:35:32.9689529Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9690305Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9690894Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9691401Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9692373Z npm warn EBADENGINE   package: '@react-native/dev-middleware@0.83.4',
+test	Install dependencies	2026-03-29T06:35:32.9693168Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9693941Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9694497Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9694779Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9695230Z npm warn EBADENGINE   package: '@react-native/gradle-plugin@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9695696Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9696140Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9696486Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9696758Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9697329Z npm warn EBADENGINE   package: '@react-native/js-polyfills@0.84.1',
+test	Install dependencies	2026-03-29T06:35:32.9698153Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9699124Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9699743Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9700220Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9701019Z npm warn EBADENGINE   package: '@semantic-release/commit-analyzer@13.0.1',
+test	Install dependencies	2026-03-29T06:35:32.9701842Z npm warn EBADENGINE   required: { node: '>=20.8.1' },
+test	Install dependencies	2026-03-29T06:35:32.9702622Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9703218Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9703569Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9703987Z npm warn EBADENGINE   package: '@semantic-release/github@12.0.6',
+test	Install dependencies	2026-03-29T06:35:32.9704476Z npm warn EBADENGINE   required: { node: '^22.14.0 || >= 24.10.0' },
+test	Install dependencies	2026-03-29T06:35:32.9704956Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9705291Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9705826Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9706562Z npm warn EBADENGINE   package: '@semantic-release/npm@13.1.5',
+test	Install dependencies	2026-03-29T06:35:32.9707257Z npm warn EBADENGINE   required: { node: '^22.14.0 || >= 24.10.0' },
+test	Install dependencies	2026-03-29T06:35:32.9708124Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9708735Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9709031Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9709440Z npm warn EBADENGINE   package: 'hosted-git-info@9.0.2',
+test	Install dependencies	2026-03-29T06:35:32.9709897Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9710374Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9710722Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9710998Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9711369Z npm warn EBADENGINE   package: 'lru-cache@11.2.7',
+test	Install dependencies	2026-03-29T06:35:32.9711762Z npm warn EBADENGINE   required: { node: '20 || >=22' },
+test	Install dependencies	2026-03-29T06:35:32.9712216Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9712570Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9712844Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9713256Z npm warn EBADENGINE   package: 'normalize-package-data@8.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9713731Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9714195Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9714540Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9714813Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9715173Z npm warn EBADENGINE   package: 'read-pkg@10.1.0',
+test	Install dependencies	2026-03-29T06:35:32.9715554Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9715978Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9716321Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9716594Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9716964Z npm warn EBADENGINE   package: 'unicorn-magic@0.4.0',
+test	Install dependencies	2026-03-29T06:35:32.9717349Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9718191Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9718971Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9719356Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9719706Z npm warn EBADENGINE   package: 'type-fest@5.5.0',
+test	Install dependencies	2026-03-29T06:35:32.9720076Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9720500Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9720835Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9721119Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9721701Z npm warn EBADENGINE   package: '@semantic-release/release-notes-generator@14.1.0',
+test	Install dependencies	2026-03-29T06:35:32.9722599Z npm warn EBADENGINE   required: { node: '>=20.8.1' },
+test	Install dependencies	2026-03-29T06:35:32.9723274Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9723875Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9724245Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9724876Z npm warn EBADENGINE   package: '@supabase/auth-js@2.100.1',
+test	Install dependencies	2026-03-29T06:35:32.9725576Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9726023Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9726362Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9726637Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9727048Z npm warn EBADENGINE   package: '@supabase/functions-js@2.100.1',
+test	Install dependencies	2026-03-29T06:35:32.9727469Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9727902Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9728242Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9728676Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9729095Z npm warn EBADENGINE   package: '@supabase/postgrest-js@2.100.1',
+test	Install dependencies	2026-03-29T06:35:32.9730124Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9730754Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9731112Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9731383Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9731874Z npm warn EBADENGINE   package: '@supabase/realtime-js@2.100.1',
+test	Install dependencies	2026-03-29T06:35:32.9732629Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9733180Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9733526Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9733794Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9734199Z npm warn EBADENGINE   package: '@supabase/storage-js@2.100.1',
+test	Install dependencies	2026-03-29T06:35:32.9734616Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9735044Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9735381Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9735662Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9736064Z npm warn EBADENGINE   package: '@supabase/supabase-js@2.100.1',
+test	Install dependencies	2026-03-29T06:35:32.9736499Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9736955Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9737303Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9737588Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9738055Z npm warn EBADENGINE   package: '@react-native/babel-plugin-codegen@0.83.4',
+test	Install dependencies	2026-03-29T06:35:32.9738686Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9739131Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9739474Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9739750Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9740172Z npm warn EBADENGINE   package: '@react-native/babel-preset@0.83.4',
+test	Install dependencies	2026-03-29T06:35:32.9740624Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9741059Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9741403Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9741834Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9742231Z npm warn EBADENGINE   package: '@react-native/codegen@0.83.4',
+test	Install dependencies	2026-03-29T06:35:32.9742655Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9743091Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9743423Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9743694Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9744056Z npm warn EBADENGINE   package: 'cli-truncate@5.2.0',
+test	Install dependencies	2026-03-29T06:35:32.9744440Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9744871Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9745208Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9745482Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9745853Z npm warn EBADENGINE   package: 'string-width@8.2.0',
+test	Install dependencies	2026-03-29T06:35:32.9746226Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9746661Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9747002Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9747275Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9747686Z npm warn EBADENGINE   package: 'eslint-visitor-keys@5.0.1',
+test	Install dependencies	2026-03-29T06:35:32.9748172Z npm warn EBADENGINE   required: { node: '^20.19.0 || ^22.13.0 || >=24' },
+test	Install dependencies	2026-03-29T06:35:32.9748804Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9749145Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9749414Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9749872Z npm warn EBADENGINE   package: 'expo-server@55.0.7-canary-20260327-0789fbc',
+test	Install dependencies	2026-03-29T06:35:32.9750339Z npm warn EBADENGINE   required: { node: '>=20.16.0' },
+test	Install dependencies	2026-03-29T06:35:32.9750784Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9751252Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9751517Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9751885Z npm warn EBADENGINE   package: 'expo-server@55.0.6',
+test	Install dependencies	2026-03-29T06:35:32.9752281Z npm warn EBADENGINE   required: { node: '>=20.16.0' },
+test	Install dependencies	2026-03-29T06:35:32.9752710Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9753064Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9753550Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9754169Z npm warn EBADENGINE   package: 'fb-dotslash@0.5.8',
+test	Install dependencies	2026-03-29T06:35:32.9754833Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9755529Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9755993Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9756471Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9757024Z npm warn EBADENGINE   package: 'hook-std@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9757409Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9757846Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9758196Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9758613Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9758975Z npm warn EBADENGINE   package: 'iceberg-js@0.8.1',
+test	Install dependencies	2026-03-29T06:35:32.9759364Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9759797Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9760131Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9760597Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9761228Z npm warn EBADENGINE   package: 'lint-staged@16.4.0',
+test	Install dependencies	2026-03-29T06:35:32.9761856Z npm warn EBADENGINE   required: { node: '>=20.17' },
+test	Install dependencies	2026-03-29T06:35:32.9762632Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9763240Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9763705Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9764263Z npm warn EBADENGINE   package: 'commander@14.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9764919Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9765845Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9766445Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9766781Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9767226Z npm warn EBADENGINE   package: 'listr2@9.0.5',
+test	Install dependencies	2026-03-29T06:35:32.9767875Z npm warn EBADENGINE   required: { node: '>=20.0.0' },
+test	Install dependencies	2026-03-29T06:35:32.9768735Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9769353Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9769684Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9770199Z npm warn EBADENGINE   package: 'metro@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9770853Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9771571Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9772211Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9772693Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9773356Z npm warn EBADENGINE   package: 'metro-babel-transformer@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9773828Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9774578Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9774941Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9775274Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9775878Z npm warn EBADENGINE   package: 'metro-cache@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9776287Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9776921Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9777411Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9777692Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9778331Z npm warn EBADENGINE   package: 'metro-cache-key@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9779029Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9779866Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9780387Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9780674Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9781264Z npm warn EBADENGINE   package: 'metro-config@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9781802Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9782417Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9782931Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9783220Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9783601Z npm warn EBADENGINE   package: 'metro@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9784231Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9784790Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9785180Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9785619Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9786180Z npm warn EBADENGINE   package: 'metro-babel-transformer@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9786781Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9787395Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9787802Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9788265Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9788888Z npm warn EBADENGINE   package: 'metro-cache@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9789288Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9790017Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9790405Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9790732Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9791372Z npm warn EBADENGINE   package: 'metro-cache-key@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9791801Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9792515Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9792893Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9793190Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9794079Z npm warn EBADENGINE   package: 'metro-core@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9794783Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9795549Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9796066Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9796417Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9797108Z npm warn EBADENGINE   package: 'metro-file-map@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9797825Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9798766Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9799366Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9799862Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9800345Z npm warn EBADENGINE   package: 'metro-minify-terser@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9800764Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9801244Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9801588Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9801858Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9802237Z npm warn EBADENGINE   package: 'metro-resolver@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9802636Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9803070Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9803410Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9803674Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9804062Z npm warn EBADENGINE   package: 'metro-source-map@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9804473Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9804898Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9805480Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9805877Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9806553Z npm warn EBADENGINE   package: 'metro-symbolicate@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9807230Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9807676Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9808023Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9808670Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9809244Z npm warn EBADENGINE   package: 'metro-transform-plugins@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9809685Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9810291Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9810796Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9811073Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9811671Z npm warn EBADENGINE   package: 'metro-transform-worker@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9812269Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9812806Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9813376Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9813662Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9814048Z npm warn EBADENGINE   package: 'ob1@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9814689Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9815148Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9815697Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9816078Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9816446Z npm warn EBADENGINE   package: 'metro-core@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9817067Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9817621Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9818003Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9818684Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9819110Z npm warn EBADENGINE   package: 'metro-file-map@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9819508Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9819961Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9820586Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9821057Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9821522Z npm warn EBADENGINE   package: 'metro-minify-terser@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9822184Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9822760Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9823119Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9823592Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9824082Z npm warn EBADENGINE   package: 'metro-resolver@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9824533Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9825241Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9825597Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9825930Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9826573Z npm warn EBADENGINE   package: 'metro-runtime@0.83.5',
+test	Install dependencies	2026-03-29T06:35:32.9826983Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9827712Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9828090Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9828364Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9829216Z npm warn EBADENGINE   package: 'metro-source-map@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9829647Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9830118Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9830730Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9831051Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9831556Z npm warn EBADENGINE   package: 'metro-symbolicate@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9832287Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9833065Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9833778Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9834075Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9834514Z npm warn EBADENGINE   package: 'metro-transform-plugins@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9835286Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9835748Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9836305Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9836692Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9837125Z npm warn EBADENGINE   package: 'metro-transform-worker@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9837877Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9838337Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9839137Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9839639Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9840027Z npm warn EBADENGINE   package: 'metro-config@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9840578Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9841204Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9841563Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9841834Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9842441Z npm warn EBADENGINE   package: 'metro-runtime@0.83.3',
+test	Install dependencies	2026-03-29T06:35:32.9842951Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:32.9843386Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9843903Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9844328Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9844702Z npm warn EBADENGINE   package: 'normalize-url@9.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9845089Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9845765Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9846186Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9846469Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9847012Z npm warn EBADENGINE   package: 'npm@11.12.1',
+test	Install dependencies	2026-03-29T06:35:32.9847722Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9848209Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9848684Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9848969Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9849357Z npm warn EBADENGINE   package: '@gar/promise-retry@1.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9850048Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9850656Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9850997Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9851439Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9851966Z npm warn EBADENGINE   package: '@npmcli/agent@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9852403Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9853211Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9853566Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9853889Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9854543Z npm warn EBADENGINE   package: '@npmcli/arborist@9.4.2',
+test	Install dependencies	2026-03-29T06:35:32.9855005Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9855526Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9856125Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9856414Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9856928Z npm warn EBADENGINE   package: '@npmcli/config@10.8.1',
+test	Install dependencies	2026-03-29T06:35:32.9857569Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9858060Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9858876Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9859190Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9859717Z npm warn EBADENGINE   package: '@npmcli/fs@5.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9860404Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9860973Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9861504Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9861899Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9862261Z npm warn EBADENGINE   package: '@npmcli/git@7.0.2',
+test	Install dependencies	2026-03-29T06:35:32.9862937Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9863478Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9863950Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9864431Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9864903Z npm warn EBADENGINE   package: '@npmcli/installed-package-contents@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9865720Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9866207Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9866659Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9867132Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9867555Z npm warn EBADENGINE   package: '@npmcli/map-workspaces@5.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9868249Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9868943Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9869285Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9869727Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9870272Z npm warn EBADENGINE   package: '@npmcli/metavuln-calculator@9.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9870772Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9871436Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9871813Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9872084Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9872711Z npm warn EBADENGINE   package: '@npmcli/name-from-folder@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9873207Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9874068Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9874422Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9874690Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9875256Z npm warn EBADENGINE   package: '@npmcli/node-gyp@5.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9875736Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9876202Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9876619Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9877015Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9877422Z npm warn EBADENGINE   package: '@npmcli/package-json@7.0.5',
+test	Install dependencies	2026-03-29T06:35:32.9899319Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9900403Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9900996Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9901418Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9901881Z npm warn EBADENGINE   package: '@npmcli/promise-spawn@9.0.1',
+test	Install dependencies	2026-03-29T06:35:32.9902368Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9902844Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9903212Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9903581Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9903952Z npm warn EBADENGINE   package: '@npmcli/query@5.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9904394Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9904954Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9905305Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9905584Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9905995Z npm warn EBADENGINE   package: '@npmcli/redact@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9906679Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9907161Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9907617Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9907912Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9908302Z npm warn EBADENGINE   package: '@npmcli/run-script@10.0.4',
+test	Install dependencies	2026-03-29T06:35:32.9909231Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9909881Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9910282Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9910765Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9911229Z npm warn EBADENGINE   package: '@sigstore/bundle@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9911675Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9912147Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9912487Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9912766Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9913137Z npm warn EBADENGINE   package: '@sigstore/core@3.2.0',
+test	Install dependencies	2026-03-29T06:35:32.9913581Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9914056Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9914398Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9914667Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9915041Z npm warn EBADENGINE   package: '@sigstore/sign@4.1.1',
+test	Install dependencies	2026-03-29T06:35:32.9915479Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9916406Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9917025Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9917392Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9917766Z npm warn EBADENGINE   package: '@sigstore/tuf@4.0.2',
+test	Install dependencies	2026-03-29T06:35:32.9918312Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9919432Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9920332Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9920846Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9921556Z npm warn EBADENGINE   package: '@sigstore/verify@3.1.0',
+test	Install dependencies	2026-03-29T06:35:32.9922409Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9923305Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9923972Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9924485Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9925169Z npm warn EBADENGINE   package: '@tufjs/models@4.1.0',
+test	Install dependencies	2026-03-29T06:35:32.9925999Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9926883Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9927527Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9928049Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9928928Z npm warn EBADENGINE   package: 'abbrev@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9929694Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9930565Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9931190Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9931691Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9932338Z npm warn EBADENGINE   package: 'bin-links@6.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9933129Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9934005Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9934626Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9935101Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9935727Z npm warn EBADENGINE   package: 'cacache@20.0.4',
+test	Install dependencies	2026-03-29T06:35:32.9936472Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9937302Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9938190Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9938926Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9939604Z npm warn EBADENGINE   package: 'cidr-regex@5.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9940291Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9941094Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9941710Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9942201Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9942871Z npm warn EBADENGINE   package: 'cmd-shim@8.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9943648Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9944547Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9945221Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9945718Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9946403Z npm warn EBADENGINE   package: 'hosted-git-info@9.0.2',
+test	Install dependencies	2026-03-29T06:35:32.9947215Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9948081Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9948942Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9949441Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9950105Z npm warn EBADENGINE   package: 'ignore-walk@8.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9950913Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9951843Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9952448Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9952913Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9953501Z npm warn EBADENGINE   package: 'ini@6.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9954222Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9955046Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9955633Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9956103Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9956790Z npm warn EBADENGINE   package: 'init-package-json@8.2.5',
+test	Install dependencies	2026-03-29T06:35:32.9957871Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9958971Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9959652Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9960135Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9960856Z npm warn EBADENGINE   package: 'is-cidr@6.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9961494Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9962249Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9962857Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9963337Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9963945Z npm warn EBADENGINE   package: 'isexe@4.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9964567Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:32.9965348Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9965971Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9966462Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9967273Z npm warn EBADENGINE   package: 'json-parse-even-better-errors@5.0.0',
+test	Install dependencies	2026-03-29T06:35:32.9968196Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9969257Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9969872Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9970476Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9971157Z npm warn EBADENGINE   package: 'libnpmaccess@10.0.3',
+test	Install dependencies	2026-03-29T06:35:32.9971979Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9972803Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9973410Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9973920Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9974602Z npm warn EBADENGINE   package: 'libnpmdiff@8.1.5',
+test	Install dependencies	2026-03-29T06:35:32.9975645Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9976536Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9977151Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9977631Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9978291Z npm warn EBADENGINE   package: 'libnpmexec@10.2.5',
+test	Install dependencies	2026-03-29T06:35:32.9979314Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9980170Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9980779Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9981255Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9981910Z npm warn EBADENGINE   package: 'libnpmfund@7.0.19',
+test	Install dependencies	2026-03-29T06:35:32.9982684Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9983550Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9984187Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9984680Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9985332Z npm warn EBADENGINE   package: 'libnpmorg@8.0.1',
+test	Install dependencies	2026-03-29T06:35:32.9986126Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9986978Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9987598Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9988071Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9988939Z npm warn EBADENGINE   package: 'libnpmpack@9.1.5',
+test	Install dependencies	2026-03-29T06:35:32.9989713Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9990549Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9991192Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9991698Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9992369Z npm warn EBADENGINE   package: 'libnpmpublish@11.1.3',
+test	Install dependencies	2026-03-29T06:35:32.9993187Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9994057Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9994909Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9995402Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9996061Z npm warn EBADENGINE   package: 'libnpmsearch@9.0.1',
+test	Install dependencies	2026-03-29T06:35:32.9996858Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:32.9997735Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:32.9998355Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:32.9999056Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:32.9999709Z npm warn EBADENGINE   package: 'libnpmteam@8.0.2',
+test	Install dependencies	2026-03-29T06:35:33.0000463Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0001343Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0001961Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0002444Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0003124Z npm warn EBADENGINE   package: 'libnpmversion@8.0.3',
+test	Install dependencies	2026-03-29T06:35:33.0003909Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0004774Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0005380Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0005861Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0006502Z npm warn EBADENGINE   package: 'lru-cache@11.2.7',
+test	Install dependencies	2026-03-29T06:35:33.0007198Z npm warn EBADENGINE   required: { node: '20 || >=22' },
+test	Install dependencies	2026-03-29T06:35:33.0007985Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0008810Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0009272Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0009983Z npm warn EBADENGINE   package: 'make-fetch-happen@15.0.5',
+test	Install dependencies	2026-03-29T06:35:33.0010815Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0011664Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0012496Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0012978Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0013639Z npm warn EBADENGINE   package: 'minipass-fetch@5.0.2',
+test	Install dependencies	2026-03-29T06:35:33.0014452Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0015326Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0015966Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0016470Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0017126Z npm warn EBADENGINE   package: 'mute-stream@3.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0017936Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0019047Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0019672Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0020142Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0020777Z npm warn EBADENGINE   package: 'node-gyp@12.2.0',
+test	Install dependencies	2026-03-29T06:35:33.0021562Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0022411Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0023014Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0023524Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0024213Z npm warn EBADENGINE   package: 'nopt@9.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0024948Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0025805Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0026410Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0026897Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0027587Z npm warn EBADENGINE   package: 'npm-audit-report@7.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0028390Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0029498Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0030116Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0030605Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0031250Z npm warn EBADENGINE   package: 'npm-bundled@5.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0032243Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0033105Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0033720Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0034200Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0034906Z npm warn EBADENGINE   package: 'npm-install-checks@8.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0035729Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0036570Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0037178Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0037646Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0038398Z npm warn EBADENGINE   package: 'npm-normalize-package-bin@5.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0039467Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0040312Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0040929Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0041408Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0042113Z npm warn EBADENGINE   package: 'npm-package-arg@13.0.2',
+test	Install dependencies	2026-03-29T06:35:33.0042967Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0043823Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0044450Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0044945Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0045620Z npm warn EBADENGINE   package: 'npm-packlist@10.0.4',
+test	Install dependencies	2026-03-29T06:35:33.0046436Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0047301Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0047919Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0048377Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0049220Z npm warn EBADENGINE   package: 'npm-pick-manifest@11.0.3',
+test	Install dependencies	2026-03-29T06:35:33.0049710Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0050195Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0050539Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0050823Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0051195Z npm warn EBADENGINE   package: 'npm-profile@12.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0051634Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0052096Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0052432Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0052709Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0053104Z npm warn EBADENGINE   package: 'npm-registry-fetch@19.1.1',
+test	Install dependencies	2026-03-29T06:35:33.0053556Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0054028Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0054369Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0054639Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0055029Z npm warn EBADENGINE   package: 'npm-user-validate@4.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0055473Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0055933Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0056274Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0056538Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0056888Z npm warn EBADENGINE   package: 'pacote@21.5.0',
+test	Install dependencies	2026-03-29T06:35:33.0057310Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0057763Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0058099Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0058363Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0058925Z npm warn EBADENGINE   package: 'parse-conflict-json@5.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0059388Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0059991Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0060324Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0060595Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0060946Z npm warn EBADENGINE   package: 'proc-log@6.1.0',
+test	Install dependencies	2026-03-29T06:35:33.0061361Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0061816Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0062161Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0062427Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0062770Z npm warn EBADENGINE   package: 'proggy@4.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0063184Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0063641Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0063981Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0064252Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0064602Z npm warn EBADENGINE   package: 'promzard@3.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0065021Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0065472Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0065808Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0066076Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0066405Z npm warn EBADENGINE   package: 'read@5.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0066807Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0067263Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0067595Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0067860Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0068222Z npm warn EBADENGINE   package: 'read-cmd-shim@6.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0068794Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0069385Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0069724Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0069998Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0070347Z npm warn EBADENGINE   package: 'sigstore@4.1.0',
+test	Install dependencies	2026-03-29T06:35:33.0070759Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0071221Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0071551Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0071860Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0072198Z npm warn EBADENGINE   package: 'ssri@13.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0072599Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0073063Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0073403Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0073673Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0074029Z npm warn EBADENGINE   package: 'tuf-js@4.1.0',
+test	Install dependencies	2026-03-29T06:35:33.0074435Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0074915Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0075268Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0075547Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0075972Z npm warn EBADENGINE   package: 'validate-npm-package-name@7.0.2',
+test	Install dependencies	2026-03-29T06:35:33.0076450Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0076913Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0077259Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0077525Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0077892Z npm warn EBADENGINE   package: 'walk-up-path@4.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0078300Z npm warn EBADENGINE   required: { node: '20 || >=22' },
+test	Install dependencies	2026-03-29T06:35:33.0078860Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0079210Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0079479Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0079942Z npm warn EBADENGINE   package: 'which@6.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0080356Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0080812Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0081149Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0081419Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0081803Z npm warn EBADENGINE   package: 'write-file-atomic@7.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0082247Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0082706Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0083036Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0083341Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0083681Z npm warn EBADENGINE   package: 'ob1@0.83.3',
+test	Install dependencies	2026-03-29T06:35:33.0084052Z npm warn EBADENGINE   required: { node: '>=20.19.4' },
+test	Install dependencies	2026-03-29T06:35:33.0084487Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0084832Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0085095Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0085446Z npm warn EBADENGINE   package: 'lru-cache@11.2.7',
+test	Install dependencies	2026-03-29T06:35:33.0085834Z npm warn EBADENGINE   required: { node: '20 || >=22' },
+test	Install dependencies	2026-03-29T06:35:33.0086273Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0086615Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0086878Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0087239Z npm warn EBADENGINE   package: 'react-native@0.84.1',
+test	Install dependencies	2026-03-29T06:35:33.0087886Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:33.0088780Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0089445Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0089988Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0090453Z npm warn EBADENGINE   package: '@react-native/virtualized-lists@0.84.1',
+test	Install dependencies	2026-03-29T06:35:33.0090939Z npm warn EBADENGINE   required: { node: '>= 20.19.4' },
+test	Install dependencies	2026-03-29T06:35:33.0091387Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0091733Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0092010Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0092392Z npm warn EBADENGINE   package: 'semantic-release@25.0.3',
+test	Install dependencies	2026-03-29T06:35:33.0092860Z npm warn EBADENGINE   required: { node: '^22.14.0 || >= 24.10.0' },
+test	Install dependencies	2026-03-29T06:35:33.0093346Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0093677Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0093951Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0094290Z npm warn EBADENGINE   package: 'cliui@9.0.1',
+test	Install dependencies	2026-03-29T06:35:33.0094655Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0095092Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0095429Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0095719Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0096097Z npm warn EBADENGINE   package: 'hosted-git-info@9.0.2',
+test	Install dependencies	2026-03-29T06:35:33.0096546Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0097026Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0097362Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0097633Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0098054Z npm warn EBADENGINE   package: 'lru-cache@11.2.7',
+test	Install dependencies	2026-03-29T06:35:33.0098906Z npm warn EBADENGINE   required: { node: '20 || >=22' },
+test	Install dependencies	2026-03-29T06:35:33.0099363Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0099766Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0100035Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0100448Z npm warn EBADENGINE   package: 'normalize-package-data@8.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0101206Z npm warn EBADENGINE   required: { node: '^20.17.0 || >=22.9.0' },
+test	Install dependencies	2026-03-29T06:35:33.0102109Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0102742Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0103276Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0103745Z npm warn EBADENGINE   package: 'read-package-up@12.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0104160Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0104595Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0104943Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0105221Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0105585Z npm warn EBADENGINE   package: 'read-pkg@10.1.0',
+test	Install dependencies	2026-03-29T06:35:33.0105963Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0106387Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0106745Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0107030Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0107405Z npm warn EBADENGINE   package: 'unicorn-magic@0.4.0',
+test	Install dependencies	2026-03-29T06:35:33.0107798Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0108249Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0108881Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0109166Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0109523Z npm warn EBADENGINE   package: 'type-fest@5.5.0',
+test	Install dependencies	2026-03-29T06:35:33.0109886Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0110311Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0110794Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0111226Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0111829Z npm warn EBADENGINE   package: 'yargs@18.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0112608Z npm warn EBADENGINE   required: { node: '^20.19.0 || ^22.12.0 || >=23' },
+test	Install dependencies	2026-03-29T06:35:33.0113683Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0114255Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0114715Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0115330Z npm warn EBADENGINE   package: 'yargs-parser@22.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0116113Z npm warn EBADENGINE   required: { node: '^20.19.0 || ^22.12.0 || >=23' },
+test	Install dependencies	2026-03-29T06:35:33.0116934Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0117481Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0117908Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0118707Z npm warn EBADENGINE   package: 'slice-ansi@8.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0119382Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0120135Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0120728Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0121192Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0121817Z npm warn EBADENGINE   package: 'tagged-tag@1.0.0',
+test	Install dependencies	2026-03-29T06:35:33.0122475Z npm warn EBADENGINE   required: { node: '>=20' },
+test	Install dependencies	2026-03-29T06:35:33.0123200Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0123775Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0124224Z npm warn EBADENGINE Unsupported engine {
+test	Install dependencies	2026-03-29T06:35:33.0124786Z npm warn EBADENGINE   package: 'undici@7.24.6',
+test	Install dependencies	2026-03-29T06:35:33.0125425Z npm warn EBADENGINE   required: { node: '>=20.18.1' },
+test	Install dependencies	2026-03-29T06:35:33.0126159Z npm warn EBADENGINE   current: { node: 'v18.20.8', npm: '10.8.2' }
+test	Install dependencies	2026-03-29T06:35:33.0126723Z npm warn EBADENGINE }
+test	Install dependencies	2026-03-29T06:35:33.0127109Z npm error code EUSAGE
+test	Install dependencies	2026-03-29T06:35:33.0127483Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0129271Z npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+test	Install dependencies	2026-03-29T06:35:33.0130614Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0131484Z npm error Invalid: lock file's eslint-plugin-react@7.33.2 does not satisfy eslint-plugin-react@7.37.5
+test	Install dependencies	2026-03-29T06:35:33.0133124Z npm error Invalid: lock file's eslint-plugin-react-hooks@4.6.0 does not satisfy eslint-plugin-react-hooks@7.0.1
+test	Install dependencies	2026-03-29T06:35:33.0134178Z npm error Missing: expect@29.7.0 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0134897Z npm error Missing: jest-matcher-utils@29.7.0 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0135582Z npm error Missing: pump@3.0.4 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0136243Z npm error Missing: end-of-stream@1.4.5 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0136961Z npm error Missing: stack-generator@2.0.10 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0137681Z npm error Missing: querystringify@2.2.0 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0138346Z npm error Missing: jest-diff@29.7.0 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0139214Z npm error Missing: diff-sequences@29.6.3 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0139872Z npm error Missing: cssom@0.5.0 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0140517Z npm error Missing: domexception@4.0.0 from lock file
+test	Install dependencies	2026-03-29T06:35:33.0141016Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0141413Z npm error Clean install a project
+test	Install dependencies	2026-03-29T06:35:33.0141818Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0142112Z npm error Usage:
+test	Install dependencies	2026-03-29T06:35:33.0142431Z npm error npm ci
+test	Install dependencies	2026-03-29T06:35:33.0142735Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0143051Z npm error Options:
+test	Install dependencies	2026-03-29T06:35:33.0143800Z npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+test	Install dependencies	2026-03-29T06:35:33.0144930Z npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+test	Install dependencies	2026-03-29T06:35:33.0146094Z npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+test	Install dependencies	2026-03-29T06:35:33.0147202Z npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+test	Install dependencies	2026-03-29T06:35:33.0148055Z npm error [--no-bin-links] [--no-fund] [--dry-run]
+test	Install dependencies	2026-03-29T06:35:33.0149066Z npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+test	Install dependencies	2026-03-29T06:35:33.0150214Z npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+test	Install dependencies	2026-03-29T06:35:33.0150814Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0151395Z npm error aliases: clean-install, ic, install-clean, isntall-clean
+test	Install dependencies	2026-03-29T06:35:33.0151957Z npm error
+test	Install dependencies	2026-03-29T06:35:33.0152367Z npm error Run "npm help ci" for more info
+test	Install dependencies	2026-03-29T06:35:33.0153393Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-03-29T06_35_30_876Z-debug-0.log
+test	Install dependencies	2026-03-29T06:35:33.0216227Z ##[error]Process completed with exit code 1.
+test	Post Checkout	﻿2026-03-29T06:35:33.0345600Z Post job cleanup.
+test	Post Checkout	2026-03-29T06:35:33.1301035Z [command]/usr/bin/git version
+test	Post Checkout	2026-03-29T06:35:33.1342334Z git version 2.53.0
+test	Post Checkout	2026-03-29T06:35:33.1397357Z Temporarily overriding HOME='/home/runner/work/_temp/4187b1c1-38ae-45ab-93c4-306f0bb0cf91' before making global git config changes
+test	Post Checkout	2026-03-29T06:35:33.1399281Z Adding repository directory to the temporary git global config as a safe directory
+test	Post Checkout	2026-03-29T06:35:33.1404217Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/UAI-WeeJobs/UAI-WeeJobs
+test	Post Checkout	2026-03-29T06:35:33.1443608Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+test	Post Checkout	2026-03-29T06:35:33.1479178Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+test	Post Checkout	2026-03-29T06:35:33.1712695Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+test	Post Checkout	2026-03-29T06:35:33.1738836Z http.https://github.com/.extraheader
+test	Post Checkout	2026-03-29T06:35:33.1751632Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+test	Post Checkout	2026-03-29T06:35:33.1789043Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+test	Post Checkout	2026-03-29T06:35:33.2038795Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+test	Post Checkout	2026-03-29T06:35:33.2077743Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+test	Complete job	﻿2026-03-29T06:35:33.2465147Z Cleaning up orphan processes
+test	Complete job	2026-03-29T06:35:33.2807571Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4, actions/setup-node@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
