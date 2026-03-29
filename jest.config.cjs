@@ -32,16 +32,7 @@ module.exports = {
   // Provide explicit transforms (override preset) so we don't depend on
   // upstream asset transformers that may not be present on all platforms.
   transform: {
-    "\\.[jt]sx?$": [
-      require.resolve('babel-jest'),
-      {
-        caller: {
-          name: "metro",
-          bundler: "metro",
-          platform: "ios",
-        },
-      },
-    ],
+    "\\.[jt]sx?$": "<rootDir>/__mocks__/babelTransform.js",
     '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/fileMock.js'
   },
   coverageThreshold: {
