@@ -88,8 +88,25 @@ try {
     // expose a stable object and copy assigned values into it when tests
     // reassign, so modules that captured the original object see updates.
     if (typeof Object.getOwnPropertyDescriptor(global, '__TEST_SUPABASE__') === 'undefined') {
-      const createChain = (singleResult = false) => {
-        const promiseValue = singleResult ? { data: null, error: null } : { data: [], error: null };
+      // Allow tests to seed predictable responses for table queries via
+      // `global.__TEST_SUPABASE__.setResponse(table, data)`. This makes
+      // top-level module fetches predictable without requiring large
+      // per-test mocks.
+      const __TEST_SUPABASE_RESPONSES = {};
+
+      const createChain = (table = null, singleResult = false) => {
+        const respPresent = table && Object.prototype.hasOwnProperty.call(__TEST_SUPABASE_RESPONSES, table);
+        const resp = respPresent ? __TEST_SUPABASE_RESPONSES[table] : undefined;
+
+        let promiseValue;
+        if (singleResult) {
+          const data = resp !== undefined ? (Array.isArray(resp) ? (resp.length > 0 ? resp[0] : null) : resp) : null;
+          promiseValue = { data, error: null };
+        } else {
+          const data = resp !== undefined ? (Array.isArray(resp) ? resp : [resp]) : [];
+          promiseValue = { data, error: null };
+        }
+
         const q = {
           select: (..._args) => q,
           order: (..._args) => q,
@@ -98,7 +115,8 @@ try {
           in: (..._args) => q,
           update: (..._args) => q,
           insert: (..._args) => q,
-          single: async () => ({ data: null, error: null }),
+          delete: (..._args) => q,
+          single: async () => (singleResult ? promiseValue : (Array.isArray(promiseValue.data) ? { data: promiseValue.data[0] || null, error: null } : promiseValue)),
           then: (onFulfilled, onRejected) => Promise.resolve(promiseValue).then(onFulfilled, onRejected),
           catch: (onRejected) => Promise.resolve(promiseValue).catch(onRejected),
         };
@@ -106,13 +124,16 @@ try {
       };
 
       const __TEST_SUPABASE_INTERNAL = {
+        __responses__: __TEST_SUPABASE_RESPONSES,
+        setResponse: (table, data) => { __TEST_SUPABASE_RESPONSES[table] = data; },
+        clearResponses: () => { Object.keys(__TEST_SUPABASE_RESPONSES).forEach((k) => delete __TEST_SUPABASE_RESPONSES[k]); },
         auth: {
           signUp: async (_opts) => ({ data: { user: null }, error: null }),
           signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
           signOut: async () => ({ error: null }),
           resetPasswordForEmail: async () => ({ error: null }),
         },
-        from: (_table) => createChain(false),
+        from: (_table) => createChain(_table, false),
         functions: { invoke: async () => ({ data: null, error: null }) },
       };
 
@@ -231,13 +252,32 @@ try {
     // to intercept and optionally filter messages. By default we call the
     // original console.error implementation.
     console.error = (...args) => {
+      const firstArgIncludes = (needle) => {
+        try {
+          const a0 = args && args[0];
+          if (typeof a0 === 'string') return a0.includes(needle);
+          if (a0 && typeof a0.message === 'string') return a0.message.includes(needle);
+        } catch {
+          // ignore
+        }
+        return false;
+      };
+
       try {
-        if (args && args.length && typeof args[0] === 'string' && args[0].includes('react-test-renderer is deprecated')) {
+        // Suppress known noisy messages that are safe to ignore in tests
+        // unless debugging is explicitly enabled. Tests that need to assert
+        // on these warnings can still set `global.__TEST_CONSOLE_ERROR_HANDLER__`.
+        if (firstArgIncludes('react-test-renderer is deprecated')) return;
+
+        // Quiet the frequent act() warning which is often noisy in Jest
+        // environments while still allowing it to be enabled when needed.
+        if (firstArgIncludes('not wrapped in act') && process.env.WEEJOBS_DEBUG !== 'true') {
           return;
         }
       } catch {
         // ignore filter errors
       }
+
       try {
         // If a test provided a handler, call it instead of the original.
         // This allows individual tests to suppress known noisy warnings
