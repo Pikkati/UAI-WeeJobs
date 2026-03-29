@@ -29,9 +29,21 @@ module.exports = {
     ,
     '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/fileMock.js'
   },
-  // Avoid using a custom transformer for image assets; map them to a
-  // lightweight module via `moduleNameMapper` so Jest validation is
-  // less platform-sensitive.
+  // Provide explicit transforms (override preset) so we don't depend on
+  // upstream asset transformers that may not be present on all platforms.
+  transform: {
+    "\\.[jt]sx?$": [
+      "babel-jest",
+      {
+        caller: {
+          name: "metro",
+          bundler: "metro",
+          platform: "ios",
+        },
+      },
+    ],
+    '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/fileMock.js'
+  },
   coverageThreshold: {
     global: {
       branches: 70,
