@@ -5,11 +5,9 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(@?expo|expo-asset|expo-modules-core|react-native|@react-native|@unimodules|@react-navigation|@supabase|expo-font)/)'
   ],
-  // Use a small wrapper around Jest's resolver to ensure the resolver
-  // exposes the `sync` and `async` properties expected by Jest on all
-  // platforms (avoids react-native's custom resolver interfering with
-  // our moduleNameMapper mappings on Windows).
-  resolver: '<rootDir>/jest-resolver-wrapper.js',
+  // Use Jest's default resolver. A custom resolver caused transform
+  // resolution issues across environments, so we rely on the default
+  // behavior which resolves local wrapper modules correctly.
   moduleNameMapper: {
     '^expo$': '<rootDir>/__mocks__/expo-shim.js',
     '^expo(/.*)?$': '<rootDir>/__mocks__/expo-shim.js',
