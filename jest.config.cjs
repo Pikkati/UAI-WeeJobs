@@ -16,6 +16,7 @@ module.exports = {
     '^expo-font$': '<rootDir>/__mocks__/expo-font.js',
     '^@expo/vector-icons$': '<rootDir>/__mocks__/expo-vector-icons.js',
     '^expo-linear-gradient$': '<rootDir>/__mocks__/expo-linear-gradient.js',
+    '^expo-router$': '<rootDir>/__mocks__/expo-router.js',
     '^@react-native-async-storage/async-storage$': '<rootDir>/__mocks__/async-storage.js',
     '^react-native/Libraries/BatchedBridge/NativeModules$': '<rootDir>/__mocks__/rn-native-modules.js',
     '^react-native$': '<rootDir>/__mocks__/react-native.js',
