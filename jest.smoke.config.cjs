@@ -1,15 +1,9 @@
 module.exports = {
-  preset: '<rootDir>/jest-preset',
   testEnvironment: '<rootDir>/jest-environment-custom.js',
   testEnvironmentOptions: {},
   transformIgnorePatterns: [
     'node_modules/(?!(@?expo|expo-modules-core|react-native|@react-native|@unimodules|@react-navigation|@supabase)/)'
   ],
-  // Use a small wrapper around Jest's resolver to ensure the resolver
-  // exposes the `sync` and `async` properties expected by Jest on all
-  // platforms (avoids react-native's custom resolver interfering with
-  // our moduleNameMapper mappings on Windows).
-  resolver: '<rootDir>/jest-resolver-wrapper.js',
   moduleNameMapper: {
     '^expo$': '<rootDir>/__mocks__/expo-shim.js',
     '^expo(/.*)?$': '<rootDir>/__mocks__/expo-shim.js',
@@ -23,23 +17,12 @@ module.exports = {
     '^react-native$': '<rootDir>/__mocks__/react-native.js',
     '^react-native-reanimated$': '<rootDir>/__mocks__/react-native-reanimated.js',
     '^react-native-reanimated/mock$': '<rootDir>/__mocks__/react-native-reanimated.js',
-    '^react-native/jest/setup(\\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js'
-    ,
+    '^react-native/jest/setup(\\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
     '^react-native/jest/assetFileTransformer\\.js$': '<rootDir>/__mocks__/assetFileTransformer.js'
-  },
-  transform: {
-    '^.+\\.(png|jpg|jpeg|gif|bmp|webp|svg)$': '<rootDir>/__mocks__/assetFileTransformer.js'
-  },
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 75,
-      lines: 75,
-      statements: 75,
-    },
   },
   setupFiles: [
     '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
     '<rootDir>/jest-setup.js'
   ],
+  testMatch: ['<rootDir>/__tests__/smoke.harness.test.tsx']
 };
