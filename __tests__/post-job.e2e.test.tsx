@@ -1,4 +1,6 @@
 import React from 'react';
+// Ensure our react-native mock is used before testing-library imports it.
+jest.mock('react-native', () => require('../__mocks__/react-native.js'));
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
 // Mock auth to provide a signed-in user
