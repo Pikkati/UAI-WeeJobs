@@ -70,6 +70,14 @@ module.exports.StyleSheet.create = module.exports.StyleSheet.create || ((styles)
 module.exports.StyleSheet.flatten = module.exports.StyleSheet.flatten || ((s) => s);
 module.exports.StyleSheet.absoluteFillObject = module.exports.StyleSheet.absoluteFillObject || { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 };
 
+// Ensure Alert API exists and auto-invokes the first button handler in tests
+module.exports.Alert = module.exports.Alert || {};
+module.exports.Alert.alert = module.exports.Alert.alert || ((title, message, buttons) => {
+  if (Array.isArray(buttons) && buttons[0] && typeof buttons[0].onPress === 'function') {
+    buttons[0].onPress();
+  }
+});
+
 // Ensure basic React Native host components exist for tests that render JSX.
 try {
   const React = require('react');
