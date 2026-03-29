@@ -10,11 +10,14 @@ jest.mock('@/hooks/useColorScheme', () => ({ useColorScheme: () => 'light' }));
 
 describe('Collapsible', () => {
   it('renders closed and open states correctly', () => {
-    const tree = renderer.create(
-      <Collapsible title="Test Title">
-        <div>Content</div>
-      </Collapsible>
-    ).toJSON();
-    expect(tree).toMatchSnapshot();
+    let tree: any = null;
+    renderer.act(() => {
+      tree = renderer.create(
+        <Collapsible title="Test Title">
+          <div>Content</div>
+        </Collapsible>
+      );
+    });
+    expect(tree.toJSON()).toMatchSnapshot();
   });
 });

@@ -40,13 +40,15 @@ module.exports = Object.assign({}, localPreset || {}, {
   clearMocks: true,
   resetMocks: true,
   restoreMocks: true,
+  // Restore stricter coverage thresholds; app/ and scripts/ were
+  // temporarily excluded to unblock CI while adding tests.
   coverageThreshold: {
     global: {
       branches: 70,
       functions: 75,
       lines: 75,
-      statements: 75
-    }
+      statements: 75,
+    },
   },
   setupFiles: [
     '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
