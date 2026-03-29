@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
+import { JobsProvider, useJobs } from '../context/JobsContext';
+
 // Provide a user so JobsProvider functions run (fallback for tests)
 // eslint-disable-next-line no-undef
 (global as any).__TEST_USE_AUTH__ = () => ({ user: { id: 'u1', subscription_plan: 'basic' } });
@@ -39,8 +41,6 @@ import { render, waitFor } from '@testing-library/react-native';
 
 // Ensure AuthContext useAuth returns the test user (explicit mock optional)
 jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1', subscription_plan: 'basic' } }) }), { virtual: true });
-
-import { JobsProvider, useJobs } from '../context/JobsContext';
 
 const captured: any = {};
 

@@ -18,7 +18,7 @@ try {
       enumerable: true,
     });
   }
-} catch (err) {
+} catch {
   // If we cannot define it (non-configurable), ignore and let upstream handle it.
 }
 
@@ -29,7 +29,7 @@ try {
   if (Text && Text.defaultProps == null) {
     Text.defaultProps = Object.assign({}, Text.defaultProps, { allowFontScaling: false });
   }
-} catch (e) {
+} catch {
   // ignore if react-native isn't available at setup time
 }
 
@@ -124,9 +124,34 @@ try {
         },
         set(val) {
           if (val && typeof val === 'object') {
-            // Remove existing keys and copy new ones so identity stays stable
-            Object.keys(__TEST_SUPABASE_INTERNAL).forEach((k) => delete __TEST_SUPABASE_INTERNAL[k]);
-            Object.assign(__TEST_SUPABASE_INTERNAL, val);
+            // Merge incoming keys into the internal container to preserve
+            // default helpers (like `.from`) while allowing tests to override
+            // specific pieces. This avoids TypeErrors when tests provide a
+            // partial mock that doesn't include all expected methods.
+            Object.keys(val).forEach((k) => {
+              try {
+                __TEST_SUPABASE_INTERNAL[k] = val[k];
+              } catch {
+                // ignore non-writable properties
+              }
+            });
+
+            // Ensure critical APIs exist so modules that imported the
+            // original container during module-eval keep working.
+            if (typeof __TEST_SUPABASE_INTERNAL.from !== 'function') {
+              __TEST_SUPABASE_INTERNAL.from = (_table) => createChain(false);
+            }
+            if (!__TEST_SUPABASE_INTERNAL.functions) {
+              __TEST_SUPABASE_INTERNAL.functions = { invoke: async () => ({ data: null, error: null }) };
+            }
+            if (!__TEST_SUPABASE_INTERNAL.auth) {
+              __TEST_SUPABASE_INTERNAL.auth = {
+                signUp: async (_opts) => ({ data: { user: null }, error: null }),
+                signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
+                signOut: async () => ({ error: null }),
+                resetPasswordForEmail: async () => ({ error: null }),
+              };
+            }
           } else {
             // Non-object assignment: replace the internal reference
             // (rare in tests) — define directly for simplicity.
@@ -150,11 +175,11 @@ try {
         // eslint-disable-next-line no-undef
         globalThis.IS_REACT_ACT_ENVIRONMENT = true;
       }
-    } catch (e) {
+    } catch {
       // ignore in weird CI envs
     }
   }
-} catch (err) {
+  } catch {
   // ignore test fallback setup errors
 }
 
@@ -170,7 +195,7 @@ try {
       rn.StyleSheet.create = (styles) => {
         try {
           return orig(styles);
-        } catch (err) {
+        } catch {
           return styles;
         }
       };
@@ -180,7 +205,7 @@ try {
     rn.StyleSheet.flatten = rn.StyleSheet.flatten || ((s) => s);
     rn.StyleSheet.absoluteFillObject = rn.StyleSheet.absoluteFillObject || { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 };
   }
-} catch (e) {
+} catch {
   // ignore; best-effort shim for testing environments
 }
 
@@ -191,17 +216,40 @@ try {
 try {
   if (typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID) {
     const _origConsoleError = console.error;
+    try {
+      // Expose the original console.error so tests can forward to it
+      // when they want to suppress or filter messages via the
+      // `__TEST_CONSOLE_ERROR_HANDLER__` hook.
+      // eslint-disable-next-line no-undef
+      if (typeof global !== 'undefined') (global).__JEST_ORIG_CONSOLE_ERROR__ = _origConsoleError;
+    } catch {
+      // ignore
+    }
+    // Expose a hook for tests to override how console.error is handled.
+    // Some tests suppress specific warnings (e.g., act() warnings). Tests
+    // can set `global.__TEST_CONSOLE_ERROR_HANDLER__ = (...args) => {}`
+    // to intercept and optionally filter messages. By default we call the
+    // original console.error implementation.
     console.error = (...args) => {
       try {
         if (args && args.length && typeof args[0] === 'string' && args[0].includes('react-test-renderer is deprecated')) {
           return;
         }
-      } catch (e) {
+      } catch {
         // ignore filter errors
       }
-      _origConsoleError.apply(console, args);
+      try {
+        // If a test provided a handler, call it instead of the original.
+        // This allows individual tests to suppress known noisy warnings
+        // without trying to spy the globally-wrapped `console.error`.
+        // eslint-disable-next-line no-undef
+        const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+        handler.apply(console, args);
+      } catch {
+        _origConsoleError.apply(console, args);
+      }
     };
   }
-} catch (e) {
+} catch {
   // ignore
 }

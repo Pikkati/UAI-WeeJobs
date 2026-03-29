@@ -19,7 +19,7 @@ export async function track(name: string, properties?: Record<string, any>) {
       // eslint-disable-next-line no-console
       console.log('[analytics]', event.name, event.properties);
     }
-  } catch (e) {
+  } catch {
     // swallow errors
   }
 }

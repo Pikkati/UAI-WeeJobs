@@ -17,6 +17,6 @@ try {
 	if (typeof globalThis !== 'undefined' && typeof globalThis.__DEV__ === 'undefined') globalThis.__DEV__ = global.__DEV__;
 	// Ensure NODE_ENV is set to 'test' for libraries that branch on it
 	if (typeof process.env.NODE_ENV === 'undefined') process.env.NODE_ENV = 'test';
-} catch (e) {
+} catch {
 	// ignore environment setup errors in constrained runtimes
 }

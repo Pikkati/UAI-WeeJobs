@@ -10,7 +10,7 @@ try {
       enumerable: true,
     });
   }
-} catch (err) {
+} catch {
   // If we cannot define it, continue; downstream code may still work.
 }
 
@@ -40,12 +40,12 @@ class CustomEnvironment extends JsdomEnvironment {
               writable: true,
               enumerable: false,
             });
-          } catch (e) {
+          } catch {
             // ignore: best-effort
           }
         }
       }
-    } catch (err) {
+    } catch {
       // ignore if cannot redefine
     }
   }

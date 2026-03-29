@@ -1,6 +1,8 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14?target=deno";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { rateLimit } from "https://deno.land/x/oak_rate_limit@0.1.0/mod.ts";
 // Optional Sentry for Deno via esm.sh. If SENTRY_DSN is set in env, we'll attempt
 // to initialize Sentry to capture runtime errors from this function.
 let Sentry: any = null;
@@ -24,8 +26,6 @@ try {
       console.warn("Sentry init failed:", (e as any)?.message || e);
       Sentry = null;
     }
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { rateLimit } from "https://deno.land/x/oak_rate_limit@0.1.0/mod.ts";
 // Deno runtime globals are used in this file; declare for TypeScript compile-time
 declare const Deno: any;
 

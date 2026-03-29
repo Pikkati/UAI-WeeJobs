@@ -85,7 +85,7 @@ export default function LoginScreen() {
     setSignInLoading(true);
     setSignInError('');
 
-    const result = await login(signInEmail, signInPassword);
+      const result = await login(signInEmail, signInPassword);
 
     if (result.isRateLimited) {
       const retry = result.retryAfter ? ` Try again in ${Math.ceil((result.retryAfter || 0) / 60)} minutes.` : '';
@@ -191,6 +191,7 @@ export default function LoginScreen() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/refs
   const indicatorTranslateX = tabIndicatorAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, tabWidth],
@@ -349,6 +350,7 @@ export default function LoginScreen() {
 
             <TouchableOpacity
               style={[styles.primaryButton, signInLoading && styles.primaryButtonDisabled]}
+              testID="signin-button"
               onPress={handleSignIn}
               disabled={signInLoading}
             >

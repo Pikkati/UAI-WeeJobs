@@ -1,11 +1,11 @@
 // Ensure test env variables so createClient doesn't throw
-process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
-process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
-
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { AuthProvider } from '../context/AuthContext';
 import PostJobScreen from '../app/customer/post-job';
+
+process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
+process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 
 jest.mock('../lib/supabase', () => ({
   supabase: {
