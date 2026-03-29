@@ -5,7 +5,7 @@ try {
 
   if (dsn) {
     // Lazy require to avoid test / CI errors when package is not installed
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
     const Sentry = require('@sentry/react-native');
     Sentry.init({
       dsn,
@@ -23,7 +23,7 @@ try {
       configureScope: () => {},
     };
   }
-} catch (err) {
+} catch {
   // If Sentry isn't installed or initialization fails, provide noop shim
   module.exports = {
     captureException: () => {},

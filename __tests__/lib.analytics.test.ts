@@ -1,4 +1,5 @@
 import { track } from '../lib/analytics';
+import * as analytics from '../lib/analytics';
 
 describe('analytics.track', () => {
   const OLD_ENV = process.env;
@@ -36,7 +37,6 @@ describe('analytics.track', () => {
     expect(typeof opts.body).toBe('string');
   });
 });
-import * as analytics from '../lib/analytics';
 
 describe('analytics.track', () => {
   const origConsole = console.log;

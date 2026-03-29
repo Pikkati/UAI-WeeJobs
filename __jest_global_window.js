@@ -13,7 +13,7 @@ try {
       // If it's not configurable, don't attempt to redefine — leave as-is.
     }
   }
-} catch (err) {
+} catch {
   // No-op: best-effort pre-definition to avoid `Cannot redefine property: window`
 }
 
@@ -23,7 +23,7 @@ module.exports = {};
 try {
   const fs = require('fs');
   fs.appendFileSync('./tmp_jest_preload_marker.log', `preload:${new Date().toISOString()}\n`);
-} catch (e) {
+} catch {
   // ignore
 }
 
@@ -44,11 +44,11 @@ try {
         const wrapper = require.resolve('./__mocks__/rn-jest-setup-wrapper.js');
         return origLoad.call(this, wrapper, parent, isMain);
       }
-    } catch (err) {
+    } catch {
       // swallow and fall back
     }
     return origLoad.apply(this, arguments);
   };
-} catch (e) {
+} catch {
   // ignore if module patching is not allowed
 }

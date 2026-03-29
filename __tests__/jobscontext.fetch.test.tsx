@@ -2,6 +2,8 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 import { Text } from 'react-native';
 
+import { JobsProvider, useJobs } from '../context/JobsContext';
+
 // Provide a user so JobsProvider functions run (fallback for tests)
 // eslint-disable-next-line no-undef
 (global as any).__TEST_USE_AUTH__ = () => ({ user: { id: 'u1' } });
@@ -41,8 +43,6 @@ jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' 
 // deterministically during tests (avoids AsyncStorage/mock timing issues).
 // eslint-disable-next-line no-undef
 (global as any).__TEST_JOBS_CACHE__ = [{ id: 'cached1', title: 'Cached Job' }];
-
-import { JobsProvider, useJobs } from '../context/JobsContext';
 
 function Consumer() {
   const { jobs, loading } = useJobs();

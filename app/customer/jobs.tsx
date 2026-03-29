@@ -6,7 +6,44 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import { useJobs } from '../../context/JobsContext';
 import { Job, JobStatus, supabase } from '../../lib/supabase';
-import { STATUS_COLORS, STATUS_LABELS, canEditOrDelete, getActionText } from './jobs.helpers';
+import { STATUS_COLORS, STATUS_LABELS } from './jobs.helpers';
+
+export function canEditOrDelete(status: JobStatus): boolean {
+  return status === 'open' || status === 'pending_customer_choice' || status === 'awaiting_customer_choice';
+}
+
+export function getActionText(status: JobStatus, interestCount: number): string | null {
+  switch (status) {
+    case 'open':
+    case 'pending_customer_choice':
+      return interestCount > 0 ? 'Tap to view interested tradespeople' : null;
+    case 'awaiting_customer_choice':
+      return 'Tap to choose your tradesperson';
+    case 'awaiting_quote_approval':
+      return 'Tap to review the quote';
+    case 'awaiting_final_payment':
+      return 'Tap to complete payment';
+    case 'booked':
+    case 'on_the_way':
+    case 'in_progress':
+      return 'Tap to track progress';
+    case 'completed':
+      return 'Tap to leave a review';
+    default:
+      return null;
+  }
+}
+
+export function aggregateInterestCounts(rows: Array<{ job_id?: string }>): Record<string, number> {
+  const counts: Record<string, number> = {};
+  if (!rows || !Array.isArray(rows)) return counts;
+  rows.forEach(row => {
+    const id = row && (row.job_id as string | undefined);
+    if (!id) return;
+    counts[id] = (counts[id] || 0) + 1;
+  });
+  return counts;
+}
 
 export default function CustomerJobsScreen() {
   
@@ -33,13 +70,10 @@ export default function CustomerJobsScreen() {
         .in('job_id', openJobIds)
         .in('status', ['interested', 'shortlisted']);
 
-      if (data) {
-        const counts: Record<string, number> = {};
-        data.forEach(row => {
-          counts[row.job_id] = (counts[row.job_id] || 0) + 1;
-        });
-        setInterestCounts(counts);
-      }
+        if (data) {
+          const counts = aggregateInterestCounts(data);
+          setInterestCounts(counts);
+        }
     } catch (e) {
       console.error('Error fetching interest counts:', e);
     }
@@ -61,9 +95,7 @@ export default function CustomerJobsScreen() {
     setIsRefreshing(false);
   };
 
-  const canEditOrDelete = (status: JobStatus): boolean => {
-    return status === 'open' || status === 'pending_customer_choice' || status === 'awaiting_customer_choice';
-  };
+  
 
   const handleLongPress = (job: Job) => {
     if (canEditOrDelete(job.status)) {
@@ -204,31 +236,11 @@ export default function CustomerJobsScreen() {
     }
   };
 
-  const getActionText = (job: Job): string | null => {
-    switch (job.status) {
-      case 'open':
-      case 'pending_customer_choice':
-        return interestCounts[job.id] > 0 ? 'Tap to view interested tradespeople' : null;
-      case 'awaiting_customer_choice':
-        return 'Tap to choose your tradesperson';
-      case 'awaiting_quote_approval':
-        return 'Tap to review the quote';
-      case 'awaiting_final_payment':
-        return 'Tap to complete payment';
-      case 'booked':
-      case 'on_the_way':
-      case 'in_progress':
-        return 'Tap to track progress';
-      case 'completed':
-        return 'Tap to leave a review';
-      default:
-        return null;
-    }
-  };
+  
 
   const renderJob = ({ item }: { item: Job }) => {
     const count = interestCounts[item.id] || 0;
-    const actionText = getActionText(item);
+    const actionText = getActionText(item.status, count);
     const isActionable = actionText !== null;
     const canModify = canEditOrDelete(item.status);
     const showInterestBanner =

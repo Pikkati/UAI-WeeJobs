@@ -1,9 +1,9 @@
 // Ensure test environment has supabase env vars so createClient doesn't throw.
-process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
-process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
-
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
+
+process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
+process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 
 // In test environment, replace FlatList with a simple renderer
 jest.mock('react-native', () => {
@@ -25,43 +25,81 @@ let usersData: any[] = [
   { id: 'u1', name: 'User One', email: 'u1@example.com', role: 'customer', area: 'Test Area', created_at: '2026-03-01', updated_at: '2026-03-01' },
 ];
 const auditInserted: any[] = [];
-const mockFrom = jest.fn((table: string) => {
-  if (table === 'users') {
-    return {
-      select: () => ({ order: async () => ({ data: usersData, error: null }) }),
-      update: (payload: any) => ({ eq: async (col: string, id: string) => { const user = usersData.find(u => u.id === id); if (user) user.role = payload.role; return { error: null }; } }),
-    };
-  }
-  if (table === 'audit_logs') {
-    return { insert: async (p: any) => { auditInserted.push(p); return { data: null, error: null }; } };
-  }
-  return { select: () => ({ order: async () => ({ data: [], error: null }) }) };
-});
-
-jest.mock('../lib/supabase', () => ({ supabase: { from: mockFrom } }));
-
-const AdminUsersScreen = require('../app/admin/users').default;
 
 describe('AdminUsersScreen', () => {
+  let AdminUsersScreen: any;
+
+  beforeAll(() => {
+    // Provide a module-scoped supabase mock so the component imports the stubbed
+    // client implementation directly (avoids global race conditions).
+    jest.doMock('../lib/supabase', () => {
+      return {
+        __esModule: true,
+        supabase: {
+          from: (table: string) => {
+            if (table === 'users') {
+              return {
+                select: () => ({ order: async () => ({ data: usersData, error: null }) }),
+                update: (payload: any) => ({ eq: async (_col: string, id: string) => { const user = usersData.find(u => u.id === id); if (user) user.role = payload.role; return { error: null }; } }),
+              };
+            }
+            if (table === 'audit_logs') {
+              return { insert: async (p: any) => { auditInserted.push(p); return { data: null, error: null }; } };
+            }
+            return { select: () => ({ order: async () => ({ data: [], error: null }) }) };
+          },
+        },
+        getSupabaseClient: () => ({
+          from: (table: string) => {
+            if (table === 'users') {
+              return {
+                select: () => ({ order: async () => ({ data: usersData, error: null }) }),
+                update: (payload: any) => ({ eq: async (_col: string, id: string) => { const user = usersData.find(u => u.id === id); if (user) user.role = payload.role; return { error: null }; } }),
+              };
+            }
+            if (table === 'audit_logs') {
+              return { insert: async (p: any) => { auditInserted.push(p); return { data: null, error: null }; } };
+            }
+            return { select: () => ({ order: async () => ({ data: [], error: null }) }) };
+          },
+        }),
+      };
+    });
+
+    // Ensure the stable test container does not short-circuit module mocks.
+    // The `jest-setup.js` file exposes a default `global.__TEST_SUPABASE__`;
+    // set it to null so the component will call the mocked `getSupabaseClient()`.
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    (global as any).__TEST_SUPABASE__ = null;
+
+    // Require the component after mocking the module
+    // eslint-disable-next-line global-require
+    AdminUsersScreen = require('../app/admin/users').default;
+  });
+
+  afterAll(() => {
+    try {
+      jest.dontMock('../lib/supabase');
+    } catch (e) {
+      // ignore
+    }
+  });
+
   beforeEach(() => {
-    mockFrom.mockClear();
+    usersData = [ { id: 'u1', name: 'User One', email: 'u1@example.com', role: 'customer', area: 'Test Area', created_at: '2026-03-01', updated_at: '2026-03-01' } ];
     auditInserted.length = 0;
-    usersData[0].role = 'customer';
   });
 
   it('promotes a user to admin and logs an audit entry', async () => {
-    const { getByTestId, getByText, debug } = render(<AdminUsersScreen />);
-    // Debug rendered tree to inspect why FlatList items may not be visible in this test environment
-    // (temporary debug during troubleshooting)
-    // eslint-disable-next-line no-console
-    console.log(debug());
+    const { getByTestId, getByText } = render(<AdminUsersScreen />);
 
-    // Wait for the users count to appear, indicating fetchUsers completed
+    // Wait for users to be loaded
     await waitFor(() => {
       expect(getByText(/registered users/)).toBeTruthy();
     });
 
-    // Now the promote button should be available
+    // Promote via UI
     fireEvent.press(getByTestId('promote-button-u1'));
 
     await waitFor(() => {

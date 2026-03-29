@@ -1,9 +1,9 @@
 // Ensure test environment has supabase env vars so createClient doesn't throw.
-process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
-process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
-
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
+
+process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
+process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 
 jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({}),
@@ -17,12 +17,22 @@ jest.mock('../context/AuthContext', () => ({
 }));
 
 const insertMock = jest.fn(async (payload: any) => ({ data: null, error: null }));
-const mockFrom = jest.fn((table: string) => {
-  if (table === 'jobs') return { insert: insertMock };
-  return { insert: jest.fn(async () => ({ data: null, error: null })) };
-});
 
-jest.mock('../lib/supabase', () => ({ supabase: { from: mockFrom } }));
+// Use the global test override provided by `lib/supabase` so the component
+// picks up the test client at runtime. This avoids module-mocking edge
+// cases where the imported binding may not reflect the factory mock.
+(global as any).__TEST_SUPABASE__ = {
+  from: (table: string) => {
+    if (table === 'jobs') return { insert: insertMock };
+    return { insert: async () => ({ data: null, error: null }) };
+  },
+  auth: {
+    signUp: async () => ({ data: null, error: null }),
+    signInWithPassword: async () => ({ data: null, error: null }),
+    signOut: async () => ({ error: null }),
+  },
+  functions: { invoke: async () => ({ data: null, error: null }) },
+};
 
 const PostJobScreen = require('../app/customer/post-job').default;
 

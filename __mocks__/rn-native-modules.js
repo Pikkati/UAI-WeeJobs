@@ -24,7 +24,9 @@ const createComponent = (name, host = 'View') => {
 
 mock.Text = createComponent('Text', 'Text');
 mock.Text.defaultProps = { allowFontScaling: false };
-mock.TextInput = createComponent('TextInput', 'Text');
+// Render TextInput as a TextInput host element so testing-library's
+// placeholder queries can find it reliably during smoke tests.
+mock.TextInput = createComponent('TextInput', 'TextInput');
 mock.TextInput.defaultProps = { allowFontScaling: false };
 mock.View = createComponent('View');
 mock.KeyboardAvoidingView = createComponent('KeyboardAvoidingView', 'View');
