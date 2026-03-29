@@ -156,16 +156,6 @@ try {
   }
 } catch (err) {
   // ignore test fallback setup errors
-// Inform React's testing utils that we are running in an environment
-// where `act` should be enabled. This reduces noisy act() warnings.
-try {
-  if (typeof globalThis !== 'undefined') {
-    // eslint-disable-next-line no-undef
-    globalThis.IS_REACT_ACT_ENVIRONMENT = true;
-  }
-} catch (e) {
-  // ignore in weird CI envs
->>>>>>> 5b2d6a4 (test: add chainable supabase mock, Expo mocks, smoke harness, and test setup tweaks)
 }
 
 // Ensure `StyleSheet.create` is safe to call during module initialization in tests.
