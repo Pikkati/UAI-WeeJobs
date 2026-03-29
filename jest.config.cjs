@@ -33,7 +33,7 @@ module.exports = {
   // upstream asset transformers that may not be present on all platforms.
   transform: {
     "\\.[jt]sx?$": [
-      "babel-jest",
+      require.resolve('babel-jest'),
       {
         caller: {
           name: "metro",
