@@ -7,13 +7,13 @@ type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   hasSeenOnboarding: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User }>;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }>;
   signup: (
     email: string,
     password: string,
     name: string,
     role: User['role'] | 'tradie'
-  ) => Promise<{ success: boolean; error?: string; user?: User }>;
+  ) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }>;
   logout: () => Promise<void>;
   setHasSeenOnboarding: (value: boolean) => Promise<void>;
   refreshUser: () => Promise<void>;
@@ -51,8 +51,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       ]);
       
       if (storedUser) {
-        const parsedUser = JSON.parse(storedUser) as User & { role?: User['role'] | 'tradie' };
-        setUser(buildNormalizedUser(parsedUser));
+        const parsedUser = JSON.parse(storedUser) as unknown as User & { role?: User['role'] | 'tradie' };
+          setUser(buildNormalizedUser(parsedUser));
       }
       setHasSeenOnboardingState(onboarded === 'true');
     } catch (error) {
@@ -62,27 +62,46 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> => {
+  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }> => {
     try {
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (authError || !authData.user) {
+      const serverMessage = (authError?.message || '').toLowerCase();
+
+      if (authError || !authData?.user) {
+        if (serverMessage.includes('confirm') || serverMessage.includes('verification') || serverMessage.includes('not confirmed')) {
+          return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
+        }
+
+        if (serverMessage.includes('invalid') || serverMessage.includes('invalid login') || serverMessage.includes('invalid credentials')) {
+          return { success: false, error: 'Invalid email or password.' };
+        }
+
+        if (serverMessage.includes('too many') || serverMessage.includes('rate limit') || serverMessage.includes('too many requests')) {
+          return { success: false, error: 'Too many attempts. Please try again later.' };
+        }
+
         // Fallback to local test users for offline/test environments.
         const fallbackUser = Object.values(TEST_USERS).find(
           (u) => u.email === email && u.password === password,
         );
 
         if (fallbackUser) {
-          const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+          const normalizedUser = buildNormalizedUser(fallbackUser as unknown as User & { role?: User['role'] | 'tradie' });
           await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
           setUser(normalizedUser);
           return { success: true, user: normalizedUser };
         }
 
-        return { success: false, error: 'Unable to sign in with those details.' };
+        return { success: false, error: authError?.message || 'Unable to sign in with those details.' };
+      }
+
+      if (!authData.user.confirmed_at) {
+        await supabase.auth.signOut();
+        return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
       }
 
       const { data, error } = await supabase
@@ -100,17 +119,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
       setUser(normalizedUser);
       return { success: true, user: normalizedUser };
-    } catch (error) {
+    } catch (err: any) {
       const fallbackUser = Object.values(TEST_USERS).find(
         (u) => u.email === email && u.password === password,
       );
       if (fallbackUser) {
-        const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+        const normalizedUser = buildNormalizedUser(fallbackUser as unknown as User & { role?: User['role'] | 'tradie' });
         await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
         setUser(normalizedUser);
         return { success: true, user: normalizedUser };
       }
-      return { success: false, error: 'Unable to sign in right now. Please try again.' };
+
+      const errMsg = (err?.message || '').toLowerCase();
+      if (errMsg.includes('network') || errMsg.includes('fetch')) {
+        return { success: false, error: 'Network error. Check your connection and try again.' };
+      }
+
+      return { success: false, error: err?.message || 'Unable to sign in right now. Please try again.' };
     }
   };
 
@@ -119,7 +144,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     password: string,
     name: string,
     role: User['role'] | 'tradie'
-  ): Promise<{ success: boolean; error?: string; user?: User }> => {
+  ): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }> => {
     const normalizedRole = normalizeUserRole(role);
 
     try {
@@ -128,7 +153,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         password,
       });
 
-      if (signupError || !signupData.user || !signupData.session) {
+      if (signupError || !signupData.user) {
         const message = signupError?.message?.toLowerCase() || '';
 
         if (message.includes('already registered') || message.includes('already been registered')) {
@@ -142,6 +167,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return { success: false, error: 'Unable to create your account right now. Please try again.' };
       }
 
+      // If user.confirmed_at is null, email verification is required
+      if (!signupData.user.confirmed_at) {
+        return { success: true, needsVerification: true };
+      }
+
+      // Only create profile if user is confirmed
       const { error: profileError } = await supabase
         .from('users')
         .insert({

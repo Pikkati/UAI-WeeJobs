@@ -138,7 +138,7 @@ export default function LoginScreen() {
       signUpEmail.trim(),
       signUpPassword,
       signUpName.trim(),
-      selectedRole
+      selectedRole as any
     );
 
     if (result.success && result.user) {

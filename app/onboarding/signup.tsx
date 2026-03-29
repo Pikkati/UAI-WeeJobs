@@ -16,6 +16,9 @@ export default function SignUpScreen() {
   const [step, setStep] = useState<'initial' | 'details'>('initial');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showVerifyMsg, setShowVerifyMsg] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendError, setResendError] = useState('');
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   const normalizedRole = role === 'tradie' ? 'tradesperson' : role;
@@ -60,9 +63,11 @@ export default function SignUpScreen() {
     const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
       ? normalizedRole
       : 'customer';
-    const result = await signup(email.trim(), password, name.trim(), selectedRole);
+    const result = await signup(email.trim(), password, name.trim(), selectedRole as any);
 
-    if (result.success && result.user) {
+    if (result.success && result.needsVerification) {
+      setShowVerifyMsg(true);
+    } else if (result.success && result.user) {
       if (result.user.role === 'customer') {
         router.replace('/customer');
       } else if (result.user.role === 'tradesperson') {
@@ -77,6 +82,22 @@ export default function SignUpScreen() {
     }
 
     setIsLoading(false);
+  };
+
+  const handleResendVerification = async () => {
+    setResendLoading(true);
+    setResendError('');
+    try {
+      // Supabase does not provide a direct resend endpoint, so trigger signUp again
+      const { error } = await signup(email.trim(), password, name.trim(), normalizedRole as any);
+      if (error) {
+        setResendError(error);
+      }
+    } catch (e) {
+      setResendError('Unable to resend verification email.');
+    } finally {
+      setResendLoading(false);
+    }
   };
 
   const handleGooglePress = () => {
@@ -117,7 +138,28 @@ export default function SignUpScreen() {
           <Text style={styles.tagline}>{getTagline()}</Text>
         </View>
 
-        {step === 'initial' ? (
+        {showVerifyMsg ? (
+          <View style={styles.authSection}>
+            <Text style={styles.tagline}>Verify your email</Text>
+            <Text style={{ color: Colors.textSecondary, textAlign: 'center', marginVertical: 16 }}>
+              We've sent a verification link to <Text style={{ fontWeight: 'bold' }}>{email}</Text>.
+              Please check your inbox and follow the instructions to activate your account.
+            </Text>
+            <TouchableOpacity
+              style={[styles.signUpButton, resendLoading && styles.signUpButtonDisabled]}
+              onPress={handleResendVerification}
+              disabled={resendLoading}
+            >
+              <Text style={styles.signUpButtonText}>
+                {resendLoading ? 'Resending...' : 'Resend Verification Email'}
+              </Text>
+            </TouchableOpacity>
+            {resendError ? <Text style={styles.error}>{resendError}</Text> : null}
+            <TouchableOpacity style={{ marginTop: 24 }} onPress={() => router.replace('/onboarding/login')}>
+              <Text style={{ color: Colors.link, textAlign: 'center' }}>Already verified? Sign in</Text>
+            </TouchableOpacity>
+          </View>
+        ) : step === 'initial' ? (
           <View style={styles.authSection}>
             <TouchableOpacity style={styles.socialButton} onPress={handleGooglePress}>
               <View style={styles.socialIconContainer}>

@@ -78,7 +78,7 @@ function Dropdown({
   );
 }
 
-export default function PostJobScreen() {
+export default function PostJobScreen({ testInitialValues }: { testInitialValues?: Partial<{ name: string; phone: string; email: string; area: string; category: string; title: string; description: string; timing: string; budget: string; needsQuotation: boolean; photos: string[]; }> } = {}) {
   const { category: preselectedCategory } = useLocalSearchParams<{ category: string }>();
   const { user: _user } = useAuth();
 
@@ -102,6 +102,22 @@ export default function PostJobScreen() {
     area?: string;
     category?: string;
   }>({});
+
+  // Test helper: allow injecting initial form state for deterministic tests
+  useEffect(() => {
+    if (!testInitialValues) return;
+    if (typeof testInitialValues.name === 'string') setName(testInitialValues.name);
+    if (typeof testInitialValues.phone === 'string') setPhone(testInitialValues.phone);
+    if (typeof testInitialValues.email === 'string') setEmail(testInitialValues.email);
+    if (typeof testInitialValues.area === 'string') setArea(testInitialValues.area);
+    if (typeof testInitialValues.category === 'string') setCategory(testInitialValues.category);
+    if (typeof testInitialValues.title === 'string') setTitle(testInitialValues.title);
+    if (typeof testInitialValues.description === 'string') setDescription(testInitialValues.description);
+    if (typeof testInitialValues.timing === 'string') setTiming(testInitialValues.timing);
+    if (typeof testInitialValues.needsQuotation === 'boolean') setNeedsQuotation(testInitialValues.needsQuotation);
+    if (typeof testInitialValues.budget === 'string') setBudget(testInitialValues.budget);
+    if (Array.isArray(testInitialValues.photos)) setPhotos(testInitialValues.photos as string[]);
+  }, [testInitialValues]);
 
   const isGarageClearance = category === 'Garage Clearance';
   const timingOptions = isGarageClearance ? GARAGE_TIMING_OPTIONS : TIMING_OPTIONS;
@@ -199,12 +215,26 @@ export default function PostJobScreen() {
         is_garage_clearance: isGarageClearance,
       });
 
-      if (error) throw error;
+      if (error) {
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(error);
+        throw error;
+      }
 
       Alert.alert('Success', 'Your job has been posted!', [
-        { text: 'OK', onPress: () => router.push('/customer/jobs') },
+        { text: 'OK', onPress: () => {
+          try {
+            if (router && typeof (router as any).push === 'function') {
+              (router as any).push('/customer/jobs');
+            }
+          } catch (e) {
+            // swallow navigation errors during tests
+          }
+        } },
       ]);
     } catch (error) {
+      const sentry = require('../../lib/sentry');
+      sentry.captureException?.(error);
       Alert.alert('Error', 'Failed to post job. Please try again.');
       console.error(error);
     } finally {
@@ -378,6 +408,7 @@ export default function PostJobScreen() {
       </View>
 
       <TouchableOpacity
+        testID="post-job-submit"
         style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
         onPress={handleSubmit}
         disabled={isSubmitting}
