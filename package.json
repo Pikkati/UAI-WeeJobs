@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "node -r ./__jest_global_window.js ./node_modules/.bin/jest --config=jest.config.cjs --watchAll",
-    "test:smoke": "node -r ./__jest_global_window.js ./node_modules/.bin/jest __tests__/smoke.harness.test.tsx --config=jest.config.cjs -i",
+    "test:smoke": "node -r ./__jest_global_window.js ./node_modules/.bin/jest __tests__/smoke.harness.test.tsx --config=jest.smoke.config.cjs -i",
     "test:autowatch": "node scripts/auto-jest-watch.js",
     "test:q": "node scripts/auto-jest-watch.js",
     "test:ci:retry": "node scripts/run-tests-with-retries.js",
