@@ -94,3 +94,27 @@ try {
 } catch (e) {
   // ignore if react isn't available in this environment
 }
+
+// Ensure Animated API helpers exist for test environments (Value, timing, interpolate stub)
+module.exports.Animated = module.exports.Animated || {};
+if (!module.exports.Animated.Value) {
+  module.exports.Animated.Value = function Value(v) {
+    this._value = v;
+    this.setValue = (nv) => { this._value = nv; };
+    this.__getValue = () => this._value;
+    this.interpolate = () => ({
+      __getValue: () => this._value,
+      // chainable noop for tests
+      interpolate: () => ({ __getValue: () => this._value }),
+    });
+  };
+}
+if (!module.exports.Animated.timing) {
+  module.exports.Animated.timing = () => ({ start: (cb) => cb && cb() });
+}
+if (!module.exports.Animated.View) {
+  module.exports.Animated.View = (props) => require('react').createElement('AnimatedView', props, props && props.children);
+}
+
+// Ensure Platform API exists for test environments
+module.exports.Platform = module.exports.Platform || { OS: 'web', select: (obj) => (obj && obj.web) || obj || 'web' };

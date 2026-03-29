@@ -139,6 +139,8 @@ Notes:
 
 These badges reflect the latest run status for the named workflows. If a badge indicates a failure, open the corresponding workflow run in GitHub Actions to inspect logs.
 
+Note: If ESLint runs fail locally or in CI with a plugin resolver error (e.g. `EslintPluginImportResolveError`), follow the temporary workarounds documented in [docs/LINT_LIMITATIONS.md](docs/LINT_LIMITATIONS.md).
+
 If you want, I can: install missing typings for `expo-image`, fix the remaining lint warnings, and open a PR with these documentation changes.
 
 ### Running tests and CI locally

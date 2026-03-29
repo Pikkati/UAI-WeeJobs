@@ -1,5 +1,4 @@
 import React from 'react';
-jest.mock('react-native');
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 
 // Mock auth to provide a signed-in user

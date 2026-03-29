@@ -112,6 +112,7 @@ export default function AdminUsersScreen() {
         </View>
         {item.role !== 'admin' && (
           <TouchableOpacity
+            testID={`promote-button-${item.id}`}
             style={styles.promoteButton}
             onPress={() => promoteToAdmin(item)}
             disabled={promotingId === item.id}
@@ -144,6 +145,7 @@ export default function AdminUsersScreen() {
         data={users}
         renderItem={renderUser}
         keyExtractor={(item) => item.id}
+        initialNumToRender={10}
         contentContainerStyle={styles.listContent}
         refreshControl={
           <RefreshControl
