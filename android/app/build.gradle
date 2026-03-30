@@ -12,6 +12,10 @@ def envMap = new HashMap(System.getenv())
 envMap['NODE_ENV'] = nodeEnv
 def envList = envMap.collect { k, v -> "${k}=${v}" } as String[]
 
+// Prevent Gradle from invoking the bundler for release builds; we
+// pre-generate the bundle and assets separately.
+project.ext.react = [bundleInRelease: false]
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
@@ -23,10 +27,11 @@ react {
     codegenDir = new File(["node", "--print", "require.resolve('@react-native/codegen/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim()).getParentFile().getAbsoluteFile()
 
     enableBundleCompression = (findProperty('android.enableBundleCompression') ?: false).toBoolean()
-    // Use Expo CLI to bundle the app, this ensures the Metro config
-    // works correctly with Expo projects.
-    cliFile = new File(["node", "--print", "require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })"].execute(envList, rootDir).text.trim())
-    bundleCommand = "export:embed"
+    // Use React Native CLI for bundling here to avoid the expo/cli
+    // serializer mismatch on this environment. This will run
+    // `node <react-native-cli> bundle ...` instead of expo's export:embed.
+    cliFile = new File(["node", "--print", "require.resolve('react-native/cli.js', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim())
+    bundleCommand = "bundle"
 
     /* Folders */
      //   The root of your project, i.e. where "package.json" lives. Default is '../..'

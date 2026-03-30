@@ -2,6 +2,16 @@
 
 Quick steps to open the native Android project and run/debug the app from Android Studio.
 
+## Android Studio install location (Windows)
+
+If you installed Android Studio using the default installer on Windows, the typical install location is:
+
+```
+C:\Program Files\Android\Android Studio
+```
+
+Add this path to your local notes or shortcuts if you need to open the IDE or reference the installation folder.
+
 1. Open the project in Android Studio
    - In Android Studio choose **Open** and select the `android` folder inside the repo (`D:\MyProjectsUAI\weejobs\android`).
 
@@ -36,3 +46,54 @@ adb logcat              # view logs
 ```
 
 If you want me to (A) continue fixing the local Gradle/Kotlin issues so this builds locally, or (B) configure and run an EAS cloud build to produce an APK, tell me which and I'll proceed.
+
+## Use Android Studio Emulator & Debugger
+
+1. Open Device Manager: Tools → Device Manager. Create or select an AVD (recommend a recent Pixel x86/x86_64 image) and Launch it. The emulator integrates ADB so Android Studio will automatically list it as a target device.
+
+2. Run the provided configuration: select the `InstallDebugAndRun` run configuration (Run dropdown) and press Run (green arrow). This builds the debug APK and installs it to the selected emulator/device.
+
+3. View logs: open the **Logcat** tool window. Select the emulator device and choose the `com.weejobs.app` process. Use the filter box to search for `expo-router` or `[index]` to see the injected startup messages.
+
+4. Attach the debugger: use Run → Attach debugger to Android process (or the bug icon). Set Java/Kotlin breakpoints in native code or use JS debugging tools for React Native (Flipper/Hermes tools) if needed.
+
+5. Inspect files on-device: open **Device File Explorer** (View → Tool Windows → Device File Explorer). Navigate to `/sdcard/Download/routes_manifest_seen.txt` or `/data/data/com.weejobs.app/files/routes_manifest_seen.txt` (the latter requires a debuggable build). You can also pull files via the integrated terminal with `adb` commands.
+
+6. Troubleshooting:
+   - If the emulator isn't shown, ensure **Android SDK Platform-Tools** are installed (Tools → SDK Manager → SDK Tools → Android SDK Platform-Tools).
+   - If ADB connection is unstable, restart ADB from the terminal: `adb kill-server && adb start-server`, or restart the emulator.
+   - Confirm the SDK path used by Android Studio matches `local.properties` (e.g., `C:/Users/Sosuk/AppData/Local/Android/Sdk`).
+
+These steps let you use Android Studio's built-in ADB, Logcat, device file browser, and debugger to verify our runtime instrumentation and inspect files written by the app.
+
+### Launch AVD from the repo
+
+You can launch an emulator AVD directly from the repository with the included helper script.
+
+Windows (PowerShell):
+
+```powershell
+.
+\scripts\launch_avd.ps1 [AVD_NAME]
+```
+
+macOS/Linux:
+
+```bash
+./scripts/launch_avd.sh [AVD_NAME]
+```
+
+If you omit `[AVD_NAME]` the script will use the first AVD reported by the emulator. The script will try to locate the emulator binary using `ANDROID_SDK_ROOT` / `ANDROID_HOME` or the system PATH.
+
+### Install ADB via winget (Windows)
+
+If `adb` is not available on your PATH you can install the Android platform-tools using `winget` (Windows 10/11). Example:
+
+```powershell
+winget install --id Google.AndroidSDK.PlatformTools -e --accept-package-agreements --accept-source-agreements
+# or, if not found, try:
+winget install --id Android.AndroidSDK.PlatformTools -e --accept-package-agreements --accept-source-agreements
+```
+
+If `winget` is not available on your system, install it via Microsoft Store or use the Android SDK Manager inside Android Studio to install "Android SDK Platform-Tools".
+
