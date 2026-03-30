@@ -3,6 +3,9 @@ import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
+import java.io.File
+import kotlin.concurrent.thread
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
@@ -21,6 +24,48 @@ class MainActivity : ReactActivity() {
     SplashScreenManager.registerOnActivity(this)
     // @generated end expo-splashscreen
     super.onCreate(null)
+    // Immediate native check: log existence of the artifacts written by JS
+    try {
+      val sdFileImmediate = File("/sdcard/Download/routes_manifest_seen.txt")
+      val appFileImmediate = File(filesDir, "routes_manifest_seen.txt")
+      Log.i("expo-router-native", "MainActivity.onCreate immediate: sdExists=${sdFileImmediate.exists()} appExists=${appFileImmediate.exists()}")
+    } catch (e: Exception) {
+      Log.e("expo-router-native", "MainActivity immediate check failed", e)
+    }
+
+    // Native verification: poll for the file written by JS to confirm routes manifest was seen.
+    try {
+      thread {
+        try {
+          val sdCardPath = "/sdcard/Download/routes_manifest_seen.txt"
+          val appFile = File(filesDir, "routes_manifest_seen.txt")
+          var found = false
+          val attempts = 6
+          for (i in 0 until attempts) {
+            if (File(sdCardPath).exists()) {
+              val txt = File(sdCardPath).readText()
+              Log.i("expo-router-native", "Found routes_manifest_seen on sdcard: $txt")
+              found = true
+              break
+            }
+            if (appFile.exists()) {
+              val txt = appFile.readText()
+              Log.i("expo-router-native", "Found routes_manifest_seen in app files: $txt")
+              found = true
+              break
+            }
+            Thread.sleep(1000)
+          }
+          if (!found) {
+            Log.i("expo-router-native", "routes_manifest_seen.txt not found after waiting")
+          }
+        } catch (e: Exception) {
+          Log.e("expo-router-native", "error checking routes_manifest_seen", e)
+        }
+      }
+    } catch (_: Throwable) {
+      // ignore
+    }
   }
 
   /**
