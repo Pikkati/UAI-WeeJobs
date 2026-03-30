@@ -38,3 +38,13 @@ yarn-error.*
 
 app-example
 .env
+coverage/
+# auto-optimizer backups
+assets/**/optimized-backup/
+
+# Ignore build/extraction artifacts created during local verification
+android/extracted_app.apk
+android/tmp_app_release.zip
+android/tmp_apk_rebuilt_extracted/
+android/*.apk
+android/*.zip
