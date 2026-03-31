@@ -92,11 +92,13 @@ class MainActivity : ReactActivity() {
               try {
                 src.copyTo(dst, overwrite = true)
                 Log.e("expo-router-native", "Copied inspector JSON to external app files: ${dst.absolutePath}")
-                try {
-                  this@MainActivity.runOnUiThread {
-                    Toast.makeText(this@MainActivity, "Inspector JSON copied to external app files", Toast.LENGTH_LONG).show()
-                  }
-                } catch (_: Throwable) {}
+                if (BuildConfig.DEBUG) {
+                  try {
+                    this@MainActivity.runOnUiThread {
+                      Toast.makeText(this@MainActivity, "Inspector JSON copied to external app files", Toast.LENGTH_LONG).show()
+                    }
+                  } catch (_: Throwable) {}
+                }
               } catch (e: Exception) {
                 Log.e("expo-router-native", "Failed copying to external app files", e)
               }
@@ -108,11 +110,13 @@ class MainActivity : ReactActivity() {
               val pub = File("/sdcard/Download/expo-router-inspect-all.json")
               src.copyTo(pub, overwrite = true)
               Log.e("expo-router-native", "Copied inspector JSON to /sdcard/Download: ${pub.absolutePath}")
-              try {
-                this@MainActivity.runOnUiThread {
-                  Toast.makeText(this@MainActivity, "Inspector JSON copied to /sdcard/Download", Toast.LENGTH_LONG).show()
-                }
-              } catch (_: Throwable) {}
+              if (BuildConfig.DEBUG) {
+                try {
+                  this@MainActivity.runOnUiThread {
+                    Toast.makeText(this@MainActivity, "Inspector JSON copied to /sdcard/Download", Toast.LENGTH_LONG).show()
+                  }
+                } catch (_: Throwable) {}
+              }
             } catch (e: Exception) {
               Log.e("expo-router-native", "Failed copying to /sdcard/Download", e)
             }
