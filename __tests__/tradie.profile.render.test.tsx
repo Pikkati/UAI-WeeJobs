@@ -19,6 +19,10 @@ jest.mock('../context/AuthContext', () => ({
   }),
 }), { virtual: true });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('TradieProfileScreen render', () => {
   test('renders profile header and user name', () => {
     const TradieProfileScreen = require('../app/tradie/profile').default;

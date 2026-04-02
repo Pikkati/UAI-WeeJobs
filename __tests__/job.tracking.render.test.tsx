@@ -44,6 +44,10 @@ jest.mock('../context/JobsContext', () => ({
   }),
 }), { virtual: true });
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('JobTrackingScreen render', () => {
   test('renders header, map preview and ETA for on_the_way', async () => {
     const JobTrackingScreen = require('../app/job/tracking').default;
