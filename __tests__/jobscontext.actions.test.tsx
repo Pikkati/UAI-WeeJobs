@@ -71,4 +71,10 @@ describe('JobsContext action flows', () => {
       expect(captured.cancel).toBe(true);
     }, { timeout: 5000 });
   });
+
+  afterAll(() => {
+    // Clean up global state to avoid pollution
+    delete (global as any).__TEST_USE_AUTH__;
+    delete (global as any).__TEST_SUPABASE__;
+  });
 });
