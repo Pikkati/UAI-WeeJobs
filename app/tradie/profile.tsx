@@ -26,7 +26,7 @@ export default function TradieProfileScreen() {
   const { user, logout, refreshUser } = useAuth();
 
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
-  const [pricingType, setPricingType] = useState<PricingType>(user?.pricing_default || 'fixed');
+  const [pricingType, setPricingType] = useState(user?.pricing_default || 'fixed');
   const [hourlyRate, setHourlyRate] = useState(user?.hourly_rate?.toString() || '');
   const [isSavingPricing, setIsSavingPricing] = useState(false);
 
@@ -1029,3 +1029,9 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.lg,
   },
 });
+
+// Ensure no duplicate declarations of `TradieProfileScreen`
+// Remove any redundant or conflicting declarations.
+// ...existing code...
+
+console.log('Debug: TradieProfileScreen loaded');

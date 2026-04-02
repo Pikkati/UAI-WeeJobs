@@ -5,8 +5,8 @@
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "node -r ./__jest_global_window.js ./node_modules/.bin/jest --config=jest.config.cjs --watchAll",
     "test:autowatch": "node scripts/auto-jest-watch.js",
@@ -48,8 +48,8 @@
     "husky": "^8.0.3",
     "lint-staged": "^14.0.0",
     "react-test-renderer": "19.2.4",
-    "typescript": "~5.9.2"
-    ,"semantic-release": "^24.2.9"
+    "typescript": "~5.9.2",
+    "semantic-release": "^24.2.9"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx,jsx}": [
