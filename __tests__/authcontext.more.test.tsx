@@ -126,7 +126,7 @@ describe('AuthProvider additional flows', () => {
     await waitFor(() => {
       expect(r1).toBeDefined();
       expect(r1.success).toBe(false);
-      expect(r1.error).toMatch(/Resend endpoint not configured/i);
+      expect(r1.error).toMatch(/Email verification isn't available/i);
     });
 
     // Now set env and mock fetch

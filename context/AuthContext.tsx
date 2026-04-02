@@ -40,6 +40,7 @@ function track(event: string, props: Record<string, any>) {
 type AuthContextType = {
   user: User | null;
   isLoading: boolean;
+  isAuthenticated: boolean;
   hasSeenOnboarding: boolean;
   onboardingProgress: number | null;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }>;
@@ -65,7 +66,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const normalizeUserRole = (role: User['role'] | 'tradie') =>
   role === 'tradie' ? 'tradesperson' : role;
 
-export const buildNormalizedUser = (data: Partial<User> & { role?: User['role'] | 'tradie' }): User => {
+export const buildNormalizedUser = (data: Partial<User> & { role?: User['role'] | 'tradie' } & Record<string, any>): User => {
   const role = normalizeUserRole(data.role ?? 'customer');
   return {
     id: data.id ?? '',
@@ -87,6 +88,12 @@ export const buildNormalizedUser = (data: Partial<User> & { role?: User['role'] 
     portfolio_photos: data.portfolio_photos,
     created_at: data.created_at ?? new Date().toISOString(),
     updated_at: data.updated_at ?? new Date().toISOString(),
+    // Preserve any extra fields from the original data
+    ...Object.fromEntries(
+      Object.entries(data).filter(
+        ([key]) => !['id', 'email', 'name', 'role', 'phone', 'area', 'trade_categories', 'average_rating', 'total_reviews', 'is_verified_pro', 'subscription_plan', 'jobs_completed', 'pricing_default', 'hourly_rate', 'bio', 'areas_covered', 'portfolio_photos', 'created_at', 'updated_at'].includes(key)
+      )
+    ),
   } as User;
 };
 
@@ -504,6 +511,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         user,
         isLoading,
+        isAuthenticated: user !== null,
         hasSeenOnboarding,
         onboardingProgress,
         login,

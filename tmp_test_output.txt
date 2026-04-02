@@ -1,0 +1,5421 @@
+FAIL __tests__/jobscontext.actions.test.tsx (6.229 s)
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.error
+      Error expressing interest: SupabaseError: No response from server
+          at handleSupabaseResult (D:\MyProjectsUAI\weejobs\lib\supabase-error.ts:31:19)
+          at handleSupabaseResult (D:\MyProjectsUAI\weejobs\lib\supabase-error.ts:43:10)
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:3:17)
+          at _next (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:17:9) {
+        isRateLimited: undefined,
+        retryAfterSeconds: null,
+        original: undefined,
+        context: 'insert job interest'
+      }
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (context/JobsContext.tsx:343:15)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+  ΓùÅ JobsContext action flows ΓÇ║ expressInterest/selectTradesman/cancelJob resolve true
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      66 |
+      67 |     // wait for async effects to complete and assertions to settle
+    > 68 |     await waitFor(() => {
+         |                  ^
+      69 |       expect(captured.express).toBe(true);
+      70 |       expect(captured.select).toBe(true);
+      71 |       expect(captured.cancel).toBe(true);
+
+      at Object.<anonymous> (__tests__/jobscontext.actions.test.tsx:68:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL __tests__/authContext.test.tsx
+  ΓùÅ AuthContext ΓÇ║ Helper Functions ΓÇ║ buildNormalizedUser ΓÇ║ should preserve all user fields
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 15
+
+      Object {
+    -   "avatar": "avatar.jpg",
+    +   "area": undefined,
+    +   "areas_covered": undefined,
+    +   "average_rating": undefined,
+    +   "bio": undefined,
+    +   "created_at": "2026-04-02T03:38:23.875Z",
+        "email": "test@example.com",
+    +   "hourly_rate": undefined,
+        "id": "123",
+    +   "is_verified_pro": undefined,
+    +   "jobs_completed": undefined,
+        "name": "Test User",
+    +   "phone": undefined,
+    +   "portfolio_photos": undefined,
+    +   "pricing_default": undefined,
+        "role": "customer",
+    +   "subscription_plan": undefined,
+    +   "total_reviews": undefined,
+    +   "trade_categories": undefined,
+    +   "updated_at": "2026-04-02T03:38:23.875Z",
+      }
+
+      143 |         };
+      144 |         const normalized = buildNormalizedUser(user);
+    > 145 |         expect(normalized).toEqual({
+          |                            ^
+      146 |           ...user,
+      147 |           role: 'customer' // Already normalized
+      148 |         });
+
+      at Object.toEqual (__tests__/authContext.test.tsx:145:28)
+
+  ΓùÅ AuthContext ΓÇ║ AuthProvider ΓÇ║ should provide initial state
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: undefined
+
+      156 |
+      157 |       expect(result.current.user).toBeNull();
+    > 158 |       expect(result.current.isAuthenticated).toBe(false);
+          |                                              ^
+      159 |       expect(result.current.isLoading).toBe(true); // Initially loading
+      160 |     });
+      161 |
+
+      at Object.toBe (__tests__/authContext.test.tsx:158:46)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+  ΓùÅ AuthContext ΓÇ║ AuthProvider ΓÇ║ should throw error when useAuth is called outside provider
+
+    expect(received).toThrow(expected)
+
+    Expected substring: "useAuth must be used within an AuthProvider"
+
+    Received function did not throw
+
+      163 |       expect(() => {
+      164 |         renderHook(() => useAuth());
+    > 165 |       }).toThrow('useAuth must be used within an AuthProvider');
+          |          ^
+      166 |     });
+      167 |
+      168 |     it('should load stored auth data on mount', async () => {
+
+      at Object.toThrow (__tests__/authContext.test.tsx:165:10)
+
+  ΓùÅ AuthContext ΓÇ║ AuthProvider ΓÇ║ should load stored auth data on mount
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"confirmed_at": "2024-01-01", "email": "test@example.com", "id": "123", "name": "Test User", "role": "customer"}
+    Received: null
+
+      176 |       });
+      177 |
+    > 178 |       expect(result.current.user).toEqual(mockUser);
+          |                                   ^
+      179 |       expect(result.current.isAuthenticated).toBe(true);
+      180 |     });
+      181 |   });
+
+      at Object.toEqual (__tests__/authContext.test.tsx:178:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ login ΓÇ║ should login successfully with valid credentials
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  3
+    + Received  + 17
+
+      Object {
+    -   "confirmed_at": "2024-01-01",
+    +   "area": undefined,
+    +   "areas_covered": undefined,
+    +   "average_rating": undefined,
+    +   "bio": undefined,
+    +   "created_at": "2026-04-02T03:38:24.111Z",
+        "email": "test@example.com",
+    -   "id": "123",
+    -   "name": "Test User",
+    +   "hourly_rate": undefined,
+    +   "id": "test-user-1",
+    +   "is_verified_pro": undefined,
+    +   "jobs_completed": undefined,
+    +   "name": "",
+    +   "phone": undefined,
+    +   "portfolio_photos": undefined,
+    +   "pricing_default": undefined,
+        "role": "customer",
+    +   "subscription_plan": undefined,
+    +   "total_reviews": undefined,
+    +   "trade_categories": undefined,
+    +   "updated_at": "2026-04-02T03:38:24.111Z",
+      }
+
+      206 |
+      207 |         expect(loginResult.success).toBe(true);
+    > 208 |         expect(result.current.user).toEqual(mockUser);
+          |                                     ^
+      209 |         expect(result.current.isAuthenticated).toBe(true);
+      210 |         expect(mockSupabaseClient.auth.signInWithPassword).toHaveBeenCalledWith({
+      211 |           email: 'test@example.com',
+
+      at Object.toEqual (__tests__/authContext.test.tsx:208:37)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ login ΓÇ║ should handle invalid credentials error
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: undefined
+
+      233 |         expect(loginResult.success).toBe(false);
+      234 |         expect(result.current.user).toBeNull();
+    > 235 |         expect(result.current.isAuthenticated).toBe(false);
+          |                                                ^
+      236 |       });
+      237 |
+      238 |       it('should handle unverified email error', async () => {
+
+      at Object.toBe (__tests__/authContext.test.tsx:235:48)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ login ΓÇ║ should handle unverified email error
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      253 |         });
+      254 |
+    > 255 |         expect(loginResult.success).toBe(false);
+          |                                     ^
+      256 |         expect(loginResult.needsVerification).toBe(true);
+      257 |       });
+      258 |     });
+
+      at Object.toBe (__tests__/authContext.test.tsx:255:37)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ logout ΓÇ║ should logout successfully
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"confirmed_at": "2024-01-01", "email": "test@example.com", "id": "123", "name": "Test User", "role": "customer"}
+    Received: null
+
+      266 |
+      267 |         // Wait for initial load
+    > 268 |         await waitFor(() => {
+          |                      ^
+      269 |           expect(result.current.user).toEqual(mockUser);
+      270 |         });
+      271 |
+
+      at Object.<anonymous> (__tests__/authContext.test.tsx:268:22)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ logout ΓÇ║ should handle logout error gracefully
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"confirmed_at": "2024-01-01", "email": "test@example.com", "id": "123", "name": "Test User", "role": "customer"}
+    Received: null
+
+      292 |         const { result } = renderAuthHook();
+      293 |
+    > 294 |         await waitFor(() => {
+          |                      ^
+      295 |           expect(result.current.user).toEqual(mockUser);
+      296 |         });
+      297 |
+
+      at Object.<anonymous> (__tests__/authContext.test.tsx:294:22)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+FAIL __tests__/authcontext.more.test.tsx
+  ΓùÅ Console
+
+    console.log
+      [analytics] signup_failure { email: 'x@y.com', reason: 'already_registered' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_failure { email: 'x@y.com', reason: 'already_registered' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_requires_verification { email: 'a@b.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_requires_verification { email: 'a@b.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+  ΓùÅ AuthProvider additional flows ΓÇ║ resendVerification returns error when endpoint not set and ok when endpoint responds
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /Resend endpoint not configured/i
+    Received string:  "Email verification isn't available right now. Try signing up again or contact support for help."
+
+      124 |     );
+      125 |
+    > 126 |     await waitFor(() => {
+          |                  ^
+      127 |       expect(r1).toBeDefined();
+      128 |       expect(r1.success).toBe(false);
+      129 |       expect(r1.error).toMatch(/Resend endpoint not configured/i);
+
+      at Object.<anonymous> (__tests__/authcontext.more.test.tsx:126:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+PASS __tests__/onboarding.signup.validation.test.tsx
+PASS __tests__/onboarding.login.test.tsx
+PASS __tests__/job.tracking.render.test.tsx
+PASS __tests__/tradie.profile.render.test.tsx
+PASS __tests__/customer.jobs.render.test.tsx
+  ΓùÅ Console
+
+    console.error
+      Each child in a list should have a unique "key" prop.
+      
+      Check the render method of `View`. It was passed a child from FlatList. See https://react.dev/link/warning-keys for more information.
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:15850:21
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2315:13)
+      at warnForMissingKey (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:15849:11)
+      at warnOnInvalidKey (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3703:13)
+      at reconcileChildrenArray (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3782:31)
+      at reconcileChildFibersImpl (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4097:30)
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4202:33
+      at reconcileChildren (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:6684:13)
+      at beginWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8576:13)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2315:13)
+      at performUnitOfWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13224:22)
+      at workLoopSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13068:41)
+      at renderRootSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13049:11)
+      at performWorkOnRoot (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:12181:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2908:7)
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at actImplementation (node_modules/@testing-library/react-native/src/act.ts:30:25)
+      at renderWithAct (node_modules/@testing-library/react-native/src/render-act.ts:13:11)
+      at renderInternal (node_modules/@testing-library/react-native/src/render.tsx:69:33)
+      at renderInternal (node_modules/@testing-library/react-native/src/render.tsx:44:10)
+      at Object.<anonymous> (__tests__/customer.jobs.render.test.tsx:61:46)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/module-load-app-all.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101109983}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at require (__tests__/module-load-app-all.test.ts:29:11)
+      at isolateModules (__tests__/module-load-app-all.test.ts:27:14)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-app-all.test.ts:25:11)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+          at Array.forEach (<anonymous>)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at require (__tests__/module-load-app-all.test.ts:29:11)
+      at isolateModules (__tests__/module-load-app-all.test.ts:27:14)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-app-all.test.ts:25:11)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at require (__tests__/module-load-app-all.test.ts:29:11)
+      at isolateModules (__tests__/module-load-app-all.test.ts:27:14)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-app-all.test.ts:25:11)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101110533}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at require (__tests__/module-load-app-all.test.ts:29:11)
+      at isolateModules (__tests__/module-load-app-all.test.ts:27:14)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-app-all.test.ts:25:11)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+          at Array.forEach (<anonymous>)
+
+    console.warn
+      module-load-app-all: skipped imports due to errors (see first): {
+        file: 'app\\tradie\\earnings.tsx',
+        err: ModuleNotFoundError: Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'
+        
+        Require stack:
+          components/EarningsDashboard.tsx
+          app/tradie/earnings.tsx
+        
+            at Resolver._throwModNotFoundError (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:427:11)
+            at Resolver.resolveModule (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:358:10)
+            at Resolver._getVirtualMockPath (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:619:14)
+            at Resolver._getAbsolutePath (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:587:14)
+            at Resolver.getModuleID (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:530:31)
+            at Runtime._shouldMockCjs (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1713:37)
+            at Runtime.requireModuleOrMock (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1045:16)
+            at Object.require (D:\MyProjectsUAI\weejobs\components\EarningsDashboard.tsx:13:1)
+            at Runtime._execModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1439:24)
+            at Runtime._loadModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1022:12)
+            at Runtime.requireModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:882:12)
+            at Runtime.requireModuleOrMock (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1048:21)
+            at Object.require (D:\MyProjectsUAI\weejobs\app\tradie\earnings.tsx:1:1)
+            at Runtime._execModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1439:24)
+            at Runtime._loadModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1022:12)
+            at Runtime.requireModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:882:12)
+            at Runtime.requireModuleOrMock (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1048:21)
+            at require (D:\MyProjectsUAI\weejobs\__tests__\module-load-app-all.test.ts:29:11)
+            at Runtime.isolateModules (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1082:7)
+            at Object.isolateModules (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1992:12)
+            at isolateModules (D:\MyProjectsUAI\weejobs\__tests__\module-load-app-all.test.ts:27:14)
+            at Array.forEach (<anonymous>)
+            at Object.forEach (D:\MyProjectsUAI\weejobs\__tests__\module-load-app-all.test.ts:25:11)
+            at Promise.then.completed (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\utils.js:298:28)
+            at new Promise (<anonymous>)
+            at callAsyncCircusFn (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\utils.js:231:10)
+            at _callCircusTest (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:316:40)
+            at _runTest (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:252:3)
+            at _runTestsForDescribeBlock (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:126:9)
+            at _runTestsForDescribeBlock (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:121:9)
+            at run (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:71:3)
+            at runAndTransformResultsToJestFormat (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+            at jestAdapter (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+            at runTestInternal (D:\MyProjectsUAI\weejobs\node_modules\jest-runner\build\runTest.js:367:16)
+            at runTest (D:\MyProjectsUAI\weejobs\node_modules\jest-runner\build\runTest.js:444:34) {
+          code: 'MODULE_NOT_FOUND',
+          hint: '',
+          requireStack: [
+            'D:\\MyProjectsUAI\\weejobs\\components\\EarningsDashboard.tsx',
+            'D:\\MyProjectsUAI\\weejobs\\app\\tradie\\earnings.tsx'
+          ],
+          siblingWithSimilarExtensionFound: false,
+          moduleName: '../../constants/theme',
+          _originalMessage: "Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'"
+        }
+      }
+
+      37 |     if (errors.length > 0) {
+      38 |       // eslint-disable-next-line no-console
+    > 39 |       console.warn('module-load-app-all: skipped imports due to errors (see first):', errors[0]);
+         |               ^
+      40 |     }
+      41 |     expect(true).toBe(true);
+      42 |   });
+
+      at Object.warn (__tests__/module-load-app-all.test.ts:39:15)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/module-render-all.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101110886}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/module-render-all.test.ts:60:21)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/module-render-all.test.ts:60:21)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/module-render-all.test.ts:60:21)
+
+    console.log
+      [app] image import: undefined missing
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/require_all_dirs.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101111530}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at require (__tests__/require_all_dirs.test.ts:48:11)
+          at Array.forEach (<anonymous>)
+      at forEach (__tests__/require_all_dirs.test.ts:43:13)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/require_all_dirs.test.ts:39:14)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+          at Array.forEach (<anonymous>)
+          at Array.forEach (<anonymous>)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+          at Array.forEach (<anonymous>)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at require (__tests__/require_all_dirs.test.ts:48:11)
+          at Array.forEach (<anonymous>)
+      at forEach (__tests__/require_all_dirs.test.ts:43:13)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/require_all_dirs.test.ts:39:14)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at require (__tests__/require_all_dirs.test.ts:48:11)
+          at Array.forEach (<anonymous>)
+      at forEach (__tests__/require_all_dirs.test.ts:43:13)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/require_all_dirs.test.ts:39:14)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+          at Array.forEach (<anonymous>)
+          at Array.forEach (<anonymous>)
+
+    console.warn
+      require-all skipped imports due to errors (see first): {
+        file: '../app/tradie/earnings',
+        err: ModuleNotFoundError: Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'
+        
+        Require stack:
+          components/EarningsDashboard.tsx
+          app/tradie/earnings.tsx
+          __tests__/require_all_dirs.test.ts
+        
+            at Resolver._throwModNotFoundError (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:427:11)
+            at Resolver.resolveModule (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:358:10)
+            at Resolver._getVirtualMockPath (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:619:14)
+            at Resolver._getAbsolutePath (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:587:14)
+            at Resolver.getModuleID (D:\MyProjectsUAI\weejobs\node_modules\jest-resolve\build\resolver.js:530:31)
+            at Runtime._shouldMockCjs (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1713:37)
+            at Runtime.requireModuleOrMock (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1045:16)
+            at Object.require (D:\MyProjectsUAI\weejobs\components\EarningsDashboard.tsx:13:1)
+            at Runtime._execModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1439:24)
+            at Runtime._loadModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1022:12)
+            at Runtime.requireModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:882:12)
+            at Runtime.requireModuleOrMock (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1048:21)
+            at Object.require (D:\MyProjectsUAI\weejobs\app\tradie\earnings.tsx:1:1)
+            at Runtime._execModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1439:24)
+            at Runtime._loadModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1022:12)
+            at Runtime.requireModule (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:882:12)
+            at Runtime.requireModuleOrMock (D:\MyProjectsUAI\weejobs\node_modules\jest-runtime\build\index.js:1048:21)
+            at require (D:\MyProjectsUAI\weejobs\__tests__\require_all_dirs.test.ts:48:11)
+            at Array.forEach (<anonymous>)
+            at forEach (D:\MyProjectsUAI\weejobs\__tests__\require_all_dirs.test.ts:43:13)
+            at Array.forEach (<anonymous>)
+            at Object.forEach (D:\MyProjectsUAI\weejobs\__tests__\require_all_dirs.test.ts:39:14)
+            at Promise.then.completed (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\utils.js:298:28)
+            at new Promise (<anonymous>)
+            at callAsyncCircusFn (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\utils.js:231:10)
+            at _callCircusTest (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:316:40)
+            at _runTest (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:252:3)
+            at _runTestsForDescribeBlock (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:126:9)
+            at _runTestsForDescribeBlock (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:121:9)
+            at run (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\run.js:71:3)
+            at runAndTransformResultsToJestFormat (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:122:21)
+            at jestAdapter (D:\MyProjectsUAI\weejobs\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:79:19)
+            at runTestInternal (D:\MyProjectsUAI\weejobs\node_modules\jest-runner\build\runTest.js:367:16)
+            at runTest (D:\MyProjectsUAI\weejobs\node_modules\jest-runner\build\runTest.js:444:34) {
+          code: 'MODULE_NOT_FOUND',
+          hint: '',
+          requireStack: [
+            'D:\\MyProjectsUAI\\weejobs\\components\\EarningsDashboard.tsx',
+            'D:\\MyProjectsUAI\\weejobs\\app\\tradie\\earnings.tsx',
+            'D:\\MyProjectsUAI\\weejobs\\__tests__\\require_all_dirs.test.ts'
+          ],
+          siblingWithSimilarExtensionFound: false,
+          moduleName: '../../constants/theme',
+          _originalMessage: "Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'"
+        }
+      }
+
+      62 |       // import in the Jest environment (native-platform-only code).
+      63 |       // eslint-disable-next-line no-console
+    > 64 |       console.warn('require-all skipped imports due to errors (see first):', errors[0]);
+         |               ^
+      65 |     }
+      66 |
+      67 |     // Pass even if some files failed to import; failures are surfaced in logs
+
+      at Object.warn (__tests__/require_all_dirs.test.ts:64:15)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/page-smoke.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_screen_view { role: 'unknown' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101112259}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/page-smoke.test.tsx:58:19)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/page-smoke.test.tsx:58:19)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/page-smoke.test.tsx:58:19)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.log
+      [expo-router-inspector-debug] inspector useEffect start
+
+      at log (app/index.tsx:73:15)
+
+    console.log
+      [expo-router-inspector-debug] keys present: 45 modulesPresent: true
+
+      at log (app/index.tsx:76:15)
+
+    console.log
+      [expo-router-inspector-debug] write block failed TypeError: Cannot read properties of undefined (reading 'document')
+
+      at log (app/index.tsx:182:19)
+
+    console.log
+      [expo-router-inspector-debug] inspector promise resolved
+
+      at log (app/index.tsx:184:17)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/authcontext.supabase.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] login_unverified_email { email: 'a@b.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] login_unverified_email { email: 'a@b.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_requires_verification { email: 's@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_requires_verification { email: 's@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/onboarding.signup.test.tsx
+  ΓùÅ Console
+
+    console.log
+      [analytics] signup_screen_view { role: 'unknown' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_email_provided { email: 'me@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_step { step: 'details', email: 'me@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_screen_view { role: 'unknown' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_email_provided { email: 'me@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_submitted { email: 'me@example.com', role: 'customer', name_length: 9 }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_step { step: 'details', email: 'me@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_screen_view { role: 'unknown' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_email_provided { email: 'me@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_submitted { email: 'me@example.com', role: 'customer', name_length: 9 }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      [analytics] signup_step { step: 'details', email: 'me@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+PASS __tests__/signup-login.e2e.test.tsx
+  ΓùÅ Console
+
+    console.log
+      TEST_SUPABASE_AT_TEST {
+        getSupabaseClient: [Function: getSupabaseClient],
+        supabase: {
+          from: [Function: from],
+          auth: {
+            signUp: [Function: signUp],
+            signInWithPassword: [Function: signInWithPassword],
+            signOut: [Function: signOut],
+            resetPasswordForEmail: [Function: resetPasswordForEmail]
+          },
+          functions: { invoke: [Function: invoke] }
+        }
+      }
+
+      at Object.log (__tests__/signup-login.e2e.test.tsx:42:9)
+
+    console.log
+      TEST_SUPABASE_AUTH_TYPE object
+
+      at Object.log (__tests__/signup-login.e2e.test.tsx:46:11)
+
+    console.log
+      SUPABASE_AUTH_KEYS [ 'signUp', 'signInWithPassword', 'signOut', 'resetPasswordForEmail' ]
+
+      at Object.log (__tests__/signup-login.e2e.test.tsx:54:11)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG_SIGNUP_RES {
+        data: {
+          user: { id: 'new-id', email: 'debug@example.com', confirmed_at: null }
+        },
+        error: null
+      }
+
+      at log (__tests__/signup-login.e2e.test.tsx:60:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] signup_requires_verification { email: 'new@example.com' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] login_success { userId: 'u1', method: 'password' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+PASS __tests__/authcontext.login.test.tsx
+  ΓùÅ Console
+
+    console.log
+      [analytics] login_failure { email: 'a@b.com', reason: 'invalid_credentials' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      [analytics] login_failure { email: 'a@b.com', reason: 'invalid_credentials' }
+
+      at Object.log (lib/analytics.ts:20:15)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/context.theme.test.tsx
+PASS __tests__/admin.users.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(component) getSupabaseClient typeof: function
+
+      at log (app/admin/users.tsx:39:15)
+
+    console.log
+      DEBUG(component) client keys: [ 'from' ]
+
+      at log (app/admin/users.tsx:41:15)
+
+    console.log
+      DEBUG(component) client.from typeof: function
+
+      at log (app/admin/users.tsx:43:15)
+
+    console.log
+      DEBUG(component) client.from === global.__TEST_SUPABASE__.from: null
+
+      at log (app/admin/users.tsx:48:17)
+
+    console.log
+      DEBUG(component) client.from.toString: function from(table) {
+                    if (table === 'users') {
+                      return {
+                        select: function select() {
+                          return {
+                            order: function
+
+      at log (app/admin/users.tsx:50:17)
+
+    console.log
+      DEBUG(component) raw client.from return: { select: [Function: select], update: [Function: update] } typeof: object ownKeys: [ 'select', 'update' ]
+
+      at log (app/admin/users.tsx:59:17)
+
+    console.log
+      DEBUG(component) supFrom typeof: object keys: [ 'select', 'update' ]
+
+      at log (app/admin/users.tsx:69:15)
+
+    console.error
+      Each child in a list should have a unique "key" prop.
+      
+      Check the render method of `View`. It was passed a child from FlatList. See https://react.dev/link/warning-keys for more information.
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:15850:21
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2315:13)
+      at warnForMissingKey (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:15849:11)
+      at warnOnInvalidKey (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3703:13)
+      at reconcileChildrenArray (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3782:31)
+      at reconcileChildFibersImpl (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4097:30)
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4202:33
+      at reconcileChildren (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:6684:13)
+      at beginWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8576:13)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2315:13)
+      at performUnitOfWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13224:22)
+      at workLoopSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13068:41)
+      at renderRootSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13049:11)
+      at performWorkOnRoot (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:12181:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2908:7)
+      at performWorkUntilDeadline (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+      at Timeout.task [as _onTimeout] (node_modules/jsdom/lib/jsdom/browser/Window.js:520:19)
+
+    console.log
+      DEBUG(component) getSupabaseClient typeof: function
+
+      at log (app/admin/users.tsx:39:15)
+
+    console.log
+      DEBUG(component) client keys: [ 'from' ]
+
+      at log (app/admin/users.tsx:41:15)
+
+    console.log
+      DEBUG(component) client.from typeof: function
+
+      at log (app/admin/users.tsx:43:15)
+
+    console.log
+      DEBUG(component) client.from === global.__TEST_SUPABASE__.from: null
+
+      at log (app/admin/users.tsx:48:17)
+
+    console.log
+      DEBUG(component) client.from.toString: function from(table) {
+                    if (table === 'users') {
+                      return {
+                        select: function select() {
+                          return {
+                            order: function
+
+      at log (app/admin/users.tsx:50:17)
+
+    console.log
+      DEBUG(component) raw client.from return: { select: [Function: select], update: [Function: update] } typeof: object ownKeys: [ 'select', 'update' ]
+
+      at log (app/admin/users.tsx:59:17)
+
+    console.log
+      DEBUG(component) supFrom typeof: object keys: [ 'select', 'update' ]
+
+      at log (app/admin/users.tsx:69:15)
+
+  ΓùÅ [36m<View>[39m
+      [36m<Text>[39m
+        [0mProfile[0m
+      [36m</Text>[39m
+      [36m<View>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [0mIcon[0m
+          [36m</View>[39m
+          [36m<View>[39m
+            [0mIcon[0m
+          [36m</View>[39m
+        [36m</View>[39m
+        [36m<Text>[39m
+          [0mJohn[0m
+        [36m</Text>[39m
+        [36m<Text>[39m
+          [0mjohn@weejobs.test[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<Text>[39m
+            [0mTradesperson[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mAccount Details[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [0mIcon[0m
+            [36m<Text>[39m
+              [0mName[0m
+            [36m</Text>[39m
+            [36m<Text>[39m
+              [0mJohn[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+          [36m<View />[39m
+          [36m<View>[39m
+            [0mIcon[0m
+            [36m<Text>[39m
+              [0mPhone[0m
+            [36m</Text>[39m
+            [36m<Text>[39m
+              [0mNot set[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+          [36m<View />[39m
+          [36m<View>[39m
+            [0mIcon[0m
+            [36m<Text>[39m
+              [0mService Area[0m
+            [36m</Text>[39m
+            [36m<Text>[39m
+              [0mNot set[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mAbout You[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<Text>[39m
+            [0mIntroduce yourself to customers. Mention your experience, qualifications, and what makes you stand out.[0m
+          [36m</Text>[39m
+          [36m<TextInput[39m
+            [33mplaceholder[39m=[32m"e.g. Experienced plumber with 10 years on the Causeway CoastΓÇª"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0m0[0m
+              [0m/400[0m
+            [36m</Text>[39m
+            [36m<View>[39m
+              [36m<Text>[39m
+                [0mSave Bio[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mTrade Categories[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mPlumbing[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mService Areas[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mPortrush[0m
+            [36m</Text>[39m
+            [0mIcon[0m
+          [36m</View>[39m
+        [36m</View>[39m
+        [36m<View>[39m
+          [0mIcon[0m
+          [36m<Text>[39m
+            [0mSelect areas you cover[0m
+          [36m</Text>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mPortfolio Photos[0m
+        [36m</Text>[39m
+        [36m<Text>[39m
+          [0mAdd photos of your previous work to showcase your skills to customers.[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [0mIcon[0m
+            [36m<Text>[39m
+              [0mAdd Photo[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+        [36m<Text>[39m
+          [0mTap the + button to add your first portfolio photo[0m
+        [36m</Text>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mPricing Preference[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<Text>[39m
+            [0mChoose how you prefer to price your work. This will be applied to new jobs you accept.[0m
+          [36m</Text>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [0mIcon[0m
+              [36m<Text>[39m
+                [0mFixed Price[0m
+              [36m</Text>[39m
+              [36m<Text>[39m
+                [0mSend a binding quote before starting work[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<View>[39m
+              [0mIcon[0m
+              [36m<Text>[39m
+                [0mHourly Rate[0m
+              [36m</Text>[39m
+              [36m<Text>[39m
+                [0mSend an estimate first, invoice after work[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mSubscription[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [36m<View>[39m
+            [36m<View>[39m
+              [36m<Text>[39m
+                [0mPAYG[0m
+              [36m</Text>[39m
+            [36m</View>[39m
+            [36m<Text>[39m
+              [0mPay As You Go[0m
+            [36m</Text>[39m
+            [36m<Text>[39m
+              [0mUpgrade to PRO for unlimited leads[0m
+            [36m</Text>[39m
+          [36m</View>[39m
+          [36m<View>[39m
+            [36m<Text>[39m
+              [0mChange Plan[0m
+            [36m</Text>[39m
+            [0mIcon[0m
+          [36m</View>[39m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [36m<Text>[39m
+          [0mLegal[0m
+        [36m</Text>[39m
+        [36m<View>[39m
+          [0mIcon[0m
+          [36m<Text>[39m
+            [0mTerms of Service[0m
+          [36m</Text>[39m
+          [0mIcon[0m
+        [36m</View>[39m
+        [36m<View>[39m
+          [0mIcon[0m
+          [36m<Text>[39m
+            [0mPrivacy Policy[0m
+          [36m</Text>[39m
+          [0mIcon[0m
+        [36m</View>[39m
+      [36m</View>[39m
+      [36m<View>[39m
+        [0mIcon[0m
+        [36m<Text>[39m
+          [0mLogout[0m
+        [36m</Text>[39m
+      [36m</View>[39m
+      [36m<Text>[39m
+        [0mWeeJobs v1.0.0[0m
+      [36m</Text>[39m
+    [36m</View>[39m
+
+PASS __tests__/tradie.profile.test.tsx
+PASS __tests__/chat.jobid.render.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.error
+      Each child in a list should have a unique "key" prop.
+      
+      Check the render method of `View`. It was passed a child from FlatList. See https://react.dev/link/warning-keys for more information.
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:15850:21
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2315:13)
+      at warnForMissingKey (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:15849:11)
+      at warnOnInvalidKey (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3703:13)
+      at reconcileChildrenArray (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:3782:31)
+      at reconcileChildFibersImpl (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4097:30)
+      at node_modules/react-test-renderer/cjs/react-test-renderer.development.js:4202:33
+      at reconcileChildren (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:6684:13)
+      at beginWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:8576:13)
+      at runWithFiberInDEV (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2315:13)
+      at performUnitOfWork (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13224:22)
+      at workLoopSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13068:41)
+      at renderRootSync (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:13049:11)
+      at performWorkOnRoot (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:12181:11)
+      at performWorkOnRootViaSchedulerTask (node_modules/react-test-renderer/cjs/react-test-renderer.development.js:2908:7)
+      at performWorkUntilDeadline (node_modules/scheduler/cjs/scheduler.native.development.js:45:48)
+      at Timeout.task [as _onTimeout] (node_modules/jsdom/lib/jsdom/browser/Window.js:520:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/app.index.smoke.test.tsx
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101115026}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/app.index.smoke.test.tsx:17:20)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/app.index.smoke.test.tsx:17:20)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/app.index.smoke.test.tsx:17:20)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.log
+      [expo-router-inspector-debug] inspector useEffect start
+
+      at log (app/index.tsx:73:15)
+
+    console.log
+      [expo-router-inspector-debug] keys present: 45 modulesPresent: true
+
+      at log (app/index.tsx:76:15)
+
+    console.log
+      [expo-router-inspector-debug] write block failed TypeError: Cannot read properties of undefined (reading 'document')
+
+      at log (app/index.tsx:182:19)
+
+    console.log
+      [expo-router-inspector-debug] inspector promise resolved
+
+      at log (app/index.tsx:184:17)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/customer.edit-job.load.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+FAIL __tests__/smoke.login.test.tsx
+  ΓùÅ Smoke: LoginScreen ΓÇ║ signs in and navigates to customer route
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: "/customer"
+
+    Number of calls: 0
+
+      42 |     fireEvent.press(getByTestId('signin-button'));
+      43 |
+    > 44 |     await waitFor(() => {
+         |                  ^
+      45 |       const { router } = require('expo-router');
+      46 |       expect(router.replace).toHaveBeenCalledWith('/customer');
+      47 |     });
+
+      at Object.<anonymous> (__tests__/smoke.login.test.tsx:44:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+PASS __tests__/auth.test.tsx
+PASS __tests__/messages.navigation.test.tsx
+PASS __tests__/post-job.validation.test.tsx
+PASS __tests__/stripe-webhook.test.ts
+  ΓùÅ Console
+
+    console.warn
+      Warning: STRIPE_SECRET not set. Webhook verification will be skipped.
+
+      27 |
+      28 | if (!stripeSecret) {
+    > 29 |   console.warn('Warning: STRIPE_SECRET not set. Webhook verification will be skipped.');
+         |           ^
+      30 | }
+      31 | if (!supabaseUrl || !supabaseKey) {
+      32 |   console.warn('Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.');
+
+      at Object.warn (scripts/stripe-webhook.js:29:11)
+      at Object.require (__tests__/stripe-webhook.test.ts:1:32)
+
+    console.warn
+      Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.
+
+      30 | }
+      31 | if (!supabaseUrl || !supabaseKey) {
+    > 32 |   console.warn('Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.');
+         |           ^
+      33 | }
+      34 |
+      35 | const stripe = Stripe && stripeSecret ? Stripe(stripeSecret) : null;
+
+      at Object.warn (scripts/stripe-webhook.js:32:11)
+      at Object.require (__tests__/stripe-webhook.test.ts:1:32)
+
+    console.log
+      Unhandled event type: some.random.event
+
+      at log (scripts/stripe-webhook.js:179:15)
+
+PASS __tests__/post-job.submit.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/post-job.error.test.tsx
+  ΓùÅ Console
+
+    console.error
+      { message: 'db failure' }
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/customer/post-job.tsx:170:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/smoke.harness.test.tsx
+PASS __tests__/pricing.test.tsx
+PASS __tests__/job.approve-quote.actions.test.tsx
+  ΓùÅ Console
+
+    console.error
+      Approve quote error: Error: Failed to approve
+          at D:\MyProjectsUAI\weejobs\app\job\approve-quote.tsx:51:15
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:3:17)
+          at _next (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:17:9)
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/job/approve-quote.tsx:54:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.error
+      Approve quote error: Error: Failed to approve
+          at D:\MyProjectsUAI\weejobs\app\job\approve-quote.tsx:51:15
+          at Generator.next (<anonymous>)
+          at asyncGeneratorStep (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:3:17)
+          at _next (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:17:9)
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/job/approve-quote.tsx:54:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/job.tracking.interactions.test.tsx
+PASS __tests__/leadunlockmodal.test.tsx
+PASS __tests__/post-job.photos.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/passwordStrength.test.tsx
+PASS __tests__/components.simple2.test.tsx
+PASS __tests__/jobscontext.ui.test.tsx
+PASS __tests__/admin.access.test.tsx
+PASS __tests__/jobs.context.funcs.test.tsx
+PASS __tests__/stripecheckout.test.tsx
+PASS __tests__/module-load-all.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101119684}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/module-load-all.test.ts:92:21)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/module-load-all.test.ts:92:21)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/module-load-all.test.ts:92:21)
+
+    console.log
+      [app] image import: undefined missing
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.warn
+      module-load-all: skipping ..\app\tradie\earnings.tsx due to import error: Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'
+      
+      Require stack:
+        components/EarningsDashboard.tsx
+        app/tradie/earnings.tsx
+        __tests__/module-load-all.test.ts
+
+       95 |         // If import fails due to native-only runtime code, warn and continue
+       96 |         // eslint-disable-next-line no-console
+    >  97 |         console.warn(`module-load-all: skipping ${rel} due to import error:`, err && err.message);
+          |                 ^
+       98 |         expect(true).toBe(true);
+       99 |       }
+      100 |     });
+
+      at Object.warn (__tests__/module-load-all.test.ts:97:17)
+
+    console.warn
+      module-load-all: skipping ..\app\tradie\weebucks.tsx due to import error: Cannot find module '../../constants/theme' from 'components/WeeBucksSystem.tsx'
+      
+      Require stack:
+        components/WeeBucksSystem.tsx
+        app/tradie/weebucks.tsx
+        __tests__/module-load-all.test.ts
+
+       95 |         // If import fails due to native-only runtime code, warn and continue
+       96 |         // eslint-disable-next-line no-console
+    >  97 |         console.warn(`module-load-all: skipping ${rel} due to import error:`, err && err.message);
+          |                 ^
+       98 |         expect(true).toBe(true);
+       99 |       }
+      100 |     });
+
+      at Object.warn (__tests__/module-load-all.test.ts:97:17)
+
+PASS __tests__/job.choose-tradesman.test.tsx
+PASS __tests__/leadunlockmodal.report.test.tsx
+PASS __tests__/onboarding.login.validation.test.tsx
+PASS __tests__/jobscontext.funcs.test.tsx
+PASS __tests__/job.choose-tradesman.viewprofile.test.tsx
+PASS __tests__/customer.jobs.funcs.test.ts
+PASS __tests__/authcontext.hook.test.tsx
+PASS __tests__/jobscontext.supabase.test.tsx
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/smoke.post-job.test.tsx
+PASS __tests__/jobscontext.fetch.test.tsx
+PASS __tests__/tradie.current-jobs.module.test.tsx
+PASS __tests__/job.approve-quote.test.tsx
+PASS __tests__/post-job.photo-limit.test.tsx
+PASS __tests__/jobscontext.helpers.test.tsx
+PASS __tests__/job.approve-quote.funcs.test.tsx
+PASS __tests__/components.topbar.test.tsx
+PASS __tests__/customer.edit-job.module.test.tsx
+PASS __tests__/module-load.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101122206}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/module-load.test.ts:27:9)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/module-load.test.ts:27:9)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/module-load.test.ts:27:9)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.warn
+      [module-load] import failed for app\tradie\earnings.tsx: Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'
+      
+      Require stack:
+        components/EarningsDashboard.tsx
+        app/tradie/earnings.tsx
+        __tests__/module-load.test.ts
+
+      31 |         // but do not fail the test suite.
+      32 |         // eslint-disable-next-line no-console
+    > 33 |         console.warn(`[module-load] import failed for ${path.relative(process.cwd(), f)}: ${err && err.message ? err.message : err}`);
+         |                 ^
+      34 |       }
+      35 |     }
+      36 |
+
+      at Object.warn (__tests__/module-load.test.ts:33:17)
+
+    console.warn
+      [module-load] import failed for app\tradie\weebucks.tsx: Cannot find module '../../constants/theme' from 'components/WeeBucksSystem.tsx'
+      
+      Require stack:
+        components/WeeBucksSystem.tsx
+        app/tradie/weebucks.tsx
+        __tests__/module-load.test.ts
+
+      31 |         // but do not fail the test suite.
+      32 |         // eslint-disable-next-line no-console
+    > 33 |         console.warn(`[module-load] import failed for ${path.relative(process.cwd(), f)}: ${err && err.message ? err.message : err}`);
+         |                 ^
+      34 |       }
+      35 |     }
+      36 |
+
+      at Object.warn (__tests__/module-load.test.ts:33:17)
+
+    console.info
+      [module-load] First import error (for visibility): Cannot find module '../../constants/theme' from 'components/EarningsDashboard.tsx'
+      
+      Require stack:
+        components/EarningsDashboard.tsx
+        app/tradie/earnings.tsx
+        __tests__/module-load.test.ts
+
+      at Object.info (__tests__/module-load.test.ts:40:15)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/stripe.webhook.test.ts
+  ΓùÅ Console
+
+    console.warn
+      Warning: STRIPE_SECRET not set. Webhook verification will be skipped.
+
+      27 |
+      28 | if (!stripeSecret) {
+    > 29 |   console.warn('Warning: STRIPE_SECRET not set. Webhook verification will be skipped.');
+         |           ^
+      30 | }
+      31 | if (!supabaseUrl || !supabaseKey) {
+      32 |   console.warn('Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.');
+
+      at Object.warn (scripts/stripe-webhook.js:29:11)
+      at Object.require (__tests__/stripe.webhook.test.ts:1:1)
+
+    console.warn
+      Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.
+
+      30 | }
+      31 | if (!supabaseUrl || !supabaseKey) {
+    > 32 |   console.warn('Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.');
+         |           ^
+      33 | }
+      34 |
+      35 | const stripe = Stripe && stripeSecret ? Stripe(stripeSecret) : null;
+
+      at Object.warn (scripts/stripe-webhook.js:32:11)
+      at Object.require (__tests__/stripe.webhook.test.ts:1:1)
+
+PASS __tests__/messages.test.tsx
+PASS __tests__/jobstatustimeline.test.tsx
+PASS __tests__/useColorScheme.web.test.tsx
+PASS __tests__/ui.helpers.test.tsx
+PASS __tests__/hooks.useColorScheme.test.tsx
+PASS __tests__/hooks.useThemeColor.test.tsx
+PASS __tests__/jobscontext.functions.test.tsx
+PASS __tests__/external-link.test.tsx
+PASS __tests__/collapsible.test.tsx
+PASS __tests__/module-load-chat-jobid.test.ts
+PASS __tests__/splash.test.tsx
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101123615}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/splash.test.tsx:21:22)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/splash.test.tsx:21:22)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/splash.test.tsx:21:22)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101123615}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/splash.test.tsx:29:20)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/splash.test.tsx:29:20)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/splash.test.tsx:29:20)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/coverage.extra.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/edit-job.funcs.test.ts
+PASS __tests__/useThemeColor.test.tsx
+PASS __tests__/coverage.boost.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [ 'auth' ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: undefined undefined
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/onboarding.checklist.test.tsx
+PASS __tests__/hello-wave.test.tsx
+PASS __tests__/module-load-customer-layout.test.ts
+PASS __tests__/tradie.current-jobs.logic.test.tsx
+PASS __tests__/module-load-more.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101124559}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at require (__tests__/module-load-more.test.ts:56:21)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-more.test.ts:53:13)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+          at Array.forEach (<anonymous>)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at require (__tests__/module-load-more.test.ts:56:21)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-more.test.ts:53:13)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at require (__tests__/module-load-more.test.ts:56:21)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/module-load-more.test.ts:53:13)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/lib.jobs.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/customer.jobs.counts.test.tsx
+PASS __tests__/chat.jobid.module.test.tsx
+PASS __tests__/module-load-customer-jobs.test.ts
+PASS __tests__/lib.supabase.extra.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [ 'auth', 'from', 'functions' ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'update', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [ 'auth', 'from', 'functions' ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select', 'update', 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/smoke.hooks.test.tsx
+PASS __tests__/lib.supabase.wrapper.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/public-profile.funcs.test.ts
+PASS __tests__/pricingcard.test.tsx
+PASS __tests__/lib.supabase.responses.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/customer.jobs.interactions.test.tsx
+PASS __tests__/supabase.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/supabase.fallback.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/smoke.harness.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101126004}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/smoke.harness.test.ts:4:18)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/smoke.harness.test.ts:4:18)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/smoke.harness.test.ts:4:18)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/job.tracking.logic.test.tsx
+PASS __tests__/integration.smoke.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101126267}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at require (__tests__/integration.smoke.test.ts:13:20)
+      at Object.<anonymous> (node_modules/expect/build/toThrowMatchers.js:74:11)
+      at Object.throwingMatcher [as toThrow] (node_modules/expect/build/index.js:320:21)
+      at toThrow (__tests__/integration.smoke.test.ts:13:36)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/integration.smoke.test.ts:12:13)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+          at Array.forEach (<anonymous>)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at require (__tests__/integration.smoke.test.ts:13:20)
+      at Object.<anonymous> (node_modules/expect/build/toThrowMatchers.js:74:11)
+      at Object.throwingMatcher [as toThrow] (node_modules/expect/build/index.js:320:21)
+      at toThrow (__tests__/integration.smoke.test.ts:13:36)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/integration.smoke.test.ts:12:13)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at require (__tests__/integration.smoke.test.ts:13:20)
+      at Object.<anonymous> (node_modules/expect/build/toThrowMatchers.js:74:11)
+      at Object.throwingMatcher [as toThrow] (node_modules/expect/build/index.js:320:21)
+      at toThrow (__tests__/integration.smoke.test.ts:13:36)
+          at Array.forEach (<anonymous>)
+      at Object.forEach (__tests__/integration.smoke.test.ts:12:13)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+          at Array.forEach (<anonymous>)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/job.tracking.module.test.tsx
+PASS __tests__/admin.jobs.test.tsx
+PASS __tests__/user.service.test.ts
+PASS __tests__/module-load-layout.test.ts
+PASS __tests__/module-load-job-tracking.test.ts
+PASS __tests__/jobs.helpers.test.ts
+PASS __tests__/module-load-tradie-current-jobs.test.ts
+PASS __tests__/customer.edit-job.logic.test.tsx
+PASS __tests__/module-load-admin.test.ts
+PASS __tests__/module-load-index.test.ts
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101127170}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at require (__tests__/module-load-index.test.ts:9:21)
+      at Object.isolateModules (__tests__/module-load-index.test.ts:3:10)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at require (__tests__/module-load-index.test.ts:9:21)
+      at Object.isolateModules (__tests__/module-load-index.test.ts:3:10)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at require (__tests__/module-load-index.test.ts:9:21)
+      at Object.isolateModules (__tests__/module-load-index.test.ts:3:10)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/lib.supabase.merge.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/customer.jobs.logic.test.tsx
+PASS __tests__/module-load-tradie-index.test.ts
+PASS __tests__/job.tracking.funcs.test.ts
+PASS __tests__/customer.layout.module.test.tsx
+PASS __tests__/authcontext.helpers.test.ts
+PASS __tests__/module-load-onboarding-signup.test.tsx
+PASS __tests__/customer.index.smoke.test.tsx
+PASS __tests__/authcontext.funcs.test.ts
+PASS __tests__/module-load-customer-post-job.test.ts
+PASS __tests__/auth.utils.test.ts
+PASS __tests__/module-load-public-profile.test.ts
+PASS __tests__/chat.jobid.helpers.test.tsx
+PASS __tests__/app.index.test.tsx
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101128406}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/app.index.test.tsx:20:20)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/app.index.test.tsx:20:20)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/app.index.test.tsx:20:20)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101128414}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/app.index.test.tsx:33:20)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/app.index.test.tsx:33:20)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/app.index.test.tsx:33:20)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/lib.supabase.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [
+        'select', 'order',
+        'eq',     'neq',
+        'in',     'update',
+        'insert', 'delete',
+        'single', 'then',
+        'catch'
+      ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/debug-leadunlock.test.tsx
+  ΓùÅ Console
+
+    console.log
+      LeadUnlockModal value: [Function: LeadUnlockModal]
+
+      at Object.log (__tests__/debug-leadunlock.test.tsx:6:13)
+
+PASS __tests__/assets.optimize.test.ts
+PASS __tests__/module-load-customer-edit-job.test.ts
+PASS __tests__/app.index.load.test.tsx
+  ΓùÅ Console
+
+    console.error
+      [expo-router-inspector-very-early] _routesManifest-top initialized {"ts":1775101128808}
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/_routesManifest.js:8:15)
+      at Object.require (app/index.tsx:16:3)
+      at Object.require (__tests__/app.index.load.test.tsx:8:17)
+
+    console.log
+      [routes-manifest] __EXPO_ROUTER_KEYS length= 45
+
+      at Object.log (app/_routesManifest.js:120:13)
+
+    console.log
+      [app] using expo-file-system
+
+      at Object.log (app/index.tsx:26:9)
+
+    console.error
+      [expo-router-inspector-init]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:31:11)
+      at Object.require (__tests__/app.index.load.test.tsx:8:17)
+
+    console.error
+      [expo-router-inspector-init-warn]
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (app/index.tsx:33:11)
+      at Object.require (__tests__/app.index.load.test.tsx:8:17)
+
+    console.log
+      [app] image import: function present
+
+      at Object.log (app/index.tsx:62:11)
+
+    console.error
+      [expo-router-inspector-early-write] success /sdcard/Download/expo-router-inspector-early.txt
+
+      285 |         // eslint-disable-next-line no-undef
+      286 |         const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+    > 287 |         handler.apply(console, args);
+          |                 ^
+      288 |       } catch {
+      289 |         _origConsoleError.apply(console, args);
+      290 |       }
+
+      at console.apply (jest-setup.js:287:17)
+      at error (app/index.tsx:42:15)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+PASS __tests__/components.simple.test.tsx
+PASS __tests__/analytics.test.ts
+PASS __tests__/passwordStrength.funcs.test.ts
+PASS __tests__/collapsible.snapshot.test.tsx
+PASS __tests__/tradie.index.test.tsx
+PASS __tests__/sentry.test.ts
+PASS __tests__/module-load-job-layout.test.ts
+PASS __tests__/customer.profile.test.tsx
+PASS __tests__/admin.jobs.helpers.test.ts
+PASS __tests__/tradie.home.test.tsx
+PASS __tests__/public-profile.load.test.tsx
+PASS __tests__/lib.analytics.test.ts
+PASS __tests__/customer.index.load.test.tsx
+PASS __tests__/customer.dashboard.load.test.tsx
+PASS __tests__/customer.jobs.load.test.tsx
+PASS __tests__/lib.sentry.test.ts
+PASS __tests__/customer.jobs.test.tsx
+PASS __tests__/context.jobs.test.tsx
+PASS __tests__/supabase.bind.test.ts
+  ΓùÅ Console
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+        '__responses__',
+        'setResponse',
+        'clearResponses',
+        'auth',
+        'from',
+        'functions'
+      ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+    console.log
+      DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [ 'auth', 'from', 'functions' ]
+
+      at log (lib/supabase.ts:79:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+    console.log
+      DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+PASS __tests__/settings.module.test.tsx
+PASS __tests__/design-tokens.export.test.ts
+PASS __tests__/customer.home.test.tsx
+PASS __tests__/admin.index.test.tsx
+PASS __tests__/setup-env.test.ts
+PASS __tests__/error.parse.test.ts
+PASS __tests__/onboarding.login.smoke.test.tsx
+PASS __tests__/password-strength.test.ts
+PASS __tests__/onboarding.intro.test.tsx
+PASS __tests__/design-tokens.test.ts
+PASS __tests__/debug-leadunlock-children.test.tsx
+  ΓùÅ Console
+
+    console.log
+      VerifiedProBadge: function
+
+      at Object.log (__tests__/debug-leadunlock-children.test.tsx:10:13)
+
+    console.log
+      Ionicons: function
+
+      at Object.log (__tests__/debug-leadunlock-children.test.tsx:12:13)
+
+    console.log
+      expo-image Image: function
+
+      at Object.log (__tests__/debug-leadunlock-children.test.tsx:14:13)
+
+    console.log
+      safe-area useSafeAreaInsets: function
+
+      at Object.log (__tests__/debug-leadunlock-children.test.tsx:16:13)
+
+PASS __tests__/users.test.ts
+PASS __tests__/onboarding.login.flow.test.tsx
+PASS __tests__/data.test.ts
+PASS __tests__/customer.jobs.helpers.test.ts
+PASS __tests__/constants.theme.test.ts
+PASS __tests__/customer.dashboard.test.tsx
+PASS __tests__/parseServerError.test.ts
+PASS __tests__/hooks.useColorScheme.import.test.tsx
+PASS __tests__/theme.test.ts
+PASS __tests__/lib.error.test.ts
+
+Summary of all failing tests
+FAIL __tests__/jobscontext.actions.test.tsx (6.229 s)
+  ΓùÅ JobsContext action flows ΓÇ║ expressInterest/selectTradesman/cancelJob resolve true
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      66 |
+      67 |     // wait for async effects to complete and assertions to settle
+    > 68 |     await waitFor(() => {
+         |                  ^
+      69 |       expect(captured.express).toBe(true);
+      70 |       expect(captured.select).toBe(true);
+      71 |       expect(captured.cancel).toBe(true);
+
+      at Object.<anonymous> (__tests__/jobscontext.actions.test.tsx:68:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+FAIL __tests__/authContext.test.tsx
+  ΓùÅ AuthContext ΓÇ║ Helper Functions ΓÇ║ buildNormalizedUser ΓÇ║ should preserve all user fields
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 15
+
+      Object {
+    -   "avatar": "avatar.jpg",
+    +   "area": undefined,
+    +   "areas_covered": undefined,
+    +   "average_rating": undefined,
+    +   "bio": undefined,
+    +   "created_at": "2026-04-02T03:38:23.875Z",
+        "email": "test@example.com",
+    +   "hourly_rate": undefined,
+        "id": "123",
+    +   "is_verified_pro": undefined,
+    +   "jobs_completed": undefined,
+        "name": "Test User",
+    +   "phone": undefined,
+    +   "portfolio_photos": undefined,
+    +   "pricing_default": undefined,
+        "role": "customer",
+    +   "subscription_plan": undefined,
+    +   "total_reviews": undefined,
+    +   "trade_categories": undefined,
+    +   "updated_at": "2026-04-02T03:38:23.875Z",
+      }
+
+      143 |         };
+      144 |         const normalized = buildNormalizedUser(user);
+    > 145 |         expect(normalized).toEqual({
+          |                            ^
+      146 |           ...user,
+      147 |           role: 'customer' // Already normalized
+      148 |         });
+
+      at Object.toEqual (__tests__/authContext.test.tsx:145:28)
+
+  ΓùÅ AuthContext ΓÇ║ AuthProvider ΓÇ║ should provide initial state
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: undefined
+
+      156 |
+      157 |       expect(result.current.user).toBeNull();
+    > 158 |       expect(result.current.isAuthenticated).toBe(false);
+          |                                              ^
+      159 |       expect(result.current.isLoading).toBe(true); // Initially loading
+      160 |     });
+      161 |
+
+      at Object.toBe (__tests__/authContext.test.tsx:158:46)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+  ΓùÅ AuthContext ΓÇ║ AuthProvider ΓÇ║ should throw error when useAuth is called outside provider
+
+    expect(received).toThrow(expected)
+
+    Expected substring: "useAuth must be used within an AuthProvider"
+
+    Received function did not throw
+
+      163 |       expect(() => {
+      164 |         renderHook(() => useAuth());
+    > 165 |       }).toThrow('useAuth must be used within an AuthProvider');
+          |          ^
+      166 |     });
+      167 |
+      168 |     it('should load stored auth data on mount', async () => {
+
+      at Object.toThrow (__tests__/authContext.test.tsx:165:10)
+
+  ΓùÅ AuthContext ΓÇ║ AuthProvider ΓÇ║ should load stored auth data on mount
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"confirmed_at": "2024-01-01", "email": "test@example.com", "id": "123", "name": "Test User", "role": "customer"}
+    Received: null
+
+      176 |       });
+      177 |
+    > 178 |       expect(result.current.user).toEqual(mockUser);
+          |                                   ^
+      179 |       expect(result.current.isAuthenticated).toBe(true);
+      180 |     });
+      181 |   });
+
+      at Object.toEqual (__tests__/authContext.test.tsx:178:35)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ login ΓÇ║ should login successfully with valid credentials
+
+    expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  3
+    + Received  + 17
+
+      Object {
+    -   "confirmed_at": "2024-01-01",
+    +   "area": undefined,
+    +   "areas_covered": undefined,
+    +   "average_rating": undefined,
+    +   "bio": undefined,
+    +   "created_at": "2026-04-02T03:38:24.111Z",
+        "email": "test@example.com",
+    -   "id": "123",
+    -   "name": "Test User",
+    +   "hourly_rate": undefined,
+    +   "id": "test-user-1",
+    +   "is_verified_pro": undefined,
+    +   "jobs_completed": undefined,
+    +   "name": "",
+    +   "phone": undefined,
+    +   "portfolio_photos": undefined,
+    +   "pricing_default": undefined,
+        "role": "customer",
+    +   "subscription_plan": undefined,
+    +   "total_reviews": undefined,
+    +   "trade_categories": undefined,
+    +   "updated_at": "2026-04-02T03:38:24.111Z",
+      }
+
+      206 |
+      207 |         expect(loginResult.success).toBe(true);
+    > 208 |         expect(result.current.user).toEqual(mockUser);
+          |                                     ^
+      209 |         expect(result.current.isAuthenticated).toBe(true);
+      210 |         expect(mockSupabaseClient.auth.signInWithPassword).toHaveBeenCalledWith({
+      211 |           email: 'test@example.com',
+
+      at Object.toEqual (__tests__/authContext.test.tsx:208:37)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ login ΓÇ║ should handle invalid credentials error
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: undefined
+
+      233 |         expect(loginResult.success).toBe(false);
+      234 |         expect(result.current.user).toBeNull();
+    > 235 |         expect(result.current.isAuthenticated).toBe(false);
+          |                                                ^
+      236 |       });
+      237 |
+      238 |       it('should handle unverified email error', async () => {
+
+      at Object.toBe (__tests__/authContext.test.tsx:235:48)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ login ΓÇ║ should handle unverified email error
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: false
+    Received: true
+
+      253 |         });
+      254 |
+    > 255 |         expect(loginResult.success).toBe(false);
+          |                                     ^
+      256 |         expect(loginResult.needsVerification).toBe(true);
+      257 |       });
+      258 |     });
+
+      at Object.toBe (__tests__/authContext.test.tsx:255:37)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ logout ΓÇ║ should logout successfully
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"confirmed_at": "2024-01-01", "email": "test@example.com", "id": "123", "name": "Test User", "role": "customer"}
+    Received: null
+
+      266 |
+      267 |         // Wait for initial load
+    > 268 |         await waitFor(() => {
+          |                      ^
+      269 |           expect(result.current.user).toEqual(mockUser);
+      270 |         });
+      271 |
+
+      at Object.<anonymous> (__tests__/authContext.test.tsx:268:22)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+  ΓùÅ AuthContext ΓÇ║ Authentication methods ΓÇ║ logout ΓÇ║ should handle logout error gracefully
+
+    expect(received).toEqual(expected) // deep equality
+
+    Expected: {"confirmed_at": "2024-01-01", "email": "test@example.com", "id": "123", "name": "Test User", "role": "customer"}
+    Received: null
+
+      292 |         const { result } = renderAuthHook();
+      293 |
+    > 294 |         await waitFor(() => {
+          |                      ^
+      295 |           expect(result.current.user).toEqual(mockUser);
+      296 |         });
+      297 |
+
+      at Object.<anonymous> (__tests__/authContext.test.tsx:294:22)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+FAIL __tests__/authcontext.more.test.tsx
+  ΓùÅ AuthProvider additional flows ΓÇ║ resendVerification returns error when endpoint not set and ok when endpoint responds
+
+    expect(received).toMatch(expected)
+
+    Expected pattern: /Resend endpoint not configured/i
+    Received string:  "Email verification isn't available right now. Try signing up again or contact support for help."
+
+      124 |     );
+      125 |
+    > 126 |     await waitFor(() => {
+          |                  ^
+      127 |       expect(r1).toBeDefined();
+      128 |       expect(r1.success).toBe(false);
+      129 |       expect(r1.error).toMatch(/Resend endpoint not configured/i);
+
+      at Object.<anonymous> (__tests__/authcontext.more.test.tsx:126:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+FAIL __tests__/smoke.login.test.tsx
+  ΓùÅ Smoke: LoginScreen ΓÇ║ signs in and navigates to customer route
+
+    expect(jest.fn()).toHaveBeenCalledWith(...expected)
+
+    Expected: "/customer"
+
+    Number of calls: 0
+
+      42 |     fireEvent.press(getByTestId('signin-button'));
+      43 |
+    > 44 |     await waitFor(() => {
+         |                  ^
+      45 |       const { router } = require('expo-router');
+      46 |       expect(router.replace).toHaveBeenCalledWith('/customer');
+      47 |     });
+
+      at Object.<anonymous> (__tests__/smoke.login.test.tsx:44:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+      at node_modules/@babel/runtime/helpers/asyncToGenerator.js:22:7
+      at Object.<anonymous> (node_modules/@babel/runtime/helpers/asyncToGenerator.js:14:12)
+
+
+Test Suites: 4 failed, 1 skipped, 162 passed, 166 of 167 total
+Tests:       12 failed, 1 skipped, 400 passed, 413 total
+Snapshots:   1 passed, 1 total
+Time:        34.711 s, estimated 36 s
+Ran all test suites.

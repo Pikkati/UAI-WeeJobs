@@ -1,0 +1,165 @@
+  console.log
+    DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+      '__responses__',
+      'setResponse',
+      'clearResponses',
+      'auth',
+      'from',
+      'functions'
+    ]
+
+      at log (lib/supabase.ts:79:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+  console.error
+    Error expressing interest: SupabaseError: No response from server
+        at handleSupabaseResult (D:\MyProjectsUAI\weejobs\lib\supabase-error.ts:31:19)
+        at handleSupabaseResult (D:\MyProjectsUAI\weejobs\lib\supabase-error.ts:43:10)
+        at Generator.next (<anonymous>)
+        at asyncGeneratorStep (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:3:17)
+        at _next (D:\MyProjectsUAI\weejobs\node_modules\@babel\runtime\helpers\asyncToGenerator.js:17:9) {
+      isRateLimited: undefined,
+      retryAfterSeconds: null,
+      original: undefined,
+      context: 'insert job interest'
+    }
+
+    [0m [90m 285 |[39m         [90m// eslint-disable-next-line no-undef[39m
+     [90m 286 |[39m         [36mconst[39m handler [33m=[39m ([36mtypeof[39m global [33m!==[39m [32m'undefined'[39m [33m&&[39m (global)[33m.[39m__TEST_CONSOLE_ERROR_HANDLER__) [33m||[39m _origConsoleError[33m;[39m
+    [31m[1m>[22m[39m[90m 287 |[39m         handler[33m.[39mapply(console[33m,[39m args)[33m;[39m
+     [90m     |[39m                 [31m[1m^[22m[39m
+     [90m 288 |[39m       } [36mcatch[39m {
+     [90m 289 |[39m         _origConsoleError[33m.[39mapply(console[33m,[39m args)[33m;[39m
+     [90m 290 |[39m       }[0m
+
+      at console.apply (jest-setup.js:287:17)
+      at Object.error (context/JobsContext.tsx:343:15)
+          at Generator.throw (<anonymous>)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _throw (node_modules/@babel/runtime/helpers/asyncToGenerator.js:20:9)
+
+  console.log
+    DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+      '__responses__',
+      'setResponse',
+      'clearResponses',
+      'auth',
+      'from',
+      'functions'
+    ]
+
+      at log (lib/supabase.ts:79:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+  console.log
+    DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+      '__responses__',
+      'setResponse',
+      'clearResponses',
+      'auth',
+      'from',
+      'functions'
+    ]
+
+      at log (lib/supabase.ts:79:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+  console.log
+    DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+      '__responses__',
+      'setResponse',
+      'clearResponses',
+      'auth',
+      'from',
+      'functions'
+    ]
+
+      at log (lib/supabase.ts:79:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+  console.log
+    DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys: [
+      '__responses__',
+      'setResponse',
+      'clearResponses',
+      'auth',
+      'from',
+      'functions'
+    ]
+
+      at log (lib/supabase.ts:79:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity
+
+      at log (lib/supabase.ts:81:17)
+
+  console.log
+    DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof: object [ 'insert', 'update', 'select' ]
+
+      at log (lib/supabase.ts:85:19)
+
+FAIL __tests__/jobscontext.actions.test.tsx (6.129 s)
+  JobsContext action flows
+    ├ù expressInterest/selectTradesman/cancelJob resolve true (5082 ms)
+
+  ΓùÅ JobsContext action flows ΓÇ║ expressInterest/selectTradesman/cancelJob resolve true
+
+    expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      66 |
+      67 |     // wait for async effects to complete and assertions to settle
+    > 68 |     await waitFor(() => {
+         |                  ^
+      69 |       expect(captured.express).toBe(true);
+      70 |       expect(captured.select).toBe(true);
+      71 |       expect(captured.cancel).toBe(true);
+
+      at Object.<anonymous> (__tests__/jobscontext.actions.test.tsx:68:18)
+      at asyncGeneratorStep (node_modules/@babel/runtime/helpers/asyncToGenerator.js:3:17)
+      at _next (node_modules/@babel/runtime/helpers/asyncToGenerator.js:17:9)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 total
+Snapshots:   0 total
+Time:        6.792 s, estimated 7 s
+Ran all test suites matching /__tests__\\jobscontext.actions.test.tsx/i.
