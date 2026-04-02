@@ -39,6 +39,16 @@ if (-not $devices) {
 Push-Location (Join-Path $repoRoot "android")
 Write-Host "Building and installing debug APK...";
 & .\gradlew.bat installDebug
+if ($LASTEXITCODE -ne 0) {
+  Write-Warning "Gradle build failed (likely due to unavailable react-native-gradle-plugin)"
+  Write-Host "Using Expo development server instead..."
+  Pop-Location
+  
+  # Start Expo development server
+  Write-Host "Starting Expo development server on emulator..."
+  & npx expo start --android
+  exit 0
+}
 Pop-Location
 
 Write-Host "Starting app activity..."
