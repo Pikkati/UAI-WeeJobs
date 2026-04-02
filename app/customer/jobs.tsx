@@ -6,7 +6,7 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import { useJobs } from '../../context/JobsContext';
 import { Job, JobStatus, supabase } from '../../lib/supabase';
-import { STATUS_COLORS, STATUS_LABELS } from './jobs.helpers';
+import { STATUS_COLORS, STATUS_LABELS } from '../../lib/helpers/customer.jobs.helpers';
 
 export function canEditOrDelete(status: JobStatus): boolean {
   return status === 'open' || status === 'pending_customer_choice' || status === 'awaiting_customer_choice';
@@ -34,7 +34,7 @@ export function getActionText(status: JobStatus, interestCount: number): string 
   }
 }
 
-export function aggregateInterestCounts(rows: Array<{ job_id?: string }>): Record<string, number> {
+export function aggregateInterestCounts(rows: { job_id?: string }[]): Record<string, number> {
   const counts: Record<string, number> = {};
   if (!rows || !Array.isArray(rows)) return counts;
   rows.forEach(row => {

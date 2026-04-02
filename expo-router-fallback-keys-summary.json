@@ -1,0 +1,281 @@
+{
+  "ts": 1774935924518,
+  "results": [
+    {
+      "key": "./_layout.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\_layout.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./index.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\index.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/_layout.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\_layout.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/review-customer.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\review-customer.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/profile.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\profile.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/pricing.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\pricing.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/payout.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\payout.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/messages.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\messages.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/index.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\index.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/home.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\home.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/dashboard.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\dashboard.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./tradie/current-jobs.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\tradie\\current-jobs.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./settings.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\settings.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./public-profile.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\public-profile.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./onboarding/signup.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\onboarding\\signup.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./onboarding/role-select.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\onboarding\\role-select.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./onboarding/reset-password.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\onboarding\\reset-password.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./onboarding/login.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\onboarding\\login.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./onboarding/intro.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\onboarding\\intro.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./onboarding/checklist.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\onboarding\\checklist.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./chat/[jobId].tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\chat\\[jobId].tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/_layout.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\_layout.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/tracking.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\tracking.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/send-quote.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\send-quote.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/review.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\review.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/receipt.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\receipt.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/pay-final.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\pay-final.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/pay-deposit.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\pay-deposit.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/choose-tradesman.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\choose-tradesman.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./job/approve-quote.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\job\\approve-quote.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./admin/_layout.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\admin\\_layout.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./admin/jobs.helpers.ts",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\admin\\jobs.helpers.ts",
+      "exists": true,
+      "hasDefault": false
+    },
+    {
+      "key": "./admin/users.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\admin\\users.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./admin/index.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\admin\\index.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./admin/settings.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\admin\\settings.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./admin/jobs.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\admin\\jobs.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./+not-found.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\+not-found.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/_layout.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\_layout.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/profile.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\profile.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/post-job.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\post-job.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/messages.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\messages.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/jobs.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\jobs.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/jobs.helpers.ts",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\jobs.helpers.ts",
+      "exists": true,
+      "hasDefault": false
+    },
+    {
+      "key": "./customer/index.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\index.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/edit-job.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\edit-job.tsx",
+      "exists": true,
+      "hasDefault": true
+    },
+    {
+      "key": "./customer/dashboard.tsx",
+      "path": "D:\\MyProjectsUAI\\weejobs\\app\\customer\\dashboard.tsx",
+      "exists": true,
+      "hasDefault": true
+    }
+  ]
+}

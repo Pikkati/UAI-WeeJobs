@@ -6,7 +6,15 @@ import TopBar from '../../components/TopBar';
 
 function PostJobFAB({ onPress }: { onPress?: () => void }) {
   return (
-    <TouchableOpacity style={fabStyles.container} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={fabStyles.container}
+      onPress={onPress}
+      activeOpacity={0.8}
+      accessible
+      accessibilityRole="button"
+      accessibilityLabel="Post a job"
+      accessibilityHint="Create a new job posting"
+    >
       <View style={fabStyles.circle}>
         <Ionicons name="add" size={30} color={Colors.white} />
       </View>

@@ -61,6 +61,12 @@ jobs:
           name: coverage-report
           path: coverage
 
+      - name: Upload coverage to Codecov
+        if: ${{ secrets.CODECOV_TOKEN != '' }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   windows-test:
     runs-on: [self-hosted, windows]
     env:
@@ -118,4 +124,11 @@ jobs:
           name: coverage-report
           path: coverage
         if-no-files-found: warn
+        shell: pwsh
+
+      - name: Upload coverage to Codecov
+        if: ${{ secrets.CODECOV_TOKEN != '' }}
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
         shell: pwsh

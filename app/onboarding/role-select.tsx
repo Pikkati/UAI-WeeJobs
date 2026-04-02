@@ -8,7 +8,13 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 export default function RoleSelectScreen() {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => router.push('/onboarding/intro')}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => router.push('/onboarding/intro')}
+        accessible
+        accessibilityRole="button"
+        accessibilityLabel="Back"
+      >
         <Ionicons name="arrow-back" size={24} color={Colors.white} />
       </TouchableOpacity>
 
@@ -27,6 +33,10 @@ export default function RoleSelectScreen() {
         <TouchableOpacity
           style={styles.roleButton}
           onPress={() => router.push('/onboarding/login?role=customer')}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Sign in as customer"
+          accessibilityHint="I need a job done - post jobs and find tradespeople"
         >
           <View style={styles.roleIcon}>
             <Ionicons name="home-outline" size={32} color={Colors.accent} />
@@ -41,6 +51,10 @@ export default function RoleSelectScreen() {
         <TouchableOpacity
           style={styles.roleButton}
           onPress={() => router.push('/onboarding/login?role=tradesperson')}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Sign in as tradesperson"
+          accessibilityHint="I'm a tradesperson - find and accept local jobs"
         >
           <View style={styles.roleIcon}>
             <Ionicons name="hammer-outline" size={32} color={Colors.accent} />
@@ -61,6 +75,9 @@ export default function RoleSelectScreen() {
       <TouchableOpacity
         style={styles.adminLink}
         onPress={() => router.push('/onboarding/login?role=admin')}
+        accessible
+        accessibilityRole="button"
+        accessibilityLabel="Admin login"
       >
         <Text style={styles.adminText}>Admin Login</Text>
       </TouchableOpacity>

@@ -5,6 +5,7 @@ import { render } from '@testing-library/react-native';
 process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
 process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 const PostJobScreen = require('../app/customer/post-job').default;
+import { LoadingProvider } from '../context/LoadingContext';
 
 jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }) }));
 jest.mock('../context/AuthContext', () => ({
@@ -16,7 +17,11 @@ jest.mock('expo-router', () => ({ useLocalSearchParams: () => ({}), useRouter: (
 describe('PostJob photo limit UI', () => {
   it('does not show Add Photo when photos length >= 5', () => {
     const initial = { photos: ['a', 'b', 'c', 'd', 'e'] };
-    const { queryByText } = render(<PostJobScreen testInitialValues={initial} />);
+    const { queryByText } = render(
+      <LoadingProvider>
+        <PostJobScreen testInitialValues={initial} />
+      </LoadingProvider>
+    );
     expect(queryByText('Add Photo')).toBeNull();
   });
 });

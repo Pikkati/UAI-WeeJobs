@@ -8,79 +8,17 @@ import { Image } from 'expo-image';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { AREAS, JOB_CATEGORIES, TIMING_OPTIONS, GARAGE_TIMING_OPTIONS } from '../../constants/data';
 import { useAuth } from '../../context/AuthContext';
-import { supabase } from '../../lib/supabase';
+import { useLoading } from '../../context/LoadingContext';
+import Dropdown from '../../components/Dropdown';
+import { postJob } from '../../lib/jobs';
+import PhotoPicker from '../../components/PhotoPicker';
 
-// DropdownOption type removed (unused)
-
-function Dropdown({
-  label,
-  options,
-  value,
-  onChange,
-  placeholder,
-  error,
-}: {
-  label: string;
-  options: string[];
-  value: string;
-  onChange: (value: string) => void;
-  placeholder: string;
-  error?: string;
-}) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <View style={styles.fieldContainer}>
-      <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity
-        style={[styles.dropdown, !!error && styles.inputError]}
-        onPress={() => setIsOpen(!isOpen)}
-      >
-        <Text style={[styles.dropdownText, !value && styles.placeholder]}>
-          {value || placeholder}
-        </Text>
-        <Ionicons
-          name={isOpen ? 'chevron-up' : 'chevron-down'}
-          size={20}
-          color={Colors.textSecondary}
-        />
-      </TouchableOpacity>
-      {error && <Text style={styles.errorText}>{error}</Text>}
-      {isOpen && (
-        <View style={styles.dropdownList}>
-          <ScrollView nestedScrollEnabled style={{ maxHeight: 200 }}>
-            {options.map((option) => (
-              <TouchableOpacity
-                key={option}
-                style={[
-                  styles.dropdownItem,
-                  value === option && styles.dropdownItemSelected,
-                ]}
-                onPress={() => {
-                  onChange(option);
-                  setIsOpen(false);
-                }}
-              >
-                <Text
-                  style={[
-                    styles.dropdownItemText,
-                    value === option && styles.dropdownItemTextSelected,
-                  ]}
-                >
-                  {option}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
-        </View>
-      )}
-    </View>
-  );
-}
+// Dropdown component moved to components/Dropdown.tsx
 
 export default function PostJobScreen({ testInitialValues }: { testInitialValues?: Partial<{ name: string; phone: string; email: string; area: string; category: string; title: string; description: string; timing: string; budget: string; needsQuotation: boolean; photos: string[]; }> } = {}) {
   const { category: preselectedCategory } = useLocalSearchParams<{ category: string }>();
   const { user: _user } = useAuth();
+  const { show, hide } = useLoading();
 
   // Initialize state from `testInitialValues` when provided to avoid
   // a race between `useEffect` and immediate user interactions in tests.
@@ -132,27 +70,7 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
     }
   }, [preselectedCategory]);
 
-  const pickImage = async () => {
-    if (photos.length >= 5) {
-      Alert.alert('Limit Reached', 'You can upload a maximum of 5 photos');
-      return;
-    }
-
-    const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 0.8,
-    });
-
-    if (!result.canceled && result.assets[0]) {
-      setPhotos([...photos, result.assets[0].uri]);
-    }
-  };
-
-  const removePhoto = (index: number) => {
-    setPhotos(photos.filter((_, i) => i !== index));
-  };
+  // Photo selection handled by PhotoPicker component
 
   const validate = () => {
     const newErrors: typeof errors = {};
@@ -199,29 +117,16 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
     }
 
     setIsSubmitting(true);
+    try {
+      show();
+    } catch {
+      // If LoadingProvider isn't available, fallback to local spinner only
+    }
 
     try {
       const budgetValue = needsQuotation ? 'Need Quotation' : `£${budget}`;
 
-      // Call `from` first and inspect the returned object to aid tests
-      // that mock `supabase` and to provide clearer errors when the
-      // mocked value is unexpected.
-      // eslint-disable-next-line no-console
-      console.log('DEBUG(handleSubmit) calling supabase.from with jobs');
-      // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-      const runtimeLib = require('../../lib/supabase');
-      // eslint-disable-next-line no-console
-      console.log('DEBUG(handleSubmit) runtimeLib.supabase.from === supabase.from', !!runtimeLib && !!runtimeLib.supabase && runtimeLib.supabase.from === (supabase as any).from);
-      const _fromRes: any = (supabase as any).from('jobs');
-      // eslint-disable-next-line no-console
-      console.log('DEBUG(handleSubmit) fromRes keys:', _fromRes && Object.keys(_fromRes || {}));
-      if (!_fromRes || typeof _fromRes.insert !== 'function') {
-        // eslint-disable-next-line no-console
-        console.error('DEBUG(handleSubmit) supabase.from did not return object with insert', _fromRes);
-        throw new Error('supabase.from did not return an insert-capable object');
-      }
-
-      const insertResult = await _fromRes.insert({
+      const payload = {
         customer_id: _user?.id,
         name,
         phone,
@@ -235,7 +140,9 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
         photos: photos.length > 0 ? photos : null,
         status: 'open',
         is_garage_clearance: isGarageClearance,
-      });
+      };
+
+      const insertResult = await postJob(payload as any);
       const error = insertResult && (insertResult.error || (insertResult as any).message) ? (insertResult.error || (insertResult as any).message) : null;
       if (error) {
         // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
@@ -262,6 +169,11 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
       Alert.alert('Error', 'Failed to post job. Please try again.');
       console.error(error);
     } finally {
+      try {
+        hide();
+      } catch {
+        // ignore
+      }
       setIsSubmitting(false);
     }
   };
@@ -410,25 +322,7 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
         <Text style={styles.label}>
           Photos {isGarageClearance ? '*' : '(optional)'} - Max 5
         </Text>
-        <View style={styles.photoGrid}>
-          {photos.map((uri, index) => (
-            <View key={index} style={styles.photoContainer}>
-              <Image source={{ uri }} style={styles.photo} contentFit="cover" />
-              <TouchableOpacity
-                style={styles.removePhotoButton}
-                onPress={() => removePhoto(index)}
-              >
-                <Ionicons name="close-circle" size={24} color={Colors.error} />
-              </TouchableOpacity>
-            </View>
-          ))}
-          {photos.length < 5 && (
-            <TouchableOpacity style={styles.addPhotoButton} onPress={pickImage}>
-              <Ionicons name="camera" size={32} color={Colors.textSecondary} />
-              <Text style={styles.addPhotoText}>Add Photo</Text>
-            </TouchableOpacity>
-          )}
-        </View>
+        <PhotoPicker photos={photos} setPhotos={setPhotos} maxPhotos={5} />
       </View>
 
       <TouchableOpacity

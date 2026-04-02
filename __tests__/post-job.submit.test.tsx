@@ -34,6 +34,7 @@ jest.mock('expo-router', () => ({
 
 const PostJobScreen = require('../app/customer/post-job').default;
 const { router } = require('expo-router');
+import { LoadingProvider } from '../context/LoadingContext';
 
 describe('PostJob submit flow', () => {
   beforeEach(() => {
@@ -65,7 +66,11 @@ describe('PostJob submit flow', () => {
       photos: [],
     };
 
-    const { getByTestId } = render(<PostJobScreen testInitialValues={initial as any} />);
+    const { getByTestId } = render(
+      <LoadingProvider>
+        <PostJobScreen testInitialValues={initial as any} />
+      </LoadingProvider>
+    );
 
     fireEvent.press(getByTestId('post-job-submit'));
 

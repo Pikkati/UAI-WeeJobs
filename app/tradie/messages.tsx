@@ -78,7 +78,14 @@ export default function TradieMessagesScreen() {
   };
 
   const renderConversation = ({ item }: { item: Conversation }) => (
-    <TouchableOpacity style={styles.conversationCard} onPress={() => openChat(item)}>
+    <TouchableOpacity
+      style={styles.conversationCard}
+      onPress={() => openChat(item)}
+      accessible
+      accessibilityRole="button"
+      accessibilityLabel={`Message from ${item.customerName} about ${item.job.category}`}
+      accessibilityHint={`Last message: ${item.lastMessage?.content?.slice(0, 50) || 'No messages yet'}`}
+    >
       <View style={styles.avatar}>
         <Ionicons name="person" size={24} color={Colors.accent} />
       </View>

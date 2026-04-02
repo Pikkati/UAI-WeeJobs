@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 import PostJobScreen from '../app/customer/post-job';
+import { LoadingProvider } from '../context/LoadingContext';
 
 // Lightweight mocks for a quick smoke render of the Splash screen.
 jest.mock('../lib/sentry', () => ({}));
@@ -20,6 +21,10 @@ jest.mock('../lib/supabase', () => ({
 }));
 
 test('PostJobScreen renders without crashing (smoke)', () => {
-  const { getByText } = render(<PostJobScreen />);
+  const { getByText } = render(
+    <LoadingProvider>
+      <PostJobScreen />
+    </LoadingProvider>
+  );
   expect(getByText('Post a Job')).toBeTruthy();
 });

@@ -1,4 +1,4 @@
-import { canEditOrDelete, getActionText, STATUS_LABELS } from '../app/customer/jobs.helpers';
+import { canEditOrDelete, getActionText, STATUS_LABELS } from '../lib/helpers/customer.jobs.helpers';
 
 describe('jobs.helpers', () => {
   it('canEditOrDelete returns true for open/pending/awaiting_customer_choice', () => {

@@ -293,3 +293,35 @@ try {
 } catch {
   // ignore
 }
+
+// Refine expo-file-system mock to avoid requireActual
+jest.mock('expo-file-system', () => ({
+  FileSystem: {
+    documentDirectory: '/mock/document/directory',
+    cacheDirectory: '/mock/cache/directory',
+  },
+}));
+
+// Mock expo-updates to bypass syntax errors
+jest.mock('expo-updates', () => ({
+  checkForUpdateAsync: jest.fn(() => Promise.resolve({ isAvailable: false })),
+  fetchUpdateAsync: jest.fn(() => Promise.resolve()),
+  reloadAsync: jest.fn(() => Promise.resolve()),
+}));
+
+// Mock expo-file-system to resolve import errors
+jest.mock('expo-file-system', () => ({
+  documentDirectory: '/mock/documentDirectory',
+  cacheDirectory: '/mock/cacheDirectory',
+  getInfoAsync: jest.fn(async () => ({ exists: true, isDirectory: true })),
+  readAsStringAsync: jest.fn(async () => 'mock file content'),
+  writeAsStringAsync: jest.fn(async () => {}),
+}));
+
+// Mock expo-updates to resolve import errors
+jest.mock('expo-updates', () => ({
+  reloadAsync: jest.fn(async () => {}),
+  checkForUpdateAsync: jest.fn(async () => ({ isAvailable: false })),
+  fetchUpdateAsync: jest.fn(async () => {}),
+  addListener: jest.fn(),
+}));

@@ -1,0 +1,8 @@
+﻿earliest failure index approx: 234
+error: SyntaxError: Unexpected token '}'
+
+--- CONTEXT (hex/utf8) ---
+45 46 49 58 5f 5f 3d 27 27 3b 70 72 6f 63 65 73 73 2e 65 6e 76 3d 70 72 6f 63 65 73 73 2e 65 6e 76 7c 7c 7b 7d 3b 70 72 6f 63 65 73 73 2e 65 6e 76 2e 4e 4f 44 45 5f 45 4e 56 3d 70 72 6f 63 65 73 73 2e 65 6e 76 2e 4e 4f 44 45 5f 45 4e 56 7c 7c 22 70 72 6f 64 75 63 74 69 6f 6e 22 3b 0a 21 28 66 75 6e 63 74 69 6f 6e 28 65 29 7b 22 75 73 65 20 73 74 72 69 63 74 22 3b 65 2e 5f 5f 72 3d 69 2c 65 5b 60 24 7b 5f 5f 4d 45 54 52 4f 5f 47 4c 4f 42 41 4c 5f 50 52 45 46 49 58 5f 5f 7d 5f
+
+--- CONTEXT (ascii) ---
+EFIX__='';process.env=process.env||{};process.env.NODE_ENV=process.env.NODE_ENV||"production";\n!(function(e){"use strict";e.__r=i,e[`${__METRO_GLOBAL_PREFIX__}_

@@ -1,0 +1,34 @@
+name: Integration Tests (Docker Compose)
+
+on:
+  push:
+    branches: [main, master, chore/upgrade-deps]
+  pull_request:
+    branches: [main, master, chore/upgrade-deps]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:15
+        env:
+          POSTGRES_DB: weejobs_dev
+          POSTGRES_USER: weejobs
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U weejobs" --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Install Docker Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+      - name: Build and run integration tests
+        run: |
+          chmod +x ./scripts/run-integration-tests.sh
+          ./scripts/run-integration-tests.sh

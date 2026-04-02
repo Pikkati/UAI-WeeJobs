@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/13</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/13</span>
+                <span class='fraction'>8/12</span>
             </div>
         
             
@@ -287,7 +287,11 @@
 <a name='L222'></a><a href='#L222'>222</a>
 <a name='L223'></a><a href='#L223'>223</a>
 <a name='L224'></a><a href='#L224'>224</a>
-<a name='L225'></a><a href='#L225'>225</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -302,7 +306,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -321,6 +324,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,7 +432,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -516,6 +522,7 @@ import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import PushNotificationOptIn from '../components/PushNotificationOptIn';
 import { Colors, Spacing, BorderRadius } from '../constants/theme';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -524,7 +531,6 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const { logout } = useAuth();
   const { mode, toggle } = useTheme();
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [jobAlertsEnabled, setJobAlertsEnabled] = useState(true);
   const [messageAlertsEnabled, setMessageAlertsEnabled] = useState(true);
 &nbsp;
@@ -545,7 +551,13 @@ export default function SettingsScreen() {
   return (
     &lt;View style={[styles.container, { paddingTop: insets.top }]}&gt;
       &lt;View style={styles.header}&gt;
-        &lt;TouchableOpacity style={styles.backButton} onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >router.back()}</span>&gt;
+        &lt;TouchableOpacity
+          style={styles.backButton}
+          onPress={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >router.back()}</span>
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+        &gt;
           &lt;Ionicons name="arrow-back" size={24} color={Colors.white} /&gt;
         &lt;/TouchableOpacity&gt;
         &lt;Text style={styles.headerTitle}&gt;Settings&lt;/Text&gt;
@@ -556,17 +568,8 @@ export default function SettingsScreen() {
         &lt;View style={styles.section}&gt;
           &lt;Text style={styles.sectionLabel}&gt;Notifications&lt;/Text&gt;
           &lt;View style={styles.card}&gt;
-            &lt;View style={styles.settingRow}&gt;
-              &lt;View style={styles.settingInfo}&gt;
-                &lt;Ionicons name="notifications-outline" size={20} color={Colors.textSecondary} /&gt;
-                &lt;Text style={styles.settingLabel}&gt;Push Notifications&lt;/Text&gt;
-              &lt;/View&gt;
-              &lt;Switch
-                value={notificationsEnabled}
-                onValueChange={setNotificationsEnabled}
-                trackColor={{ false: Colors.border, true: Colors.accent }}
-                thumbColor={Colors.white}
-              /&gt;
+            &lt;View style={{ padding: Spacing.md }}&gt;
+              &lt;PushNotificationOptIn /&gt;
             &lt;/View&gt;
             &lt;View style={styles.divider} /&gt;
             &lt;View style={styles.settingRow}&gt;
@@ -632,7 +635,13 @@ export default function SettingsScreen() {
 &nbsp;
         &lt;View style={styles.section}&gt;
           &lt;Text style={styles.sectionLabel}&gt;Account&lt;/Text&gt;
-          &lt;TouchableOpacity onPress={handleLogout}&gt;
+          &lt;TouchableOpacity
+            onPress={handleLogout}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Logout"
+            accessibilityHint="Sign out of your account"
+          &gt;
             &lt;View style={styles.card}&gt;
               &lt;View style={styles.settingRow}&gt;
                 &lt;View style={styles.settingInfo}&gt;
@@ -742,7 +751,7 @@ const styles = StyleSheet.create({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-29T21:40:30.709Z
+                at 2026-04-01T23:03:49.283Z
             </div>
         <script src="../prettify.js"></script>
         <script>

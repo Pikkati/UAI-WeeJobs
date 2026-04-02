@@ -3,6 +3,7 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { AuthProvider } from '../context/AuthContext';
 import PostJobScreen from '../app/customer/post-job';
+import { LoadingProvider } from '../context/LoadingContext';
 
 process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
 process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
@@ -34,7 +35,9 @@ describe('PostJobScreen — API error handling', () => {
 
     const { getByTestId } = render(
       <AuthProvider>
-        <PostJobScreen testInitialValues={initial} />
+        <LoadingProvider>
+          <PostJobScreen testInitialValues={initial} />
+        </LoadingProvider>
       </AuthProvider>
     );
 

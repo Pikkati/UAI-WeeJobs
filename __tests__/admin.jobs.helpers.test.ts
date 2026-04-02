@@ -1,4 +1,4 @@
-import { STATUS_LABELS, STATUS_COLORS } from '../app/admin/jobs.helpers';
+import { STATUS_LABELS, STATUS_COLORS } from '../lib/helpers/admin.jobs.helpers';
 
 describe('admin jobs helpers', () => {
   test('STATUS_LABELS contains expected labels', () => {

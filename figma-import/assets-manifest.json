@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "generatedBy": "weejobs/figma-import-generator",
+  "assets": [
+    {
+      "id": "logo-primary",
+      "path": "figma-import/assets/logo-primary.svg",
+      "type": "logo",
+      "alt": "WeeJobs logo (mock)",
+      "usage": "app-header"
+    },
+    {
+      "id": "logo-mark",
+      "path": "figma-import/assets/logo-mark.svg",
+      "type": "logo-mark",
+      "alt": "WeeJobs mark (mock)",
+      "usage": "icon, favicon"
+    },
+    {
+      "id": "icon-search",
+      "path": "figma-import/assets/icon-search.svg",
+      "type": "icon",
+      "alt": "Search icon",
+      "usage": "ui-icon"
+    },
+    {
+      "id": "avatar-placeholder",
+      "path": "figma-import/assets/avatar-placeholder.svg",
+      "type": "avatar",
+      "alt": "Avatar placeholder",
+      "usage": "avatars"
+    },
+    {
+      "id": "weejobs-logo-png",
+      "path": "assets/images/weejobs-logo.png",
+      "type": "raster",
+      "usage": "existing"
+    }
+  ]
+}

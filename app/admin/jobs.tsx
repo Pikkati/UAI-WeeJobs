@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { supabase, Job } from '../../lib/supabase';
-import { STATUS_COLORS, STATUS_LABELS } from './jobs.helpers';
+import { STATUS_COLORS, STATUS_LABELS } from '../../lib/helpers/admin.jobs.helpers';
 
 export default function AdminJobsScreen() {
   const insets = useSafeAreaInsets();

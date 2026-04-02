@@ -1,0 +1,357 @@
+--------- beginning of main
+03-31 02:00:14.108   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:14.611 32250 32250 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: package
+03-31 02:00:14.906  1522  1586 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+03-31 02:00:14.907  1522  1586 D SatelliteController: getCarrierRoamingNtnConnectType: Falling back to global carrier config connect type: 0
+03-31 02:00:15.066  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/base.odex) is kOatUpToDate with filter 'speed-profile' executable 'false'
+03-31 02:00:15.072  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_AdsDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.076  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_CronetDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.081  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_DynamiteLoader_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.085  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_DynamiteModulesA_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.090  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_DynamiteModulesC_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.096  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_GoogleCertificates_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.103  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_MapsDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.110  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_MeasurementDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:15.115  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000d/dl-PlayCloudSearch.optional_253434100000.apk has no usable artifacts
+03-31 02:00:15.120  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000c/dl-MlkitBarcodeUi.optional_253434100800.apk has no usable artifacts
+03-31 02:00:15.122  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000001/CronetDynamite.apk has no usable artifacts
+03-31 02:00:15.125  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000016/dl-MlkitOcrCommon.optional_261133100800.apk has no usable artifacts
+03-31 02:00:15.131  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000e/dl-VisionOcr.optional_253434100000.apk has no usable artifacts
+03-31 02:00:15.132  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000002/DynamiteLoader.apk has no usable artifacts
+03-31 02:00:15.133  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000005/GoogleCertificates.apk has no usable artifacts
+03-31 02:00:15.136  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000012/dl-Appsearch.optional_261133100800.apk has no usable artifacts
+03-31 02:00:15.140  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000011/dl-PlayCloudSearch.optional_261133100000.apk has no usable artifacts
+03-31 02:00:15.144  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000015/dl-MlkitBarcodeUi.optional_261133100800.apk has no usable artifacts
+03-31 02:00:15.148  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000a/dl-Appsearch.optional_253434100800.apk has no usable artifacts
+03-31 02:00:15.153  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000008/dl-TfliteDynamiteDynamite.integ_252130102100800.apk has no usable artifacts
+03-31 02:00:15.159  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000f/dl-MlkitOcrCommon.optional_253434100800.apk has no usable artifacts
+03-31 02:00:15.168  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000010/dl-VisionOcr.optional_261133100000.apk has no usable artifacts
+03-31 02:00:15.172  3343  3357 I artd    : GetBestInfo: vdex next to the dex file (/data/user/0/com.google.android.gms/app_dg_cache/BB2AE5A47BB198AF36C19CFD2B6407061A1BAF30/oat/x86_64/the.vdex) is kOatUpToDate with filter 'verify' executable 'false'
+03-31 02:00:15.175  3343  3357 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000007/MeasurementDynamite.apk has no usable artifacts
+--------- beginning of system
+03-31 02:00:16.898   815  2681 W ActivityTaskManager: callingPackage for (uid=2000, pid=32255) has no WPC
+03-31 02:00:16.903   815  2681 V WindowManager: DesktopModeLaunchParamsModifier: phase= 0 task=null activity=null display-area-from-current-params=null display-area-from-default-fallback=DefaultTaskDisplayArea@146451114 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114 task null, skipping
+03-31 02:00:16.904   815  2681 V WindowManager: TaskLaunchParamsModifier:phase=0 task=null activity=null display-area-from-current-params=null display-area-from-default-fallback=DefaultTaskDisplayArea@146451114 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114
+03-31 02:00:16.935   815  2681 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@a8b12c4b does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+03-31 02:00:16.944   815  2681 V WindowManager: DesktopModeLaunchParamsModifier: phase= 0 task=null activity=ActivityRecord{189773939 u0 com.weejobs.app/.MainActivity display-area-from-current-params=null display-area-from-default-fallback=DefaultTaskDisplayArea@146451114 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114 task null, skipping
+03-31 02:00:16.945   815  2681 V WindowManager: TaskLaunchParamsModifier:phase=0 task=null activity=ActivityRecord{189773939 u0 com.weejobs.app/.MainActivity t-1} display-area-from-current-params=null display-area-from-default-fallback=DefaultTaskDisplayArea@146451114 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114
+03-31 02:00:16.945   815  2681 V WindowManager: DesktopModeLaunchParamsModifier: phase= 3 task=null activity=ActivityRecord{189773939 u0 com.weejobs.app/.MainActivity t-1} display-area-from-current-params=null display-area-from-default-fallback=DefaultTaskDisplayArea@146451114 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114 task null, skipping
+03-31 02:00:16.946   815  2681 V WindowManager: TaskLaunchParamsModifier:phase=3 task=null activity=ActivityRecord{189773939 u0 com.weejobs.app/.MainActivity t-1} display-area-from-current-params=null display-area-from-default-fallback=DefaultTaskDisplayArea@146451114 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114 non-freeform-task-display-area display-area=DefaultTaskDisplayArea@146451114 skip-bounds-fullscreen
+03-31 02:00:16.963   815  2681 V WindowManager: DesktopModeLaunchParamsModifier: phase= 3 task=Task{716c330 #82 type=standard A=10227:com.weejobs.app} activity=ActivityRecord{189773939 u0 com.weejobs.app/.MainActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114 not entering desktop mode, skipping
+03-31 02:00:16.964   815  2681 V WindowManager: TaskLaunchParamsModifier:phase=3 task=Task{716c330 #82 type=standard A=10227:com.weejobs.app} activity=ActivityRecord{189773939 u0 com.weejobs.app/.MainActivity t-1} display-from-task=0 display-id=0 task-display-area-windowing-mode=1 suggested-display-area=DefaultTaskDisplayArea@146451114 inherit-from-task=fullscreen non-freeform-task-display-area display-area=DefaultTaskDisplayArea@146451114 skip-bounds-fullscreen
+03-31 02:00:16.969   651  1624 I libbinder.BpBinder: onLastStrongRef automatically unlinking death recipients for descriptor: '(not cached)'
+03-31 02:00:16.988   815  2681 I ActivityTaskManager: START u0 {flg=0x10000000 xflg=0x5 cmp=com.weejobs.app/.MainActivity} with LAUNCH_SINGLE_TASK from uid 2000 (com.android.shell) (BAL_ALLOW_PERMISSION) result code=0
+03-31 02:00:16.991  1337  1429 V WindowManagerShell: Transition requested (#179): android.os.BinderProxy@2d95000 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=82 effectiveUid=10227 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.weejobs.app/.MainActivity } baseActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} topActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} origActivity=null realActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} numActivities=1 lastActiveTime=47765586 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.os.BinderProxy@ce74039} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{91de67e com.weejobs.app.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=undefinedundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, windowingLayerChange = null, flags = 0, debugId = 179 }
+03-31 02:00:16.995  1337  1429 D ShellSplitScreen: logExit: no-op, mLoggerSessionId is null
+03-31 02:00:16.999  1337  1429 V ShellDesktopMode: DesktopTasksController: handleRequest request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=82 effectiveUid=10227 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.weejobs.app/.MainActivity } baseActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} topActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} origActivity=null realActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} numActivities=1 lastActiveTime=47765586 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.os.BinderProxy@ce74039} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{91de67e com.weejobs.app.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=undefinedundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, windowingLayerChange = null, flags = 0, debugId = 179 }
+03-31 02:00:16.999  1337  1429 V ShellDesktopMode: DesktopTasksController: skipping handleRequest reason=triggerTask's display doesn't support desktop mode
+03-31 02:00:17.003  1636  1636 D BaseActivity: Launcher flags updated: [state_started|state_resumed|state_deferred_resumed|state_window_focused] -[state_user_active]
+03-31 02:00:17.011   815   838 V GrammaticalInflectionUtils: AttributionSource: android.content.AttributionSource@a8b12c4b does not have READ_SYSTEM_GRAMMATICAL_GENDER permission.
+03-31 02:00:17.012  1636  1636 D BaseActivity: Launcher flags updated: [state_started|state_window_focused] -[state_resumed|state_deferred_resumed]
+03-31 02:00:17.013  1337  1429 D WindowManagerShell: setLauncherKeepClearAreaHeight: visible=false, height=495
+03-31 02:00:17.015  1636  1636 W SplitSelectStateCtor: Missing session instanceIds
+03-31 02:00:17.015  1636  1636 D StatsLog: LAUNCHER_SPLIT_SELECTION_EXIT_INTERRUPTED
+03-31 02:00:17.016   815  2681 D CompatChangeReporter: Compat change id reported: 377864165; UID 10227; state: ENABLED
+03-31 02:00:17.021  1337  1429 D ShellDesktopMode: DesktopRepository: Removes freeform task: taskId=81
+03-31 02:00:17.024  1337  1429 W ShellDesktopMode: DesktopRepository: No display id found for task: taskId=81
+03-31 02:00:17.031   815  1292 D BackgroundInstallControlService: Package event received: 0
+03-31 02:00:17.041   815   831 V WindowManager: Defer transition id=179 for TaskFragmentTransaction=android.os.Binder@cdce25c
+03-31 02:00:17.043   815   831 V WindowManager: deferTransitionReady deferReadyDepth=1 stack=com.android.server.wm.TransitionController.deferTransitionReady:1061 com.android.server.wm.TaskFragmentOrganizerController$TaskFragmentOrganizerState.dispatchTransaction:517 com.android.server.wm.TaskFragmentOrganizerController.dispatchPendingEvents:1259 com.android.server.wm.TaskFragmentOrganizerController.dispatchPendingEvents:1228 com.android.server.wm.RootWindowContainer.performSurfacePlacement:777 
+03-31 02:00:17.047  1636  1636 D RecentsView: onTaskDisplayChanged: 82, new displayId = 0
+03-31 02:00:17.047   579   579 D Zygote  : Forked child process 32258
+03-31 02:00:17.048  1636  1636 D b/417220811: invalidateLoadedTasks - previous requestLoadId: -1
+03-31 02:00:17.050   815   846 I ActivityManager: Start proc 32258:com.weejobs.app/u0a227 for next-top-activity {com.weejobs.app/com.weejobs.app.MainActivity}
+03-31 02:00:17.054  1636  1636 D b/417220811: invalidateLoadedTasks - previous requestLoadId: -1
+03-31 02:00:17.070   815  2681 V WindowManager: Continue transition id=179 for TaskFragmentTransaction=android.os.Binder@cdce25c
+03-31 02:00:17.070   815  2681 V WindowManager: continueTransitionReady deferReadyDepth=0 stack=com.android.server.wm.TransitionController.continueTransitionReady:1071 com.android.server.wm.TaskFragmentOrganizerController$TaskFragmentOrganizerState.onTransactionFinished:546 com.android.server.wm.TaskFragmentOrganizerController.onTransactionHandled:740 android.window.ITaskFragmentOrganizerController$Stub.onTransact:225 android.os.Binder.execTransactInternal:1473 
+03-31 02:00:17.072  1636  1636 D BaseActivity: Launcher flags updated: [state_started] -[state_window_focused]
+03-31 02:00:17.128   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:17.142  1337  1477 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.view.ViewRootImpl$$ExternalSyntheticLambda12@67de4e1
+03-31 02:00:17.144   815  2681 D CoreBackPreview: Window{c57c2eb u0 Splash Screen com.weejobs.app}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@dd266e1, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+03-31 02:00:17.168 32258 32258 I Zygote  : Process 32258 created for com.weejobs.app
+03-31 02:00:17.169 32258 32258 I com.weejobs.app: Late-enabling -Xcheck:jni
+03-31 02:00:17.288  1636  1636 D b/417220811: invalidateLoadedTasks - previous requestLoadId: -1
+03-31 02:00:17.342   815   835 V WindowManager: Sent Transition (#179) createdAt=03-31 02:00:16.943 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=82 effectiveUid=10227 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.weejobs.app/.MainActivity } baseActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} topActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} origActivity=null realActivity=ComponentInfo{com.weejobs.app/com.weejobs.app.MainActivity} numActivities=1 lastActiveTime=47765586 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{c3120f4 Task{716c330 #82 type=standard A=10227:com.weejobs.app}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 0 - 0, 0) topActivityInfo=ActivityInfo{9ad901d com.weejobs.app.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isTopActivityNoDisplay=false isSleeping=false locusId=null displayAreaFeatureId=1 isTopActivityTransparent=false isActivityStackTransparent=false lastNonFullscreenBounds=null capturedLink=null capturedLinkTimestamp=0 requestedVisibleTypes=503 topActivityRequestOpenInBrowserEducationTimestamp=0 appCompatTaskInfo=AppCompatTaskInfo { topActivityInSizeCompat=false isLeafTask= true eligibleForLetterboxEducation= false isLetterboxEducationEnabled= true isLetterboxDoubleTapEnabled= false eligibleForUserAspectRatioButton= false topActivityBoundsLetterboxed= false isFromLetterboxDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 topActivityAppBounds=Rect(0, 0 - 1080, 2400) isUserFullscreenOverrideEnabled=false isSystemFullscreenOverrideEnabled=false hasMinAspectRatioOverride=false topActivityLetterboxBounds=null cameraCompatTaskInfo=CameraCompatTaskInfo { cameraCompatMode=undefinedundefined} topNonResizableActivityAspectRatio=-1.0} topActivityMainWindowFrame=null isAppBubble=false}, pipChange = null, remoteTransition = null, displayChange = null, requestedLocation = null, userChange = null, windowingLayerChange = null, flags = 0, debugId = 179 }
+03-31 02:00:17.342   815   835 V WindowManager:     startWCT=WindowContainerTransaction { changes= {} hops= [] errorCallbackToken=null taskFragmentOrganizer=null }
+03-31 02:00:17.342   815   835 V WindowManager:     info={id=179 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+03-31 02:00:17.342   815   835 V WindowManager:         {WCT{RemoteToken{c3120f4 Task{716c330 #82 type=standard A=10227:com.weejobs.app}}} m=OPEN f=NONE leash=Surface(name=Task=82#2570)/@0xf48c06 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+03-31 02:00:17.342   815   835 V WindowManager:         {WCT{RemoteToken{2b288d7 Task{456e129 #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1#44)/@0x377fbff sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+03-31 02:00:17.342   815   835 V WindowManager:         {m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{4959bac}#56)/@0x6259f59 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0}
+03-31 02:00:17.342   815   835 V WindowManager:     ]}
+03-31 02:00:17.350  1337  1617 V WindowManagerShell: onTransitionReady(transaction=3500398363791)
+03-31 02:00:17.351  1337  1429 V WindowManagerShell: onTransitionReady (#179) android.os.BinderProxy@2d95000: {id=179 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[
+03-31 02:00:17.351  1337  1429 V WindowManagerShell:         {m=OPEN f=NONE leash=Surface(name=Task=82#2570)/@0xdecce60 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+03-31 02:00:17.351  1337  1429 V WindowManagerShell:         {m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1#44)/@0x2f54f19 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},
+03-31 02:00:17.351  1337  1429 V WindowManagerShell:         {m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{4959bac}#56)/@0x6e27bde sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0}
+03-31 02:00:17.351  1337  1429 V WindowManagerShell:     ]}
+03-31 02:00:17.360  1337  1429 V WindowManagerShell: Playing animation for (#179) android.os.BinderProxy@2d95000@0
+03-31 02:00:17.361  1337  1429 V ShellRecents: RecentsTransitionHandler.startAnimation: no controller found
+03-31 02:00:17.361  1337  1429 V ShellDesktopMode: DesktopMixedTransitionHandler: No pending desktop transition
+03-31 02:00:17.362  1337  1429 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=179 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=NONE leash=Surface(name=Task=82#2570)/@0xdecce60 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},{m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1#44)/@0x2f54f19 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},{m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{4959bac}#56)/@0x6e27bde sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0}]}
+03-31 02:00:17.363  1337  1429 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=undefined independent=true modes=[CLOSE,TO_BACK] flags=IN_TASK_WITH_EMBEDDED_ACTIVITY mustBeTask=false order=ANY topActivity=null launchCookie=null taskFragmentToken=android.os.BinderProxy@c043bef windowingMode=undefined isCrossDisplayMove=false}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@1ea86fc, appThread = android.app.IApplicationThread$Stub$Proxy@8e47185, debugName = overlayBackTransition }}
+03-31 02:00:17.364  1337  1429 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x0 checks=[{atype=dream independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined isCrossDisplayMove=false},{atype=home independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined isCrossDisplayMove=false}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@5b90bda, appThread = android.app.IApplicationThread$Stub$Proxy@602a80b, debugName = LauncherToDream }}
+03-31 02:00:17.364  1337  1429 V WindowManagerShell:  Checking filter Pair{{types=[] flags=0x0] notFlags=0x100 checks=[{atype=home independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=false order=TOP topActivity=ComponentInfo{com.google.android.apps.nexuslauncher/com.google.android.apps.nexuslauncher.NexusLauncherActivity} launchCookie=null windowingMode=undefined isCrossDisplayMove=false},{atype=standard independent=true modes=[CLOSE,TO_BACK] flags=NONE mustBeTask=false order=ANY topActivity=null launchCookie=null windowingMode=undefined isCrossDisplayMove=false},{NOT atype=undefined independent=true modes=[] flags=NONE mustBeTask=true order=ANY topActivity=null launchCookie=null customAnim=true windowingMode=undefined isCrossDisplayMove=false}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@1d716e8, appThread = android.app.IApplicationThread$Stub$Proxy@ffa101, debugName = QuickstepLaunchHome }}
+03-31 02:00:17.364  1337  1429 V WindowManagerShell:  Checking filter Pair{{types=[OPEN,TO_FRONT] flags=0x0] notFlags=0x0 checks=[{atype=standard independent=true modes=[OPEN,TO_FRONT] flags=NONE mustBeTask=true order=ANY topActivity=null launchCookie=null windowingMode=freeform isCrossDisplayMove=false}]} RemoteTransition { remoteTransition = android.window.IRemoteTransition$Stub$Proxy@37a315c, appThread = null, debugName = DesktopWindowLimitUnminimize }}
+03-31 02:00:17.364  1337  1429 V WindowManagerShell:  Delegate animation for (#179) to null
+03-31 02:00:17.364  1337  1429 V WindowManagerShell: start default transition animation, info = {id=179 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{m=OPEN f=NONE leash=Surface(name=Task=82#2570)/@0xdecce60 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},{m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1#44)/@0x2f54f19 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0 taskParent=-1 winMode=1 userId=0},{m=TO_BACK f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{4959bac}#56)/@0x6e27bde sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) epz=Point(1080, 2400) d=0}]}
+03-31 02:00:17.383  1337  1429 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@21677ea animAttr=0x13 type=OPEN isEntrance=false
+03-31 02:00:17.396  1337  1429 V WindowManagerShell: loadAnimation: anim=android.view.animation.AnimationSet@370988d animAttr=0x12 type=OPEN isEntrance=true
+03-31 02:00:17.402  1337  1429 V WindowManagerShell:  animated by com.android.wm.shell.transition.DefaultTransitionHandler@7009b89
+03-31 02:00:17.403  1337  1429 V ShellTaskOrganizer: Task appeared taskId=82 listener=FullscreenTaskListener
+03-31 02:00:17.403  1337  1429 V ShellTaskOrganizer: Fullscreen Task Appeared: #82
+03-31 02:00:17.405  1636  1636 D b/417220811: invalidateLoadedTasks - previous requestLoadId: -1
+03-31 02:00:17.711  1337  1429 V WindowManagerShell: Transition animation finished (aborted=false), notifying core (#179) android.os.BinderProxy@2d95000@0
+03-31 02:00:17.722  1337  1429 V WindowManagerShell: Track 0 became idle
+03-31 02:00:17.722  1337  1429 V WindowManagerShell: All active transition animations finished
+03-31 02:00:17.723   815   835 V WindowManager: Finish Transition (#179): created at 03-31 02:00:16.943 collect-started=0.668ms request-sent=44.725ms started=57.754ms ready=388.911ms sent=395.773ms commit=70.891ms finished=773.12ms
+03-31 02:00:17.733  1636  1636 D VRI[NexusLauncherActivity]: visibilityChanged oldVisibility=true newVisibility=false
+03-31 02:00:17.757  1636  1636 D NexusLauncherModelDelegate: notifySmartspaceEvent: SmartspaceTargetEvent{mSmartspaceTarget=null, mSmartspaceActionId='null', mEventType=7}
+03-31 02:00:17.763  1337  1429 D Bubbles : onLocusVisibilityChanged=Overview|DISABLED visible=false taskId=1
+03-31 02:00:17.778  1337  1627 D WallpaperService: onVisibilityChanged(false): com.android.systemui.wallpapers.ImageWallpaper$CanvasEngine@b85e592
+03-31 02:00:18.082 32258 32258 I com.weejobs.app: Using CollectorTypeCMC GC.
+03-31 02:00:18.084 32258 32258 W com.weejobs.app: Unexpected CPU variant for x86: x86_64.
+03-31 02:00:18.084 32258 32258 W com.weejobs.app: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+03-31 02:00:18.136  1634  1672 I adbd    : jdwp connection from 32258
+03-31 02:00:18.255 32258 32258 D nativeloader: Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+03-31 02:00:18.435   815  1292 D BackgroundInstallControlService: Package event received: 0
+03-31 02:00:18.707 32258 32258 D ApplicationLoaders: Returning zygote-cached class loader: /system/framework/org.apache.http.legacy.jar
+03-31 02:00:18.707 32258 32258 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.extensions.jar
+03-31 02:00:18.707 32258 32258 D ApplicationLoaders: Returning zygote-cached class loader: /system_ext/framework/androidx.window.sidecar.jar
+03-31 02:00:19.618   815   952 D ActivityManager: freezing 25126 com.google.android.settings.intelligence
+03-31 02:00:19.635   815  1247 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-31 02:00:19.643   815  1247 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-31 02:00:19.644   815  1247 D InetDiagMessage: Destroyed live tcp sockets for uids={10157} in 17ms
+03-31 02:00:20.146   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:20.508   815  3550 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+03-31 02:00:20.845 32258 32258 D nativeloader: Configuring clns-9 for other apk /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/lib/x86_64:/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.weejobs.app
+03-31 02:00:20.973 32258 32258 V GraphicsEnvironment: Currently set values for:
+03-31 02:00:20.973 32258 32258 V GraphicsEnvironment:   angle_gl_driver_selection_pkgs=[]
+03-31 02:00:20.974 32258 32258 V GraphicsEnvironment:   angle_gl_driver_selection_values=[]
+03-31 02:00:20.974 32258 32258 V GraphicsEnvironment: com.weejobs.app is not listed in per-application setting
+03-31 02:00:20.974 32258 32258 V GraphicsEnvironment: ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+03-31 02:00:20.974 32258 32258 V GraphicsEnvironment: No special selections for ANGLE, returning default driver choice
+03-31 02:00:20.974 32258 32258 V GraphicsEnvironment: Neither updatable production driver nor prerelease driver is supported.
+03-31 02:00:21.403 32258 32258 W SoLoader: Initializing SoLoader: 0
+03-31 02:00:21.418 32258 32258 W SoLoader: Recording new base apk path: /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk
+03-31 02:00:21.418 32258 32258 W SoLoader: Previously recorded 0 base apk paths.
+03-31 02:00:21.435 32258 32258 I SoLoader: Preparing SO source: DirectorySoSource[root = /vendor/lib64 flags = 2]
+03-31 02:00:21.436 32258 32258 I SoLoader: Preparing SO source: DirectorySoSource[root = /system/lib64 flags = 2]
+03-31 02:00:21.436 32258 32258 I SoLoader: Preparing SO source: DirectApkSoSource[root = [/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64]]
+03-31 02:00:21.587   815   952 D ActivityManager: freezing 32216 com.android.settings
+03-31 02:00:21.589   815   952 D ActivityManager: freezing 30837 com.android.keychain
+03-31 02:00:21.655 32258 32258 I SoLoader: Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/lib/x86_64 flags = 0]]
+03-31 02:00:21.656 32258 32258 I SoLoader: init finish: 4 SO sources prepared
+03-31 02:00:21.658 32258 32258 W SoLoader: SoLoader initialized: 8
+03-31 02:00:21.855 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libc++_shared.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:21.977 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libjsi.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:22.002 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libfbjni.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:22.075   815   952 D ActivityManager: freezing 30902 com.android.vending
+03-31 02:00:22.091   815  1247 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-31 02:00:22.096   815  1247 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-31 02:00:22.096   815  1247 D InetDiagMessage: Destroyed live tcp sockets for uids={10153} in 8ms
+03-31 02:00:22.150 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libreactnative.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Entering merged library JNI_OnLoad.
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing 12 pre-merged libs (including stub)
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing to register libfabricjni_so.  onload_func: 0x76f54e5b25d0
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing to register libreact_devsupportjni_so.  onload_func: 0x76f54e7cb660
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing to register libreact_featureflagsjni_so.  onload_func: 0x76f54e7dd530
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing to register libreact_newarchdefaults_so.  onload_func: 0x76f54e878b10
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing to register libreactnativeblob_so.  onload_func: 0x76f54ea856c0
+03-31 02:00:22.152 32258 32258 D jni_lib_merge: Preparing to register libreactnativejni_so.  onload_func: 0x76f54eac12d0
+03-31 02:00:22.153 32258 32258 D jni_lib_merge: Preparing to register libreactnativejni_common_so.  onload_func: 0x76f54eac6cd0
+03-31 02:00:22.153 32258 32258 D jni_lib_merge: Preparing to register librninstance_so.  onload_func: 0x76f54eb10fe0
+03-31 02:00:22.153 32258 32258 D jni_lib_merge: Preparing to register libturbomodulejsijni_so.  onload_func: 0x76f54ec72f40
+03-31 02:00:22.153 32258 32258 D jni_lib_merge: Preparing to register libuimanagerjni_so.  onload_func: 0x76f54ec89a30
+03-31 02:00:22.154 32258 32258 D jni_lib_merge: Preparing to register libyoga_so.  onload_func: 0x76f54ec989c0
+03-31 02:00:22.154 32258 32258 D jni_lib_merge: About to register 11 actual methods.
+03-31 02:00:22.232 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libreact_codegen_rnscreens.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Entering merged library JNI_OnLoad.
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing 12 pre-merged libs (including stub)
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libfabricjni_so.  onload_func: 0x76f54e5b25d0
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libreact_devsupportjni_so.  onload_func: 0x76f54e7cb660
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libreact_featureflagsjni_so.  onload_func: 0x76f54e7dd530
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libreact_newarchdefaults_so.  onload_func: 0x76f54e878b10
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libreactnativeblob_so.  onload_func: 0x76f54ea856c0
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libreactnativejni_so.  onload_func: 0x76f54eac12d0
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libreactnativejni_common_so.  onload_func: 0x76f54eac6cd0
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register librninstance_so.  onload_func: 0x76f54eb10fe0
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libturbomodulejsijni_so.  onload_func: 0x76f54ec72f40
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libuimanagerjni_so.  onload_func: 0x76f54ec89a30
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: Preparing to register libyoga_so.  onload_func: 0x76f54ec989c0
+03-31 02:00:22.233 32258 32258 D jni_lib_merge: About to register 11 actual methods.
+03-31 02:00:22.260 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libreact_codegen_safeareacontext.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:22.308 32258 32258 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libappmodules.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:23.135   815  1292 D BackgroundInstallControlService: Package event received: 0
+03-31 02:00:23.136   815  1292 D BackgroundInstallControlService: Package event received: 0
+03-31 02:00:23.140 32258 32258 I Choreographer: Skipped 110 frames!  The application may be doing too much work on its main thread.
+03-31 02:00:23.167 32258 32274 I DisplayManager: Choreographer implicitly registered for the refresh rate.
+03-31 02:00:23.173   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:23.539 32258 32274 I GFXSTREAM: [eglDisplay.cpp(297)] Opening libGLESv1_CM_emulation.so
+03-31 02:00:23.544 32258 32274 I GFXSTREAM: [eglDisplay.cpp(297)] Opening libGLESv2_emulation.so
+03-31 02:00:23.571 32258 32274 W HWUI    : Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+03-31 02:00:23.572 32258 32274 W HWUI    : Failed to initialize 101010-2 format, error = EGL_SUCCESS
+03-31 02:00:23.675 32258 32258 D DesktopExperienceFlags: Toggle override initialized to: false
+03-31 02:00:23.800 32258 32258 D AppCompatDelegate: Checking for metadata for AppLocalesMetadataHolderService : Service not found
+03-31 02:00:23.853 32258 32258 E ashmem  : Pinning is deprecated since Android Q. Please use trim or other methods.
+03-31 02:00:23.966   815   952 D ActivityManager: freezing 30833 com.google.android.apps.wellbeing
+03-31 02:00:23.974   815  1247 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET, states=14
+03-31 02:00:23.977   815  1247 D InetDiagMessage: Destroyed 0 sockets, proto=IPPROTO_TCP, family=AF_INET6, states=14
+03-31 02:00:23.977   815  1247 D InetDiagMessage: Destroyed live tcp sockets for uids={10159} in 5ms
+03-31 02:00:24.062 32258 32258 D CompatChangeReporter: Compat change id reported: 377864165; UID 10227; state: ENABLED
+03-31 02:00:24.065 32258 32258 D DesktopModeFlags: Toggle override initialized to: OVERRIDE_UNSET
+03-31 02:00:24.204 32258 32258 I com.weejobs.app: hiddenapi: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app, TargetSdkVersion=36) using reflection: allowed
+03-31 02:00:24.614 32276 32276 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: package
+03-31 02:00:24.904  1522  1586 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+03-31 02:00:24.918  1522  1586 D SatelliteController: getCarrierRoamingNtnConnectType: Falling back to global carrier config connect type: 0
+03-31 02:00:25.093  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/base.odex) is kOatUpToDate with filter 'speed-profile' executable 'false'
+03-31 02:00:25.103  3343  3357 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_AdsDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.108  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_CronetDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.112  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_DynamiteLoader_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.119  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_DynamiteModulesA_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.124  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_DynamiteModulesC_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.128  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_GoogleCertificates_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.131  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_MapsDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.136  3343 22143 I artd    : GetBestInfo: odex next to the dex file (/data/app/~~l86ooHn3z7zjJPmRwuVyKA==/com.google.android.gms-mjvtrlLEHAA3R1GV5L8qqg==/oat/x86_64/split_MeasurementDynamite_installtime.odex) is kOatUpToDate with filter 'speed' executable 'false'
+03-31 02:00:25.141  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000d/dl-PlayCloudSearch.optional_253434100000.apk has no usable artifacts
+03-31 02:00:25.147  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000c/dl-MlkitBarcodeUi.optional_253434100800.apk has no usable artifacts
+03-31 02:00:25.149  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000001/CronetDynamite.apk has no usable artifacts
+03-31 02:00:25.153  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000016/dl-MlkitOcrCommon.optional_261133100800.apk has no usable artifacts
+03-31 02:00:25.157  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000e/dl-VisionOcr.optional_253434100000.apk has no usable artifacts
+03-31 02:00:25.159  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000002/DynamiteLoader.apk has no usable artifacts
+03-31 02:00:25.160  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000005/GoogleCertificates.apk has no usable artifacts
+03-31 02:00:25.164  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000012/dl-Appsearch.optional_261133100800.apk has no usable artifacts
+03-31 02:00:25.168  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000011/dl-PlayCloudSearch.optional_261133100000.apk has no usable artifacts
+03-31 02:00:25.171  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000015/dl-MlkitBarcodeUi.optional_261133100800.apk has no usable artifacts
+03-31 02:00:25.176  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000a/dl-Appsearch.optional_253434100800.apk has no usable artifacts
+03-31 02:00:25.181  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000008/dl-TfliteDynamiteDynamite.integ_252130102100800.apk has no usable artifacts
+03-31 02:00:25.186  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/0000000f/dl-MlkitOcrCommon.optional_253434100800.apk has no usable artifacts
+03-31 02:00:25.189  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000010/dl-VisionOcr.optional_261133100000.apk has no usable artifacts
+03-31 02:00:25.194  3343 22143 I artd    : GetBestInfo: vdex next to the dex file (/data/user/0/com.google.android.gms/app_dg_cache/BB2AE5A47BB198AF36C19CFD2B6407061A1BAF30/oat/x86_64/the.vdex) is kOatUpToDate with filter 'verify' executable 'false'
+03-31 02:00:25.199  3343 22143 I artd    : GetBestInfo: /data/user_de/0/com.google.android.gms/app_chimera/m/00000007/MeasurementDynamite.apk has no usable artifacts
+03-31 02:00:26.090 32258 32258 W unknown:BridgelessReact: ReactHost{0}.startSurface(surfaceId = 0): Schedule
+03-31 02:00:26.090 32258 32258 W unknown:BridgelessReact: ReactHost{0}.attachSurface(surfaceId = 0)
+03-31 02:00:26.106 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask()
+03-31 02:00:26.107 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Start
+03-31 02:00:26.107 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getJSBundleLoader()
+03-31 02:00:26.108 32258 32286 W unknown:BridgelessReact: ReactHost{0}.isMetroRunning()
+03-31 02:00:26.195   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:26.198 32258 32258 I expo-router-native: MainActivity.onCreate immediate: sdExists=false appExists=true
+03-31 02:00:26.219 32258 32258 I expo-router-native: Wrote debug routes_manifest_seen in app files: {"nativeDebug":true,"ts":1774947626199}
+03-31 02:00:26.235 32258 32288 I expo-router-native: Found routes_manifest_seen in app files: {"nativeDebug":true,"ts":1774947626199}
+03-31 02:00:26.256 32258 32258 W WindowOnBackDispatcher: OnBackInvokedCallback is not enabled for the application.
+03-31 02:00:26.256 32258 32258 W WindowOnBackDispatcher: Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+03-31 02:00:26.294 32258 32258 W unknown:BridgelessReact: ReactHost{0}.onHostResume(activity)
+03-31 02:00:26.294 32258 32258 W unknown:ReactNative: Packager connection already open, nooping.
+03-31 02:00:26.418 32258 32258 W HWUI    : Unknown dataspace 0
+03-31 02:00:26.506 32258 32258 D VRI[MainActivity]: WindowInsets changed: 1080x2400 statusBars:[0,63,0,0] navigationBars:[0,0,0,63] mandatorySystemGestures:[0,63,0,84] 
+03-31 02:00:26.580 32258 32258 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.view.ViewRootImpl$$ExternalSyntheticLambda12@2deada0
+03-31 02:00:26.582   815  2649 D CoreBackPreview: Window{5bc06ed u0 com.weejobs.app/com.weejobs.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@bc41970, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+03-31 02:00:26.910  8555  8565 I FontLog : (REDACTED) Received query %s, URI %s
+03-31 02:00:26.912  8555  8565 I FontLog : (REDACTED) Query [%s] resolved to %s
+03-31 02:00:26.946  8555  8565 I FontLog : (REDACTED) Fetch %s end status %s
+03-31 02:00:26.976  8555 19957 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+03-31 02:00:26.983 32258 32294 I HWUI    : Using FreeType backend (prop=Auto)
+03-31 02:00:26.988   815   838 W ActivityTaskManager: Launch timeout has expired, giving up wake lock!
+03-31 02:00:27.057  8555 19957 I FontLog : (REDACTED) Pulling font file for id = %d, cache size = %d
+03-31 02:00:27.724 32258 32263 I com.weejobs.app: Compiler allocated 5087KB to compile void android.view.ViewRootImpl.performTraversals()
+03-31 02:00:28.206 32258 32295 D ProfileInstaller: Installing profile for com.weejobs.app
+03-31 02:00:28.248 32258 32264 W com.weejobs.app: userfaultfd: MOVE ioctl seems unsupported: Try again
+03-31 02:00:28.307 32258 32264 I com.weejobs.app: Background concurrent mark compact GC freed 5799KB AllocSpace bytes, 18(1544KB) LOS objects, 49% free, 3856KB/7712KB, paused 7.563ms,11.193ms total 166.437ms
+03-31 02:00:29.219   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:29.464  8555  8555 D BoundBrokerSvc: onRebind: Intent { act=com.google.android.gms.common.telemetry.service.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.PersistentApiService }
+03-31 02:00:29.488   815  2649 W AppOps  : Noting op not finished: uid 10155 pkg com.google.android.gms code 113 startTime of in progress event=1774940295463
+03-31 02:00:29.534   815  2649 W AppOps  : Noting op not finished: uid 10155 pkg com.google.android.gms code 79 startTime of in progress event=1774940295463
+03-31 02:00:29.560  8555  8653 I ActivityScheduler: nextTriggerTime: 48016253, in 238097ms, detectorType: 39, FULL_TYPE alarmWindowMillis: 80000
+03-31 02:00:30.494   815  2649 W AppOps  : Noting op not finished: uid 10155 pkg com.google.android.gms code 113 startTime of in progress event=1774940295463
+03-31 02:00:31.146 32258 32287 W unknown:ReactNative: The packager does not seem to be running as we got an IOException requesting its status: failed to connect to /10.0.2.2 (port 8081) from /10.0.2.16 (port 37218) after 5000ms
+03-31 02:00:31.147 32258 32287 W unknown:BridgelessReact: ReactHost{0}.isMetroRunning(): Async result = false
+03-31 02:00:31.159 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Creating BridgelessReactContext
+03-31 02:00:31.192 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Creating ReactInstance
+03-31 02:00:31.356 32258 32286 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libhermesvm.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:31.367 32258 32286 D nativeloader: Load /data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!/lib/x86_64/libhermestooling.so using class loader ns clns-9 (caller=/data/app/~~nI-BoXbxySmZrn1biwQQ3w==/com.weejobs.app-M_aUx0MUKl2B90J_6Xexew==/base.apk!classes21.dex): ok
+03-31 02:00:31.367 32258 32286 D jni_lib_merge: Entering merged library JNI_OnLoad.
+03-31 02:00:31.368 32258 32286 D jni_lib_merge: Preparing 4 pre-merged libs (including stub)
+03-31 02:00:31.368 32258 32286 D jni_lib_merge: Preparing to register libhermes_executor_so.  onload_func: 0x76f5d949bad0
+03-31 02:00:31.368 32258 32286 D jni_lib_merge: Preparing to register libhermesinstancejni_so.  onload_func: 0x76f5d94c7330
+03-31 02:00:31.368 32258 32286 D jni_lib_merge: Preparing to register libjsijniprofiler_so.  onload_func: 0x76f5d94c90a0
+03-31 02:00:31.368 32258 32286 D jni_lib_merge: About to register 3 actual methods.
+03-31 02:00:32.230   815  1239 I HalDevMgr: bestIfaceCreationProposal is null, requestIface=STA, existingIface=[name=wlan0 type=STA]
+03-31 02:00:32.632 32258 32286 I ExpoModulesCore: ✅ AppContext was initialized
+03-31 02:00:32.922 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Loading JS Bundle
+03-31 02:00:33.021 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): DevSupportManager.onNewReactContextCreated()
+03-31 02:00:33.056 32258 32299 I HermesVM: Compiling JS failed: 785:1:unrecognized Unicode character \ufffd, sourceURL: index.android.bundle
+03-31 02:00:33.060 32258 32258 W unknown:ReactNative: Packager connection already open, nooping.
+03-31 02:00:33.065 32258 32286 W unknown:BridgelessReact: ReactHost{0}.startSurface(surfaceId = 0): Execute
+03-31 02:00:33.076 32258 32258 W unknown:BridgelessReact: ReactHost{0}.ReactContext.onHostResume()
+03-31 02:00:33.116 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateReactInstanceTask(): Executing ReactInstanceEventListeners
+03-31 02:00:33.148  1636  1636 D BaseActivity: Launcher flags updated: [] -[state_started]
+03-31 02:00:33.150  1636  1636 D BaseDepthController: setSurface:
+03-31 02:00:33.150  1636  1636 D BaseDepthController: 	mWaitingOnSurfaceValidity: false
+03-31 02:00:33.150  1636  1636 D BaseDepthController: 	mBaseSurface: null
+03-31 02:00:33.151  1636  1636 D BaseDepthController: mSurface is null and mCurrentBlur is: 0
+03-31 02:00:33.165  1636  1636 D LauncherStateManager: StateManager.goToState: fromState: Normal, toState: Normal, partial trace:
+03-31 02:00:33.165  1636  1636 D LauncherStateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme f3a19d912c87c27267cfbc05ba0bc7b202ab72a6648bd76225f5f7e128d94583:6)
+03-31 02:00:33.165  1636  1636 D LauncherStateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(go/retraceme f3a19d912c87c27267cfbc05ba0bc7b202ab72a6648bd76225f5f7e128d94583:2)
+03-31 02:00:33.165  1636  1636 D LauncherStateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(go/retraceme f3a19d912c87c27267cfbc05ba0bc7b202ab72a6648bd76225f5f7e128d94583:32)
+03-31 02:00:33.166  1636  1636 D LauncherStateManager: StateManager.onRepeatStateSetAborted: state: Normal
+03-31 02:00:33.167  1636  1636 D ActivityContext: hideKeyboard
+03-31 02:00:33.167  1636  1636 D ActivityContext: isImeShown: false
+03-31 02:00:33.167  1636  1636 D StatsLog: LAUNCHER_ONSTOP
+03-31 02:00:33.177  1636  8447 D GmsPlayProvider: Shutdown the binder channel gracefully.
+03-31 02:00:33.182  1636  8447 D GmsPlayProvider: Binder channel is terminated gracefully.
+03-31 02:00:33.184  1636  1636 D StatsLog: LAUNCHER_GOOGLE_SEARCH_RESTORE_LIST_SIZE_AFTER_ACTIVITY_RESTART
+03-31 02:00:33.229   815  1292 D BackgroundInstallControlService: Package event received: 0
+03-31 02:00:33.391 32258 32299 W unknown:BridgelessReact: ReactHost{0}.handleHostException(message = "[runtime not ready]: Error: Non-js exception: Compiling JS failed: 785:1:unrecognized Unicode character \ufffd, sourceURL: index.android.bundle, stack:
+03-31 02:00:33.391 32258 32299 W unknown:BridgelessReact: ")
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: Exception in native call from JS
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: com.facebook.react.common.JavascriptException: [runtime not ready]: Error: Non-js exception: Compiling JS failed: 785:1:unrecognized Unicode character \ufffd, sourceURL: index.android.bundle, stack:
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.react.modules.core.ExceptionsManagerModule.reportException(ExceptionsManagerModule.kt:52)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.react.runtime.ReactInstance$ReactJsExceptionHandlerImpl.reportJsException(ReactInstance.kt:291)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.jni.NativeRunnable.run(Native Method)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at android.os.Handler.handleCallback(Handler.java:1070)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at android.os.Handler.dispatchMessage(Handler.java:125)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.MessageQueueThreadHandler.dispatchMessage(MessageQueueThreadHandler.kt:21)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at android.os.Looper.dispatchMessage(Looper.java:333)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at android.os.Looper.loopOnce(Looper.java:263)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at android.os.Looper.loop(Looper.java:367)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.startNewBackgroundThread$lambda$0(MessageQueueThreadImpl.kt:152)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion.$r8$lambda$YYXYCFexeoKtAeDpeNYkxZZlpbA(Unknown Source:0)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at com.facebook.react.bridge.queue.MessageQueueThreadImpl$Companion$$ExternalSyntheticLambda0.run(D8$$SyntheticClass:0)
+03-31 02:00:33.394 32258 32299 E unknown:ReactNative: 	at java.lang.Thread.run(Thread.java:1563)
+03-31 02:00:33.397 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask()
+03-31 02:00:33.398 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Resetting createReactInstance task ref
+03-31 02:00:33.754 32258 32264 I com.weejobs.app: Background young concurrent mark compact GC freed 2076KB AllocSpace bytes, 8(520KB) LOS objects, 34% free, 5084KB/7712KB, paused 8.703ms,11.282ms total 179.815ms
+03-31 02:00:33.847 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Starting React Native destruction
+03-31 02:00:33.847 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): DevSupportManager cleanup
+03-31 02:00:33.848 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Move ReactHost to onHostDestroy()
+03-31 02:00:33.849 32258 32258 W unknown:BridgelessReact: ReactHost{0}.ReactContext.onHostPause()
+03-31 02:00:33.849 32258 32258 W unknown:BridgelessReact: ReactHost{0}.ReactContext.onHostDestroy()
+03-31 02:00:33.886 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Stopping all React Native surfaces
+03-31 02:00:33.886 32258 32286 E unknown:SurfaceMountingManager: Stopping surface [1]
+03-31 02:00:33.895 32258 32258 D WindowOnBackDispatcher: setTopOnBackInvokedCallback (unwrapped): android.view.ViewRootImpl$$ExternalSyntheticLambda12@c889ee9
+03-31 02:00:33.898   815   831 D CoreBackPreview: Window{ab7bb91 u0 com.weejobs.app/com.weejobs.app.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@32ed393, mPriority=0, mIsAnimationCallback=false, mOverrideBehavior=0}
+03-31 02:00:34.400 32258 32258 E unknown:SurfaceMountingManager: Surface [1] was stopped on SurfaceMountingManager.
+03-31 02:00:34.411 32258 32258 I Choreographer: Skipped 30 frames!  The application may be doing too much work on its main thread.
+03-31 02:00:34.427 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Destroying MemoryPressureRouter
+03-31 02:00:34.430 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Resetting ReactContext ref
+03-31 02:00:34.431 32258 32258 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Destroying ReactContext
+03-31 02:00:34.438 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Resetting ReactInstance ptr
+03-31 02:00:34.438 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Destroying ReactInstance
+03-31 02:00:34.496 32258 32286 E unknown:ReactNative: Tried to remove non-existent frame callback
+03-31 02:00:34.549 32258 32271 I HWUI    : Davey! duration=1049ms; Flags=1, FrameTimelineVsyncId=10295371, IntendedVsync=47782019698510, Vsync=47782469698492, InputEventId=0, HandleInputStart=47782487294614, AnimationStart=47782487462814, PerformTraversalsStart=47782487760014, DrawStart=47782689794914, FrameDeadline=47782036365176, FrameStartTime=47782485650714, FrameInterval=16666666, WorkloadTarget=16666666, SyncQueued=47782698263414, SyncStart=47782711237814, IssueDrawCommandsStart=47782711680414, SwapBuffers=47782971344114, FrameCompleted=47783082136714, DequeueBufferDuration=74600, QueueBufferDuration=2651100, GpuCompleted=47783082136714, SwapBuffersCompleted=47782984175814, DisplayPresentTime=0, CommandSubmissionCompleted=47782971344114, 
+03-31 02:00:34.552 32258 32286 W unknown:BridgelessReact: ReactHost{0}.getOrCreateDestroyTask(): Resetting start/destroy task ref
+03-31 02:00:34.559  8555  8555 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.common.telemetry.service.START dat=chimera-action:/... xflg=0x4 cmp=com.google.android.gms/.chimera.PersistentApiService }
+03-31 02:00:34.637   815   972 I ImeTracker: com.weejobs.app:18dbf9e7: onRequestHide at ORIGIN_SERVER reason HIDE_UNSPECIFIED_WINDOW fromUser false
+03-31 02:00:34.658 32258 32258 D InsetsController: hide(ime())
+03-31 02:00:34.659 32258 32258 I ImeTracker: com.weejobs.app:18dbf9e7: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+03-31 02:00:34.688  8754  8754 I GoogleInputMethodService: GoogleInputMethodService.onFinishInput():2057 
+03-31 02:00:34.693  8754  8754 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 0, locked = false
+03-31 02:00:34.693   815  2681 I ImeTracker: system_server:459f7710: onRequestHide at ORIGIN_SERVER reason IME_REQUESTED_CHANGED_LISTENER fromUser false
+03-31 02:00:34.698   815   838 I ImeTracker: system_server:459f7710: onCancelled at PHASE_SERVER_SHOULD_HIDE
+03-31 02:00:34.704  8754  8754 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1318 onStartInput(EditorInfo{EditorInfo{packageName=com.weejobs.app, inputType=0, inputTypeString=NULL, enableLearning=false, autoCorrection=false, autoComplete=false, imeOptions=0, privateImeOptions=null, actionName=UNSPECIFIED, actionLabel=null, initialSelStart=-1, initialSelEnd=-1, initialCapsMode=0, label=null, fieldId=0, fieldName=null, extras=null, hintText=null, hintLocales=[]}}, false)
+03-31 02:00:34.709  8754  8754 I Module  : DeviceLockedStatusModuleProvider$Module.updateDeviceLockedStatus():100 repeatCheckTimes = 1, locked = false
+03-31 02:00:34.719   815  2681 W PackageConfigPersister: App-specific configuration not found for packageName: com.weejobs.app and userId: 0
+03-31 02:00:34.908  1522  1586 D SatelliteController: iisInCarrierRoamingNbIotNtn: satellite is disabled
+03-31 02:00:34.914  1522  1586 D SatelliteController: getCarrierRoamingNtnConnectType: Falling back to global carrier config connect type: 0
+03-31 02:00:34.993 32310 32310 W libbinder.BackendUnifiedServiceManager: Thread Pool max thread count is 0. Cannot cache binder as linkToDeath cannot be implemented. serviceName: package

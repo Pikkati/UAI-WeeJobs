@@ -189,7 +189,13 @@ export default function PublicProfileScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Tradesperson Profile</Text>
@@ -390,6 +396,10 @@ export default function PublicProfileScreen() {
             style={[styles.bookButton, isSelecting && styles.bookButtonDisabled]}
             onPress={handleSelectAndBook}
             disabled={isSelecting}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel={`Select and book ${profile.name}`}
+            accessibilityHint="Confirm your choice to work with this tradesperson"
           >
             {isSelecting ? (
               <ActivityIndicator color={Colors.white} size="small" />

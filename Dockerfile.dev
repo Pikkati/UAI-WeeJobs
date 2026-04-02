@@ -1,0 +1,31 @@
+# Development Dockerfile for WeeJobs
+# Builds a Node-based container suitable for running the Expo dev server inside Docker.
+FROM node:18-bullseye-slim
+
+# Reduce npm noise
+ENV NPM_CONFIG_LOGLEVEL=warn
+
+WORKDIR /usr/src/app
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+# Install basic build tools used by some native deps
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends \
+    git python3 build-essential curl ca-certificates \
+  && rm -rf /var/lib/apt/lists/*
+
+# Create node_modules directory so a host bind-mount won't hide it
+RUN mkdir -p /usr/src/app/node_modules
+
+# Copy only package files and install to leverage layer caching
+COPY package*.json ./
+RUN npm ci
+
+# Copy project files
+COPY . .
+
+# Expose common Expo ports
+EXPOSE 19000 19001 19002 8081
+
+# Start the dev server by default
+CMD ["npm", "run", "start"]

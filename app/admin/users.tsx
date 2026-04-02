@@ -160,6 +160,10 @@ export default function AdminUsersScreen() {
             style={styles.promoteButton}
             onPress={() => promoteToAdmin(item)}
             disabled={promotingId === item.id}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel={`Promote ${item.name} to admin`}
+            accessibilityHint="Grant admin privileges to this user"
           >
             <Text style={styles.promoteButtonText}>
               {promotingId === item.id ? 'Promoting...' : 'Promote to Admin'}

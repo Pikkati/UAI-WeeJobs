@@ -2,16 +2,24 @@ version: '3.8'
 
 services:
   app:
-    build: .
-    command: sh -c "npm install --legacy-peer-deps --no-audit --no-fund && npx expo start --tunnel"
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: sh -c "npx expo start --tunnel"
     ports:
       - "19000:19000"
       - "19001:19001"
+      - "19002:19002"
+      - "8081:8081"
     environment:
       - EXPO_PUBLIC_SUPABASE_URL=http://db:5432
       - EXPO_PUBLIC_SUPABASE_ANON_KEY=local-anon-key
+      - REACT_NATIVE_PACKAGER_HOSTNAME=host.docker.internal
     volumes:
-      - ./:/usr/src/app
+      - ./:/usr/src/app:cached
+      - /usr/src/app/node_modules
+    stdin_open: true
+    tty: true
     depends_on:
       - db
 
@@ -28,3 +36,19 @@ services:
 
 volumes:
   db-data:
+
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: sh -c "npm run test:ci || npm run test"
+    environment:
+      - EXPO_PUBLIC_SUPABASE_URL=http://db:5432
+      - EXPO_PUBLIC_SUPABASE_ANON_KEY=local-anon-key
+    volumes:
+      - ./:/usr/src/app:cached
+      - /usr/src/app/node_modules
+    depends_on:
+      - db
+    stdin_open: true
+    tty: true

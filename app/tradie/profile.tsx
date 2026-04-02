@@ -23,7 +23,7 @@ const PHOTO_SIZE = (width - Spacing.xl * 2 - Spacing.sm) / 3;
 
 export default function TradieProfileScreen() {
   
-  const { user, logout, refreshUser } = useAuth();
+  const { user, logout, updateProfile } = useAuth();
 
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [pricingType, setPricingType] = useState<PricingType>(user?.pricing_default || 'fixed');
@@ -63,11 +63,8 @@ export default function TradieProfileScreen() {
     setPricingType(newType);
     setIsSavingPricing(true);
     try {
-      await supabase
-        .from('users')
-        .update({ pricing_default: newType })
-        .eq('id', user?.id);
-      await refreshUser();
+      const res = await updateProfile({ pricing_default: newType });
+      if (!res.success) console.error('Error updating pricing type:', res.error);
     } catch (error) {
       console.error('Error updating pricing type:', error);
     } finally {
@@ -79,12 +76,13 @@ export default function TradieProfileScreen() {
     if (!hourlyRate) return;
     setIsSavingPricing(true);
     try {
-      await supabase
-        .from('users')
-        .update({ hourly_rate: parseFloat(hourlyRate) })
-        .eq('id', user?.id);
-      await refreshUser();
-      Alert.alert('Saved', 'Your hourly rate has been updated.');
+      const val = parseFloat(hourlyRate);
+      const res = await updateProfile({ hourly_rate: val });
+      if (res.success) {
+        Alert.alert('Saved', 'Your hourly rate has been updated.');
+      } else {
+        Alert.alert('Error', res.error || 'Failed to save hourly rate.');
+      }
     } catch (error) {
       console.error('Error updating hourly rate:', error);
       Alert.alert('Error', 'Failed to save hourly rate.');
@@ -98,12 +96,12 @@ export default function TradieProfileScreen() {
   const handleBioSave = async () => {
     setIsSavingBio(true);
     try {
-      await supabase
-        .from('users')
-        .update({ bio: bio.trim() || null })
-        .eq('id', user?.id);
-      await refreshUser();
-      Alert.alert('Saved', 'Your bio has been updated.');
+      const res = await updateProfile({ bio: bio.trim() || null });
+      if (res.success) {
+        Alert.alert('Saved', 'Your bio has been updated.');
+      } else {
+        Alert.alert('Error', res.error || 'Failed to save bio.');
+      }
     } catch (error) {
       console.error('Error updating bio:', error);
       Alert.alert('Error', 'Failed to save bio.');
@@ -123,13 +121,13 @@ export default function TradieProfileScreen() {
   const handleAreasSave = async () => {
     setIsSavingAreas(true);
     try {
-      await supabase
-        .from('users')
-        .update({ areas_covered: areasCovered.length > 0 ? areasCovered : null })
-        .eq('id', user?.id);
-      await refreshUser();
-      setShowAreaPicker(false);
-      Alert.alert('Saved', 'Your service areas have been updated.');
+      const res = await updateProfile({ areas_covered: areasCovered.length > 0 ? areasCovered : null });
+      if (res.success) {
+        setShowAreaPicker(false);
+        Alert.alert('Saved', 'Your service areas have been updated.');
+      } else {
+        Alert.alert('Error', res.error || 'Failed to save service areas.');
+      }
     } catch (error) {
       console.error('Error updating areas:', error);
       Alert.alert('Error', 'Failed to save service areas.');
@@ -178,11 +176,12 @@ export default function TradieProfileScreen() {
   const savePortfolioPhotos = async (photos: string[]) => {
     setIsSavingPhotos(true);
     try {
-      await supabase
-        .from('users')
-        .update({ portfolio_photos: photos.length > 0 ? photos : null })
-        .eq('id', user?.id);
-      await refreshUser();
+      const res = await updateProfile({ portfolio_photos: photos.length > 0 ? photos : null });
+      if (!res.success) {
+        Alert.alert('Error', res.error || 'Failed to save portfolio photos.');
+        setIsSavingPhotos(false);
+        return;
+      }
     } catch (error) {
       console.error('Error saving portfolio photos:', error);
       Alert.alert('Error', 'Failed to save portfolio photos.');

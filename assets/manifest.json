@@ -1,13 +1,85 @@
 {
   "version": 1,
+  "generatedAt": "2026-03-31T00:00:00Z",
   "assets": [
     {
       "id": "logo-primary",
       "type": "logo",
-      "path": "assets/logos/logo-primary.svg",
-      "variants": ["assets/logos/logo-primary.png", "assets/logos/logo-primary@2x.png"],
+      "path": "assets/images/weejobs-logo.png",
+      "variants": [],
       "alt": "WeeJobs logo",
       "usage": "app-header, marketing"
+    },
+    {
+      "id": "app-icon",
+      "type": "icon",
+      "path": "assets/images/icon.png",
+      "variants": ["assets/images/adaptive-icon.png", "assets/images/splash-icon.png"],
+      "alt": "App launcher icon",
+      "usage": "app-launcher"
+    },
+    {
+      "id": "adaptive-icon",
+      "type": "icon",
+      "path": "assets/images/adaptive-icon.png",
+      "alt": "Android adaptive icon layers (foreground/background)",
+      "usage": "android-adaptive"
+    },
+    {
+      "id": "splash-icon",
+      "type": "splash",
+      "path": "assets/images/splash-icon.png",
+      "alt": "Splash screen icon",
+      "usage": "splash"
+    },
+    {
+      "id": "favicon",
+      "type": "favicon",
+      "path": "assets/images/favicon.png",
+      "variants": [],
+      "alt": "Site favicon",
+      "usage": "web"
+    },
+    {
+      "id": "hero-handyman",
+      "type": "image",
+      "path": "assets/images/hero-handyman.png",
+      "alt": "Handyman hero image",
+      "usage": "hero"
+    },
+    {
+      "id": "react-logo",
+      "type": "illustration",
+      "path": "assets/images/react-logo.png",
+      "variants": ["assets/images/react-logo@2x.png", "assets/images/react-logo@3x.png"],
+      "alt": "React logo",
+      "usage": "docs, placeholders"
+    },
+    {
+      "id": "partial-react-logo",
+      "type": "illustration",
+      "path": "assets/images/partial-react-logo.png",
+      "alt": "Partial React logo",
+      "usage": "placeholder"
+    },
+    {
+      "id": "sprite",
+      "type": "sprite",
+      "path": "assets/sprite/sprite.svg",
+      "usage": "icon-sprite"
+    },
+    {
+      "id": "icon-placeholder",
+      "type": "icon",
+      "path": "assets/icons/placeholder.svg",
+      "alt": "Placeholder icon",
+      "usage": "icons"
+    },
+    {
+      "id": "space-mono-regular",
+      "type": "font",
+      "path": "assets/fonts/SpaceMono-Regular.ttf",
+      "usage": "docs, dev-fallback"
     }
   ]
 }

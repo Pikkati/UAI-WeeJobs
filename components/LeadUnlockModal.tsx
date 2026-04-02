@@ -77,7 +77,11 @@ export default function LeadUnlockModal({
       // Prefer a non-fatal warning to reduce noisy error stacks in test logs.
       // Keep the message concise so CI logs remain readable.
       // eslint-disable-next-line no-console
-      console.warn('Report submission failed:', err && err.message ? err.message : err);
+      if (err instanceof Error) {
+        console.warn('Report submission failed:', err.message);
+      } else {
+        console.warn('Report submission failed:', err);
+      }
       Alert.alert('Error', 'Failed to submit report. Please try again.');
     } finally {
       setIsSubmittingReport(false);

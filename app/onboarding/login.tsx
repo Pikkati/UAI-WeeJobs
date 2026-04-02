@@ -12,7 +12,7 @@ type AuthTab = 'signin' | 'signup';
 
 export default function LoginScreen() {
   const { role } = useLocalSearchParams<{ role: string }>();
-  const { login, signup, resendVerification } = useAuth();
+  const { login, signup, resendVerification, sendPasswordReset } = useAuth();
   const insets = useSafeAreaInsets();
 
   const [activeTab, setActiveTab] = useState<AuthTab>('signin');
@@ -317,11 +317,35 @@ export default function LoginScreen() {
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.forgotButton} onPress={() => setSignInError('Password reset coming soon')}>
-              <Text style={styles.forgotText}>Forgot password?</Text>
+            <TouchableOpacity
+              style={styles.forgotButton}
+              onPress={async () => {
+                setSignInError('');
+                setSignInResendMessage('');
+                if (!signInEmail) {
+                  setSignInError('Please enter your email to reset your password.');
+                  return;
+                }
+                if (!isValidEmail(signInEmail)) {
+                  setSignInError('Please enter a valid email address.');
+                  return;
+                }
+                setSignInResendLoading(true);
+                const res = await sendPasswordReset(signInEmail);
+                setSignInResendLoading(false);
+                if (res.success) {
+                  setSignInResendMessage('Password reset email sent. Please check your inbox.');
+                } else {
+                  setSignInError(res.error || 'Unable to send reset email.');
+                }
+              }}
+            >
+              <Text style={styles.forgotText}>{signInResendLoading ? 'Sending...' : 'Forgot password?'}</Text>
             </TouchableOpacity>
 
             {signInError ? <Text style={styles.error}>{signInError}</Text> : null}
+
+            {signInResendMessage ? <Text style={{ color: Colors.success, textAlign: 'center', marginTop: 8 }}>{signInResendMessage}</Text> : null}
 
             {signInNeedsVerification ? (
               <>

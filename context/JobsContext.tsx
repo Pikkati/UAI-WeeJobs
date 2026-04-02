@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react';
 import { Job, JobStatus, JobInterest, Quote, supabase, PricingType } from '../lib/supabase';
+import { awaitAndHandle } from '../lib/supabase-error';
 import { useAuth } from './AuthContext';
 // AsyncStorage is required at call-time so tests can mock it before JobsContext
 // is imported. Using a dynamic require avoids import-order issues in Jest.
@@ -110,13 +111,11 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     debugLog('JOBS_FETCH_SUPABASE_FROM', typeof supabase.from, typeof supabase);
     setLoading(true);
     try {
-      const { data, error } = await supabase
-        .from('jobs')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setJobs(data || []);
+      const jobsData = await awaitAndHandle<Job[]>(
+        supabase.from('jobs').select('*').order('created_at', { ascending: false }),
+        'fetch jobs'
+      );
+      setJobs(jobsData || []);
       // Cache jobs locally (require AsyncStorage at call-time so tests can mock it)
       let AsyncStorageLocal: any = undefined;
       try {
@@ -128,7 +127,7 @@ export function JobsProvider({ children }: { children: ReactNode }) {
         // ignore parse errors and fall back to AsyncStorage
       }
       if (AsyncStorageLocal && AsyncStorageLocal.setItem) {
-        await AsyncStorageLocal.setItem(JOBS_CACHE_KEY, JSON.stringify(data || []));
+        await AsyncStorageLocal.setItem(JOBS_CACHE_KEY, JSON.stringify(jobsData || []));
       }
     } catch (error) {
       console.error('Error fetching jobs:', error);
@@ -266,18 +265,17 @@ export function JobsProvider({ children }: { children: ReactNode }) {
 
   const fetchInterests = useCallback(async (jobId: string): Promise<JobInterest[]> => {
     try {
-      const interestsRes: any = await supabase
-        .from('job_interests')
-        .select(`
+      const iData: any = await awaitAndHandle(
+        supabase
+          .from('job_interests')
+          .select(`
           *,
           tradie:users!tradie_id(*)
         `)
-        .eq('job_id', jobId)
-        .in('status', ['interested', 'shortlisted', 'selected']);
-
-      const iError = interestsRes && interestsRes.error;
-      const iData = interestsRes && interestsRes.data;
-      if (iError) throw iError;
+          .eq('job_id', jobId)
+          .in('status', ['interested', 'shortlisted', 'selected']),
+        'fetch interests'
+      );
       setInterests(iData || []);
       return iData || [];
     } catch (error) {
@@ -294,20 +292,33 @@ export function JobsProvider({ children }: { children: ReactNode }) {
     if (!userId) return false;
     try {
       const isPro = userPlan === 'pro';
-      
-      const insertRes: any = await supabase
-        .from('job_interests')
-        .insert({
+
+      // Client-side safeguard: prevent a tradie from repeatedly spamming
+      // interest submissions for the same job. This is an in-memory guard
+      // — production APIs should enforce server-side rate limits as well.
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+        const { isRateLimited, markAttempt } = require('../lib/rateLimiter');
+        const rlKey = `expressInterest:${userId}:${jobId}`;
+        if (isRateLimited(rlKey, 5, 10 * 60 * 1000)) {
+          return false;
+        }
+        try { markAttempt(rlKey, 5, 10 * 60 * 1000); } catch {}
+      } catch {
+        // ignore when rate limiter cannot be loaded (tests/CI)
+      }
+
+      await awaitAndHandle(
+        supabase.from('job_interests').insert({
           job_id: jobId,
           tradie_id: userId,
           status: 'interested',
           unlock_fee_paid: unlockFeePaid,
           unlock_fee_amount: unlockFeeAmount,
           is_pro_at_time: isPro,
-        });
-
-      const insertError = insertRes && insertRes.error;
-      if (insertError) throw insertError;
+        }),
+        'insert job interest'
+      );
 
       const MAX_INTERESTED = 5;
 

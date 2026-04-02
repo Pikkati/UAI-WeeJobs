@@ -1,4 +1,4 @@
-import { canEditOrDelete, getActionText } from '../app/customer/jobs.helpers';
+import { canEditOrDelete, getActionText } from '../lib/helpers/customer.jobs.helpers';
 
 describe('customer/jobs.helpers', () => {
   describe('canEditOrDelete', () => {

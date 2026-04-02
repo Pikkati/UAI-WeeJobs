@@ -62,10 +62,20 @@ describe('page smoke: render selected app pages', () => {
         return;
       }
 
-      // render the component; many pages are resilient to being mounted with mocks above
-      const { toJSON } = render(React.createElement(Comp));
+      // Special case: wrap PostJobScreen in LoadingProvider for context
+      let tree;
+      if (p === '../app/customer/post-job') {
+        const { LoadingProvider } = require('../context/LoadingContext');
+        tree = render(
+          <LoadingProvider>
+            {React.createElement(Comp)}
+          </LoadingProvider>
+        );
+      } else {
+        tree = render(React.createElement(Comp));
+      }
       await waitFor(() => {
-        expect(toJSON()).toBeDefined();
+        expect(tree.toJSON()).toBeDefined();
       });
     });
   });

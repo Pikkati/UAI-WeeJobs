@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
@@ -7,11 +8,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import PasswordStrength from '../../components/PasswordStrength';
 import { useAuth } from '../../context/AuthContext';
+import * as analytics from '../../lib/analytics';
 
 export default function SignUpScreen() {
   const params = useLocalSearchParams<{ role?: string; email?: string }>();
   const role = params.role;
   const { signup } = useAuth();
+  const { onboardingProgress, setOnboardingProgress, clearOnboardingProgress } = useAuth();
   const [email, setEmail] = useState(params.email || '');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +28,10 @@ export default function SignUpScreen() {
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   const normalizedRole = role === 'tradie' ? 'tradesperson' : role;
 
+  useEffect(() => {
+    try { analytics.track('signup_screen_view', { role: normalizedRole ?? 'unknown' }); } catch {}
+  }, []);
+
   const getTagline = () => {
     switch (role) {
       case 'customer':
@@ -36,7 +43,7 @@ export default function SignUpScreen() {
     }
   };
 
-  const handleEmailSubmit = () => {
+  const handleEmailSubmit = async () => {
     if (!email) {
       setError('Please enter your email');
       return;
@@ -46,7 +53,10 @@ export default function SignUpScreen() {
       return;
     }
     setError('');
+    try { analytics.track('signup_email_provided', { email }); } catch {}
     setStep('details');
+    try { await setOnboardingProgress?.(1); } catch {}
+    try { analytics.track('signup_step', { step: 'details', email }); } catch {}
   };
 
   const handleSignUp = async () => {
@@ -65,11 +75,13 @@ export default function SignUpScreen() {
       const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
         ? (normalizedRole as 'customer' | 'tradesperson')
         : 'customer';
+    try { analytics.track('signup_submitted', { email: email.trim(), role: selectedRole, name_length: name.trim().length }); } catch {}
     const result = await signup(email.trim(), password, name.trim(), selectedRole);
 
     if (result.success && result.needsVerification) {
       setShowVerifyMsg(true);
     } else if (result.success && result.user) {
+      try { await clearOnboardingProgress?.(); } catch {}
       if (result.user.role === 'customer') {
         router.replace('/customer');
       } else if (result.user.role === 'tradesperson') {
@@ -90,12 +102,17 @@ export default function SignUpScreen() {
     setResendLoading(true);
     setResendError('');
     try {
+      try { analytics.track('signup_resend_attempt', { email }); } catch {}
       // Supabase does not provide a direct resend endpoint, so trigger signUp again
       const { error } = await signup(email.trim(), password, name.trim(), normalizedRole as any);
       if (error) {
+        try { analytics.track('signup_resend_failed', { email, error }); } catch {}
         setResendError(error);
+      } else {
+        try { analytics.track('signup_resend_success', { email }); } catch {}
       }
     } catch {
+      try { analytics.track('signup_resend_failed', { email }); } catch {}
       setResendError('Unable to resend verification email.');
     } finally {
       setResendLoading(false);
@@ -103,10 +120,12 @@ export default function SignUpScreen() {
   };
 
   const handleGooglePress = () => {
+    try { analytics.track('signup_social_initiated', { provider: 'google' }); } catch {}
     setError('Google sign-up coming soon');
   };
 
   const handleApplePress = () => {
+    try { analytics.track('signup_social_initiated', { provider: 'apple' }); } catch {}
     setError('Apple sign-up coming soon');
   };
 

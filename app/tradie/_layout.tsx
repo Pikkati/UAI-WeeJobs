@@ -6,7 +6,15 @@ import TopBar from '../../components/TopBar';
 
 function FindJobsFAB({ onPress }: { onPress?: () => void }) {
   return (
-    <TouchableOpacity style={fabStyles.container} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={fabStyles.container}
+      onPress={onPress}
+      activeOpacity={0.8}
+      accessible
+      accessibilityRole="button"
+      accessibilityLabel="Find jobs"
+      accessibilityHint="Search for available jobs"
+    >
       <View style={fabStyles.circle}>
         <Ionicons name="search" size={26} color={Colors.white} />
       </View>

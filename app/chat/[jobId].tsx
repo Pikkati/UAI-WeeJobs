@@ -16,6 +16,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import { supabase, Message, Job } from '../../lib/supabase';
+import { awaitAndHandle } from '../../lib/supabase-error';
+import { isRateLimited, markAttempt } from '../../lib/rateLimiter';
+import { auditEvent } from '../../lib/audit';
 
 export const formatTime = (dateString: string) => {
   const date = new Date(dateString);
@@ -71,30 +74,30 @@ export default function ChatScreen() {
     if (!jobId) return;
 
     try {
-      const { data: jobData } = await supabase
-        .from('jobs')
-        .select('*')
-        .eq('id', jobId)
-        .single();
+      const jobData = await awaitAndHandle<Job>(
+        supabase.from('jobs').select('*').eq('id', jobId).single(),
+        'fetch job'
+      );
 
       if (jobData) setJob(jobData);
 
-      const { data, error } = await supabase
-        .from('messages')
-        .select('*')
-        .eq('job_id', jobId)
-        .order('created_at', { ascending: true });
+      const msgs = await awaitAndHandle<Message[]>(
+        supabase.from('messages').select('*').eq('job_id', jobId).order('created_at', { ascending: true }),
+        'fetch messages'
+      );
 
-      if (error) throw error;
-      setMessages(data || []);
+      setMessages(msgs || []);
 
       if (user) {
-        await supabase
-          .from('messages')
-          .update({ read: true })
-          .eq('job_id', jobId)
-          .eq('receiver_id', user.id)
-          .eq('read', false);
+        await awaitAndHandle(
+          supabase
+            .from('messages')
+            .update({ read: true })
+            .eq('job_id', jobId)
+            .eq('receiver_id', user.id)
+            .eq('read', false),
+          'mark messages read'
+        );
       }
     } catch (error) {
       console.error('Error fetching messages:', error);
@@ -121,22 +124,39 @@ export default function ChatScreen() {
     setNewMessage('');
 
     try {
-      const { error } = await supabase.from('messages').insert({
-        job_id: jobId,
-        sender_id: user.id,
-        receiver_id: receiverId,
-        content: messageContent,
-        read: false,
-      });
-
-      if (error) {
-        // Enhanced error handling: log, send to Sentry if available
+      const rlKey = `sendMessage:${user.id}:${jobId}`;
+      if (isRateLimited(rlKey, 30, 60 * 1000)) {
+        // Record to sentry and requeue the message client-side
         // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
-        sentry.captureException?.(error);
-        console.error('Error sending message:', error);
-        throw error;
+        try { sentry.captureMessage?.('Rate limited sendMessage'); } catch {}
+        setNewMessage(messageContent);
+        throw new Error('Rate limited');
       }
+
+      // mark attempt and perform insert
+      try { markAttempt(rlKey, 30, 60 * 1000); } catch {}
+
+      await awaitAndHandle(
+        supabase.from('messages').insert({
+          job_id: jobId,
+          sender_id: user.id,
+          receiver_id: receiverId,
+          content: messageContent,
+          read: false,
+        }),
+        'insert message'
+      );
+
+      // Audit: record message metadata (snippet only) for non-repudiation
+      try {
+        void auditEvent('message.sent', {
+          jobId,
+          receiverId,
+          length: messageContent.length,
+          snippet: messageContent.slice(0, 100),
+        }, user.id);
+      } catch {}
 
       await fetchMessages();
       setTimeout(() => {
@@ -217,7 +237,14 @@ export default function ChatScreen() {
       keyboardVerticalOffset={0}
     >
       <View style={[styles.header, { paddingTop: insets.top + Spacing.sm }]}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+          accessibilityHint="Return to previous screen"
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <View style={styles.headerInfo}>
@@ -229,7 +256,13 @@ export default function ChatScreen() {
             <Text style={styles.headerSubtitle}>{jobCategory || 'Job'}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.headerAction}>
+        <TouchableOpacity
+          style={styles.headerAction}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel={`Call ${recipientName || 'contact'}`}
+          accessibilityHint="Place a phone call to the chat recipient"
+        >
           <Ionicons name="call" size={22} color={Colors.white} />
         </TouchableOpacity>
       </View>
@@ -264,12 +297,19 @@ export default function ChatScreen() {
             onChangeText={setNewMessage}
             multiline
             maxLength={1000}
+            accessible
+            accessibilityLabel="Message input"
+            accessibilityHint="Type your message here, then press Send"
           />
         </View>
         <TouchableOpacity
           style={[styles.sendButton, (!newMessage.trim() || isSending) && styles.sendButtonDisabled]}
           onPress={sendMessage}
           disabled={!newMessage.trim() || isSending}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Send message"
+          accessibilityHint="Send the typed message"
         >
           {isSending ? (
             <ActivityIndicator size="small" color={Colors.background} />

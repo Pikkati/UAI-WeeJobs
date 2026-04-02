@@ -1,0 +1,6 @@
+{
+  "screens": [
+    { "frame": "Home", "route": "/home", "template": "Home" },
+    { "frame": "Profile", "route": "/profile", "template": "Profile" }
+  ]
+}

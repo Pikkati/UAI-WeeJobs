@@ -63,7 +63,14 @@ export default function CustomerProfileScreen() {
       <Text style={styles.title}>Profile</Text>
 
       <View style={styles.profileCard}>
-        <TouchableOpacity style={styles.avatarWrap} onPress={handlePhotoPress} activeOpacity={0.8}>
+            <TouchableOpacity
+              style={styles.avatarWrap}
+              onPress={handlePhotoPress}
+              activeOpacity={0.8}
+              accessible
+              accessibilityRole="button"
+              accessibilityLabel="Change profile photo"
+            >
           {profilePhoto ? (
             <Image source={{ uri: profilePhoto }} style={styles.avatarImage} />
           ) : (
@@ -132,20 +139,36 @@ export default function CustomerProfileScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Legal</Text>
 
-        <TouchableOpacity style={styles.linkItem}>
+        <TouchableOpacity
+          style={styles.linkItem}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Terms of Service"
+        >
           <Ionicons name="document-text-outline" size={20} color={Colors.textSecondary} />
           <Text style={styles.linkText}>Terms of Service</Text>
           <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.linkItem}>
+        <TouchableOpacity
+          style={styles.linkItem}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Privacy Policy"
+        >
           <Ionicons name="shield-outline" size={20} color={Colors.textSecondary} />
           <Text style={styles.linkText}>Privacy Policy</Text>
           <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={handleLogout}
+        accessible
+        accessibilityRole="button"
+        accessibilityLabel="Logout"
+      >
         <Ionicons name="log-out-outline" size={20} color={Colors.error} />
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>

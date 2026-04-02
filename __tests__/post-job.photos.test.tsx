@@ -35,6 +35,7 @@ const insertMock = jest.fn(async (payload: any) => ({ data: null, error: null })
 };
 
 const PostJobScreen = require('../app/customer/post-job').default;
+import { LoadingProvider } from '../context/LoadingContext';
 
 describe('Post job photo handling', () => {
   it('includes photos in job insert payload', async () => {
@@ -50,7 +51,11 @@ describe('Post job photo handling', () => {
       photos: ['file://photo1.jpg', 'file://photo2.jpg'],
     };
 
-    const { getByTestId } = render(<PostJobScreen testInitialValues={initial} />);
+    const { getByTestId } = render(
+      <LoadingProvider>
+        <PostJobScreen testInitialValues={initial} />
+      </LoadingProvider>
+    );
 
     fireEvent.press(getByTestId('post-job-submit'));
 

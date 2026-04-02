@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import PushNotificationOptIn from '../components/PushNotificationOptIn';
 import { Colors, Spacing, BorderRadius } from '../constants/theme';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
@@ -11,7 +12,6 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const { logout } = useAuth();
   const { mode, toggle } = useTheme();
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [jobAlertsEnabled, setJobAlertsEnabled] = useState(true);
   const [messageAlertsEnabled, setMessageAlertsEnabled] = useState(true);
 
@@ -32,7 +32,13 @@ export default function SettingsScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+          accessible
+          accessibilityRole="button"
+          accessibilityLabel="Back"
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
@@ -43,17 +49,8 @@ export default function SettingsScreen() {
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>Notifications</Text>
           <View style={styles.card}>
-            <View style={styles.settingRow}>
-              <View style={styles.settingInfo}>
-                <Ionicons name="notifications-outline" size={20} color={Colors.textSecondary} />
-                <Text style={styles.settingLabel}>Push Notifications</Text>
-              </View>
-              <Switch
-                value={notificationsEnabled}
-                onValueChange={setNotificationsEnabled}
-                trackColor={{ false: Colors.border, true: Colors.accent }}
-                thumbColor={Colors.white}
-              />
+            <View style={{ padding: Spacing.md }}>
+              <PushNotificationOptIn />
             </View>
             <View style={styles.divider} />
             <View style={styles.settingRow}>
@@ -119,7 +116,13 @@ export default function SettingsScreen() {
 
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>Account</Text>
-          <TouchableOpacity onPress={handleLogout}>
+          <TouchableOpacity
+            onPress={handleLogout}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel="Logout"
+            accessibilityHint="Sign out of your account"
+          >
             <View style={styles.card}>
               <View style={styles.settingRow}>
                 <View style={styles.settingInfo}>

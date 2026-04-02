@@ -1,4 +1,4 @@
-import { getActionText } from '../app/customer/jobs.helpers';
+import { getActionText } from '../lib/helpers/customer.jobs.helpers';
 
 describe('CustomerJobs interactions (logic-only)', () => {
   test('module loads as a function', () => {

@@ -1,0 +1,43 @@
+# Ignore generated and extracted Android assets
+android/**/assets/**
+android/apk_extract/**
+android/extracted_app/**
+android/installed_apk_extract/**
+android/installed_apk_extracted/**
+android/tmp_pulled_base_extracted/**
+android/tmp_pulled_base_extracted_round2/**
+
+# Ignore pulled/temporary bundles and assets
+pulled_apk/**
+pulled_base_extracted/**
+tmp_*/**
+tmp_* 
+
+# Ignore coverage, build artifacts
+coverage/
+coverage_out/
+tmp_coverage/
+dist/
+build/
+
+# Ignore extracted script bundles
+scripts/extracted_module_*.js
+scripts/extracted_module_*_body*.js
+
+# Ignore node scripts and other generated files
+*.bundle.js
+
+# Ignore E2E test helpers and Playwright
+__tests__/e2e/
+
+# Keep config and source files linted (avoid blanket re-includes)
+
+# Additional ignores to reduce lint noise during triage
+node_modules/
+storybook-static/
+coverage/**
+__mocks__/
+*.log
+*.json
+docker-compose.override.yml
+.DS_Store

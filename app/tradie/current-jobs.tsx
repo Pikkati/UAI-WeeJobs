@@ -202,6 +202,9 @@ export default function TradieCurrentJobsScreen() {
         style={[styles.jobCard, isActionable && styles.jobCardActionable]} 
         onPress={() => handleJobPress(item)}
         activeOpacity={0.7}
+        accessible
+        accessibilityRole="button"
+        accessibilityLabel={`Open job details for ${item.category} with ${item.name}`}
       >
         <View style={styles.jobHeader}>
           <View style={styles.categoryBadge}>
@@ -256,6 +259,9 @@ export default function TradieCurrentJobsScreen() {
             onPress={() => handleAction(item, actionConfig.action)}
             disabled={actionConfig.action === 'none' || isLoading}
             activeOpacity={0.8}
+            accessible
+            accessibilityRole="button"
+            accessibilityLabel={`${actionConfig.label} for this job`}
           >
             {isLoading ? (
               <ActivityIndicator size="small" color={Colors.background} />

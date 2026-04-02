@@ -1,4 +1,8 @@
 // Very-early import-time marker: runs before any module imports to help debug cold-start.
+// Root entry for bundling; ensure runtime route manifest loads first
+import './app/_routesManifest';
+import 'expo-router/entry';
+
 (function(){
 	try {
 		if (typeof globalThis !== 'undefined') {
@@ -15,10 +19,6 @@
 		// swallow
 	}
 })();
-
-// Root entry for bundling; ensure runtime route manifest loads first
-import './app/_routesManifest';
-import 'expo-router/entry';
 
 // Debug: confirm manifest visibility at the app entry point
 try {

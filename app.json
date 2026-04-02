@@ -25,6 +25,11 @@
       "output": "spa",
       "favicon": "./assets/images/favicon.png"
     },
+    "extra": {
+      "router": {
+        "ignoreRequireErrors": true
+      }
+    },
     "plugins": [
       "expo-router",
       [

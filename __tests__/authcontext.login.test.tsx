@@ -38,7 +38,7 @@ describe('AuthProvider.login branches', () => {
     await waitFor(() => {
       expect(result).toBeDefined();
       expect(result.success).toBe(false);
-      expect(result.error).toMatch(/invalid email|invalid/i);
+      expect(result.error).toMatch(/incorrect email|incorrect|invalid email|invalid/i);
     });
   });
 

@@ -1,0 +1,2 @@
+﻿FOUND_QUOTE_RANGE 2474102 2474479 LEN 378
+PATCHED d:\MyProjectsUAI\weejobs\android\app\src\main\assets\index.android.bundle backup at d:\MyProjectsUAI\weejobs\android\app\src\main\assets\index.android.bundle.bak

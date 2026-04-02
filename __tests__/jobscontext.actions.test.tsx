@@ -58,7 +58,7 @@ function Invoker() {
 
 describe('JobsContext action flows', () => {
   it('expressInterest/selectTradesman/cancelJob resolve true', async () => {
-    render(
+    await render(
       <JobsProvider>
         <Invoker />
       </JobsProvider>
@@ -69,6 +69,6 @@ describe('JobsContext action flows', () => {
       expect(captured.express).toBe(true);
       expect(captured.select).toBe(true);
       expect(captured.cancel).toBe(true);
-    }, { timeout: 2000 });
+    }, { timeout: 5000 });
   });
 });

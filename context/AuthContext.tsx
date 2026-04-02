@@ -1,14 +1,47 @@
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase, User } from '../lib/supabase';
 import { TEST_USERS } from '../constants/data';
 import { parseServerError } from '../lib/error';
+import { isRateLimited, markAttempt } from '../lib/rateLimiter';
 import * as analytics from '../lib/analytics';
+import { auditEvent } from '../lib/audit';
+
+/**
+ * Helper to resolve the Supabase client, supporting test overrides and mocks.
+ */
+function resolveSupabaseClient() {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const mod = require('../lib/supabase');
+    if (mod && mod.supabase) return mod.supabase;
+    if (typeof mod.getSupabaseClient === 'function') return mod.getSupabaseClient();
+  } catch {}
+  return supabase;
+}
+
+/**
+ * Helper to find a fallback user from TEST_USERS for offline/test environments.
+ */
+function findFallbackUser(email: string, password: string) {
+  return Object.values(TEST_USERS).find(
+    (u) => u.email === email && u.password === password,
+  );
+}
+
+/**
+ * Helper to handle analytics tracking for login/signup events.
+ */
+function track(event: string, props: Record<string, any>) {
+  try { analytics.track(event, props); } catch {}
+}
 
 type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   hasSeenOnboarding: boolean;
+  onboardingProgress: number | null;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }>;
   signup: (
     email: string,
@@ -19,8 +52,11 @@ type AuthContextType = {
   sendPasswordReset: (email: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   resendVerification: (email: string) => Promise<{ success: boolean; error?: string }>;
+  setOnboardingProgress: (step: number) => Promise<void>;
+  clearOnboardingProgress: () => Promise<void>;
   setHasSeenOnboarding: (value: boolean) => Promise<void>;
   refreshUser: () => Promise<void>;
+  updateProfile: (changes: Partial<User>) => Promise<{ success: boolean; data?: User; error?: string }>;
   // Additional properties for rate limiting
 };
 
@@ -58,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasSeenOnboarding, setHasSeenOnboardingState] = useState(false);
+  const [onboardingProgress, setOnboardingProgressState] = useState<number | null>(null);
 
   // Debugging helper — logs only when WEEJOBS_DEBUG is set in the env
   const WEEJOBS_DEBUG = typeof process !== 'undefined' && !!process.env && !!process.env.WEEJOBS_DEBUG;
@@ -79,14 +116,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
       
-      const [storedUser, onboarded] = await Promise.all([
+      const [storedUser, onboarded, storedOnboarding] = await Promise.all([
         AsyncStorage.getItem('weejobs_user'),
         AsyncStorage.getItem('weejobs_onboarded'),
+        AsyncStorage.getItem('weejobs_onboarding_progress'),
       ]);
       
       if (storedUser) {
         const parsedUser = JSON.parse(storedUser) as unknown as User & { role?: User['role'] | 'tradie' };
           setUser(buildNormalizedUser(parsedUser));
+      }
+      if (storedOnboarding) {
+        try {
+          const parsed = JSON.parse(storedOnboarding);
+          if (parsed && typeof parsed.step === 'number') setOnboardingProgressState(parsed.step);
+        } catch (e) {
+          // ignore malformed value
+        }
       }
       setHasSeenOnboardingState(onboarded === 'true');
     } catch (error) {
@@ -96,145 +142,91 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  /**
+   * Log in a user with email and password. Falls back to TEST_USERS in offline/test mode.
+   */
   const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }> => {
     try {
-      // Resolve the client at call-time to pick up test overrides reliably.
-      // Some tests `jest.mock('../lib/supabase')` and only provide a `supabase`
-      // export; attempt to require a `getSupabaseClient` helper if present,
-      // otherwise fall back to the imported `supabase`.
-      let instSupabase: any;
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-require-imports
-        const mod = require('../lib/supabase') as any;
-        // Prefer the module's exported `supabase` wrapper when available so
-        // tests that `jest.spyOn(supabase.auth, '...')` work reliably. Fall
-        // back to `getSupabaseClient` if `supabase` export is not present.
-        instSupabase = mod && mod.supabase ? mod.supabase : (typeof mod.getSupabaseClient === 'function' ? mod.getSupabaseClient() : supabase);
-      } catch {
-        instSupabase = supabase;
-      }
-      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
-        debugLog('AUTH_SUPABASE_BEFORE_SIGNIN', instSupabase);
-      }
-      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
-        debugLog('AUTH_GLOBAL_OVERRIDE_PRESENT', typeof (global as any).__TEST_SUPABASE__);
-        if (typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword === 'function') {
-          try {
-            debugLog('AUTH_GLOBAL_DIRECT_CALL_BEFORE');
-            try {
-              // Compare identities between global and lib/supabase proxy
-              // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-              const libSup = require('../lib/supabase') as any;
-              debugLog('GLOBAL_EQ_PROXY', (global as any).__TEST_SUPABASE__?.auth?.signUp === libSup.supabase?.auth?.signUp);
-            } catch {
-              // ignore
-            }
-            debugLog('AUTH_GLOBAL_AUTH_KEYS', Object.keys((global as any).__TEST_SUPABASE__?.auth || {}));
-            try {
-              debugLog('GLOBAL_SIGNIN_IMPL', (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword?.getMockImplementation && (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword.getMockImplementation());
-            } catch (e) {
-              debugLog('GLOBAL_SIGNIN_IMPL_ERR', e);
-            }
-            debugLog('GLOBAL_SIGNIN_IS_FN', typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword, (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword?._isMockFunction);
-            debugLog('GLOBAL_SIGNIN_RET_TYPE', typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword({ email, password }));
-            const gDirect = await (global as any).__TEST_SUPABASE__.auth.signInWithPassword({ email, password });
-            debugLog('AUTH_GLOBAL_DIRECT_CALL_RES', gDirect);
-          } catch (e) {
-            debugLog('AUTH_GLOBAL_DIRECT_CALL_ERR', e);
-          }
-        }
-      }
+      const instSupabase = resolveSupabaseClient();
       let authRes: any = await (instSupabase.auth as any).signInWithPassword({ email, password });
       // If the proxy-based call returned undefined (edge cases), try the raw global override
       if (typeof authRes === 'undefined' && typeof (global as any).__TEST_SUPABASE__?.auth?.signInWithPassword === 'function') {
         authRes = await (global as any).__TEST_SUPABASE__.auth.signInWithPassword({ email, password });
       }
-      if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
-        debugLog('AUTH_SIGNIN_RES', authRes);
-      }
       const authData = authRes?.data;
       const authError = authRes?.error;
-
       const serverMessage = (authError?.message || '').toLowerCase();
 
       if (authError || !authData?.user) {
         if (serverMessage.includes('confirm') || serverMessage.includes('verification') || serverMessage.includes('not confirmed')) {
-          analytics.track('login_unverified_email', { email });
-          return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
+          track('login_unverified_email', { email });
+          try { void auditEvent('auth.login.failure', { email, reason: 'unverified_email' }); } catch {}
+          return { success: false, needsVerification: true, error: 'Your account hasn\'t been verified yet. Check your email for the verification link, or tap "Resend" below.' };
         }
-
         if (serverMessage.includes('invalid') || serverMessage.includes('invalid login') || serverMessage.includes('invalid credentials')) {
-          analytics.track('login_failure', { email, reason: 'invalid_credentials' });
-          return { success: false, error: 'Invalid email or password.' };
+          track('login_failure', { email, reason: 'invalid_credentials' });
+          try { void auditEvent('auth.login.failure', { email, reason: 'invalid_credentials' }); } catch {}
+          return { success: false, error: 'Incorrect email or password. Double-check and try again, or use "Forgot password?" to reset it.' };
         }
-
         if (serverMessage.includes('too many') || serverMessage.includes('rate limit') || serverMessage.includes('too many requests')) {
-          analytics.track('login_rate_limited', { email });
-          return { success: false, error: 'Too many attempts. Please try again later.' };
+          track('login_rate_limited', { email });
+          return { success: false, error: 'Too many failed login attempts. Please wait a few minutes before trying again for security.' };
         }
-
         // Fallback to local test users for offline/test environments.
-        const fallbackUser = Object.values(TEST_USERS).find(
-          (u) => u.email === email && u.password === password,
-        );
-
+        const fallbackUser = findFallbackUser(email, password);
         if (fallbackUser) {
           const normalizedUser = buildNormalizedUser(fallbackUser as Partial<User> & { role?: User['role'] | 'tradie' });
           await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
           setUser(normalizedUser);
-          analytics.track('login_success', { userId: normalizedUser.id, method: 'fallback' });
+          try { void auditEvent('auth.login.success', { method: 'fallback' }, normalizedUser.id); } catch {}
+          track('login_success', { userId: normalizedUser.id, method: 'fallback' });
           return { success: true, user: normalizedUser };
         }
-
         return { success: false, error: authError?.message || 'Unable to sign in with those details.' };
       }
-
       if (!authData.user.confirmed_at) {
         await supabase.auth.signOut();
-        analytics.track('login_unverified_email', { email });
-        return { success: false, needsVerification: true, error: 'Please verify your email before signing in.' };
+        track('login_unverified_email', { email });
+        return { success: false, needsVerification: true, error: 'Your account hasn\'t been verified yet. Check your email for the verification link to complete your signup.' };
       }
-
       const { data, error } = await instSupabase
         .from('users')
         .select('*')
         .eq('id', authData.user.id)
         .single();
-
       if (error || !data) {
         await supabase.auth.signOut();
-        return { success: false, error: 'Your account profile could not be loaded. Please contact support.' };
+        return { success: false, error: 'We found your account but couldn\'t load your profile. Please try again or contact support if the issue persists.' };
       }
-
       const normalizedUser = buildNormalizedUser(data as User);
       await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
       setUser(normalizedUser);
-      analytics.track('login_success', { userId: normalizedUser.id, method: 'password' });
+      try { void auditEvent('auth.login.success', { method: 'password' }, normalizedUser.id); } catch {}
+      track('login_success', { userId: normalizedUser.id, method: 'password' });
       return { success: true, user: normalizedUser };
     } catch (err: any) {
-      const fallbackUser = Object.values(TEST_USERS).find(
-        (u) => u.email === email && u.password === password,
-      );
+      const fallbackUser = findFallbackUser(email, password);
       if (fallbackUser) {
         const normalizedUser = buildNormalizedUser(fallbackUser as Partial<User> & { role?: User['role'] | 'tradie' });
         await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
         setUser(normalizedUser);
+        try { void auditEvent('auth.login.success', { method: 'fallback' }, normalizedUser.id); } catch {}
         return { success: true, user: normalizedUser };
       }
-
       const parsed = parseServerError(err);
       if (parsed.isRateLimited) {
-        analytics.track('login_rate_limited', { email });
+        track('login_rate_limited', { email });
+        try { void auditEvent('auth.login.failure', { email, reason: 'rate_limited' }); } catch {}
         return { success: false, error: parsed.message, isRateLimited: true, retryAfter: parsed.retryAfterSeconds ?? null };
       }
-
       const errMsg = (err?.message || parsed.message || '').toLowerCase();
       if (errMsg.includes('network') || errMsg.includes('fetch')) {
-        analytics.track('login_error', { email, message: err?.message || parsed.message });
-        return { success: false, error: 'Network error. Check your connection and try again.' };
+        track('login_error', { email, message: err?.message || parsed.message });
+        try { void auditEvent('auth.login.failure', { email, message: err?.message || parsed.message }); } catch {}
+        return { success: false, error: 'Network connection error. Please check your WiFi or mobile connection and try again.' };
       }
-
-      analytics.track('login_error', { email, message: err?.message || parsed.message });
+      track('login_error', { email, message: err?.message || parsed.message });
+      try { void auditEvent('auth.login.failure', { email, message: err?.message || parsed.message }); } catch {}
       return { success: false, error: err?.message || parsed.message || 'Unable to sign in right now. Please try again.' };
     }
   };
@@ -303,21 +295,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
           if (message.includes('already registered') || message.includes('already been registered')) {
             analytics.track('signup_failure', { email, reason: 'already_registered' });
-            return { success: false, error: 'An account with this email already exists.' };
+            try { void auditEvent('auth.signup.failure', { email, reason: 'already_registered' }); } catch {}
+            return { success: false, error: 'This email is already registered. Try signing in instead, or use "Forgot password?" if you don\'t remember your password.' };
           }
 
           if (message.includes('password')) {
             analytics.track('signup_failure', { email, reason: 'weak_password' });
-            return { success: false, error: 'Password does not meet the required security rules.' };
+            try { void auditEvent('auth.signup.failure', { email, reason: 'weak_password' }); } catch {}
+            return { success: false, error: 'Your password is too weak. Use at least 8 characters with a mix of uppercase, lowercase, and numbers.' };
           }
 
           analytics.track('signup_failure', { email, reason: 'unknown_signup_error', message: signupError?.message });
+          try { void auditEvent('auth.signup.failure', { email, reason: 'unknown_signup_error', message: signupError?.message }); } catch {}
           return { success: false, error: 'Unable to create your account right now. Please try again.' };
       }
 
       // If user.confirmed_at is null, email verification is required
       if (!signupData.user.confirmed_at) {
         analytics.track('signup_requires_verification', { email });
+        try { void auditEvent('auth.signup.requires_verification', { email }); } catch {}
         return { success: true, needsVerification: true };
       }
 
@@ -333,8 +329,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (profileError) {
         analytics.track('signup_failure', { email, reason: 'profile_error' });
+        try { void auditEvent('auth.signup.failure', { email, reason: 'profile_error' }); } catch {}
         await supabase.auth.signOut();
-        return { success: false, error: 'Your account was created, but your profile could not be set up. Please try again.' };
+        return { success: false, error: 'Your account was created! But we had trouble setting up your profile. Try signing in to complete your setup.' };
       }
 
       const newUser = buildNormalizedUser({
@@ -349,16 +346,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await AsyncStorage.setItem('weejobs_user', JSON.stringify(newUser));
       setUser(newUser);
       analytics.track('signup_success', { userId: newUser.id, email: newUser.email });
+      try { void auditEvent('auth.signup.success', { method: 'password' }, newUser.id); } catch {}
       return { success: true, user: newUser };
     } catch (error) {
       analytics.track('signup_error', { email, message: (error as any)?.message });
-      return { success: false, error: 'Unable to create your account right now. Please try again.' };
+      try { void auditEvent('auth.signup.failure', { email, message: (error as any)?.message }); } catch {}
+      return { success: false, error: 'We couldn\'t create your account at this moment. Please check your connection and try again.' };
     }
   };
 
   const logout = async () => {
     await AsyncStorage.removeItem('weejobs_user');
     setUser(null);
+  };
+
+  const setOnboardingProgress = async (step: number) => {
+    try {
+      const payload = { step, updated_at: new Date().toISOString() };
+      await AsyncStorage.setItem('weejobs_onboarding_progress', JSON.stringify(payload));
+      setOnboardingProgressState(step);
+    } catch (e) {
+      console.error('Error saving onboarding progress:', e);
+    }
+  };
+
+  const clearOnboardingProgress = async () => {
+    try {
+      await AsyncStorage.removeItem('weejobs_onboarding_progress');
+    } catch (e) {
+      // ignore
+    }
+    setOnboardingProgressState(null);
   };
 
   const setHasSeenOnboarding = async (value: boolean) => {
@@ -385,17 +403,61 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const sendPasswordReset = async (email: string): Promise<{ success: boolean; error?: string }> => {
+  /**
+   * Update the current user's profile with the provided changes.
+   * Centralizes Supabase update, local storage sync and state update.
+   */
+  const updateProfile = async (changes: Partial<User>): Promise<{ success: boolean; data?: User; error?: string }> => {
+    if (!user?.id) return { success: false, error: 'Not authenticated' };
     try {
-      // supabase JS v2 provides resetPasswordForEmail; use any to avoid strict typing differences
-      const fn = (supabase.auth as any).resetPasswordForEmail || (supabase.auth as any).resetPasswordForEmail?.bind(supabase.auth);
-      if (typeof fn === 'function') {
-        const { error } = await fn(email);
-        if (error) return { success: false, error: error.message || 'Unable to send reset email.' };
-        return { success: true };
+      const instSupabase = resolveSupabaseClient();
+      const res: any = await instSupabase
+        .from('users')
+        .update(changes)
+        .eq('id', user.id)
+        .select('*')
+        .single();
+
+      const updated = res?.data;
+      const updError = res?.error;
+      if (updError || !updated) {
+        return { success: false, error: updError?.message || 'Failed to update profile' };
       }
 
-      // Fallback: try signUp to trigger email in some flows (no-op for existing users), otherwise return success
+      const normalized = buildNormalizedUser(updated as User);
+      await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalized));
+      setUser(normalized);
+      return { success: true, data: normalized };
+    } catch (err: any) {
+      const parsed = parseServerError(err);
+      return { success: false, error: parsed.message || err?.message || 'Failed to update profile' };
+    }
+  };
+
+  const sendPasswordReset = async (email: string): Promise<{ success: boolean; error?: string }> => {
+    try {
+      // Resolve Supabase client so test overrides/mocks are respected
+      const instSupabase = resolveSupabaseClient();
+      const auth: any = instSupabase?.auth || {};
+      const candidates = [
+        auth.resetPasswordForEmail,
+        auth.resetPasswordForEmail?.bind(auth),
+        auth.api?.resetPasswordForEmail,
+        auth.api?.resetPasswordForEmail?.bind(auth.api),
+      ];
+      let fn: any = null;
+      for (const c of candidates) {
+        if (typeof c === 'function') {
+          fn = c;
+          break;
+        }
+      }
+      if (typeof fn === 'function') {
+        const res = await fn(email);
+        const error = res?.error ?? res?.data?.error ?? null;
+        if (error) return { success: false, error: error.message || error || 'Unable to send reset email.' };
+        return { success: true };
+      }
       return { success: false, error: 'Password reset is not supported in this environment.' };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Unable to send reset email.' };
@@ -407,8 +469,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       // Try calling a server endpoint if configured. This endpoint should use a Supabase
       // service role key to trigger a verification email resend for the given email.
       const apiBase = (typeof process !== 'undefined' && (process.env as any)?.EXPO_PUBLIC_API_BASE) || '';
+      // Basic client-side rate limit to avoid spamming the resend endpoint
+      const rlKey = `resendVerification:${email}`;
+      if (isRateLimited(rlKey, 3, 60 * 60 * 1000)) {
+        return { success: false, error: 'You\'ve requested verification too many times. Please wait a bit before requesting again.' };
+      }
+
       if (!apiBase) {
-        return { success: false, error: 'Resend endpoint not configured. Use Sign Up to re-trigger verification or contact support.' };
+        return { success: false, error: 'Email verification isn\'t available right now. Try signing up again or contact support for help.' };
       }
 
       const res = await fetch(`${apiBase.replace(/\/$/, '')}/resend-verification`, {
@@ -419,9 +487,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!res.ok) {
         const body = await res.json().catch(() => ({}));
-        return { success: false, error: body?.error || 'Failed to request verification resend.' };
+        // record attempt on failure as well to slow repeated attempts
+        try { markAttempt(rlKey, 3, 60 * 60 * 1000); } catch {}
+        return { success: false, error: 'Couldn\'t send the verification email. Please check your internet connection and try again.' };
       }
-
+      // record successful attempt
+      try { markAttempt(rlKey, 3, 60 * 60 * 1000); } catch {}
       return { success: true };
     } catch (err: any) {
       return { success: false, error: err?.message || 'Unable to request verification resend.' };
@@ -434,12 +505,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         isLoading,
         hasSeenOnboarding,
+        onboardingProgress,
         login,
         signup,
         sendPasswordReset,
         logout,
+        setOnboardingProgress,
+        clearOnboardingProgress,
         setHasSeenOnboarding,
         refreshUser,
+        updateProfile,
         resendVerification,
       }}
     >
