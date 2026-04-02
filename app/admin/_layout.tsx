@@ -1,8 +1,28 @@
-import { Tabs } from 'expo-router';
+import { Tabs, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/theme';
+import { useEffect } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 export default function AdminLayout() {
+  const { user, isLoading } = useAuth();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!user) {
+      router.replace('/onboarding/intro');
+      return;
+    }
+
+    // Redirect non-admin users to their respective home
+    if (user.role !== 'admin') {
+      if (user.role === 'customer') router.replace('/customer');
+      else if (user.role === 'tradesperson') router.replace('/tradie/home');
+      else router.replace('/customer');
+    }
+  }, [isLoading, user]);
+
   return (
     <Tabs
       screenOptions={{

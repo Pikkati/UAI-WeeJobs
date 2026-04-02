@@ -1,4 +1,5 @@
 import DT, { Colors as DTColors, Spacing as DTSpacing, BorderRadius as DTBorder } from '../constants/design-tokens';
+import tokens, { Colors, Spacing, BorderRadius } from '../constants/design-tokens';
 
 describe('design-tokens', () => {
   test('exports Colors, Spacing, and BorderRadius', () => {
@@ -18,7 +19,6 @@ describe('design-tokens', () => {
     expect(DTSpacing.xl).toBeGreaterThan(DTSpacing.md);
   });
 });
-import tokens, { Colors, Spacing, BorderRadius } from '../constants/design-tokens';
 
 describe('design-tokens', () => {
   test('default export contains Colors/Spacing/BorderRadius', () => {

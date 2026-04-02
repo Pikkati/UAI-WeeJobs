@@ -2,12 +2,12 @@ import React from 'react';
 import { Text } from 'react-native';
 import { render, fireEvent } from '@testing-library/react-native';
 
+import { Collapsible } from '../components/Collapsible';
+
 // Mock useColorScheme to a stable value for the test
 jest.mock('../hooks/useColorScheme', () => ({
   useColorScheme: () => 'light',
 }));
-
-import { Collapsible } from '../components/Collapsible';
 
 test('Collapsible toggles content visibility on press', () => {
   const utils = render(

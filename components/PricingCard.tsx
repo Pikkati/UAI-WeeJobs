@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import type { ReactNode } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Colors, Spacing, BorderRadius } from '../constants/theme';
@@ -16,6 +17,22 @@ interface PricingCardProps {
   showBadge?: boolean;
 }
 
+const CardWrapper = ({ highlight, children }: { highlight?: boolean; children: ReactNode }) => {
+  if (highlight) {
+    return (
+      <LinearGradient
+        colors={[Colors.accent, '#f59e0b', Colors.accent]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        style={styles.gradientBorder}
+      >
+        <View style={styles.highlightInner}>{children}</View>
+      </LinearGradient>
+    );
+  }
+  return <View style={styles.card}>{children}</View>;
+};
+
 export default function PricingCard({
   title,
   subtitle,
@@ -27,21 +44,7 @@ export default function PricingCard({
   ribbonText,
   showBadge = false,
 }: PricingCardProps) {
-  const CardWrapper = ({ children }: { children: React.ReactNode }) => {
-    if (highlight) {
-      return (
-        <LinearGradient
-          colors={[Colors.accent, '#f59e0b', Colors.accent]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.gradientBorder}
-        >
-          <View style={styles.highlightInner}>{children}</View>
-        </LinearGradient>
-      );
-    }
-    return <View style={styles.card}>{children}</View>;
-  };
+  
 
   return (
     <View style={[styles.container, highlight && styles.containerHighlight]}>
@@ -51,7 +54,7 @@ export default function PricingCard({
         </View>
       )}
       
-      <CardWrapper>
+      <CardWrapper highlight={highlight}>
         <View style={styles.content}>
           {!highlight && (
             <View style={styles.labelBadge}>

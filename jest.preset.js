@@ -7,7 +7,7 @@ const tryRequire = (names) => {
       // eslint-disable-next-line global-require, import/no-dynamic-require
       const mod = require(name);
       return mod && (mod.default || mod);
-    } catch (e) {
+    } catch {
       // ignore
     }
   }

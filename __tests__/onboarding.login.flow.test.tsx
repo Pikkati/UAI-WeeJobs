@@ -1,4 +1,6 @@
 import React from 'react';
+
+import { render, fireEvent, act } from '@testing-library/react-native';
 // Mock Animated APIs used by the login screen to avoid missing Value errors
 jest.mock('react-native', () => {
   const RN = jest.requireActual('react-native');
@@ -9,8 +11,6 @@ jest.mock('react-native', () => {
   };
   return RN;
 });
-
-import { render, fireEvent, act } from '@testing-library/react-native';
 
 // Mock expo/image and vector icons to simple elements for test environment
 jest.mock('expo-image', () => ({

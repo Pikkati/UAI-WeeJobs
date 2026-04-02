@@ -2,16 +2,16 @@ import { createClient } from '@supabase/supabase-js';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 let supabaseUrl = '';
-let supabaseAnonKey = '';
+let _supabaseAnonKey = '';
 
 try {
   // Defensive access to process.env for test environments where `process` may be proxied or missing
   const proc: any = typeof process !== 'undefined' ? process : (globalThis as any).process;
   if (proc && proc.env) {
     supabaseUrl = proc.env.EXPO_PUBLIC_SUPABASE_URL || '';
-    supabaseAnonKey = proc.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
+    _supabaseAnonKey = proc.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
   }
-} catch (e) {
+} catch {
   // ignore and keep empty strings
 }
 
@@ -63,57 +63,36 @@ const resolveClient = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const g: any = typeof global !== 'undefined' ? (global as any) : (globalThis as any);
     if (g && g.__TEST_SUPABASE__) {
-      // Deep-merge the test-provided client with our fallback so tests can
-      // supply partial shapes and still get a full chainable API.
-      const mergeDeep = (testObj: any, fallbackObj: any): any => {
-        if (!testObj || typeof testObj !== 'object') return fallbackObj;
-        const out: any = Array.isArray(fallbackObj) ? [] : {};
-        const keys = new Set<string>([...Object.keys(fallbackObj || {}), ...Object.keys(testObj || {})]);
-        for (const k of keys) {
-          const a = testObj[k];
-          const b = fallbackObj && (fallbackObj as any)[k];
-          if (typeof a === 'undefined') {
-            out[k] = b;
-          } else if (a && typeof a === 'object' && !Array.isArray(a) && b && typeof b === 'object') {
-            out[k] = mergeDeep(a, b);
-          } else {
-            out[k] = a;
-          }
-        }
-        return out;
-      };
+      // Prefer returning the stable test container object directly so any
+      // Jest mock functions assigned to it keep their original identity
+      // and binding. The `jest-setup.js` file provides a default container
+      // with the fallback chainable API so tests can safely `Object.assign`
+      // into it without losing behavior.
 
-      // Wrap test-provided client functions to ensure consistent promise
-      // semantics and avoid surprises from bound/unbound mocks.
-      const createSafe = (obj: any): any => {
-        if (!obj || typeof obj !== 'object') return obj;
-        const out: any = Array.isArray(obj) ? [] : {};
-        for (const k of Object.keys(obj)) {
-          const v = obj[k];
-          if (typeof v === 'function') {
-            out[k] = (...args: any[]) => {
-              const res = v.apply(obj, args);
-              if (res && typeof res === 'object') {
-                if (typeof (res as any).then === 'function') return res;
-                return createSafe(res);
-              }
-              return res;
-            };
-            continue;
-          }
-          if (v && typeof v === 'object') {
-            out[k] = createSafe(v);
-            continue;
-          }
-          out[k] = v;
+      try {
+        // Prefer returning the stable test container object directly so any
+        // Jest mock functions assigned to it keep their original identity
+        // and binding. The `jest-setup.js` file provides a default container
+        // with the fallback chainable API so tests can safely `Object.assign`
+        // into it without losing behavior.
+        // eslint-disable-next-line no-console
+        console.log('DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys:', Object.keys(g.__TEST_SUPABASE__ || {}));
+        // eslint-disable-next-line no-console
+        console.log('DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity');
+        try {
+          const testFromRes = g.__TEST_SUPABASE__.from && g.__TEST_SUPABASE__.from('users');
+          // eslint-disable-next-line no-console
+          console.log('DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof:', typeof testFromRes, testFromRes && Object.keys(testFromRes || {}));
+        } catch (e) {
+          // eslint-disable-next-line no-console
+          console.log('DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from call threw:', e && (e as any).message ? (e as any).message : e);
         }
-        return out;
-      };
-
-      const merged = mergeDeep(g.__TEST_SUPABASE__, _fallbackSupabase);
-      return createSafe(merged);
+      } catch {
+        // ignore debug failures
+      }
+      return g.__TEST_SUPABASE__;
     }
-  } catch (e) {
+  } catch {
     // ignore
   }
 
@@ -130,7 +109,7 @@ const resolveClient = () => {
       url = proc.env.EXPO_PUBLIC_SUPABASE_URL || '';
       key = proc.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
     }
-  } catch (e) {
+  } catch {
     // ignore
   }
 
@@ -160,8 +139,33 @@ const wrapInstance = (target: any): any => {
     get(t, prop: string) {
       const val = (t as any)[prop as any];
       if (typeof val === 'function') {
-        // Preserve Jest mock functions (they lose mock metadata when bound).
-        if ((val as any)._isMockFunction) return val;
+        // If this is a Jest mock function, return a bound wrapper that
+        // preserves the mock metadata so tests can still inspect call
+        // information while ensuring `this` is correctly bound to the
+        // owning object. Fall back to binding for normal functions.
+        if ((val as any)._isMockFunction) {
+          const orig = val as any;
+          const boundWrapper = function boundWrapper(this: any, ...args: any[]) {
+            return orig.apply(t, args);
+          };
+          try {
+            // Attempt to preserve common Jest mock metadata properties.
+            (boundWrapper as any)._isMockFunction = true;
+            if ((orig as any).mock) (boundWrapper as any).mock = (orig as any).mock;
+            if ((orig as any).getMockName) (boundWrapper as any).getMockName = (orig as any).getMockName.bind(orig);
+            // Copy any own properties to retain call counts and helpers.
+                    Object.getOwnPropertyNames(orig).forEach((k) => {
+                      try {
+                        if (!(k in boundWrapper)) (boundWrapper as any)[k] = (orig as any)[k];
+                      } catch {
+                          // ignore non-writable properties
+                        }
+                    });
+          } catch {
+            // best-effort preservation; ignore on failure
+          }
+          return boundWrapper;
+        }
         return val.bind(t);
       }
       if (val && typeof val === 'object') return wrapInstance(val);
@@ -172,7 +176,13 @@ const wrapInstance = (target: any): any => {
 
 // Expose a helper so other modules can retrieve the resolved client
 // (wrapped) without re-implementing the global override logic.
-export const getSupabaseClient = () => wrapInstance(resolveClient());
+export const getSupabaseClient = () => {
+  // Always wrap the resolved client so nested methods are bound to their
+  // owning object. `wrapInstance` makes a best-effort to preserve Jest
+  // mock metadata when binding mock functions so tests can still inspect
+  // call counts and implementations.
+  return wrapInstance(resolveClient());
+};
 
 // Provide a stable wrapper object with callable properties that delegate
 // to the resolved client at call-time. This allows tests to `jest.spyOn`

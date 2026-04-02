@@ -2,6 +2,8 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import { Text } from 'react-native';
 
+import { JobsProvider, useJobs } from '../context/JobsContext';
+
 // Provide a user so JobsProvider functions run deterministically
 // eslint-disable-next-line no-undef
 (global as any).__TEST_USE_AUTH__ = () => ({ user: { id: 'u1' } });
@@ -12,8 +14,6 @@ jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' 
 // Provide a synchronous test cache so JobsProvider loads without remote fetch
 // eslint-disable-next-line no-undef
 (global as any).__TEST_JOBS_CACHE__ = [];
-
-import { JobsProvider, useJobs } from '../context/JobsContext';
 
 function CalcConsumer() {
   const { calculateDeposit } = useJobs();
