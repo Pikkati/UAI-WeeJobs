@@ -23,6 +23,7 @@ jest.mock('expo-image', () => ({
   },
   logout: jest.fn(),
   refreshUser: jest.fn(),
+  updateProfile: jest.fn().mockResolvedValue({ success: true }),
 });
 
 // Do not override the default `__TEST_SUPABASE__` set by `jest-setup.js`.
@@ -32,11 +33,14 @@ jest.mock('expo-image', () => ({
 describe('TradieProfileScreen', () => {
   it('renders basic profile info and allows toggling areas', async () => {
     const Screen = require('../app/tradie/profile').default;
-      const { getByText, getByPlaceholderText, getAllByText } = render(<Screen />);
+    const { getByText, getByPlaceholderText, getAllByText, debug } = render(<Screen />);
+
+    // Print the rendered output for debugging
+    debug();
 
     // Basic user info
     expect(getByText('Profile')).toBeTruthy();
-      const johns = getAllByText('John');
+    const johns = getAllByText('John');
     expect(johns.length).toBeGreaterThanOrEqual(1);
 
     // Open area picker and assert we're in the picker state
