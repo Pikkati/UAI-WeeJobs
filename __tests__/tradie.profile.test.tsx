@@ -31,6 +31,11 @@ jest.mock('expo-image', () => ({
 // update/eq calls used in this screen.
 
 describe('TradieProfileScreen', () => {
+  afterAll(() => {
+    // Clean up global state
+    delete (global as any).__TEST_USE_AUTH__;
+  });
+
   it('renders basic profile info and allows toggling areas', async () => {
     const Screen = require('../app/tradie/profile').default;
     const { getByText, getByPlaceholderText, getAllByText, debug } = render(<Screen />);

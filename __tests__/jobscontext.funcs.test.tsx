@@ -59,6 +59,12 @@ describe('JobsContext helpers', () => {
     expect(utils.getByTestId('d5').props.children).toBe('50');
   });
 
+  afterAll(() => {
+    // Clean up global state
+    delete (global as any).__TEST_USE_AUTH__;
+    delete (global as any).__TEST_JOBS_CACHE__;
+  });
+
   it('getNextActionsByRole returns correct labels for roles and statuses', () => {
     const utils = render(
       <JobsProvider>

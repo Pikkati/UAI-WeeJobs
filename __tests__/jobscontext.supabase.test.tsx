@@ -52,6 +52,12 @@ function TestInvoker() {
 }
 
 describe('JobsContext supabase interactions', () => {
+  afterAll(() => {
+    // Clean up global state
+    delete (global as any).__TEST_USE_AUTH__;
+    delete (global as any).__TEST_JOBS_CACHE__;
+  });
+
   it('resolves core supabase-backed functions without throwing', async () => {
     const utils = render(
       <JobsProvider>

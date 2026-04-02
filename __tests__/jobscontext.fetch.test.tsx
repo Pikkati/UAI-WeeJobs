@@ -55,6 +55,12 @@ function Consumer() {
 }
 
 describe('JobsProvider fetch/caching', () => {
+  afterAll(() => {
+    // Clean up global state
+    delete (global as any).__TEST_USE_AUTH__;
+    delete (global as any).__TEST_JOBS_CACHE__;
+  });
+
   it('loads cached jobs when Supabase fetch fails', async () => {
     const utils = render(
       <JobsProvider>
