@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 
 // Mock router + params
 jest.mock('expo-router', () => ({
-  useLocalSearchParams: () => ({ jobId: 'j1' }),
+  useLocalSearchParams: jest.fn(() => ({ jobId: 'j1' })),
   useRouter: () => ({ back: jest.fn(), push: jest.fn() }),
 }), { virtual: true });
 

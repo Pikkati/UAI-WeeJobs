@@ -61,7 +61,7 @@ describe('LoginScreen flows', () => {
 
   test('successful sign in navigates to customer route', async () => {
     const expo = require('expo-router');
-    const replaceSpy = expo.router.replace;
+    expo.router.replace = jest.fn();
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const mockLogin = jest.fn().mockResolvedValue({ success: true, user: { role: 'customer' } });
@@ -77,6 +77,6 @@ describe('LoginScreen flows', () => {
 
     // await for router.replace call
     await new Promise((res) => setTimeout(res, 50));
-    expect(replaceSpy).toHaveBeenCalledWith('/customer');
+    expect(expo.router.replace).toHaveBeenCalledWith('/customer');
   });
 });
