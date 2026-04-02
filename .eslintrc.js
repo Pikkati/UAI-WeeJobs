@@ -22,6 +22,7 @@ module.exports = {
     'import/core-modules': [
       'expo-router',
       'expo-status-bar',
+      'expo-image',
       '@stripe/stripe-react-native',
       'react-native-safe-area-context',
       'expo-image-picker',

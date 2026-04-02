@@ -1,95 +1,363 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react-native';
-import { View, Text, TouchableOpacity } from 'react-native';
-import { AuthProvider, useAuth } from '../context/AuthContext';
+import { renderHook, act, waitFor } from '@testing-library/react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+// Import the AuthContext and its components
+import { AuthProvider, useAuth, normalizeUserRole, buildNormalizedUser } from '../context/AuthContext';
+
+// Mock modules
+jest.mock('../lib/supabase', () => ({
+  createSupabaseClient: jest.fn(),
+}));
+
+jest.mock('../lib/analytics', () => ({
+  trackEvent: jest.fn(),
+}));
+
+jest.mock('../lib/audit', () => ({
+  auditAction: jest.fn(),
+}));
+
+jest.mock('../lib/rateLimiter', () => ({
+  checkRateLimit: jest.fn(() => true),
+}));
 
 // Mock AsyncStorage
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
   default: {
     storage: {} as Record<string, string>,
-    getItem: jest.fn(async (k: string) => ( (global as any).__asyncStorage?.[k] ?? null )),
-    setItem: jest.fn(async (k: string, v: string) => { (global as any).__asyncStorage = (global as any).__asyncStorage || {}; (global as any).__asyncStorage[k] = v; }),
-    removeItem: jest.fn(async (k: string) => { (global as any).__asyncStorage = (global as any).__asyncStorage || {}; delete (global as any).__asyncStorage[k]; }),
+    getItem: jest.fn(async (k: string) => ((global as any).__asyncStorage?.[k] ?? null)),
+    setItem: jest.fn(async (k: string, v: string) => { 
+      (global as any).__asyncStorage = (global as any).__asyncStorage || {}; 
+      (global as any).__asyncStorage[k] = v; 
+    }),
+    removeItem: jest.fn(async (k: string) => { 
+      (global as any).__asyncStorage = (global as any).__asyncStorage || {}; 
+      delete (global as any).__asyncStorage[k]; 
+    }),
+    clear: jest.fn(async () => { (global as any).__asyncStorage = {}; }),
+    getAllKeys: jest.fn(async () => Object.keys((global as any).__asyncStorage || {})),
+    __INTERNAL_RESET: jest.fn(() => { (global as any).__asyncStorage = {}; })
   }
 }));
 
-// Provide a mock supabase client
-const mockSignInWithPassword = jest.fn();
-const mockSignOut = jest.fn();
-const mockFrom = jest.fn();
-
-jest.mock('../lib/supabase', () => ({
-  supabase: {
-    auth: {
-      signInWithPassword: (...args: any[]) => mockSignInWithPassword(...args),
-      signUp: jest.fn(async () => ({ data: { user: { id: 'u1', email: 'x@x.com', confirmed_at: new Date().toISOString() } }, error: null })),
-      signOut: () => mockSignOut(),
-    },
-    from: (table: string) => ({
-      select: () => ({
-        eq: (col: string, val: string) => ({ single: async () => mockFrom(table, col, val) }),
-      }),
-    }),
-  },
+// Mock constants
+jest.mock('../constants/data', () => ({
+  TEST_USERS: [
+    { id: 'test-user-1', email: 'test@example.com', password: 'password123' },
+    { id: 'test-user-2', email: 'tradie@example.com', password: 'password123' },
+  ],
 }));
 
-function TestInvoker({ email, cb }: { email: string; cb: (res: any) => void }) {
-  const { login } = useAuth();
-
-  React.useEffect(() => {
-    (async () => {
-      const res = await login(email, 'password');
-      cb(res);
-    })();
-  }, [email]);
-
-  return null;
-}
-
 describe('AuthContext', () => {
+  let mockSupabaseClient: any;
+
   beforeEach(() => {
+    // Reset AsyncStorage
     jest.clearAllMocks();
+    (global as any).__asyncStorage = {};
+    (AsyncStorage as any).__INTERNAL_RESET();
+
+    // Setup default Supabase client mock
+    mockSupabaseClient = {
+      from: jest.fn((table) => ({
+        select: jest.fn().mockReturnThis(),
+        update: jest.fn().mockReturnThis(),
+        insert: jest.fn().mockReturnThis(),
+        upsert: jest.fn().mockReturnThis(),
+        eq: jest.fn().mockReturnThis(),
+        single: jest.fn().mockResolvedValue({ data: null, error: null }),
+      })),
+      auth: {
+        signUp: jest.fn().mockResolvedValue({ 
+          data: { user: { id: '123', email: 'test@example.com', confirmed_at: '2024-01-01' } }, 
+          error: null 
+        }),
+        signInWithPassword: jest.fn().mockResolvedValue({ 
+          data: { user: { id: '123', email: 'test@example.com', confirmed_at: '2024-01-01' } }, 
+          error: null 
+        }),
+        signOut: jest.fn().mockResolvedValue({ error: null }),
+        resetPasswordForEmail: jest.fn().mockResolvedValue({ error: null }),
+      },
+    };
+
+    // Set global test supabase
+    (global as any).__TEST_SUPABASE__ = mockSupabaseClient;
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    delete (global as any).__TEST_SUPABASE__;
     (global as any).__asyncStorage = {};
   });
 
-  test('successful login stores user and returns success', async () => {
-    // Arrange: supabase signIn returns a confirmed user
-    mockSignInWithPassword.mockResolvedValueOnce({ data: { user: { id: 'u1', email: 'test@example.com', confirmed_at: new Date().toISOString() } }, error: null });
-    mockFrom.mockResolvedValueOnce({ data: { id: 'u1', email: 'test@example.com', name: 'Tester', role: 'customer', created_at: new Date().toISOString(), updated_at: new Date().toISOString() }, error: null });
+  // Helper function to render hook with provider
+  const renderAuthHook = () => {
+    return renderHook(() => useAuth(), {
+      wrapper: ({ children }) => <AuthProvider>{children}</AuthProvider>,
+    });
+  };
 
-    let result: any = null;
+  // Helper function to create mock user data
+  const createMockUser = (overrides = {}) => ({
+    id: '123',
+    email: 'test@example.com',
+    role: 'customer',
+    name: 'Test User',
+    confirmed_at: '2024-01-01',
+    ...overrides,
+  });
 
-    render(
-      <AuthProvider>
-        <TestInvoker email="test@example.com" cb={(r) => (result = r)} />
-      </AuthProvider>
-    );
+  describe('Helper Functions', () => {
+    describe('normalizeUserRole', () => {
+      it('should normalize "tradie" to "tradesperson"', () => {
+        expect(normalizeUserRole('tradie')).toBe('tradesperson');
+      });
 
-    await waitFor(() => {
-      expect(result).not.toBeNull();
-      expect(result.success).toBe(true);
-      expect(result.user).toBeDefined();
+      it('should keep other roles unchanged', () => {
+        expect(normalizeUserRole('customer')).toBe('customer');
+        expect(normalizeUserRole('admin')).toBe('admin');
+      });
+
+      it('should handle undefined role', () => {
+        expect(normalizeUserRole(undefined as any)).toBe(undefined);
+      });
+    });
+
+    describe('buildNormalizedUser', () => {
+      it('should normalize user role', () => {
+        const user = { id: '123', email: 'test@example.com', role: 'tradie' };
+        const normalized = buildNormalizedUser(user);
+        expect(normalized.role).toBe('tradesperson');
+      });
+
+      it('should preserve all user fields', () => {
+        const user = { 
+          id: '123', 
+          email: 'test@example.com', 
+          name: 'Test User',
+          role: 'customer',
+          avatar: 'avatar.jpg'
+        };
+        const normalized = buildNormalizedUser(user);
+        expect(normalized).toEqual({
+          ...user,
+          role: 'customer' // Already normalized
+        });
+      });
     });
   });
 
-  test('login for unconfirmed user returns needsVerification', async () => {
-    mockSignInWithPassword.mockResolvedValueOnce({ data: { user: { id: 'u2', email: 'unverified@example.com', confirmed_at: null } }, error: { message: 'User not confirmed' } });
+  describe('AuthProvider', () => {
+    it('should provide initial state', async () => {
+      const { result } = renderAuthHook();
 
-    let result2: any = null;
+      expect(result.current.user).toBeNull();
+      expect(result.current.isAuthenticated).toBe(false);
+      expect(result.current.isLoading).toBe(true); // Initially loading
+    });
 
-    render(
-      <AuthProvider>
-        <TestInvoker email="unverified@example.com" cb={(r) => (result2 = r)} />
-      </AuthProvider>
-    );
+    it('should throw error when useAuth is called outside provider', () => {
+      expect(() => {
+        renderHook(() => useAuth());
+      }).toThrow('useAuth must be used within an AuthProvider');
+    });
 
-    await waitFor(() => {
-      expect(result2).not.toBeNull();
-      expect(result2.success).toBe(false);
-      expect(result2.needsVerification).toBeTruthy();
+    it('should load stored auth data on mount', async () => {
+      const mockUser = createMockUser();
+      (global as any).__asyncStorage['weejobs_user'] = JSON.stringify(mockUser);
+
+      const { result } = renderAuthHook();
+
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
+
+      expect(result.current.user).toEqual(mockUser);
+      expect(result.current.isAuthenticated).toBe(true);
+    });
+  });
+
+  describe('Authentication methods', () => {
+    describe('login', () => {
+      it('should login successfully with valid credentials', async () => {
+        const mockUser = createMockUser();
+        mockSupabaseClient.auth.signInWithPassword.mockResolvedValue({
+          data: { user: mockUser },
+          error: null,
+        });
+        mockSupabaseClient.from().single.mockResolvedValue({
+          data: mockUser,
+          error: null,
+        });
+
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.isLoading).toBe(false);
+        });
+
+        let loginResult;
+        await act(async () => {
+          loginResult = await result.current.login('test@example.com', 'password123');
+        });
+
+        expect(loginResult.success).toBe(true);
+        expect(result.current.user).toEqual(mockUser);
+        expect(result.current.isAuthenticated).toBe(true);
+        expect(mockSupabaseClient.auth.signInWithPassword).toHaveBeenCalledWith({
+          email: 'test@example.com',
+          password: 'password123',
+        });
+      });
+
+      it('should handle invalid credentials error', async () => {
+        mockSupabaseClient.auth.signInWithPassword.mockResolvedValue({
+          data: { user: null },
+          error: { message: 'Invalid credentials' },
+        });
+
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.isLoading).toBe(false);
+        });
+
+        let loginResult;
+        await act(async () => {
+          loginResult = await result.current.login('test@example.com', 'wrongpassword');
+        });
+
+        expect(loginResult.success).toBe(false);
+        expect(result.current.user).toBeNull();
+        expect(result.current.isAuthenticated).toBe(false);
+      });
+
+      it('should handle unverified email error', async () => {
+        mockSupabaseClient.auth.signInWithPassword.mockResolvedValue({
+          data: { user: { id: '123', email: 'test@example.com', confirmed_at: null } },
+          error: { message: 'Email not confirmed' },
+        });
+
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.isLoading).toBe(false);
+        });
+
+        let loginResult;
+        await act(async () => {
+          loginResult = await result.current.login('test@example.com', 'password123');
+        });
+
+        expect(loginResult.success).toBe(false);
+        expect(loginResult.needsVerification).toBe(true);
+      });
+    });
+
+    describe('logout', () => {
+      it('should logout successfully', async () => {
+        const mockUser = createMockUser();
+        (global as any).__asyncStorage['weejobs_user'] = JSON.stringify(mockUser);
+
+        const { result } = renderAuthHook();
+
+        // Wait for initial load
+        await waitFor(() => {
+          expect(result.current.user).toEqual(mockUser);
+        });
+
+        await act(async () => {
+          await result.current.logout();
+        });
+
+        expect(result.current.user).toBeNull();
+        expect(result.current.isAuthenticated).toBe(false);
+        expect(mockSupabaseClient.auth.signOut).toHaveBeenCalled();
+        
+        // Verify AsyncStorage is cleared
+        expect((global as any).__asyncStorage['weejobs_user']).toBeUndefined();
+      });
+
+      it('should handle logout error gracefully', async () => {
+        mockSupabaseClient.auth.signOut.mockResolvedValue({
+          error: { message: 'Logout failed' },
+        });
+
+        const mockUser = createMockUser();
+        (global as any).__asyncStorage['weejobs_user'] = JSON.stringify(mockUser);
+
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.user).toEqual(mockUser);
+        });
+
+        // Should not throw, just clear local state
+        await act(async () => {
+          await result.current.logout();
+        });
+
+        expect(result.current.user).toBeNull();
+        expect(result.current.isAuthenticated).toBe(false);
+      });
+    });
+  });
+
+  describe('Onboarding management', () => {
+    describe('setOnboardingProgress', () => {
+      it('should save onboarding progress', async () => {
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.isLoading).toBe(false);
+        });
+
+        act(() => {
+          result.current.setOnboardingProgress(3);
+        });
+
+        expect(result.current.onboardingProgress).toBe(3);
+        expect((global as any).__asyncStorage['weejobs_onboarding_progress']).toBe('3');
+      });
+    });
+
+    describe('clearOnboardingProgress', () => {
+      it('should clear onboarding progress', async () => {
+        (global as any).__asyncStorage['weejobs_onboarding_progress'] = '3';
+
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.isLoading).toBe(false);
+        });
+
+        act(() => {
+          result.current.clearOnboardingProgress();
+        });
+
+        expect(result.current.onboardingProgress).toBe(0);
+        expect((global as any).__asyncStorage['weejobs_onboarding_progress']).toBeUndefined();
+      });
+    });
+
+    describe('setHasSeenOnboarding', () => {
+      it('should set onboarding seen flag', async () => {
+        const { result } = renderAuthHook();
+
+        await waitFor(() => {
+          expect(result.current.isLoading).toBe(false);
+        });
+
+        act(() => {
+          result.current.setHasSeenOnboarding(true);
+        });
+
+        expect(result.current.hasSeenOnboarding).toBe(true);
+        expect((global as any).__asyncStorage['weejobs_has_seen_onboarding']).toBe('true');
+      });
     });
   });
 });
-
-// (HookInvoker/TextButton removed — using TestConsumer with TouchableOpacity/Text)

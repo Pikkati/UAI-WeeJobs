@@ -16,8 +16,8 @@ function Find-Emulator {
     if (Test-Path $p1) { $candidates += $p1 }
     if (Test-Path $p2) { $candidates += $p2 }
   }
-  $which = (Get-Command emulator.exe -ErrorAction SilentlyContinue)?.Source
-  if ($which) { $candidates += $which }
+  $which = Get-Command emulator.exe -ErrorAction SilentlyContinue
+  if ($which) { $candidates += $which.Source }
   return $candidates | Select-Object -First 1
 }
 
