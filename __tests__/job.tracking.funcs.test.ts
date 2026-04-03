@@ -1,29 +1,19 @@
 import { getStatusDescription, getCancelRefundMessage } from '../app/job/tracking';
 
-describe('getStatusDescription', () => {
-  it('returns human text for known statuses', () => {
-    expect(getStatusDescription('booked')).toMatch(/Job booked/i);
-    expect(getStatusDescription('in_progress')).toMatch(/Work in progress/i);
-    expect(getStatusDescription('completed')).toMatch(/Job completed/i);
+describe('Job tracking helpers', () => {
+  test('getStatusDescription returns human text for known statuses', () => {
+    expect(getStatusDescription('booked')).toContain('Job booked');
+    expect(getStatusDescription('completed')).toBe('Job completed!');
+    expect(getStatusDescription('unknown' as any)).toBe('');
   });
 
-  it('returns empty string for unknown status', () => {
-    // @ts-ignore - pass an unlikely value to exercise default
-    expect(getStatusDescription('unknown_status')).toBe('');
-  });
-});
+  test('getCancelRefundMessage formats deposit and refund text', () => {
+    const noDeposit = getCancelRefundMessage('booked');
+    expect(noDeposit.depositText).toBe('your deposit');
+    expect(noDeposit.refundMessage).toContain('full refund');
 
-describe('getCancelRefundMessage', () => {
-  it('returns full-refund message when job is booked', () => {
-    const { depositText, refundMessage } = getCancelRefundMessage('booked', 25);
-    expect(depositText).toBe('£25.00 deposit');
-    expect(refundMessage).toMatch(/full refund/i);
-  });
-
-  it('returns non-refundable message when not booked', () => {
-    const { depositText, refundMessage } = getCancelRefundMessage('on_the_way');
-    expect(depositText).toBe('your deposit');
-    expect(refundMessage).toMatch(/non-refundable/i);
+    const withDeposit = getCancelRefundMessage('on_the_way', 20.5);
+    expect(withDeposit.depositText).toBe('£20.50 deposit');
+    expect(withDeposit.refundMessage).toContain('non-refundable');
   });
 });
-

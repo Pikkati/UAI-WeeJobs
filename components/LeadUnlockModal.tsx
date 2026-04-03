@@ -76,6 +76,7 @@ export default function LeadUnlockModal({
     } catch (err) {
       // Prefer a non-fatal warning to reduce noisy error stacks in test logs.
       // Keep the message concise so CI logs remain readable.
+      // Safely extract message from unknown `err`.
       const errMsg = err && typeof err === 'object' && 'message' in err ? (err as any).message : String(err);
       // eslint-disable-next-line no-console
       console.warn('Report submission failed:', errMsg);

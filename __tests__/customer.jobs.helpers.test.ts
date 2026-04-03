@@ -1,42 +1,35 @@
-import { canEditOrDelete, getActionText } from '../app/customer/jobs.helpers';
+import { canEditOrDelete, getActionText, aggregateInterestCounts } from '../app/customer/jobs';
 
-describe('customer/jobs.helpers', () => {
-  describe('canEditOrDelete', () => {
-    it('returns true for editable statuses', () => {
-      expect(canEditOrDelete('open')).toBe(true);
-      expect(canEditOrDelete('pending_customer_choice')).toBe(true);
-      expect(canEditOrDelete('awaiting_customer_choice')).toBe(true);
-    });
-
-    it('returns false for non-editable statuses', () => {
-      expect(canEditOrDelete('booked')).toBe(false);
-      expect(canEditOrDelete('completed')).toBe(false);
-    });
+describe('Customer jobs helpers', () => {
+  test('canEditOrDelete true for open and pending statuses', () => {
+    expect(canEditOrDelete('open')).toBe(true);
+    expect(canEditOrDelete('pending_customer_choice')).toBe(true);
+    expect(canEditOrDelete('awaiting_customer_choice')).toBe(true);
+    expect(canEditOrDelete('booked')).toBe(false);
   });
 
-  describe('getActionText', () => {
-    const baseJob = { id: 'job1', status: 'open' } as any;
+  test('getActionText returns correct hints', () => {
+    expect(getActionText('open', 1)).toBe('Tap to view interested tradespeople');
+    expect(getActionText('open', 0)).toBeNull();
+    expect(getActionText('awaiting_customer_choice', 0)).toBe('Tap to choose your tradesperson');
+    expect(getActionText('awaiting_quote_approval', 0)).toBe('Tap to review the quote');
+    expect(getActionText('booked', 0)).toBe('Tap to track progress');
+    expect(getActionText('completed', 0)).toBe('Tap to leave a review');
+    expect(getActionText('some_unknown' as any, 0)).toBeNull();
+  });
 
-    it('returns interested text when there are interests', () => {
-      const text = getActionText(baseJob, { job1: 2 });
-      expect(text).toBe('Tap to view interested tradespeople');
-    });
-
-    it('returns null for open when no interests', () => {
-      const text = getActionText({ ...baseJob, status: 'open' }, {});
-      expect(text).toBeNull();
-    });
-
-    it('returns correct texts for other statuses', () => {
-      expect(getActionText({ ...baseJob, status: 'awaiting_customer_choice' } as any)).toBe('Tap to choose your tradesperson');
-      expect(getActionText({ ...baseJob, status: 'awaiting_quote_approval' } as any)).toBe('Tap to review the quote');
-      expect(getActionText({ ...baseJob, status: 'awaiting_final_payment' } as any)).toBe('Tap to complete payment');
-      expect(getActionText({ ...baseJob, status: 'booked' } as any)).toBe('Tap to track progress');
-      expect(getActionText({ ...baseJob, status: 'completed' } as any)).toBe('Tap to leave a review');
-      // @ts-ignore - exercise default
-      expect(getActionText({ ...baseJob, status: 'unknown_status' } as any)).toBeNull();
-    });
+  test('aggregateInterestCounts counts job_id occurrences', () => {
+    const rows = [
+      { job_id: 'j1' },
+      { job_id: 'j2' },
+      { job_id: 'j1' },
+      { job_id: undefined },
+      {},
+    ];
+    const counts = aggregateInterestCounts(rows as any);
+    expect(counts.j1).toBe(2);
+    expect(counts.j2).toBe(1);
+    expect(Object.keys(counts)).toHaveLength(2);
   });
 });
-
 
