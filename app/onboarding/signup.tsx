@@ -5,17 +5,22 @@ import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
+import PasswordStrength from '../../components/PasswordStrength';
 import { useAuth } from '../../context/AuthContext';
 
 export default function SignUpScreen() {
-  const { role } = useLocalSearchParams<{ role: string }>();
+  const params = useLocalSearchParams<{ role?: string; email?: string }>();
+  const role = params.role;
   const { signup } = useAuth();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(params.email || '');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [step, setStep] = useState<'initial' | 'details'>('initial');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const [showVerifyMsg, setShowVerifyMsg] = useState(false);
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendError, setResendError] = useState('');
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   const normalizedRole = role === 'tradie' ? 'tradesperson' : role;
@@ -57,12 +62,14 @@ export default function SignUpScreen() {
     setIsLoading(true);
     setError('');
 
-    const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
-      ? normalizedRole
-      : 'customer';
+      const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
+        ? (normalizedRole as 'customer' | 'tradesperson')
+        : 'customer';
     const result = await signup(email.trim(), password, name.trim(), selectedRole);
 
-    if (result.success && result.user) {
+    if (result.success && result.needsVerification) {
+      setShowVerifyMsg(true);
+    } else if (result.success && result.user) {
       if (result.user.role === 'customer') {
         router.replace('/customer');
       } else if (result.user.role === 'tradesperson') {
@@ -77,6 +84,22 @@ export default function SignUpScreen() {
     }
 
     setIsLoading(false);
+  };
+
+  const handleResendVerification = async () => {
+    setResendLoading(true);
+    setResendError('');
+    try {
+      // Supabase does not provide a direct resend endpoint, so trigger signUp again
+      const { error } = await signup(email.trim(), password, name.trim(), normalizedRole as any);
+      if (error) {
+        setResendError(error);
+      }
+    } catch {
+      setResendError('Unable to resend verification email.');
+    } finally {
+      setResendLoading(false);
+    }
   };
 
   const handleGooglePress = () => {
@@ -117,7 +140,28 @@ export default function SignUpScreen() {
           <Text style={styles.tagline}>{getTagline()}</Text>
         </View>
 
-        {step === 'initial' ? (
+        {showVerifyMsg ? (
+          <View style={styles.authSection}>
+            <Text style={styles.tagline}>Verify your email</Text>
+            <Text style={{ color: Colors.textSecondary, textAlign: 'center', marginVertical: 16 }}>
+              We've sent a verification link to <Text style={{ fontWeight: 'bold' }}>{email}</Text>.
+              Please check your inbox and follow the instructions to activate your account.
+            </Text>
+            <TouchableOpacity
+              style={[styles.signUpButton, resendLoading && styles.signUpButtonDisabled]}
+              onPress={handleResendVerification}
+              disabled={resendLoading}
+            >
+              <Text style={styles.signUpButtonText}>
+                {resendLoading ? 'Resending...' : 'Resend Verification Email'}
+              </Text>
+            </TouchableOpacity>
+            {resendError ? <Text style={styles.error}>{resendError}</Text> : null}
+            <TouchableOpacity style={{ marginTop: 24 }} onPress={() => router.replace('/onboarding/login')}>
+              <Text style={{ color: Colors.link, textAlign: 'center' }}>Already verified? Sign in</Text>
+            </TouchableOpacity>
+          </View>
+        ) : step === 'initial' ? (
           <View style={styles.authSection}>
             <TouchableOpacity style={styles.socialButton} onPress={handleGooglePress}>
               <View style={styles.socialIconContainer}>
@@ -197,6 +241,8 @@ export default function SignUpScreen() {
                 secureTextEntry
               />
             </View>
+
+            <PasswordStrength password={password} />
 
             <Text style={styles.passwordHint}>
               Password must be at least 8 characters

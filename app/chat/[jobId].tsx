@@ -17,6 +17,34 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import { supabase, Message, Job } from '../../lib/supabase';
 
+export const formatTime = (dateString: string) => {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+};
+
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  if (date.toDateString() === today.toDateString()) {
+    return 'Today';
+  } else if (date.toDateString() === yesterday.toDateString()) {
+    return 'Yesterday';
+  } else {
+    return date.toLocaleDateString();
+  }
+};
+
+// exported helper for unit tests that doesn't rely on component-scoped `messages`
+export const shouldShowDateFor = (msgs: { created_at: string }[], currentIndex: number) => {
+  if (currentIndex === 0) return true;
+  const currentDate = new Date(msgs[currentIndex].created_at).toDateString();
+  const prevDate = new Date(msgs[currentIndex - 1].created_at).toDateString();
+  return currentDate !== prevDate;
+};
+
 export default function ChatScreen() {
   const insets = useSafeAreaInsets();
   const { jobId, recipientName, jobCategory, initialMessage } = useLocalSearchParams<{
@@ -101,13 +129,24 @@ export default function ChatScreen() {
         read: false,
       });
 
-      if (error) throw error;
-      
+      if (error) {
+        // Enhanced error handling: log, send to Sentry if available
+        // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+        const sentry = require('../../lib/sentry');
+        sentry.captureException?.(error);
+        console.error('Error sending message:', error);
+        throw error;
+      }
+
       await fetchMessages();
       setTimeout(() => {
         flatListRef.current?.scrollToEnd({ animated: true });
       }, 100);
     } catch (error) {
+      // Enhanced error handling: log, send to Sentry if available
+      // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
+      const sentry = require('../../lib/sentry');
+      sentry.captureException?.(error);
       console.error('Error sending message:', error);
       setNewMessage(messageContent);
     } finally {
@@ -115,25 +154,6 @@ export default function ChatScreen() {
     }
   };
 
-  const formatTime = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    if (date.toDateString() === today.toDateString()) {
-      return 'Today';
-    } else if (date.toDateString() === yesterday.toDateString()) {
-      return 'Yesterday';
-    } else {
-      return date.toLocaleDateString();
-    }
-  };
 
   const shouldShowDate = (currentIndex: number) => {
     if (currentIndex === 0) return true;
@@ -141,6 +161,8 @@ export default function ChatScreen() {
     const prevDate = new Date(messages[currentIndex - 1].created_at).toDateString();
     return currentDate !== prevDate;
   };
+
+  // exported helper for unit tests that doesn't rely on component-scoped `messages`
 
   const renderMessage = ({ item, index }: { item: Message; index: number }) => {
     const isOwnMessage = item.sender_id === user?.id;

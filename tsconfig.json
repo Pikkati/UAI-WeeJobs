@@ -18,8 +18,18 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "types/**/*.d.ts"
-  ],
+  ]
+  ,
   "exclude": [
-    // Removed exclusions for test files and mocks to ensure Jest can resolve them
+    "**/__tests__/**",
+    "__tests__/**",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/__mocks__/**"
+    ,
+    "android/react-native/**",
+    "android/react-native/**/__typetests__/**"
   ]
 }

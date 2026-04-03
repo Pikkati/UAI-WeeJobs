@@ -1,0 +1,29 @@
+name: Lint and Format
+
+on:
+  push:
+    branches: [ main, master, "UAI-Development"]
+  pull_request:
+    branches: [ main, master, "UAI-Development"]
+
+jobs:
+  lint:
+    name: TypeScript + Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps --no-audit --no-fund
+
+      - name: Type check
+        run: npm run type
+
+      - name: Run linter
+        run: npm run lint

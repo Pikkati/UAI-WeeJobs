@@ -26,7 +26,7 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-export default function ChooseTradesmanScreen() {
+export default function ChooseTradesmanScreen({ _testInterests }: { _testInterests?: JobInterest[] } = {}) {
   const { jobId } = useLocalSearchParams<{ jobId: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -40,12 +40,19 @@ export default function ChooseTradesmanScreen() {
   
 
   useEffect(() => {
+    // Allow tests to inject interests synchronously to avoid async timing issues
+    if (_testInterests) {
+      setInterests(Array.isArray(_testInterests) ? _testInterests : []);
+      setIsLoading(false);
+      return;
+    }
+
     const loadInterests = async () => {
       setIsLoading(true);
       setLoadError(false);
       try {
         const data = await fetchInterests(jobId!);
-        setInterests(data);
+        setInterests(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching interests:', error);
         setLoadError(true);
@@ -55,7 +62,7 @@ export default function ChooseTradesmanScreen() {
     };
 
     loadInterests();
-  }, [jobId, fetchInterests]);
+  }, [jobId, fetchInterests, _testInterests]);
 
   const handleSelectTradesman = async (tradieId: string) => {
     setIsSelecting(tradieId);
@@ -179,7 +186,9 @@ export default function ChooseTradesmanScreen() {
               <TouchableOpacity
                 style={[styles.selectButton, isSelecting === tradie.id && styles.selectButtonDisabled]}
                 onPress={(e) => {
-                  e.stopPropagation?.();
+                  // FireEvent.press may call the handler with undefined event
+                  // so guard access to `stopPropagation` safely.
+                  e?.stopPropagation?.();
                   handleSelectTradesman(tradie.id);
                 }}
                 disabled={isSelecting !== null}

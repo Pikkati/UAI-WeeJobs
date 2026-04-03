@@ -1,3 +1,27 @@
+## Pull Request Checklist
+
+Please ensure changes meet the repository standards before requesting review.
+
+- [ ] **Description:** PR has a clear, descriptive title and summary of changes.
+- [ ] **Scope:** Changes are limited to a single concern and follow project style.
+- [ ] **Typecheck:** Ran `npm run typecheck` and fixed any issues.
+- [ ] **Tests:** Added/updated tests where appropriate and ran `npm test`.
+- [ ] **Lint:** Ran `npm run lint` locally. If you hit the known ESLint resolver issue, see CONTRIBUTING.md and docs/LINT_LIMITATIONS.md for workarounds.
+- [ ] **CI:** Confirm CI is green and link the CI run in the PR description.
+- [ ] **Docs:** Updated README or other docs if behavior or config changed.
+- [ ] **Secrets:** Documented any CI secret changes in `CI_SECRETS.md` if applicable.
+
+### What changed
+
+Provide a short description of the change and why it was necessary.
+
+### How to test
+
+Provide steps to reproduce or validate the changes locally (commands, env vars, test cases).
+
+### Reviewer notes
+
+Anything reviewers should pay special attention to (edge cases, performance, security).
 <!-- Describe the change in a single sentence -->
 ### Summary
 
