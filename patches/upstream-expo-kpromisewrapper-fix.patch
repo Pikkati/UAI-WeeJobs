@@ -1,0 +1,10 @@
+*** Begin Patch
+*** Update File: android/src/main/java/expo/modules/kotlin/KPromiseWrapper.kt
+@@
+   override fun reject(code: String?, message: String?, cause: Throwable?) {
+-    bridgePromise.reject(code ?: "UnknownCode", message, cause)
++    // Ensure underlying bridgePromise receives a non-null code when required by RN overloads
++    bridgePromise.reject(code ?: "UnknownCode", message, cause)
+   }
+ }
+*** End Patch

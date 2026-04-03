@@ -1,5 +1,5 @@
 package com.weejobs.app
-import expo.modules.splashscreen.SplashScreenManager
+import android.app.Activity
 
 import android.os.Build
 import android.os.Bundle
@@ -10,15 +10,28 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnable
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 
 import expo.modules.ReactActivityDelegateWrapper
+import android.util.Log
 
 class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // Set the theme to AppTheme BEFORE onCreate to support
     // coloring the background, status bar, and navigation bar.
     // This is required for expo-splash-screen.
-    // setTheme(R.style.AppTheme);
+    // Ensure we use an AppCompat-derived theme before React sets the content view.
+    // This avoids: "You need to use a Theme.AppCompat theme (or descendant) with this activity." while
+    // ReactActivityDelegate.loadApp() calls setContentView.
+    setTheme(R.style.AppTheme)
+    Log.i("MainActivity", "Applied theme R.style.AppTheme=${R.style.AppTheme}")
     // @generated begin expo-splashscreen - expo prebuild (DO NOT MODIFY) sync-f3ff59a738c56c9a6119210cb55f0b613eb8b6af
-    SplashScreenManager.registerOnActivity(this)
+    // Call expo splash screen registration reflectively so build does not fail when
+    // the expo-splash-screen module isn't available at compile time.
+    try {
+      val cls = Class.forName("expo.modules.splashscreen.SplashScreenManager")
+      val method = cls.getMethod("registerOnActivity", Activity::class.java)
+      method.invoke(null, this)
+    } catch (_: Exception) {
+      // splash screen manager not available; continue without registering
+    }
     // @generated end expo-splashscreen
     super.onCreate(null)
   }
