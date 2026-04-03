@@ -47,19 +47,9 @@ if (!global.NativeModules.RNVectorIconsModule) {
   };
 }
 
-// Mock for react-native StyleSheet
-jest.mock('react-native', () => {
-  const actualReactNative = jest.requireActual('react-native');
-  return {
-    ...actualReactNative,
-    StyleSheet: {
-      create: jest.fn((styles) => styles),
-    },
-    Dimensions: {
-      get: jest.fn(() => ({ width: 360, height: 640 })),
-    },
-  };
-});
+// NOTE: react-native core is mocked via a manual module in __mocks__/react-native.js
+// to provide View/Text primitives and StyleSheet.flatten. Avoid requiring the real
+// 'react-native' here to prevent loading ESM sources from node_modules in the test runner.
 
 // Mock for expo-router
 jest.mock('expo-router', () => ({
@@ -86,19 +76,35 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   clear: jest.fn(),
 }));
 
-// Standardize the `lib/supabase` mock path
-jest.mock('./lib/supabase', () => ({
-  supabase: {
-    auth: {
-      signIn: jest.fn(() => Promise.resolve({ user: { id: '123', name: 'Test User' } })),
-      signOut: jest.fn(() => Promise.resolve()),
+// Standardize the `lib/supabase` mock path with a small chainable query mock
+const __supabaseModulePath = require.resolve('./lib/supabase');
+jest.mock(__supabaseModulePath, () => {
+  // Chainable query builder stub that resolves to predictable data
+  function Query(result) {
+    this._result = result;
+  }
+  Query.prototype.select = function () { return this; };
+  Query.prototype.order = function () { return Promise.resolve({ data: this._result, error: null }); };
+  Query.prototype.eq = function () { return this; };
+  Query.prototype.in = function () { return Promise.resolve({ data: this._result, error: null }); };
+  Query.prototype.update = function () { return Promise.resolve({ data: this._result, error: null }); };
+  Query.prototype.insert = function () { return Promise.resolve({ data: this._result, error: null }); };
+  Query.prototype.single = function () { return Promise.resolve({ data: (Array.isArray(this._result) ? this._result[0] : this._result), error: null }); };
+
+  const mockData = [{ id: '1', name: 'Job 1' }];
+
+  return {
+    supabase: {
+      auth: {
+        signIn: jest.fn(() => Promise.resolve({ user: { id: '123', name: 'Test User' } })),
+        signOut: jest.fn(() => Promise.resolve()),
+      },
+      from: jest.fn(() => new Query(mockData)),
     },
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({ eq: jest.fn(() => ({ single: jest.fn(() => Promise.resolve({ data: { id: '1', name: 'Job 1' } })) })) })),
-      insert: jest.fn(() => ({ single: jest.fn(() => Promise.resolve({ data: { id: '2', name: 'Job 2' } })) })),
-    })),
-  },
-}));
+  };
+});
+
+// Note: avoid noisy diagnostic logs in CI; remove temporary diagnostics once tests are stable.
 
 // Adjust mock for `context/AuthContext`
 jest.mock('context/AuthContext', () => ({
@@ -109,16 +115,8 @@ jest.mock('context/AuthContext', () => ({
   })),
 }));
 
-// Mock for `AuthContext`
-jest.mock('context/AuthContext', () => ({
-  useAuth: () => ({
-    login: jest.fn(() => Promise.resolve({
-      success: true,
-      user: { email: 'john@weejobs.test', id: '123' },
-    })),
-    logout: jest.fn(() => Promise.resolve()),
-  }),
-}));
+// (No-op) AuthContext overrides should be done in specific tests; the named mock above
+// provides AuthProvider and useAuth for most tests. Avoid redefining it here.
 
 // Mock environment variables for `supabase`
 process.env.EXPO_PUBLIC_SUPABASE_URL = 'https://mock.supabase.url';

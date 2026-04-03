@@ -3,7 +3,7 @@ FROM node:20-bullseye
 WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund
+RUN npm install --no-audit --no-fund --ignore-scripts
 
 COPY . .
 

@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+  metro:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: weejobs-metro
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "8081:8081"
+      - "19000:19000"
+      - "19002:19002"
+    environment:
+      - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
+      - REACT_NATIVE_PACKAGER_HOSTNAME=0.0.0.0
+      - EXPO_DEVTOOLS_LISTEN_PORT=19000
+    command: sh -c "npm install && npm run start -- --host 0.0.0.0 --port 8081"
+
+  webhook:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: weejobs-webhook
+    working_dir: /usr/src/app
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "4242:4242"
+    environment:
+      - PORT=4242
+    command: sh -c "npm install && npm run start:webhook"

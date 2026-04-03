@@ -33,12 +33,18 @@ jest.mock('../context/AuthContext', () => {
 function TestConsumer({ onDone }: { onDone: (res: any) => void }) {
   const { user, login } = useAuth();
 
+  // Trigger login and notify when user becomes available
   React.useEffect(() => {
     (async () => {
-      login(); // Call login without arguments to align with AuthProvider implementation
-      onDone({ success: true, user });
+      await login(); // wait for login to complete if it returns a promise
     })();
   }, []);
+
+  React.useEffect(() => {
+    if (user) {
+      onDone({ success: true, user });
+    }
+  }, [user]);
 
   return null;
 }

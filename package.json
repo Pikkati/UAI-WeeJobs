@@ -19,7 +19,8 @@
     "lint": "expo lint",
     "ci:local": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-act.ps1 && .\\.bin\\act.exe -j \"check-base\" -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 --env-file .env --secret EAS_TOKEN=placeholder",
     "ci:local:all": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-act.ps1 && .\\.bin\\act.exe -P ubuntu-latest=nektos/act-environments-ubuntu:18.04 --env-file .env --secret EAS_TOKEN=placeholder",
-    "ci": "npm run ci:local"
+    "ci": "npm run ci:local",
+    "postinstall": "echo 'postinstall script disabled temporarily'"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^3.0.1",
@@ -49,8 +50,10 @@
     "lint-staged": "^14.0.0",
     "react-test-renderer": "19.2.4",
     "typescript": "~5.9.2",
+    "patch-package": "^6.5.1",
     "semantic-release": "^24.2.9"
   },
+
   "lint-staged": {
     "**/*.{js,ts,tsx,jsx}": [
       "npm run type",
