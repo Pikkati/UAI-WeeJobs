@@ -1,5 +1,0 @@
-0000000000000000000000000000000000000000 ff0b71eb479e686c467a9a32500c1ffc60911d76 uai-bot <uai-bot@example.com> 1774463434 -0700	branch: Created from HEAD
-ff0b71eb479e686c467a9a32500c1ffc60911d76 7343652af179f57329bd8b77506c2ebd2ba0b96c uai-bot <uai-bot@example.com> 1774463437 -0700	commit: chore(security): add jest-expo remediation plan (2026-03-25)
-7343652af179f57329bd8b77506c2ebd2ba0b96c 1297ee2681f45ecdd24209c3bde90ca1203ee13d uai-bot <uai-bot@example.com> 1774463700 -0700	commit: chore(security): try jest-expo@47.0.1 remediation; validate tests
-1297ee2681f45ecdd24209c3bde90ca1203ee13d dffb6ee7dc6c25cc99dabb84a05be45d2122cc98 uai-bot <uai-bot@example.com> 1774479578 -0700	commit (merge): chore(merge): resolve package conflicts when merging UAI-Development
-dffb6ee7dc6c25cc99dabb84a05be45d2122cc98 347be6902a4caf43b1d169eb02d8688843f763fb uai-bot <uai-bot@example.com> 1774479669 -0700	merge origin/UAI-Development: Merge made by the 'ort' strategy.

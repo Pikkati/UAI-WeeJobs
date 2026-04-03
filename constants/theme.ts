@@ -1,4 +1,19 @@
-export const Colors = {
+export const lightColors = {
+  primary: '#000000',
+  accent: '#2563EB',
+  white: '#ffffff',
+  background: '#FFFFFF',
+  card: '#F6F6F8',
+  border: '#E5E7EB',
+  text: '#0F172A',
+  textSecondary: '#6B7280',
+  success: '#16A34A',
+  warning: '#D97706',
+  error: '#DC2626',
+  info: '#2563EB',
+};
+
+export const darkColors = {
   primary: '#000000',
   accent: '#2563EB',
   white: '#ffffff',
@@ -12,6 +27,18 @@ export const Colors = {
   error: '#ef4444',
   info: '#3b82f6',
 };
+
+// Mutable Colors object used throughout the app. Call `setThemeMode` to switch.
+export const Colors: any = { ...darkColors };
+
+export function setThemeMode(mode: 'light' | 'dark') {
+  const source = mode === 'light' ? lightColors : darkColors;
+  Object.keys(source).forEach((k) => {
+    // @ts-ignore
+    Colors[k] = // @ts-ignore
+      source[k];
+  });
+}
 
 export const Typography = {
   heading: {

@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-env node */
 // Automate sending 'f' and 'q' to a Jest watch session.
 // Usage: node scripts/auto-jest-watch.js
 
@@ -11,7 +12,7 @@ try {
   // Prefer running the local jest binary directly via node if available.
   const jestBin = require.resolve('jest/bin/jest');
   jest = spawn(process.execPath, [jestBin, '--watchAll'], { stdio: ['pipe', 'pipe', 'pipe'], windowsHide: true });
-} catch (e) {
+} catch {
   // Fallback: try npx/npm if resolving jest failed.
   let cmd, args;
   if (!isWin) {
@@ -74,6 +75,6 @@ jest.on('exit', (code, signal) => {
 });
 
 process.on('SIGINT', () => {
-  try { jest.kill('SIGINT'); } catch (e) {}
+  try { jest.kill('SIGINT'); } catch {}
   process.exit(0);
 });

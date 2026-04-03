@@ -1,117 +1,53 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
-import { View, Text } from 'react-native';
-import JobTrackingScreen from '../app/job/tracking'; // Try named import if default fails
-import { JobsProvider } from '../context/JobsContext';
 
 // Mock router + params
 jest.mock('expo-router', () => ({
-  useLocalSearchParams: jest.fn(() => ({ jobId: 'j1' })),
+  useLocalSearchParams: () => ({ jobId: 'j1' }),
   useRouter: () => ({ back: jest.fn(), push: jest.fn() }),
 }), { virtual: true });
 
 jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
 
-
-
-
+// Mock AuthContext
 jest.mock('../context/AuthContext', () => ({
   useAuth: () => ({
-    user: {
-      id: '123',
-      name: 'Test User',
-      email: 'testuser@example.com',
-      phone: '123-456-7890',
-      area: 'Test Area',
-      role: 'tradesperson',
-      pricing_default: 'fixed',
-      hourly_rate: 50,
-      bio: 'Experienced tradie',
-      areas_covered: ['Area 1', 'Area 2'],
-      portfolio_photos: [],
-      trade_categories: ['Plumbing', 'Electrical'],
-    },
+    user: { id: 'u1', role: 'customer' },
     logout: jest.fn(),
     refreshUser: jest.fn(),
   }),
-}));
-
-// Mock for `constants/theme`
-jest.mock('constants/theme', () => ({
-  Colors: {
-    primary: '#000',
-    accent: '#2563EB',
-  },
-  Spacing: {
-    sm: 8,
-    md: 16,
-    lg: 24,
-  },
-  BorderRadius: {
-    sm: 4,
-    md: 8,
-    lg: 16,
-  },
 }), { virtual: true });
 
-// Extend the mock for @expo/vector-icons
-jest.mock('@expo/vector-icons', () => ({
-  Ionicons: (props: any) => {
-    const React = require('react');
-    return React.createElement('Icon', props);
-  },
-  // keep loadFont helper
-  loadFont: jest.fn(),
+// Mock JobsContext with a job in 'on_the_way' status
+jest.mock('../context/JobsContext', () => ({
+  useJobs: () => ({
+    jobs: [
+      {
+        id: 'j1',
+        status: 'on_the_way',
+        category: 'plumbing',
+        area: 'Test Area',
+        pricing_type: 'fixed',
+        deposit_paid: true,
+        deposit_amount: 20,
+        quote_total: 150,
+        tradie_confirmed: false,
+        customer_confirmed: false,
+        deposit_refunded: false,
+      },
+    ],
+    getNextActionsByRole: () => [{ action: 'message', label: 'Message', variant: 'primary' }],
+    markOnTheWay: jest.fn(),
+    markArrived: jest.fn(),
+    confirmCompletion: jest.fn().mockResolvedValue(true),
+    cancelJob: jest.fn().mockResolvedValue(true),
+  }),
 }), { virtual: true });
-
-// Mock for `supabase` configuration
-jest.mock('lib/supabase', () => ({
-  supabase: {
-    auth: {
-      signIn: jest.fn(() => Promise.resolve({ user: { id: '123', name: 'Test User' } })),
-      signOut: jest.fn(() => Promise.resolve()),
-    },
-    from: jest.fn(() => ({
-      select: jest.fn(() => ({
-        order: jest.fn(() => Promise.resolve({ data: [{ id: 'j1', name: 'Job 1', status: 'on_the_way', category: 'Plumbing', area: 'Test Area', pricing_type: 'fixed' }], error: null })),
-        eq: jest.fn(() => ({ single: jest.fn(() => Promise.resolve({ data: { id: 'j1', name: 'Job 1', status: 'on_the_way', category: 'Plumbing', area: 'Test Area', pricing_type: 'fixed' } })) })),
-      })),
-      insert: jest.fn(() => ({ single: jest.fn(() => Promise.resolve({ data: { id: '2', name: 'Job 2' } })) })),
-    })),
-  },
-}));
-
-afterEach(() => {
-  jest.clearAllMocks();
-});
 
 describe('JobTrackingScreen render', () => {
   test('renders header, map preview and ETA for on_the_way', async () => {
-    let findByText;
-    try {
-      // eslint-disable-next-line no-console
-      console.log('JobTrackingScreen type:', typeof JobTrackingScreen);
-      const renderResult = render(
-        <JobsProvider>
-          <JobTrackingScreen />
-        </JobsProvider>
-      );
-      findByText = renderResult.findByText;
-    } catch (e) {
-      // If rendering the real screen fails in this environment, fall back to a lightweight stub
-      // eslint-disable-next-line no-console
-      console.warn('Real JobTrackingScreen render failed, using stub:', e.message);
-      const stub = render(
-        <JobsProvider>
-          <View>
-            <Text>Job Tracking</Text>
-            <Text>Map Preview</Text>
-            <Text>Estimated arrival</Text>
-          </View>
-        </JobsProvider>
-      );
-      findByText = stub.findByText;
-    }
+    const JobTrackingScreen = require('../app/job/tracking').default;
+    const { findByText } = render(<JobTrackingScreen />);
 
     // Header
     const header = await findByText('Job Tracking');

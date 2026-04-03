@@ -1,7 +1,9 @@
-// Extended mock for @expo/vector-icons
+const React = require('react');
+
+const createIcon = (name) => (props) => React.createElement('Text', props);
+
 module.exports = {
-  Ionicons: {
-    loadFont: jest.fn(),
-  },
-  RNVectorIconsManager: {},
+  Ionicons: createIcon('Ionicons'),
+  MaterialIcons: createIcon('MaterialIcons'),
+  FontAwesome: createIcon('FontAwesome'),
 };

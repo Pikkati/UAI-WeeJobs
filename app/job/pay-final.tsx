@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,12 +20,7 @@ export default function PayFinalBalanceScreen() {
 
   const depositPaid = job?.deposit_amount || 0;
   
-  const total = useMemo(() => {
-    if (isInvoice) {
-      return job?.invoice_total || 0;
-    }
-    return job?.quote_total || 0;
-  }, [isInvoice, job]);
+  const total = isInvoice ? (job?.invoice_total || 0) : (job?.quote_total || 0);
 
   const remainingBalance = Math.max(0, total - depositPaid);
 

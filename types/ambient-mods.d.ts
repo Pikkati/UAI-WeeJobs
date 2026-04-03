@@ -39,9 +39,9 @@ declare module '@expo/vector-icons' {
 }
 
 declare module 'react-native-reanimated' {
-  export function useAnimatedRef<T = any>(): any;
+  export function useAnimatedRef(): any;
   export function useAnimatedStyle(...args: any[]): any;
-  export function useSharedValue<T = any>(initial?: T): any;
+  export function useSharedValue(initial?: any): any;
   export function withRepeat(...args: any[]): any;
   export function withSequence(...args: any[]): any;
   export function withTiming(...args: any[]): any;
