@@ -1,0 +1,49 @@
+// Print as early as possible: when settings are evaluated
+gradle.settingsEvaluated { settings ->
+    try {
+        def sdkDir = null
+        def ndkDir = null
+        def localProps = new File(settings.rootDir, 'local.properties')
+        if (localProps.exists()) {
+            localProps.eachLine { line ->
+                if (line.startsWith('sdk.dir=')) sdkDir = line.substring('sdk.dir='.length())
+                if (line.startsWith('ndk.dir=')) ndkDir = line.substring('ndk.dir='.length())
+            }
+        }
+        println "EARLY_DEBUG_SDK_DIR_FROM_LOCAL_PROPERTIES: '${sdkDir}'"
+        println "EARLY_DEBUG_NDK_DIR_FROM_LOCAL_PROPERTIES: '${ndkDir}'"
+        println "EARLY_DEBUG_ENV_ANDROID_SDK_ROOT: '${System.getenv('ANDROID_SDK_ROOT')}'"
+        println "EARLY_DEBUG_ENV_ANDROID_SDK: '${System.getenv('ANDROID_SDK')}'"
+        println "EARLY_DEBUG_ENV_ANDROID_HOME: '${System.getenv('ANDROID_HOME')}'"
+        println "EARLY_DEBUG_JAVA_HOME: '${System.getenv('JAVA_HOME')}'"
+    } catch (e) {
+        println "EARLY_DEBUG_PRINT_ERROR: ${e}"
+        e.printStackTrace()
+    }
+}
+
+// Also attempt to print when projects are evaluated (fallback)
+allprojects {
+    gradle.projectsEvaluated {
+        try {
+            def sdkDir = null
+            def ndkDir = null
+            def localProps = new File(rootProject.projectDir, 'local.properties')
+            if (localProps.exists()) {
+                localProps.eachLine { line ->
+                    if (line.startsWith('sdk.dir=')) sdkDir = line.substring('sdk.dir='.length())
+                    if (line.startsWith('ndk.dir=')) ndkDir = line.substring('ndk.dir='.length())
+                }
+            }
+            println "DEBUG_SDK_DIR_FROM_LOCAL_PROPERTIES: '${sdkDir}'"
+            println "DEBUG_NDK_DIR_FROM_LOCAL_PROPERTIES: '${ndkDir}'"
+            println "DEBUG_ENV_ANDROID_SDK_ROOT: '${System.getenv('ANDROID_SDK_ROOT')}'"
+            println "DEBUG_ENV_ANDROID_SDK: '${System.getenv('ANDROID_SDK')}'"
+            println "DEBUG_ENV_ANDROID_HOME: '${System.getenv('ANDROID_HOME')}'"
+            println "DEBUG_JAVA_HOME: '${System.getenv('JAVA_HOME')}'"
+        } catch (e) {
+            println "DEBUG_PRINT_ERROR: ${e}"
+            e.printStackTrace()
+        }
+    }
+}

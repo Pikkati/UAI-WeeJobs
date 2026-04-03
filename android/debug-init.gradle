@@ -1,0 +1,24 @@
+allprojects {
+    gradle.taskGraph.whenReady { graph ->
+        println "--- INIT SCRIPT: ENV VARS ---"
+        println "ANDROID_HOME=${System.getenv('ANDROID_HOME')}"
+        println "ANDROID_SDK_ROOT=${System.getenv('ANDROID_SDK_ROOT')}"
+        println "ANDROID_SDK=${System.getenv('ANDROID_SDK')}"
+        println "JAVA_HOME=${System.getenv('JAVA_HOME')}"
+        println "user.dir=${new File('.').absolutePath}"
+        try {
+            def lp = new File('local.properties')
+            println "--- local.properties content ---"
+            println lp.text
+        } catch (e) {
+            println "local.properties read error: ${e}"
+        }
+        try {
+            // Try to reflectively access SdkLocator if available
+            def sdkLocatorClass = Class.forName('com.android.build.gradle.internal.SdkLocator')
+            println "SdkLocator class found: ${sdkLocatorClass}"
+        } catch (e) {
+            println "SdkLocator class not available in init script classpath: ${e.message}"
+        }
+    }
+}
