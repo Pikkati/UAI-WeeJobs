@@ -1,0 +1,19 @@
+
+> my-app@1.0.0 test
+> node -r ./__jest_global_window.js ./node_modules/.bin/jest --config=jest.config.cjs --watchAll
+
+D:\MyProjectsUAI\weejobs\node_modules\.bin\jest:2
+basedir=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+          ^^^^^^^
+
+SyntaxError: missing ) after argument list
+    at wrapSafe (node:internal/modules/cjs/loader:1281:20)
+    at Module._compile (node:internal/modules/cjs/loader:1321:27)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1416:10)
+    at Module.load (node:internal/modules/cjs/loader:1208:32)
+    at Module._load (node:internal/modules/cjs/loader:1024:12)
+    at Module._load (D:\MyProjectsUAI\weejobs\__jest_global_window.js:50:21)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:174:12)
+    at node:internal/main/run_main_module:28:49
+
+Node.js v20.14.0
