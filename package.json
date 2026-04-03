@@ -7,19 +7,9 @@
     "optimize:assets": "node scripts/optimize-assets.js",
     "smoke": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js '.*smoke.*' --runInBand -i",
     "test:ci": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js --coverage --runInBand -i",
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test": "node -r ./__jest_global_window.js ./node_modules/.bin/jest --config=jest.config.cjs --watchAll",
-    "test:smoke": "node -r ./__jest_global_window.js ./node_modules/.bin/jest __tests__/smoke.harness.test.tsx --config=jest.config.cjs -i",
-    "test:autowatch": "node scripts/auto-jest-watch.js",
-    "test:q": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js -i",
-    "test:ci:retry": "node scripts/run-tests-with-retries.js",
-    "update:badges": "node scripts/update-readme-badges.js",
     "type": "tsc --noEmit",
-    "lint": "eslint . --cache"
+    "lint": "eslint . --cache",
+    "test:q": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js -i"
   },
   "assetsScripts": {
     "pngSprite": "node scripts/png-sprite.js",
@@ -28,7 +18,6 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^3.0.2",
     "@supabase/supabase-js": "^2.100.1",
-    "eslint-plugin-react": "7.33.2",
     "expo": "^55.0.9",
     "expo-image-picker": "^55.0.15-canary-20260327-0789fbc",
     "expo-router": "^55.0.9-canary-20260327-0789fbc",
@@ -62,7 +51,7 @@
     "husky": "^9.1.7",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "30.3.0",
-    "jest-expo": "^55.0.11",
+    "jest-expo": "55.0.12-canary-20260328-2049187",
     "lint-staged": "^16.4.0",
     "react-test-renderer": "19.2.4",
     "semantic-release": "^25.0.3",
