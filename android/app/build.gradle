@@ -100,14 +100,14 @@ android {
         ndkVersion = rootProject.ndkVersion
     }
 
-    buildToolsVersion "34.0.0"
-    compileSdkVersion 34
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     namespace = 'com.weejobs.app'
     defaultConfig {
         applicationId 'com.weejobs.app'
-        minSdkVersion 23
-        targetSdkVersion 34
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
 

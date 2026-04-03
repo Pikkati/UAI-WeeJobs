@@ -1,9 +1,44 @@
-apply plugin: 'com.facebook.react'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    dependencies {
-        classpath files('react-native-gradle-plugin/PluginSource.java')
-    }
+  repositories {
+    google()
+    mavenCentral()
+  }
+  dependencies {
+    classpath('com.android.tools.build:gradle')
+    classpath('com.facebook.react:react-native-gradle-plugin')
+    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
+    classpath files('react-native-gradle-plugin/PluginSource.java')
+  }
 }
 
-// Directly embed the plugin logic here if possible.
+allprojects {
+  repositories {
+    google()
+    mavenCentral()
+    maven { url = 'https://www.jitpack.io' }
+  }
+}
+
+apply plugin: "expo-root-project"
+apply plugin: 'com.facebook.react'
+
+// Allow skipping the React root project plugin for debugging by setting SKIP_RN_PLUGIN=1
+if (System.getenv('SKIP_RN_PLUGIN') != '1') {
+  apply plugin: "com.facebook.react.rootproject"
+} else {
+  println "Skipping com.facebook.react.rootproject plugin (SKIP_RN_PLUGIN=1)"
+}
+
+// Debugging helper: print local.properties and relevant env vars
+task printLocalProperties {
+  doLast {
+    try {
+      println "--- local.properties ---"
+      println file('local.properties').text
+    } catch (e) {
+      println "local.properties not found or unreadable: ${e}"
+    }
+  }
+}
