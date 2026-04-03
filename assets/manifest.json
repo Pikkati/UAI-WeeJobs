@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "id": "logo-primary",
+      "type": "logo",
+      "path": "assets/logos/logo-primary.svg",
+      "variants": ["assets/logos/logo-primary.png", "assets/logos/logo-primary@2x.png"],
+      "alt": "WeeJobs logo",
+      "usage": "app-header, marketing"
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+TypeScript + Lint	Set up job	﻿2026-03-29T06:35:24.6131106Z Current runner version: '2.333.0'
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6157822Z ##[group]Runner Image Provisioner
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6158691Z Hosted Compute Agent
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6159263Z Version: 20260213.493
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6160137Z Commit: 5c115507f6dd24b8de37d8bbe0bb4509d0cc0fa3
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6160852Z Build Date: 2026-02-13T00:28:41Z
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6161490Z Worker ID: {0243750e-e813-4956-a8d9-77cce96425b3}
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6162221Z Azure Region: westus
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6162725Z ##[endgroup]
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6164199Z ##[group]Operating System
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6164826Z Ubuntu
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6165313Z 24.04.4
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6165732Z LTS
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6166278Z ##[endgroup]
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6166789Z ##[group]Runner Image
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6167338Z Image: ubuntu-24.04
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6167878Z Version: 20260323.65.1
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6168857Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260323.65/images/ubuntu/Ubuntu2404-Readme.md
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6170785Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260323.65
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6171734Z ##[endgroup]
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6172785Z ##[group]GITHUB_TOKEN Permissions
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6174722Z Contents: read
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6175252Z Metadata: read
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6175741Z Packages: read
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6176297Z ##[endgroup]
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6178516Z Secret source: Actions
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6179322Z Prepare workflow directory
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6527755Z Prepare all required actions
+TypeScript + Lint	Set up job	2026-03-29T06:35:24.6568449Z Getting action download info
+TypeScript + Lint	Set up job	2026-03-29T06:35:25.1205719Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+TypeScript + Lint	Set up job	2026-03-29T06:35:25.2345039Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+TypeScript + Lint	Set up job	2026-03-29T06:35:25.5485131Z Complete job name: TypeScript + Lint
+TypeScript + Lint	Checkout	﻿2026-03-29T06:35:25.6240736Z ##[group]Run actions/checkout@v4
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6241658Z with:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6242129Z   repository: Pikkati/UAI-WeeJobs
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6242843Z   token: ***
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6243255Z   ssh-strict: true
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6243655Z   ssh-user: git
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6244092Z   persist-credentials: true
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6244535Z   clean: true
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6244940Z   sparse-checkout-cone-mode: true
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6245416Z   fetch-depth: 1
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6245809Z   fetch-tags: false
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6246215Z   show-progress: true
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6246619Z   lfs: false
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6246987Z   submodules: false
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6247386Z   set-safe-directory: true
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.6248038Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7402657Z Syncing repository: Pikkati/UAI-WeeJobs
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7404541Z ##[group]Getting Git version info
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7405344Z Working directory is '/home/runner/work/UAI-WeeJobs/UAI-WeeJobs'
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7406337Z [command]/usr/bin/git version
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7458506Z git version 2.53.0
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7486229Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7502721Z Temporarily overriding HOME='/home/runner/work/_temp/1585330d-6fe0-4bff-b5e6-0796514184b8' before making global git config changes
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7504187Z Adding repository directory to the temporary git global config as a safe directory
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7508554Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/UAI-WeeJobs/UAI-WeeJobs
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7544384Z Deleting the contents of '/home/runner/work/UAI-WeeJobs/UAI-WeeJobs'
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7548454Z ##[group]Initializing the repository
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7553135Z [command]/usr/bin/git init /home/runner/work/UAI-WeeJobs/UAI-WeeJobs
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7642971Z hint: Using 'master' as the name for the initial branch. This default branch name
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7644828Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7645973Z hint: to use in all of your new repositories, which will suppress this warning,
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7647110Z hint: call:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7647518Z hint:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7648069Z hint: 	git config --global init.defaultBranch <name>
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7648747Z hint:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7649614Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7651039Z hint: 'development'. The just-created branch can be renamed via this command:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7651769Z hint:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7652159Z hint: 	git branch -m <name>
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7652586Z hint:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7653162Z hint: Disable this message with "git config set advice.defaultBranchName false"
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7654368Z Initialized empty Git repository in /home/runner/work/UAI-WeeJobs/UAI-WeeJobs/.git/
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7656561Z [command]/usr/bin/git remote add origin https://github.com/Pikkati/UAI-WeeJobs
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7688465Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7689250Z ##[group]Disabling automatic garbage collection
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7692854Z [command]/usr/bin/git config --local gc.auto 0
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7723917Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7724656Z ##[group]Setting up auth
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7731133Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.7766665Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8082702Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8113541Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8340256Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8387107Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8633615Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8672337Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8673683Z ##[group]Fetching the repository
+TypeScript + Lint	Checkout	2026-03-29T06:35:25.8682599Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ed0311a1481999e076fc9d1eb89176424a2d2f47:refs/remotes/pull/10/merge
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2150227Z From https://github.com/Pikkati/UAI-WeeJobs
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2152653Z  * [new ref]         ed0311a1481999e076fc9d1eb89176424a2d2f47 -> pull/10/merge
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2185087Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2186934Z ##[group]Determining the checkout info
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2188795Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2194655Z [command]/usr/bin/git sparse-checkout disable
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2244945Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2280600Z ##[group]Checking out the ref
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.2285948Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/10/merge
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4461451Z Note: switching to 'refs/remotes/pull/10/merge'.
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4462488Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4463108Z You are in 'detached HEAD' state. You can look around, make experimental
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4464480Z changes and commit them, and you can discard any commits you make in this
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4465844Z state without impacting any branches by switching back to a branch.
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4466663Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4467251Z If you want to create a new branch to retain commits you create, you may
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4468485Z do so (now or later) by using -c with the switch command. Example:
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4469315Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4469673Z   git switch -c <new-branch-name>
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4470433Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4470864Z Or undo this operation with:
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4471761Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4472026Z   git switch -
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4472447Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4473306Z Turn off this advice by setting config variable advice.detachedHead to false
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4474715Z 
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4476362Z HEAD is now at ed0311a Merge 3bf11e3230f192029acd60cd5ccc38f071609e97 into 60ebf0c44447687e4f182bf876f1048f588540cb
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4482291Z ##[endgroup]
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4522937Z [command]/usr/bin/git log -1 --format=%H
+TypeScript + Lint	Checkout	2026-03-29T06:35:27.4547406Z ed0311a1481999e076fc9d1eb89176424a2d2f47
+TypeScript + Lint	Setup Node.js	﻿2026-03-29T06:35:27.4893060Z ##[group]Run actions/setup-node@v4
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.4894172Z with:
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.4894956Z   node-version: 20
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.4895830Z   always-auth: false
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.4896721Z   check-latest: false
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.4897914Z   token: ***
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.4898713Z ##[endgroup]
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.6738748Z Found in cache @ /opt/hostedtoolcache/node/20.20.1/x64
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:27.6745798Z ##[group]Environment details
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:30.7715593Z node: v20.20.1
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:30.7716361Z npm: 10.8.2
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:30.7716636Z yarn: 1.22.22
+TypeScript + Lint	Setup Node.js	2026-03-29T06:35:30.7717875Z ##[endgroup]
+TypeScript + Lint	Install dependencies	﻿2026-03-29T06:35:30.7840223Z ##[group]Run npm ci --legacy-peer-deps --no-audit --no-fund
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:30.7840777Z [36;1mnpm ci --legacy-peer-deps --no-audit --no-fund[0m
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:30.7883684Z shell: /usr/bin/bash -e {0}
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:30.7883966Z ##[endgroup]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0522100Z npm warn EBADENGINE Unsupported engine {
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0523388Z npm warn EBADENGINE   package: '@semantic-release/github@12.0.6',
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0524356Z npm warn EBADENGINE   required: { node: '^22.14.0 || >= 24.10.0' },
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0525225Z npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0525857Z npm warn EBADENGINE }
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0526381Z npm warn EBADENGINE Unsupported engine {
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0527177Z npm warn EBADENGINE   package: '@semantic-release/npm@13.1.5',
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0528162Z npm warn EBADENGINE   required: { node: '^22.14.0 || >= 24.10.0' },
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0529100Z npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0530051Z npm warn EBADENGINE }
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0603535Z npm warn EBADENGINE Unsupported engine {
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0604203Z npm warn EBADENGINE   package: 'semantic-release@25.0.3',
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0604697Z npm warn EBADENGINE   required: { node: '^22.14.0 || >= 24.10.0' },
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0605220Z npm warn EBADENGINE   current: { node: 'v20.20.1', npm: '10.8.2' }
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0605569Z npm warn EBADENGINE }
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0695041Z npm error code EUSAGE
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0695961Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0698055Z npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0699619Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0701968Z npm error Invalid: lock file's eslint-plugin-react@7.33.2 does not satisfy eslint-plugin-react@7.37.5
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0703645Z npm error Invalid: lock file's eslint-plugin-react-hooks@4.6.0 does not satisfy eslint-plugin-react-hooks@7.0.1
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0704854Z npm error Missing: expect@29.7.0 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0705774Z npm error Missing: jest-matcher-utils@29.7.0 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0706532Z npm error Missing: pump@3.0.4 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0707280Z npm error Missing: end-of-stream@1.4.5 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0708125Z npm error Missing: stack-generator@2.0.10 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0709014Z npm error Missing: querystringify@2.2.0 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0709711Z npm error Missing: jest-diff@29.7.0 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0710831Z npm error Missing: diff-sequences@29.6.3 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0711575Z npm error Missing: cssom@0.5.0 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0712314Z npm error Missing: domexception@4.0.0 from lock file
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0713456Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0714018Z npm error Clean install a project
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0714477Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0714679Z npm error Usage:
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0714914Z npm error npm ci
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0715108Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0715302Z npm error Options:
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0716302Z npm error [--install-strategy <hoisted|nested|shallow|linked>] [--legacy-bundling]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0717448Z npm error [--global-style] [--omit <dev|optional|peer> [--omit <dev|optional|peer> ...]]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0718465Z npm error [--include <prod|dev|optional|peer> [--include <prod|dev|optional|peer> ...]]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0719486Z npm error [--strict-peer-deps] [--foreground-scripts] [--ignore-scripts] [--no-audit]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0720572Z npm error [--no-bin-links] [--no-fund] [--dry-run]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0721375Z npm error [-w|--workspace <workspace-name> [-w|--workspace <workspace-name> ...]]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0722307Z npm error [-ws|--workspaces] [--include-workspace-root] [--install-links]
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0722850Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0723379Z npm error aliases: clean-install, ic, install-clean, isntall-clean
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0724333Z npm error
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0724644Z npm error Run "npm help ci" for more info
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0725272Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-03-29T06_35_30_857Z-debug-0.log
+TypeScript + Lint	Install dependencies	2026-03-29T06:35:34.0827142Z ##[error]Process completed with exit code 1.
+TypeScript + Lint	Post Checkout	﻿2026-03-29T06:35:34.0956320Z Post job cleanup.
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.1977888Z [command]/usr/bin/git version
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2017390Z git version 2.53.0
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2070700Z Temporarily overriding HOME='/home/runner/work/_temp/5037f0ad-c036-4f98-acb9-011d8e4026b8' before making global git config changes
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2071766Z Adding repository directory to the temporary git global config as a safe directory
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2076223Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/UAI-WeeJobs/UAI-WeeJobs
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2114286Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2149334Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2393198Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2418545Z http.https://github.com/.extraheader
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2432943Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2468235Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2730408Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+TypeScript + Lint	Post Checkout	2026-03-29T06:35:34.2767083Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+TypeScript + Lint	Complete job	﻿2026-03-29T06:35:34.3161471Z Cleaning up orphan processes
+TypeScript + Lint	Complete job	2026-03-29T06:35:34.3443728Z ##[warning]Node.js 20 actions are deprecated. The following actions are running on Node.js 20 and may not work as expected: actions/checkout@v4, actions/setup-node@v4. Actions will be forced to run with Node.js 24 by default starting June 2nd, 2026. Node.js 20 will be removed from the runner on September 16th, 2026. Please check if updated versions of these actions are available that support Node.js 24. To opt into Node.js 24 now, set the FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true environment variable on the runner or in your workflow file. Once Node.js 24 becomes the default, you can temporarily opt out by setting ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

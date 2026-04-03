@@ -12,7 +12,7 @@ type AuthTab = 'signin' | 'signup';
 
 export default function LoginScreen() {
   const { role } = useLocalSearchParams<{ role: string }>();
-  const { login, signup } = useAuth();
+  const { login, signup, resendVerification } = useAuth();
   const insets = useSafeAreaInsets();
 
   const [activeTab, setActiveTab] = useState<AuthTab>('signin');
@@ -24,6 +24,9 @@ export default function LoginScreen() {
   const [signInShowPassword, setSignInShowPassword] = useState(false);
   const [signInLoading, setSignInLoading] = useState(false);
   const [signInError, setSignInError] = useState('');
+  const [signInNeedsVerification, setSignInNeedsVerification] = useState(false);
+  const [signInResendLoading, setSignInResendLoading] = useState(false);
+  const [signInResendMessage, setSignInResendMessage] = useState('');
 
   const [signUpName, setSignUpName] = useState('');
   const [signUpEmail, setSignUpEmail] = useState('');
@@ -82,9 +85,23 @@ export default function LoginScreen() {
     setSignInLoading(true);
     setSignInError('');
 
-    const result = await login(signInEmail, signInPassword);
+      const result = await login(signInEmail, signInPassword);
 
-      if (result.success && result.user) {
+    if (result.isRateLimited) {
+      const retry = result.retryAfter ? ` Try again in ${Math.ceil((result.retryAfter || 0) / 60)} minutes.` : '';
+      setSignInError(result.error || `Too many attempts. Please try again later.${retry}`);
+      setSignInLoading(false);
+      return;
+    }
+
+    if (result.needsVerification) {
+      setSignInNeedsVerification(true);
+      setSignInError(result.error || 'Please verify your email to continue.');
+      setSignInLoading(false);
+      return;
+    }
+
+    if (result.success && result.user) {
       const userRole = result.user.role;
       if (userRole === 'customer') {
         router.replace('/customer');
@@ -138,7 +155,7 @@ export default function LoginScreen() {
       signUpEmail.trim(),
       signUpPassword,
       signUpName.trim(),
-      selectedRole
+      selectedRole as any
     );
 
     if (result.success && result.user) {
@@ -174,6 +191,7 @@ export default function LoginScreen() {
     }
   };
 
+  // eslint-disable-next-line react-hooks/refs
   const indicatorTranslateX = tabIndicatorAnim.interpolate({
     inputRange: [0, 1],
     outputRange: [0, tabWidth],
@@ -305,8 +323,34 @@ export default function LoginScreen() {
 
             {signInError ? <Text style={styles.error}>{signInError}</Text> : null}
 
+            {signInNeedsVerification ? (
+              <>
+                <TouchableOpacity
+                  style={styles.forgotButton}
+                  onPress={async () => {
+                    setSignInResendMessage('');
+                    setSignInResendLoading(true);
+                    const res = await resendVerification(signInEmail);
+                    setSignInResendLoading(false);
+                    if (res.success) {
+                      setSignInResendMessage('Verification email resent. Please check your inbox.');
+                    } else {
+                      setSignInError(res.error || 'Unable to resend verification. Try signing up again or contact support.');
+                    }
+                  }}
+                  disabled={signInResendLoading}
+                >
+                  <Text style={[styles.forgotText, { marginTop: 8 }]}>
+                    {signInResendLoading ? 'Resending...' : 'Resend verification email'}
+                  </Text>
+                </TouchableOpacity>
+                {signInResendMessage ? <Text style={{ color: Colors.success, textAlign: 'center', marginTop: 8 }}>{signInResendMessage}</Text> : null}
+              </>
+            ) : null}
+
             <TouchableOpacity
               style={[styles.primaryButton, signInLoading && styles.primaryButtonDisabled]}
+              testID="signin-button"
               onPress={handleSignIn}
               disabled={signInLoading}
             >

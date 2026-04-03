@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Collapsible renders closed and open states correctly 1`] = `
+<view>
+  <View
+    activeOpacity={0.8}
+    onPress={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "gap": 6,
+      }
+    }
+  >
+    <icon
+      color="#000"
+      name="chevron.right"
+      size={18}
+      style={
+        {
+          "transform": [
+            {
+              "rotate": "0deg",
+            },
+          ],
+        }
+      }
+      weight="medium"
+    />
+    <text
+      type="defaultSemiBold"
+    >
+      Test Title
+    </text>
+  </View>
+</view>
+`;

@@ -89,4 +89,53 @@ describe('processStripeEvent', () => {
     const result = await processStripeEvent(event, supabaseMock);
     expect(result).toBeNull();
   });
+
+  it('handles payment_intent.succeeded', async () => {
+    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job999' }], error: null });
+    const update = jest.fn(() => ({ eq }));
+    const from = jest.fn(() => ({ update }));
+    const supabaseMock = { from };
+
+    const event = {
+      type: 'payment_intent.succeeded',
+      data: {
+        object: {
+          id: 'pi_3',
+          metadata: { job_id: 'job999', payment_type: 'final' },
+          amount_received: 5000,
+        },
+      },
+    };
+
+    const result = await processStripeEvent(event, supabaseMock);
+
+    expect(from).toHaveBeenCalledWith('jobs');
+    expect(update).toHaveBeenCalled();
+    expect(eq).toHaveBeenCalledWith('id', 'job999');
+    expect(result).toEqual([{ id: 'job999' }]);
+  });
+
+  it('handles charge.refunded', async () => {
+    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job555' }], error: null });
+    const update = jest.fn(() => ({ eq }));
+    const from = jest.fn(() => ({ update }));
+    const supabaseMock = { from };
+
+    const charge = {
+      id: 'ch_1',
+      metadata: { job_id: 'job555' },
+    };
+
+    const event = {
+      type: 'charge.refunded',
+      data: { object: charge },
+    };
+
+    const result = await processStripeEvent(event, supabaseMock);
+
+    expect(from).toHaveBeenCalledWith('jobs');
+    expect(update).toHaveBeenCalled();
+    expect(eq).toHaveBeenCalledWith('id', 'job555');
+    expect(result).toEqual([{ id: 'job555' }]);
+  });
 });

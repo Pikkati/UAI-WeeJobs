@@ -4,11 +4,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../constants/theme';
+import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const { logout } = useAuth();
+  const { mode, toggle } = useTheme();
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [jobAlertsEnabled, setJobAlertsEnabled] = useState(true);
   const [messageAlertsEnabled, setMessageAlertsEnabled] = useState(true);
@@ -75,6 +77,24 @@ export default function SettingsScreen() {
               <Switch
                 value={messageAlertsEnabled}
                 onValueChange={setMessageAlertsEnabled}
+                trackColor={{ false: Colors.border, true: Colors.accent }}
+                thumbColor={Colors.white}
+              />
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionLabel}>Appearance</Text>
+          <View style={styles.card}>
+            <View style={styles.settingRow}>
+              <View style={styles.settingInfo}>
+                <Ionicons name="moon-outline" size={20} color={Colors.textSecondary} />
+                <Text style={styles.settingLabel}>Dark Mode</Text>
+              </View>
+              <Switch
+                value={mode === 'dark'}
+                onValueChange={toggle}
                 trackColor={{ false: Colors.border, true: Colors.accent }}
                 thumbColor={Colors.white}
               />

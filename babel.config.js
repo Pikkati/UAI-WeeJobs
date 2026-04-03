@@ -4,6 +4,12 @@ module.exports = function(api) {
     presets: ['babel-preset-expo', '@babel/preset-typescript'],
     plugins: [
       'react-native-worklets/plugin',
+      ['module-resolver', {
+        root: ['./'],
+        alias: {
+          '@': './'
+        }
+      }],
     ],
   };
 };
