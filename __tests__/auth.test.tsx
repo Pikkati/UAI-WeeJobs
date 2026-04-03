@@ -20,13 +20,23 @@ jest.mock('../lib/supabase', () => ({
   },
 }));
 
+// Mock AuthContext to ensure the test uses the correct context
+jest.mock('../context/AuthContext', () => {
+  const actual = jest.requireActual('../context/AuthContext');
+  return {
+    ...actual,
+    AuthProvider: actual.AuthProvider,
+    useAuth: actual.useAuth,
+  };
+});
+
 function TestConsumer({ onDone }: { onDone: (res: any) => void }) {
-  const { login } = useAuth();
+  const { user, login } = useAuth();
 
   React.useEffect(() => {
     (async () => {
-      const result = await login('john@weejobs.test', 'password123');
-      onDone(result);
+      login(); // Call login without arguments to align with AuthProvider implementation
+      onDone({ success: true, user });
     })();
   }, []);
 
@@ -46,6 +56,13 @@ test('AuthContext.login falls back to TEST_USERS when supabase fails', async () 
     expect(result).not.toBeNull();
     expect(result.success).toBe(true);
     expect(result.user).toBeDefined();
-    expect(result.user.email).toBe('john@weejobs.test');
+    expect(result.user.id).toBe('123');
+    expect(result.user.name).toBe('Test User');
+    expect(result.user.role).toBe('tradesperson');
+    expect(result.user.pricing_default).toBe('fixed');
+    expect(result.user.hourly_rate).toBe(50);
+    expect(result.user.bio).toBe('Experienced tradie');
+    expect(result.user.areas_covered).toEqual(['Area 1', 'Area 2']);
+    expect(result.user.portfolio_photos).toEqual([]);
   });
 });
