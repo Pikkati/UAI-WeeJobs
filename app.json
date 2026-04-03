@@ -41,12 +41,6 @@
         {
           "photosPermission": "WeeJobs needs access to your photos to attach images to job postings."
         }
-      ],
-      [
-        "@stripe/stripe-react-native",
-        {
-          "merchantIdentifier": "merchant.com.weejobs.dummy"
-        }
       ]
     ],
     "experiments": {

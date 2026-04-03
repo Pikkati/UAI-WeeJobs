@@ -10,6 +10,33 @@ import { AREAS, JOB_CATEGORIES, TIMING_OPTIONS, GARAGE_TIMING_OPTIONS } from '..
 // removed unused useAuth import
 import { supabase, Job } from '../../lib/supabase';
 
+export type EditJobValidationParams = {
+  name: string;
+  phone: string;
+  area: string;
+  category: string;
+  timing: string;
+  isGarageClearance: boolean;
+  photos: string[];
+};
+
+export function computeBudgetValue(needsQuotation: boolean, budget?: string | null): string | null {
+  if (needsQuotation) return 'Need Quotation';
+  if (budget && budget.trim() !== '') return `£${budget}`;
+  return null;
+}
+
+export function validateEditJobFields(params: EditJobValidationParams): { valid: boolean; title?: string; message?: string } {
+  const { name, phone, area, category, timing, isGarageClearance, photos } = params;
+  if (!name || !phone || !area || !category || !timing) {
+    return { valid: false, title: 'Required Fields', message: 'Please fill in all required fields' };
+  }
+  if (isGarageClearance && (!photos || photos.length === 0)) {
+    return { valid: false, title: 'Photo Required', message: 'Please add at least one photo for garage clearance jobs' };
+  }
+  return { valid: true };
+}
+
 function Dropdown({
   label,
   options,
@@ -167,20 +194,16 @@ export default function EditJobScreen() {
   };
 
   const handleSubmit = async () => {
-    if (!name || !phone || !area || !category || !timing) {
-      Alert.alert('Required Fields', 'Please fill in all required fields');
-      return;
-    }
-
-    if (isGarageClearance && photos.length === 0) {
-      Alert.alert('Photo Required', 'Please add at least one photo for garage clearance jobs');
+    const validation = validateEditJobFields({ name, phone, area, category, timing, isGarageClearance, photos });
+    if (!validation.valid) {
+      Alert.alert(validation.title || 'Required Fields', validation.message || 'Please fill in all required fields');
       return;
     }
 
     setIsSubmitting(true);
 
     try {
-      const budgetValue = needsQuotation ? 'Need Quotation' : (budget ? `£${budget}` : null);
+      const budgetValue = computeBudgetValue(needsQuotation, budget);
       
       const { error } = await supabase
         .from('jobs')

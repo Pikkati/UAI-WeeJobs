@@ -1,37 +1,37 @@
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-        flatDir {
-            dirs rootProject.file("../node_modules/react-native/android")
-        }
-    }
-    dependencies {
-        classpath("com.facebook.react:react-native-gradle-plugin")
-    }
-}
-
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 
+// Ensure NODE_ENV is available to any Node processes spawned by Gradle.
+// This can be overridden by passing -PNODE_ENV=... to Gradle or by setting the
+// environment variable in your shell/IDE.
+def nodeEnv = (findProperty('NODE_ENV') ?: System.getenv('NODE_ENV') ?: 'development')
+def envMap = new HashMap(System.getenv())
+envMap['NODE_ENV'] = nodeEnv
+def envList = envMap.collect { k, v -> "${k}=${v}" } as String[]
+
+// Prevent Gradle from invoking the bundler for release builds; we
+// pre-generate the bundle and assets separately.
+project.ext.react = [bundleInRelease: false]
+
 /**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
 react {
-    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", projectRoot, "android", "absolute"].execute(null, rootDir).text.trim())
-    reactNativeDir = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsoluteFile()
-    hermesCommand = new File(["node", "--print", "require.resolve('hermes-compiler/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/hermesc/%OS-BIN%/hermesc"
-    codegenDir = new File(["node", "--print", "require.resolve('@react-native/codegen/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim()).getParentFile().getAbsoluteFile()
+    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", projectRoot, "android", "absolute"].execute(envList, rootDir).text.trim())
+    reactNativeDir = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(envList, rootDir).text.trim()).getParentFile().getAbsoluteFile()
+    hermesCommand = new File(["node", "--print", "require.resolve('hermes-compiler/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/hermesc/%OS-BIN%/hermesc"
+    codegenDir = new File(["node", "--print", "require.resolve('@react-native/codegen/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim()).getParentFile().getAbsoluteFile()
 
     enableBundleCompression = (findProperty('android.enableBundleCompression') ?: false).toBoolean()
-    // Use Expo CLI to bundle the app, this ensures the Metro config
-    // works correctly with Expo projects.
-    cliFile = new File(["node", "--print", "require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })"].execute(null, rootDir).text.trim())
-    bundleCommand = "export:embed"
+    // Use React Native CLI for bundling here to avoid the expo/cli
+    // serializer mismatch on this environment. This will run
+    // `node <react-native-cli> bundle ...` instead of expo's export:embed.
+    cliFile = new File(["node", "--print", "require.resolve('react-native/cli.js', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim())
+    bundleCommand = "bundle"
 
     /* Folders */
      //   The root of your project, i.e. where "package.json" lives. Default is '../..'
@@ -95,15 +95,12 @@ def enableMinifyInReleaseBuilds = (findProperty('android.enableMinifyInReleaseBu
 def jscFlavor = 'io.github.react-native-community:jsc-android:2026004.+'
 
 android {
-    // Set ndkVersion only if defined in the root project to avoid invalid/null values
-    if (rootProject.hasProperty('ndkVersion')) {
-        ndkVersion = rootProject.ndkVersion
-    }
+    ndkVersion rootProject.ext.ndkVersion
 
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace = 'com.weejobs.app'
+    namespace 'com.weejobs.app'
     defaultConfig {
         applicationId 'com.weejobs.app'
         minSdkVersion rootProject.ext.minSdkVersion
@@ -123,28 +120,28 @@ android {
     }
     buildTypes {
         debug {
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.debug
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig = signingConfigs.debug
+            signingConfig signingConfigs.debug
             def enableShrinkResources = findProperty('android.enableShrinkResourcesInReleaseBuilds') ?: 'false'
-            shrinkResources = enableShrinkResources.toBoolean()
+            shrinkResources enableShrinkResources.toBoolean()
             minifyEnabled enableMinifyInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             def enablePngCrunchInRelease = findProperty('android.enablePngCrunchInReleaseBuilds') ?: 'true'
-            crunchPngs = enablePngCrunchInRelease.toBoolean()
+            crunchPngs enablePngCrunchInRelease.toBoolean()
         }
     }
     packagingOptions {
         jniLibs {
             def enableLegacyPackaging = findProperty('expo.useLegacyPackaging') ?: 'false'
-            useLegacyPackaging = enableLegacyPackaging.toBoolean()
+            useLegacyPackaging enableLegacyPackaging.toBoolean()
         }
     }
     androidResources {
-        ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
     }
 }
 
@@ -165,30 +162,6 @@ android {
         options.each {
             android.packagingOptions[prop] += it
         }
-    }
-}
-
-// Debug: print AGP-resolved SDK/NDK paths after project evaluation
-gradle.projectsEvaluated {
-    try {
-        if (project.hasProperty('android')) {
-            def androidExt = project.extensions.findByName('android')
-            if (androidExt != null) {
-                try {
-                    println "--- AGP debug: sdkDirectory = ${androidExt.getSdkDirectory()}"
-                } catch (e) {
-                    println "AGP debug: failed to get sdkDirectory: ${e.message}"
-                }
-                try {
-                    def ndkDir = new File(androidExt.getSdkDirectory(), 'ndk')
-                    println "AGP debug: ndk dir exists=${ndkDir.exists()} path=${ndkDir.absolutePath}"
-                } catch (e) {
-                    println "AGP debug: failed to inspect ndk dir: ${e.message}"
-                }
-            }
-        }
-    } catch (e) {
-        println "gradle.projectsEvaluated debug error: ${e.message}"
     }
 }
 
@@ -219,9 +192,4 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-    // Ensure AppCompat is available at runtime for AppCompat-derived themes
-    implementation "androidx.appcompat:appcompat:1.6.1"
-    // Android 12 splash screen attributes (Theme.SplashScreen)
-    implementation 'androidx.core:core-splashscreen:1.0.0'
-    implementation files('libs/hermes-android-0.12.0.jar')
 }

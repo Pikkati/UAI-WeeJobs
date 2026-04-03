@@ -8,37 +8,38 @@ buildscript {
   dependencies {
     classpath('com.android.tools.build:gradle')
     classpath('com.facebook.react:react-native-gradle-plugin')
-    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
-    classpath files('react-native-gradle-plugin/PluginSource.java')
+    classpath('org.jetbrains.kotlin:kotlin-gradle-plugin:2.1.20')
   }
 }
 
 allprojects {
   repositories {
+    // Local maven repo for @react-native-async-storage
+    maven { url uri("$rootDir/../node_modules/@react-native-async-storage/async-storage/android/local_repo") }
     google()
     mavenCentral()
-    maven { url = 'https://www.jitpack.io' }
+    maven { url 'https://www.jitpack.io' }
+  }
+}
+
+// Workaround: allow Kotlin to skip metadata-version checks so modules
+// compiled with a newer Kotlin metadata version don't fail the build.
+subprojects {
+  tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions.freeCompilerArgs += ['-Xskip-metadata-version-check']
   }
 }
 
 apply plugin: "expo-root-project"
-apply plugin: 'com.facebook.react'
+apply plugin: "com.facebook.react.rootproject"
 
-// Allow skipping the React root project plugin for debugging by setting SKIP_RN_PLUGIN=1
-if (System.getenv('SKIP_RN_PLUGIN') != '1') {
-  apply plugin: "com.facebook.react.rootproject"
-} else {
-  println "Skipping com.facebook.react.rootproject plugin (SKIP_RN_PLUGIN=1)"
-}
-
-// Debugging helper: print local.properties and relevant env vars
-task printLocalProperties {
+// Helper task: assemble, install debug APK and print start instructions.
+task installDebugAndRun {
+  group = "run"
+  description = "Assemble debug, install on connected device/emulator, and print start command."
+  dependsOn ":app:installDebug"
   doLast {
-    try {
-      println "--- local.properties ---"
-      println file('local.properties').text
-    } catch (e) {
-      println "local.properties not found or unreadable: ${e}"
-    }
+    println "Installed debug APK to connected device(s)."
+    println "Start the app with: adb shell am start -n com.weejobs.app/.MainActivity"
   }
 }

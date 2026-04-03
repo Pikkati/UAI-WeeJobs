@@ -4,20 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { supabase, Job } from '../../lib/supabase';
-
-const STATUS_COLORS = {
-  open: Colors.accent,
-  accepted: Colors.success,
-  completed: Colors.textSecondary,
-  cancelled: Colors.error,
-};
-
-const STATUS_LABELS = {
-  open: 'Open',
-  accepted: 'Accepted',
-  completed: 'Completed',
-  cancelled: 'Cancelled',
-};
+import { STATUS_COLORS, STATUS_LABELS } from './jobs.helpers';
 
 export default function AdminJobsScreen() {
   const insets = useSafeAreaInsets();

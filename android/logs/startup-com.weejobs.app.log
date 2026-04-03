@@ -1,0 +1,670 @@
+--------- beginning of main
+03-29 15:14:34.270 I/com.weejobs.app( 6061): Late-enabling -Xcheck:jni
+03-29 15:14:34.678 I/com.weejobs.app( 6061): Using CollectorTypeCMC GC.
+03-29 15:14:34.682 W/com.weejobs.app( 6061): Unexpected CPU variant for x86: x86_64.
+03-29 15:14:34.682 W/com.weejobs.app( 6061): Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, goldmont-without-sha-xsaves, tremont, kabylake, alderlake, default
+03-29 15:14:34.763 D/nativeloader( 6061): Load libframework-connectivity-tiramisu-jni.so using APEX ns com_android_tethering for caller /apex/com.android.tethering/javalib/framework-connectivity-t.jar: ok
+03-29 15:14:35.731 D/nativeloader( 6061): Configuring clns-9 for other apk /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk. target_sdk_version=36, uses_libraries=, library_path=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/lib/x86_64:/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.weejobs.app
+03-29 15:14:35.754 I/com.weejobs.app( 6061): AssetManager2(0x769a6c935498) locale list changing from [] to [en-US]
+03-29 15:14:35.800 V/GraphicsEnvironment( 6061): Currently set values for:
+03-29 15:14:35.800 V/GraphicsEnvironment( 6061):   angle_gl_driver_selection_pkgs=[]
+03-29 15:14:35.800 V/GraphicsEnvironment( 6061):   angle_gl_driver_selection_values=[]
+03-29 15:14:35.800 V/GraphicsEnvironment( 6061): com.weejobs.app is not listed in per-application setting
+03-29 15:14:35.803 V/GraphicsEnvironment( 6061): ANGLE allowlist from config: com.dreamgames.royalmatch com.dts.freefiremax com.dxx.firenow com.gramgames.mergedragons com.ludo.king com.mojang.minecraftpe com.my.defense com.nintendo.zaka com.os.airforce com.playrix.fishdomdd.gplay io.teslatech.callbreak jp.konami.prospia net.peakgames.toonblast
+03-29 15:14:35.803 V/GraphicsEnvironment( 6061): com.weejobs.app is not listed in ANGLE allowlist or settings, returning default
+03-29 15:14:35.803 V/GraphicsEnvironment( 6061): Neither updatable production driver nor prerelease driver is supported.
+03-29 15:14:35.866 W/SoLoader( 6061): Initializing SoLoader: 0
+03-29 15:14:35.869 W/SoLoader( 6061): Recording new base apk path: /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk
+03-29 15:14:35.869 W/SoLoader( 6061): Previously recorded 0 base apk paths.
+03-29 15:14:35.872 I/SoLoader( 6061): Preparing SO source: DirectorySoSource[root = /vendor/lib64 flags = 2]
+03-29 15:14:35.872 I/SoLoader( 6061): Preparing SO source: DirectorySoSource[root = /system/lib64 flags = 2]
+03-29 15:14:35.872 I/SoLoader( 6061): Preparing SO source: DirectApkSoSource[root = [/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64]]
+03-29 15:14:35.908 I/SoLoader( 6061): Preparing SO source: ApplicationSoSource[DirectorySoSource[root = /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/lib/x86_64 flags = 0]]
+03-29 15:14:35.908 I/SoLoader( 6061): init finish: 4 SO sources prepared
+03-29 15:14:35.908 W/SoLoader( 6061): SoLoader initialized: 8
+03-29 15:14:35.986 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libc++_shared.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:36.072 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libjsi.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:36.091 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libfbjni.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:36.372 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libreactnative.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Entering merged library JNI_OnLoad.
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing 12 pre-merged libs (including stub)
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libfabricjni_so.  onload_func: 0x76987e19b5d0
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libreact_devsupportjni_so.  onload_func: 0x76987e3b4660
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libreact_featureflagsjni_so.  onload_func: 0x76987e3c6530
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libreact_newarchdefaults_so.  onload_func: 0x76987e461b10
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libreactnativeblob_so.  onload_func: 0x76987e66e6c0
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libreactnativejni_so.  onload_func: 0x76987e6aa2d0
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libreactnativejni_common_so.  onload_func: 0x76987e6afcd0
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register librninstance_so.  onload_func: 0x76987e6f9fe0
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libturbomodulejsijni_so.  onload_func: 0x76987e85bf40
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libuimanagerjni_so.  onload_func: 0x76987e872a30
+03-29 15:14:36.378 D/jni_lib_merge( 6061): Preparing to register libyoga_so.  onload_func: 0x76987e8819c0
+03-29 15:14:36.378 D/jni_lib_merge( 6061): About to register 11 actual methods.
+03-29 15:14:36.414 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libappmodules.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:36.509 I/Choreographer( 6061): Skipped 39 frames!  The application may be doing too much work on its main thread.
+--------- beginning of system
+03-29 15:14:36.518 I/DisplayManager( 6061): Choreographer implicitly registered for the refresh rate.
+03-29 15:14:36.530 I/com.weejobs.app( 6061): AssetManager2(0x769a6c930038) locale list changing from [] to [en-US]
+03-29 15:14:36.587 D/AppCompatDelegate( 6061): Checking for metadata for AppLocalesMetadataHolderService : Service not found
+03-29 15:14:36.589 I/com.weejobs.app( 6061): AssetManager2(0x769a6c93e458) locale list changing from [] to [en-US]
+03-29 15:14:36.635 E/ashmem  ( 6061): Pinning is deprecated since Android Q. Please use trim or other methods.
+03-29 15:14:36.701 I/EGL_emulation( 6061): Opening libGLESv1_CM_emulation.so
+03-29 15:14:36.705 I/EGL_emulation( 6061): Opening libGLESv2_emulation.so
+03-29 15:14:36.732 D/CompatChangeReporter( 6061): Compat change id reported: 377864165; UID 10217; state: ENABLED
+03-29 15:14:36.734 D/DesktopModeFlags( 6061): Toggle override initialized to: OVERRIDE_UNSET
+03-29 15:14:36.767 I/com.weejobs.app( 6061): hiddenapi: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (runtime_flags=0, domain=platform, api=unsupported) from Landroidx/appcompat/widget/ViewUtils; (domain=app) using reflection: allowed
+03-29 15:14:36.779 W/HWUI    ( 6061): Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+03-29 15:14:36.779 W/HWUI    ( 6061): Failed to initialize 101010-2 format, error = EGL_SUCCESS
+03-29 15:14:37.070 W/unknown:BridgelessReact( 6061): ReactHost{0}.startSurface(surfaceId = 0): Schedule
+03-29 15:14:37.071 W/unknown:BridgelessReact( 6061): ReactHost{0}.attachSurface(surfaceId = 0)
+03-29 15:14:37.075 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask()
+03-29 15:14:37.076 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Start
+03-29 15:14:37.076 W/unknown:BridgelessReact( 6061): ReactHost{0}.getJSBundleLoader()
+03-29 15:14:37.077 W/unknown:BridgelessReact( 6061): ReactHost{0}.isMetroRunning()
+03-29 15:14:37.085 W/WindowOnBackDispatcher( 6061): OnBackInvokedCallback is not enabled for the application.
+03-29 15:14:37.085 W/WindowOnBackDispatcher( 6061): Set 'android:enableOnBackInvokedCallback="true"' in the application manifest.
+03-29 15:14:37.107 W/unknown:BridgelessReact( 6061): ReactHost{0}.onHostResume(activity)
+03-29 15:14:37.108 W/unknown:ReactNative( 6061): Packager connection already open, nooping.
+03-29 15:14:37.149 W/HWUI    ( 6061): Unknown dataspace 0
+03-29 15:14:37.332 I/com.weejobs.app( 6061): Compiler allocated 5042KB to compile void android.view.ViewRootImpl.performTraversals()
+03-29 15:14:42.112 W/unknown:ReactNative( 6061): The packager does not seem to be running as we got an IOException requesting its status: failed to connect to /10.0.2.2 (port 8081) from /10.0.2.16 (port 43704) after 5000ms
+03-29 15:14:42.112 W/unknown:BridgelessReact( 6061): ReactHost{0}.isMetroRunning(): Async result = false
+03-29 15:14:42.112 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Creating BridgelessReactContext
+03-29 15:14:42.114 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Creating ReactInstance
+03-29 15:14:42.221 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libhermesvm.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:42.223 D/nativeloader( 6061): Load /data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!/lib/x86_64/libhermestooling.so using class loader ns clns-9 (caller=/data/app/~~9zKYgFJ2RwS6Hnz_HPFG2Q==/com.weejobs.app-pbUKVZ0zcKCbgCLear7Hrw==/base.apk!classes20.dex): ok
+03-29 15:14:42.223 D/jni_lib_merge( 6061): Entering merged library JNI_OnLoad.
+03-29 15:14:42.223 D/jni_lib_merge( 6061): Preparing 4 pre-merged libs (including stub)
+03-29 15:14:42.223 D/jni_lib_merge( 6061): Preparing to register libhermes_executor_so.  onload_func: 0x769900196ad0
+03-29 15:14:42.223 D/jni_lib_merge( 6061): Preparing to register libhermesinstancejni_so.  onload_func: 0x7699001c2330
+03-29 15:14:42.223 D/jni_lib_merge( 6061): Preparing to register libjsijniprofiler_so.  onload_func: 0x7699001c40a0
+03-29 15:14:42.223 D/jni_lib_merge( 6061): About to register 3 actual methods.
+03-29 15:14:42.395 I/ExpoModulesCore( 6061): ✅ AppContext was initialized
+03-29 15:14:42.503 D/ProfileInstaller( 6061): Installing profile for com.weejobs.app
+03-29 15:14:42.537 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Loading JS Bundle
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): ReactHost{0}.handleHostException(message = "Unable to load script.
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:14:42.838 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081")
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): Exception in native call
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): java.lang.RuntimeException: Unable to load script.
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:14:42.841 E/unknown:ReactNative( 6061):   adb reverse tcp:8081 tcp:8081
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundleFromAssets(Native Method)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.access$loadJSBundleFromAssets(ReactInstance.kt:84)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance$loadJSBundle$1.loadScriptFromAssets(ReactInstance.kt:324)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.bridge.JSBundleLoader$Companion$createAssetLoader$1.loadScript(JSBundleLoader.kt:33)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundle(ReactInstance.kt:303)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReactInstanceTask$lambda$44$lambda$40(ReactHostImpl.kt:1019)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$kGNcmxBxZbp8b1wWTaqIXDdkV8g(Unknown Source:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda26.then(D8$$SyntheticClass:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately$lambda$3(Task.kt:360)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$b7MTC0ufkn_2TjF4BGcNqGR9qK0(Unknown Source:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Executors$ImmediateExecutor.execute(Executors.kt:41)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately(Task.kt:358)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.access$completeImmediately(Task.kt:254)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith(Task.kt:133)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith$default(Task.kt:117)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.onSuccess$lambda$12(Task.kt:176)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.$r8$lambda$l0wwo5AvbHxlwfI1R7CH_codxoo(Unknown Source:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$$ExternalSyntheticLambda2.then(D8$$SyntheticClass:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:14:42.841 E/unknown:ReactNative( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:14:42.842 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask()
+03-29 15:14:42.842 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting createReactInstance task ref
+03-29 15:14:42.977 W/HWUI    ( 6061): Image decoding logging dropped!
+03-29 15:14:43.035 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Starting React Native destruction
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateDestroyTask()): Destroy: ReactInstance task faulted. Stage: 1: Starting destroy. Fault reason: Unable to load script.
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081. Destroy reason: handleHostException(message = "Unable to load script.
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): 
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:14:43.036 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081")
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateDestroyTask()): Destroy: ReactInstance task faulted. Stage: 1: Starting destroy. Fault reason: Unable to load script.
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:14:43.045 E/unknown:ReactHost( 6061):   adb reverse tcp:8081 tcp:8081. Destroy reason: handleHostException(message = "Unable to load script.
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:14:43.045 E/unknown:ReactHost( 6061):   adb reverse tcp:8081 tcp:8081")
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1224)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateDestroyTask$lambda$60(ReactHostImpl.kt:1433)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$W_3hbG2jNwurg3jPo_rFnHCrsPg(Unknown Source:0)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda29.then(D8$$SyntheticClass:0)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at android.os.Handler.handleCallback(Handler.java:995)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at android.os.Looper.loopOnce(Looper.java:248)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at android.os.Looper.loop(Looper.java:338)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at java.lang.reflect.Method.invoke(Native Method)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+03-29 15:14:43.045 E/unknown:ReactHost( 6061): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+03-29 15:14:43.045 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): DevSupportManager cleanup
+03-29 15:14:43.045 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Move ReactHost to onHostDestroy()
+03-29 15:14:43.045 W/unknown:BridgelessReact( 6061): ReactHost{0}.ReactContext.onHostPause()
+03-29 15:14:43.046 E/unknown:ReactNative( 6061): Tried to remove non-existent frame callback
+03-29 15:14:43.046 W/unknown:BridgelessReact( 6061): ReactHost{0}.ReactContext.onHostDestroy()
+03-29 15:14:43.047 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Stopping all React Native surfaces
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): Unhandled SoftException
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): java.lang.IllegalStateException: Trying to stop surface that hasn't started yet
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.fabric.FabricUIManager.stopSurface(FabricUIManager.java:396)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.ReactInstance.stopSurface(ReactInstance.kt:410)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.ReactHostImpl.stopAttachedSurfaces(ReactHostImpl.kt:1193)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateDestroyTask$lambda$62(ReactHostImpl.kt:1470)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$xpeTQfuVN0XbBBJsIsVmA6wzF00(Unknown Source:0)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda30.then(D8$$SyntheticClass:0)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:14:43.048 E/unknown:FabricUIManager( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:14:43.395 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Destroying MemoryPressureRouter
+03-29 15:14:43.395 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting ReactContext ref
+03-29 15:14:43.396 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Destroying ReactContext
+03-29 15:14:43.397 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting ReactInstance ptr
+03-29 15:14:43.397 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Destroying ReactInstance
+03-29 15:14:43.400 E/unknown:ReactNative( 6061): Tried to remove non-existent frame callback
+03-29 15:14:43.402 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting start/destroy task ref
+03-29 15:14:43.451 D/InsetsController( 6061): hide(ime(), fromIme=false)
+03-29 15:14:43.451 I/ImeTracker( 6061): com.weejobs.app:9f7bf48d: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+03-29 15:14:47.105 W/unknown:ReconnectingWebSocket( 6061): Couldn't connect to "ws://10.0.2.2:8081/message?device=sdk_gphone64_x86_64%20-%2016%20-%20API%2036&app=com.weejobs.app&clientid=BridgelessDevSupportManager", will silently retry
+03-29 15:15:15.398 W/WindowOnBackDispatcher( 6061): sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@1e04e00
+03-29 15:15:15.407 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask()
+03-29 15:15:15.408 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask(): Resetting createReactInstance task ref
+03-29 15:15:15.421 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask(): Starting React Native reload
+03-29 15:15:15.421 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 1: Starting reload. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 1: Starting reload. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1240)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$51(ReactHostImpl.kt:1282)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$LpML1XwLRsHj6AJXZaMANjJyWI8(Unknown Source:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda5.then(D8$$SyntheticClass:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Handler.handleCallback(Handler.java:995)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Looper.loopOnce(Looper.java:248)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Looper.loop(Looper.java:338)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at java.lang.reflect.Method.invoke(Native Method)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+03-29 15:15:15.421 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): ReactContext is null. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): ReactContext is null. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$51(ReactHostImpl.kt:1288)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$LpML1XwLRsHj6AJXZaMANjJyWI8(Unknown Source:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda5.then(D8$$SyntheticClass:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Handler.handleCallback(Handler.java:995)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Looper.loopOnce(Looper.java:248)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.os.Looper.loop(Looper.java:338)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at java.lang.reflect.Method.invoke(Native Method)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+03-29 15:15:15.421 E/unknown:ReactHost( 6061): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+03-29 15:15:15.421 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 2: Surface shutdown. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 2: Surface shutdown. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1240)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$52(ReactHostImpl.kt:1304)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$U5KSYzMgtOK3A7pDjSiSdmdBa5s(Unknown Source:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda6.then(D8$$SyntheticClass:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:15.422 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Skipping surface shutdown: ReactInstance null
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Skipping surface shutdown: ReactInstance null
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$52(ReactHostImpl.kt:1306)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$U5KSYzMgtOK3A7pDjSiSdmdBa5s(Unknown Source:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda6.then(D8$$SyntheticClass:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:15.422 E/unknown:ReactHost( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:15.438 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 3: Destroying ReactContext. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 3: Destroying ReactContext. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1240)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$54(ReactHostImpl.kt:1316)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$N-sLAyvreJP-ldKAQuu-GU7bqIs(Unknown Source:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda7.then(D8$$SyntheticClass:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at android.os.Handler.handleCallback(Handler.java:995)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at android.os.Looper.loopOnce(Looper.java:248)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at android.os.Looper.loop(Looper.java:338)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at java.lang.reflect.Method.invoke(Native Method)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+03-29 15:15:15.438 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask(): Removing memory pressure listener
+03-29 15:15:15.438 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 4: Destroying ReactInstance. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task returned null. Stage: 4: Destroying ReactInstance. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1240)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$55(ReactHostImpl.kt:1348)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$QLj1KH6lXO9iLO81CpQqSF6_Fr4(Unknown Source:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda8.then(D8$$SyntheticClass:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:15.438 E/unknown:ReactHost( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:15.439 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Skipping ReactInstance.destroy(): ReactInstance null
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Skipping ReactInstance.destroy(): ReactInstance null
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$55(ReactHostImpl.kt:1350)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$QLj1KH6lXO9iLO81CpQqSF6_Fr4(Unknown Source:0)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda8.then(D8$$SyntheticClass:0)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:15.439 E/unknown:ReactHost( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:15.440 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask(): Resetting start task ref
+03-29 15:15:15.440 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask()
+03-29 15:15:15.440 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Start
+03-29 15:15:15.440 W/unknown:BridgelessReact( 6061): ReactHost{0}.getJSBundleLoader()
+03-29 15:15:15.440 W/unknown:BridgelessReact( 6061): ReactHost{0}.isMetroRunning()
+03-29 15:15:20.448 W/unknown:ReactNative( 6061): The packager does not seem to be running as we got an IOException requesting its status: failed to connect to /10.0.2.2 (port 8081) from /10.0.2.16 (port 43324) after 5000ms
+03-29 15:15:20.448 W/unknown:BridgelessReact( 6061): ReactHost{0}.isMetroRunning(): Async result = false
+03-29 15:15:20.449 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Creating BridgelessReactContext
+03-29 15:15:20.449 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Creating ReactInstance
+03-29 15:15:20.464 I/ExpoModulesCore( 6061): ✅ AppContext was initialized
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReactInstanceTask(): Loading JS Bundle
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task faulted. Stage: 5: Restarting surfaces. Fault reason: Unable to load script.
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.475 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Reload: ReactInstance task faulted. Stage: 5: Restarting surfaces. Fault reason: Unable to load script.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.476 E/unknown:ReactHost( 6061):   adb reverse tcp:8081 tcp:8081. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1224)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$56(ReactHostImpl.kt:1369)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$xFTa0xAE5oldQCYGsrZK2oZYGek(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda9.then(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask(): Restarting previously running React Native Surfaces
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateReloadTask()): Error during reload. ReactInstance task faulted. Fault reason: Unable to load script.
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateReloadTask()): Error during reload. ReactInstance task faulted. Fault reason: Unable to load script.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.476 E/unknown:ReactHost( 6061):   adb reverse tcp:8081 tcp:8081. Reload reason: BridgelessDevSupportManager.handleReloadJS()
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReloadTask$lambda$57(ReactHostImpl.kt:1383)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$rgpK2DnWfCVXc3Wqo5pvweUDygs(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda10.then(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): Caused by: java.lang.RuntimeException: Unable to load script.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.476 E/unknown:ReactHost( 6061):   adb reverse tcp:8081 tcp:8081
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundleFromAssets(Native Method)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactInstance.access$loadJSBundleFromAssets(ReactInstance.kt:84)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactInstance$loadJSBundle$1.loadScriptFromAssets(ReactInstance.kt:324)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.bridge.JSBundleLoader$Companion$createAssetLoader$1.loadScript(JSBundleLoader.kt:33)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundle(ReactInstance.kt:303)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReactInstanceTask$lambda$44$lambda$40(ReactHostImpl.kt:1019)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$kGNcmxBxZbp8b1wWTaqIXDdkV8g(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda26.then(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately$lambda$3(Task.kt:360)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$b7MTC0ufkn_2TjF4BGcNqGR9qK0(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Executors$ImmediateExecutor.execute(Executors.kt:41)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately(Task.kt:358)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.access$completeImmediately(Task.kt:254)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith(Task.kt:133)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith$default(Task.kt:117)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.onSuccess$lambda$12(Task.kt:176)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.$r8$lambda$l0wwo5AvbHxlwfI1R7CH_codxoo(Unknown Source:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$$ExternalSyntheticLambda2.then(D8$$SyntheticClass:0)
+03-29 15:15:20.476 E/unknown:ReactHost( 6061): 	... 6 more
+03-29 15:15:20.476 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateReloadTask(): Resetting reload task ref
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): Exception in native call
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): java.lang.RuntimeException: Unable to load script.
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.477 E/unknown:ReactNative( 6061):   adb reverse tcp:8081 tcp:8081
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundleFromAssets(Native Method)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.access$loadJSBundleFromAssets(ReactInstance.kt:84)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance$loadJSBundle$1.loadScriptFromAssets(ReactInstance.kt:324)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.bridge.JSBundleLoader$Companion$createAssetLoader$1.loadScript(JSBundleLoader.kt:33)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundle(ReactInstance.kt:303)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReactInstanceTask$lambda$44$lambda$40(ReactHostImpl.kt:1019)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$kGNcmxBxZbp8b1wWTaqIXDdkV8g(Unknown Source:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda26.then(D8$$SyntheticClass:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately$lambda$3(Task.kt:360)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$b7MTC0ufkn_2TjF4BGcNqGR9qK0(Unknown Source:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Executors$ImmediateExecutor.execute(Executors.kt:41)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately(Task.kt:358)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.access$completeImmediately(Task.kt:254)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith(Task.kt:133)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith$default(Task.kt:117)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.onSuccess$lambda$12(Task.kt:176)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.$r8$lambda$l0wwo5AvbHxlwfI1R7CH_codxoo(Unknown Source:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$$ExternalSyntheticLambda2.then(D8$$SyntheticClass:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:20.477 E/unknown:ReactNative( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:20.477 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask()
+03-29 15:15:20.477 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting createReactInstance task ref
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Starting React Native destruction
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): ReactHost{0}.raiseSoftException(getOrCreateDestroyTask()): Destroy: ReactInstance task faulted. Stage: 1: Starting destroy. Fault reason: Unable to load script.
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081. Destroy reason: Reload failed
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): Unhandled SoftException
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): com.facebook.react.bridge.ReactNoCrashSoftException: raiseSoftException(getOrCreateDestroyTask()): Destroy: ReactInstance task faulted. Stage: 1: Starting destroy. Fault reason: Unable to load script.
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.495 E/unknown:ReactHost( 6061):   adb reverse tcp:8081 tcp:8081. Destroy reason: Reload failed
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException(ReactHostImpl.kt:865)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.raiseSoftException$default(ReactHostImpl.kt:856)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.createReactInstanceUnwrapper$lambda$49(ReactHostImpl.kt:1224)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$wxqWPZPIM84yb-DFfq8PhEXI2r4(Unknown Source:0)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda38.invoke(D8$$SyntheticClass:0)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateDestroyTask$lambda$60(ReactHostImpl.kt:1433)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$W_3hbG2jNwurg3jPo_rFnHCrsPg(Unknown Source:0)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda29.then(D8$$SyntheticClass:0)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at android.os.Handler.handleCallback(Handler.java:995)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at android.os.Handler.dispatchMessage(Handler.java:103)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at android.os.Looper.loopOnce(Looper.java:248)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at android.os.Looper.loop(Looper.java:338)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at android.app.ActivityThread.main(ActivityThread.java:9067)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at java.lang.reflect.Method.invoke(Native Method)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:593)
+03-29 15:15:20.495 E/unknown:ReactHost( 6061): 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:932)
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): DevSupportManager cleanup
+03-29 15:15:20.495 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Move ReactHost to onHostDestroy()
+03-29 15:15:20.496 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Stopping all React Native surfaces
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): ReactHost{0}.handleHostException(message = "Unable to load script.
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): 
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.618 W/unknown:BridgelessReact( 6061):   adb reverse tcp:8081 tcp:8081")
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): Exception in native call
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): java.lang.RuntimeException: Unable to load script.
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): Make sure you're running Metro or that your bundle 'index.android.bundle' is packaged correctly for release.
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): The device must either be USB connected (with bundler set to "localhost:8081") or be on the same Wi-Fi network as your computer (with bundler set to your computer IP) to connect to Metro.
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): If you're using USB on a physical device, make sure you also run this command:
+03-29 15:15:20.618 E/unknown:ReactNative( 6061):   adb reverse tcp:8081 tcp:8081
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundleFromAssets(Native Method)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.access$loadJSBundleFromAssets(ReactInstance.kt:84)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance$loadJSBundle$1.loadScriptFromAssets(ReactInstance.kt:324)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.bridge.JSBundleLoader$Companion$createAssetLoader$1.loadScript(JSBundleLoader.kt:33)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactInstance.loadJSBundle(ReactInstance.kt:303)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl.getOrCreateReactInstanceTask$lambda$44$lambda$40(ReactHostImpl.kt:1019)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl.$r8$lambda$kGNcmxBxZbp8b1wWTaqIXDdkV8g(Unknown Source:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.ReactHostImpl$$ExternalSyntheticLambda26.then(D8$$SyntheticClass:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately$lambda$3(Task.kt:360)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$b7MTC0ufkn_2TjF4BGcNqGR9qK0(Unknown Source:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda3.run(D8$$SyntheticClass:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Executors$ImmediateExecutor.execute(Executors.kt:41)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeImmediately(Task.kt:358)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.access$completeImmediately(Task.kt:254)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith(Task.kt:133)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.continueWith$default(Task.kt:117)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.onSuccess$lambda$12(Task.kt:176)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task.$r8$lambda$l0wwo5AvbHxlwfI1R7CH_codxoo(Unknown Source:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$$ExternalSyntheticLambda2.then(D8$$SyntheticClass:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.completeAfterTask$lambda$5(Task.kt:394)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion.$r8$lambda$IPpysnehFwANEiW061YzapkMdoE(Unknown Source:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at com.facebook.react.runtime.internal.bolts.Task$Companion$$ExternalSyntheticLambda4.run(D8$$SyntheticClass:0)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:20.618 E/unknown:ReactNative( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:15:20.619 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask()
+03-29 15:15:20.619 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Destroying MemoryPressureRouter
+03-29 15:15:20.619 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting ReactContext ref
+03-29 15:15:20.619 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Destroying ReactContext
+03-29 15:15:20.619 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting ReactInstance ptr
+03-29 15:15:20.619 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Destroying ReactInstance
+03-29 15:15:20.620 E/unknown:ReactNative( 6061): Tried to remove non-existent frame callback
+03-29 15:15:20.624 W/unknown:BridgelessReact( 6061): ReactHost{0}.getOrCreateDestroyTask(): Resetting start/destroy task ref
+03-29 15:15:20.689 D/InsetsController( 6061): hide(ime(), fromIme=false)
+03-29 15:15:20.689 I/ImeTracker( 6061): com.weejobs.app:c8bcc102: onCancelled at PHASE_CLIENT_ALREADY_HIDDEN
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): Could not open stack frame
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): java.net.SocketTimeoutException: failed to connect to /10.0.2.2 (port 8081) from /10.0.2.16 (port 40528) after 10000ms
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at libcore.io.IoBridge.connectErrno(IoBridge.java:235)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at libcore.io.IoBridge.connect(IoBridge.java:179)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.net.Socket.connect(Socket.java:646)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at com.facebook.react.devsupport.RedBoxContentView$OpenStackFrameTask.doInBackground(RedBoxContentView.kt:173)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at com.facebook.react.devsupport.RedBoxContentView$OpenStackFrameTask.doInBackground(RedBoxContentView.kt:155)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:15:52.272 E/unknown:ReactNative( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:21:43.907 W/WindowOnBackDispatcher( 6061): sendCancelIfRunning: isInProgress=false callback=android.view.ViewRootImpl$$ExternalSyntheticLambda13@d9dff1c
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): Could not open stack frame
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): java.net.SocketTimeoutException: failed to connect to /10.0.2.2 (port 8081) from /10.0.2.16 (port 58692) after 10000ms
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at libcore.io.IoBridge.connectErrno(IoBridge.java:235)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at libcore.io.IoBridge.connect(IoBridge.java:179)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.net.Socket.connect(Socket.java:646)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at com.facebook.react.devsupport.RedBoxContentView$OpenStackFrameTask.doInBackground(RedBoxContentView.kt:173)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at com.facebook.react.devsupport.RedBoxContentView$OpenStackFrameTask.doInBackground(RedBoxContentView.kt:155)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:21:48.055 E/unknown:ReactNative( 6061): 	at java.lang.Thread.run(Thread.java:1119)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): Could not open stack frame
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): java.net.SocketTimeoutException: failed to connect to /10.0.2.2 (port 8081) from /10.0.2.16 (port 58708) after 10000ms
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at libcore.io.IoBridge.connectErrno(IoBridge.java:235)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at libcore.io.IoBridge.connect(IoBridge.java:179)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.net.PlainSocketImpl.socketConnect(PlainSocketImpl.java:142)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:390)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:230)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:212)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:436)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.net.Socket.connect(Socket.java:646)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.platform.Platform.connectSocket(Platform.kt:128)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealConnection.connectSocket(RealConnection.kt:295)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealConnection.connect(RealConnection.kt:207)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.findConnection(ExchangeFinder.kt:226)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.findHealthyConnection(ExchangeFinder.kt:106)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ExchangeFinder.find(ExchangeFinder.kt:74)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.initExchange$okhttp(RealCall.kt:255)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.ConnectInterceptor.intercept(ConnectInterceptor.kt:32)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.cache.CacheInterceptor.intercept(CacheInterceptor.kt:95)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.BridgeInterceptor.intercept(BridgeInterceptor.kt:83)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(RetryAndFollowUpInterceptor.kt:76)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.http.RealInterceptorChain.proceed(RealInterceptorChain.kt:109)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.getResponseWithInterceptorChain$okhttp(RealCall.kt:201)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at okhttp3.internal.connection.RealCall.execute(RealCall.kt:154)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at com.facebook.react.devsupport.RedBoxContentView$OpenStackFrameTask.doInBackground(RedBoxContentView.kt:173)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at com.facebook.react.devsupport.RedBoxContentView$OpenStackFrameTask.doInBackground(RedBoxContentView.kt:155)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at android.os.AsyncTask$3.call(AsyncTask.java:394)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)
+03-29 15:21:49.583 E/unknown:ReactNative( 6061): 	at java.lang.Thread.run(Thread.java:1119)
