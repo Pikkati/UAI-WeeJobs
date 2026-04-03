@@ -1,0 +1,9 @@
+apply plugin: 'com.facebook.react'
+
+buildscript {
+    dependencies {
+        classpath files('react-native-gradle-plugin/PluginSource.java')
+    }
+}
+
+// Directly embed the plugin logic here if possible.
