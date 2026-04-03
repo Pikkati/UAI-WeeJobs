@@ -20,8 +20,15 @@ class MainActivity : ReactActivity() {
     // Ensure we use an AppCompat-derived theme before React sets the content view.
     // This avoids: "You need to use a Theme.AppCompat theme (or descendant) with this activity." while
     // ReactActivityDelegate.loadApp() calls setContentView.
-    setTheme(R.style.AppTheme)
-    Log.i("MainActivity", "Applied theme R.style.AppTheme=${R.style.AppTheme}")
+    try {
+      // Prefer an explicit AppCompat theme at runtime to avoid theme-mismatch crashes
+      setTheme(androidx.appcompat.R.style.Theme_AppCompat_DayNight_NoActionBar)
+      Log.i("MainActivity", "Applied androidx.appcompat Theme_AppCompat_DayNight_NoActionBar")
+    } catch (e: Exception) {
+      // Fallback to app's AppTheme resource if AppCompat R isn't available
+      setTheme(R.style.AppTheme)
+      Log.i("MainActivity", "Applied fallback R.style.AppTheme=${R.style.AppTheme}")
+    }
     // @generated begin expo-splashscreen - expo prebuild (DO NOT MODIFY) sync-f3ff59a738c56c9a6119210cb55f0b613eb8b6af
     // Call expo splash screen registration reflectively so build does not fail when
     // the expo-splash-screen module isn't available at compile time.

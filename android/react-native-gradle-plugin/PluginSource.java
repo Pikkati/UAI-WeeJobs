@@ -1,0 +1,1 @@
+// Placeholder for react-native-gradle-plugin source code.

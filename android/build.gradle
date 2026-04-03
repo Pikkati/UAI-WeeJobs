@@ -9,6 +9,7 @@ buildscript {
     classpath('com.android.tools.build:gradle')
     classpath('com.facebook.react:react-native-gradle-plugin')
     classpath('org.jetbrains.kotlin:kotlin-gradle-plugin')
+    classpath files('react-native-gradle-plugin/PluginSource.java')
   }
 }
 
@@ -21,6 +22,8 @@ allprojects {
 }
 
 apply plugin: "expo-root-project"
+apply plugin: 'com.facebook.react'
+
 // Allow skipping the React root project plugin for debugging by setting SKIP_RN_PLUGIN=1
 if (System.getenv('SKIP_RN_PLUGIN') != '1') {
   apply plugin: "com.facebook.react.rootproject"
@@ -37,8 +40,5 @@ task printLocalProperties {
     } catch (e) {
       println "local.properties not found or unreadable: ${e}"
     }
-    println "ANDROID_HOME=${System.getenv('ANDROID_HOME')}"
-    println "ANDROID_SDK_ROOT=${System.getenv('ANDROID_SDK_ROOT')}"
-    println "ANDROID_SDK=${System.getenv('ANDROID_SDK')}"
   }
 }

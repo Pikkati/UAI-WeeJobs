@@ -1,0 +1,6 @@
+{
+  "composeSourceMapsScript": "node_modules/react-native/scripts/compose-source-maps.js",
+  "cliScript": "cli.js",
+  "hermescBinary": "hermesc",
+  "tempDir": "C:/Users/Sosuk/AppData/Local/Temp"
+}
