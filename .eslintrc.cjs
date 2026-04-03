@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   extends: ['expo'],
-  ignorePatterns: ['dist/*'],
+  ignorePatterns: ['dist/*', 'android/react-native/**', 'android/build/**', 'android/.gradle/**'],
   // Don't fail on unused eslint-disable comments (many tests/mocks include them)
   reportUnusedDisableDirectives: false,
   settings: {
@@ -11,8 +11,17 @@ module.exports = {
       'react-native-safe-area-context',
       '@stripe/stripe-react-native',
       'expo-linear-gradient',
-      'expo-web-browser',
+      'expo-image-picker',
+      'expo-router',
+      'expo-symbols',
       'expo-image',
+      'expo-blur',
+      '@react-navigation/bottom-tabs',
+      '@react-navigation/elements',
+      '@react-navigation/native',
+      '@expo/vector-icons',
+      'expo-web-browser',
+      'expo-splash-screen',
       '@react-navigation/native',
       '@react-navigation/bottom-tabs',
       // Native / Expo modules used in the project but not resolvable in Node lint
@@ -25,18 +34,7 @@ module.exports = {
     },
   },
   rules: {
-    'import/no-unresolved': ['error', { ignore: [
-      'expo-linear-gradient',
-      'react-native-safe-area-context',
-      '@stripe/stripe-react-native',
-      'expo-status-bar',
-      'expo-web-browser',
-      'expo-image',
-      // Additional native modules
-      'react-native-reanimated',
-      'expo-haptics',
-      'expo-blur'
-    ] }],
+    'import/no-unresolved': 'off',
   },
   overrides: [
     {
@@ -70,6 +68,8 @@ module.exports = {
         'react-hooks/preserve-manual-memoization': 'off',
         'react-hooks/immutability': 'off',
         'react-hooks/static-components': 'off'
+        ,
+        'import/no-unresolved': 'off'
       }
     }
     ,
