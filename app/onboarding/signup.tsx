@@ -91,14 +91,11 @@ export default function SignUpScreen() {
     setResendError('');
     try {
       // Supabase does not provide a direct resend endpoint, so trigger signUp again
-      const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
-        ? (normalizedRole as 'customer' | 'tradesperson')
-        : 'customer';
-      const { error } = await signup(email.trim(), password, name.trim(), selectedRole);
+      const { error } = await signup(email.trim(), password, name.trim(), normalizedRole as any);
       if (error) {
         setResendError(error);
       }
-    } catch (e) {
+    } catch {
       setResendError('Unable to resend verification email.');
     } finally {
       setResendLoading(false);
