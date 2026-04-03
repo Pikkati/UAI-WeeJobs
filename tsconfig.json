@@ -28,5 +28,8 @@
     "**/*.spec.ts",
     "**/*.spec.tsx",
     "**/__mocks__/**"
+    ,
+    "android/react-native/**",
+    "android/react-native/**/__typetests__/**"
   ]
 }
