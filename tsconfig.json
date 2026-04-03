@@ -20,6 +20,19 @@
     "types/**/*.d.ts"
   ],
   "exclude": [
+<<<<<<< Updated upstream
     // Removed exclusions for test files and mocks to ensure Jest can resolve them
+=======
+    "**/__tests__/**",
+    "__tests__/**",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/__mocks__/**"
+    ,
+    "android/react-native/**",
+    "android/react-native/**/__typetests__/**"
+>>>>>>> Stashed changes
   ]
 }

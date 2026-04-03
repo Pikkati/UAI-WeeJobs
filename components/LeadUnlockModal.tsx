@@ -56,8 +56,13 @@ export default function LeadUnlockModal({
       setIsReporting(false);
       setReportReason('');
       Alert.alert('Report Submitted', 'Thank you for reporting this job. We will review it shortly.');
-    } catch (err) {
-      console.error('Report submission error:', err);
+        } catch (err) {
+      // Prefer a non-fatal warning to reduce noisy error stacks in test logs.
+      // Keep the message concise so CI logs remain readable.
+      // Safely extract message from unknown `err`.
+      const errMsg = err && typeof err === 'object' && 'message' in err ? (err as any).message : String(err);
+      // eslint-disable-next-line no-console
+      console.warn('Report submission failed:', errMsg);
       Alert.alert('Error', 'Failed to submit report. Please try again.');
     } finally {
       setIsSubmittingReport(false);

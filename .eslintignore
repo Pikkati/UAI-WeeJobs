@@ -1,0 +1,6 @@
+# Ignore bundled react-native source and generated files
+android/react-native/**
+android/build/**
+android/.gradle/**
+node_modules/**
+coverage/**
