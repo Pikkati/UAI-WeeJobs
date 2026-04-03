@@ -19,7 +19,7 @@ export default function PasswordStrength({password}: {password: string}) {
   const barColor = score <= 1 ? '#FF4D4F' : score === 2 ? '#FFA940' : score === 3 ? '#40C057' : '#0A84FF';
 
   return (
-    <View style={styles.container} accessibilityRole="status">
+    <View style={styles.container} accessibilityRole={'status' as any}>
       <View style={styles.row}>
         <View style={[styles.bar, {width: `${percent}%`, backgroundColor: barColor}]} />
         <View style={[styles.barEmpty, {opacity: 0.12 - (percent/100)*0.12}]} />

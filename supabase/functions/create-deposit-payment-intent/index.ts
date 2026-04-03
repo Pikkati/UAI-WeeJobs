@@ -8,21 +8,24 @@ try {
   // @ts-ignore
   Sentry = await import("https://esm.sh/@sentry/node@7?target=deno");
   const dsn = Deno.env.get("SENTRY_DSN");
-  if (dsn) {
-    try {
-      Sentry.init({ dsn, environment: Deno.env.get("DEPLOYMENT_ENV") || "development" });
-      console.log("Sentry initialized for Edge Function");
-    } catch (e) {
-      console.warn("Sentry init failed:", e?.message || e);
-      Sentry = null;
-    }
+      if (dsn) {
+        try {
+          Sentry.init({ dsn, environment: Deno.env.get("DEPLOYMENT_ENV") || "development" });
+          console.log("Sentry initialized for Edge Function");
+        } catch (e) {
+          const errMsg = e && typeof e === 'object' && 'message' in e ? (e as any).message : String(e);
+          console.warn("Sentry init failed:", errMsg);
+          Sentry = null;
+        }
   } else {
     Sentry = null;
   }
-} catch (e) {
-  // Import failed or not available in this runtime; continue without Sentry
-  Sentry = null;
-}
+    } catch (e) {
+      // Import failed or not available in this runtime; continue without Sentry
+      const errMsg = e && typeof e === 'object' && 'message' in e ? (e as any).message : String(e);
+      console.warn('Sentry import/init failed:', errMsg);
+      Sentry = null;
+    }
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { rateLimit } from "https://deno.land/x/oak_rate_limit@0.1.0/mod.ts";
 // Deno runtime globals are used in this file; declare for TypeScript compile-time
@@ -184,7 +187,8 @@ serve(async (req) => {
         }
       }
     } catch (e) {
-      console.warn('Sentry capture failed', e?.message || e);
+      const errMsg = e && typeof e === 'object' && 'message' in e ? (e as any).message : String(e);
+      console.warn('Sentry capture failed', errMsg);
     }
 
     return new Response(

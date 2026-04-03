@@ -87,7 +87,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean }> => {
+  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }> => {
     try {
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
@@ -119,7 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         );
 
         if (fallbackUser) {
-          const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+          const normalizedUser = buildNormalizedUser((fallbackUser as unknown) as User & { role?: User['role'] | 'tradie' });
           await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
           setUser(normalizedUser);
           analytics.track('login_success', { userId: normalizedUser.id, method: 'fallback' });
@@ -156,7 +156,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         (u) => u.email === email && u.password === password,
       );
       if (fallbackUser) {
-        const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
+        const normalizedUser = buildNormalizedUser((fallbackUser as unknown) as User & { role?: User['role'] | 'tradie' });
         await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
         setUser(normalizedUser);
         return { success: true, user: normalizedUser };
@@ -333,6 +333,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signup,
         sendPasswordReset,
         logout,
+        resendVerification,
         setHasSeenOnboarding,
         refreshUser,
       }}

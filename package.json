@@ -24,14 +24,10 @@
     "assets:icon-sprite": "node scripts/icon-sprite.js",
     "assets:generate-icons": "node scripts/generate-app-icons.js",
     "assets:optimize-svgs": "node scripts/optimize-svgs.js",
-    "assets:optimize": "npm run assets:icon-sprite && npm run assets:optimize-svgs"
-  },
-  "scripts": {
+    "assets:optimize": "npm run assets:icon-sprite && npm run assets:optimize-svgs",
     "assets:png-sprite": "node scripts/png-sprite.js",
     "assets:lottie-fallbacks": "node scripts/lottie-fallbacks.js",
-    "assets:all": "npm run assets:optimize && npm run assets:png-sprite && npm run assets:lottie-fallbacks"
-  },
-  "scripts": {
+    "assets:all": "npm run assets:optimize && npm run assets:png-sprite && npm run assets:lottie-fallbacks",
     "assets:check-rtl": "node scripts/check-rtl-assets.js"
   },
   "assetsScripts": {
