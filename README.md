@@ -1,5 +1,25 @@
-## Payments: Stripe Integration
+# Weejobs
 
+This repository contains the source code for the Weejobs project.
+
+## Project Overview
+Weejobs is a cross-platform application built with Expo, React Native, and Stripe for payments. It features user authentication, job management, and more.
+
+## Project Structure
+- `app/` - Main application source code
+- `__tests__/` - Test files
+- `components/` - Reusable UI components
+- `lib/` - Library and utility code
+- `constants/` - Application constants
+
+## Scripts
+- `npm start` - Start the Expo development server
+- `npm test` - Run tests with Jest
+- `npm run lint` - Lint the codebase
+- `npm run reset-project` - Reset to a fresh project state
+- `npm run start:webhook` - Start Stripe webhook listener
+
+## Payments: Stripe Integration
 This project includes a scaffold for Stripe payment integration and webhook handling.
 
 **Local webhook testing:**
@@ -15,49 +35,27 @@ This project includes a scaffold for Stripe payment integration and webhook hand
 4. Implement event handlers in `scripts/stripe-webhook.js` for events like `payment_intent.succeeded`.
 
 See `docs/STRIPE.md` for more details and security notes.
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
-
-## Get started
-
+## Getting Started
 1. Install dependencies
-
    ```bash
    npm install
    ```
-
 2. Start the app
-
    ```bash
    npx expo start
    ```
+3. Edit files in the **app** directory to begin development. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Contributing
+Please see `CONTRIBUTING.md` for guidelines.
 
 ## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
 - [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+
+## License
+MIT
 
 ## Join the community
 

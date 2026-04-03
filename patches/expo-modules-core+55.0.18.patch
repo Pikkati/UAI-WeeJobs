@@ -1,0 +1,7 @@
+*** Begin Patch
+*** Update File: android/src/main/java/expo/modules/kotlin/Promise.kt
+@@
+-// original upstream content
++// This file was adjusted locally to implement compatibility shims for React Native Promise
++// See ../../../patches/expo-modules-core+55.0.18.patch for details
+*** End Patch

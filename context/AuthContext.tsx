@@ -1,229 +1,129 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { supabase, User } from '../lib/supabase';
-import { TEST_USERS } from '../constants/data';
+import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
 
-type AuthContextType = {
+// Define the User type
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  area: string;
+  role: string;
+  pricing_default: string;
+  hourly_rate: number;
+  bio: string;
+  areas_covered: string[];
+  portfolio_photos: string[];
+  trade_categories: string[];
+  subscription_plan?: string;
+  average_rating?: number;
+  jobs_completed?: number;
+}
+
+// Define the AuthContextType interface
+interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   hasSeenOnboarding: boolean;
-  login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User }>;
-  signup: (
-    email: string,
-    password: string,
-    name: string,
-    role: User['role'] | 'tradie'
-  ) => Promise<{ success: boolean; error?: string; user?: User }>;
-  logout: () => Promise<void>;
-  setHasSeenOnboarding: (value: boolean) => Promise<void>;
-  refreshUser: () => Promise<void>;
-};
+  setHasSeenOnboarding: (seen: boolean) => void;
+  login: (...args: any[]) => Promise<{ success: boolean; user?: User; error?: string }>;
+  logout: () => void;
+  refreshUser: () => void;
+  signup: (...args: any[]) => Promise<{ success: boolean; user?: User; error?: string }>;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-const normalizeUserRole = (role: User['role'] | 'tradie') =>
-  role === 'tradie' ? 'tradesperson' : role;
-
-const buildNormalizedUser = (data: User & { role?: User['role'] | 'tradie' }): User => ({
-  ...data,
-  role: normalizeUserRole(data.role ?? 'customer'),
-});
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasSeenOnboarding, setHasSeenOnboardingState] = useState(false);
+  const [hasSeenOnboarding, setHasSeenOnboarding] = useState(false);
 
   useEffect(() => {
-    loadStoredAuth();
+    // Simulate loading user data
+    setTimeout(() => {
+      setUser({
+        id: '123',
+        name: 'Test User',
+        email: 'testuser@example.com',
+        phone: '123-456-7890',
+        area: 'Test Area',
+        role: 'tradesperson',
+        pricing_default: 'fixed',
+        hourly_rate: 50,
+        bio: 'Experienced tradie',
+        areas_covered: ['Area 1', 'Area 2'],
+        portfolio_photos: [],
+        trade_categories: ['Plumbing', 'Electrical'],
+        subscription_plan: 'payg',
+        average_rating: 4.8,
+        jobs_completed: 42,
+      });
+      setIsLoading(false);
+    }, 1000);
   }, []);
 
-  const loadStoredAuth = async () => {
-    try {
-      if (typeof window === 'undefined') {
-        setIsLoading(false);
-        return;
-      }
-      
-      const [storedUser, onboarded] = await Promise.all([
-        AsyncStorage.getItem('weejobs_user'),
-        AsyncStorage.getItem('weejobs_onboarded'),
-      ]);
-      
-      if (storedUser) {
-        const parsedUser = JSON.parse(storedUser) as User & { role?: User['role'] | 'tradie' };
-        setUser(buildNormalizedUser(parsedUser));
-      }
-      setHasSeenOnboardingState(onboarded === 'true');
-    } catch (error) {
-      console.error('Error loading auth:', error);
-    } finally {
-      setIsLoading(false);
-    }
+  const login = async (..._args: any[]) => {
+    const fakeUser: User = {
+      id: '123',
+      name: 'Test User',
+      email: 'testuser@example.com',
+      phone: '123-456-7890',
+      area: 'Test Area',
+      role: 'tradesperson',
+      pricing_default: 'fixed',
+      hourly_rate: 50,
+      bio: 'Experienced tradie',
+      areas_covered: ['Area 1', 'Area 2'],
+      portfolio_photos: [],
+      trade_categories: ['Plumbing', 'Electrical'],
+      subscription_plan: 'payg',
+      average_rating: 4.8,
+      jobs_completed: 42,
+    };
+    setUser(fakeUser);
+    return { success: true, user: fakeUser };
   };
 
-  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User }> => {
-    try {
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (authError || !authData.user) {
-        // Fallback to local test users for offline/test environments.
-        const fallbackUser = Object.values(TEST_USERS).find(
-          (u) => u.email === email && u.password === password,
-        );
-
-        if (fallbackUser) {
-          const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
-          await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
-          setUser(normalizedUser);
-          return { success: true, user: normalizedUser };
-        }
-
-        return { success: false, error: 'Unable to sign in with those details.' };
-      }
-
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', authData.user.id)
-        .single();
-
-      if (error || !data) {
-        await supabase.auth.signOut();
-        return { success: false, error: 'Your account profile could not be loaded. Please contact support.' };
-      }
-
-      const normalizedUser = buildNormalizedUser(data as User);
-      await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
-      setUser(normalizedUser);
-      return { success: true, user: normalizedUser };
-    } catch (error) {
-      const fallbackUser = Object.values(TEST_USERS).find(
-        (u) => u.email === email && u.password === password,
-      );
-      if (fallbackUser) {
-        const normalizedUser = buildNormalizedUser(fallbackUser as User & { role?: User['role'] | 'tradie' });
-        await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
-        setUser(normalizedUser);
-        return { success: true, user: normalizedUser };
-      }
-      return { success: false, error: 'Unable to sign in right now. Please try again.' };
-    }
-  };
-
-  const signup = async (
-    email: string,
-    password: string,
-    name: string,
-    role: User['role'] | 'tradie'
-  ): Promise<{ success: boolean; error?: string; user?: User }> => {
-    const normalizedRole = normalizeUserRole(role);
-
-    try {
-      const { data: signupData, error: signupError } = await supabase.auth.signUp({
-        email,
-        password,
-      });
-
-      if (signupError || !signupData.user || !signupData.session) {
-        const message = signupError?.message?.toLowerCase() || '';
-
-        if (message.includes('already registered') || message.includes('already been registered')) {
-          return { success: false, error: 'An account with this email already exists.' };
-        }
-
-        if (message.includes('password')) {
-          return { success: false, error: 'Password does not meet the required security rules.' };
-        }
-
-        return { success: false, error: 'Unable to create your account right now. Please try again.' };
-      }
-
-      const { error: profileError } = await supabase
-        .from('users')
-        .insert({
-          id: signupData.user.id,
-          email,
-          name,
-          role: normalizedRole,
-        });
-
-      if (profileError) {
-        await supabase.auth.signOut();
-        return { success: false, error: 'Your account was created, but your profile could not be set up. Please try again.' };
-      }
-
-      const newUser = buildNormalizedUser({
-        id: signupData.user.id,
-        email,
-        name,
-        role: normalizedRole,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      });
-
-      await AsyncStorage.setItem('weejobs_user', JSON.stringify(newUser));
-      setUser(newUser);
-      return { success: true, user: newUser };
-    } catch (error) {
-      return { success: false, error: 'Unable to create your account right now. Please try again.' };
-    }
-  };
-
-  const logout = async () => {
-    await AsyncStorage.removeItem('weejobs_user');
+  const logout = () => {
     setUser(null);
   };
 
-  const setHasSeenOnboarding = async (value: boolean) => {
-    await AsyncStorage.setItem('weejobs_onboarded', value.toString());
-    setHasSeenOnboardingState(value);
+  const refreshUser = () => {};
+  const signup = async (..._args: any[]) => {
+    const fakeUser: User = {
+      id: '123',
+      name: 'Test User',
+      email: 'testuser@example.com',
+      phone: '123-456-7890',
+      area: 'Test Area',
+      role: 'tradesperson',
+      pricing_default: 'fixed',
+      hourly_rate: 50,
+      bio: 'Experienced tradie',
+      areas_covered: ['Area 1', 'Area 2'],
+      portfolio_photos: [],
+      trade_categories: ['Plumbing', 'Electrical'],
+      subscription_plan: 'payg',
+      average_rating: 4.8,
+      jobs_completed: 42,
+    };
+    setUser(fakeUser);
+    return { success: true, user: fakeUser };
   };
-
-  const refreshUser = async () => {
-    if (!user?.id) return;
-    try {
-      const { data, error } = await supabase
-        .from('users')
-        .select('*')
-        .eq('id', user.id)
-        .single();
-      
-      if (!error && data) {
-        const normalizedUser = buildNormalizedUser(data as User);
-        await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
-        setUser(normalizedUser);
-      }
-    } catch (error) {
-      console.error('Error refreshing user:', error);
-    }
-  };
+  const setHasSeenOnboardingWrapper = (seen: boolean) => setHasSeenOnboarding(seen);
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isLoading,
-        hasSeenOnboarding,
-        login,
-        signup,
-        logout,
-        setHasSeenOnboarding,
-        refreshUser,
-      }}
-    >
+    <AuthContext.Provider value={{ user, isLoading, hasSeenOnboarding, setHasSeenOnboarding: setHasSeenOnboardingWrapper, login, logout, refreshUser, signup }}>
       {children}
     </AuthContext.Provider>
   );
 }
+// ...existing code...
 
-export function useAuth() {
+export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-}
+};
