@@ -13,17 +13,30 @@ class BridgePromiseAdapter(private val expoPromise: ExpoPromise) : Promise {
   override fun resolve(value: Any?) {
     expoPromise.resolve(value)
   }
-
-  override fun reject(code: String, message: String?) {
-    expoPromise.reject(code, message, null)
+  // Implement Promise.reject overloads expected by the current RN interface
+  override fun reject(code: String?, message: String?) {
+    expoPromise.reject(code ?: "UnknownCode", message, null)
   }
 
-  override fun reject(code: String, throwable: Throwable?) {
-    expoPromise.reject(code, null, throwable)
+  override fun reject(code: String?, throwable: Throwable?) {
+    expoPromise.reject(code ?: "UnknownCode", null, throwable)
   }
 
-  override fun reject(code: String, message: String?, throwable: Throwable?) {
-    expoPromise.reject(code, message, throwable)
+  override fun reject(code: String?, message: String?, throwable: Throwable?) {
+    expoPromise.reject(code ?: "UnknownCode", message, throwable)
+  }
+
+  override fun reject(code: String?, userInfo: WritableMap) {
+    // userInfo is not used by Expo Promise; preserve code/message mapping
+    expoPromise.reject(code ?: "UnknownCode", null, null)
+  }
+
+  override fun reject(code: String?, throwable: Throwable?, userInfo: WritableMap) {
+    expoPromise.reject(code ?: "UnknownCode", null, throwable)
+  }
+
+  override fun reject(code: String?, message: String?, userInfo: WritableMap) {
+    expoPromise.reject(code ?: "UnknownCode", message, null)
   }
 
   override fun reject(throwable: Throwable) {
@@ -34,25 +47,12 @@ class BridgePromiseAdapter(private val expoPromise: ExpoPromise) : Promise {
     expoPromise.reject("UnknownCode", null, throwable)
   }
 
-  override fun reject(code: String, userInfo: WritableMap) {
-    expoPromise.reject(code, null, null)
-  }
-
-  override fun reject(code: String, throwable: Throwable?, userInfo: WritableMap) {
-    expoPromise.reject(code, null, throwable)
-  }
-
-  override fun reject(code: String, message: String?, userInfo: WritableMap) {
-    expoPromise.reject(code, message, null)
-  }
-
-  // Newer RN overloads include nullable code and userInfo parameters; implement them
   override fun reject(code: String?, message: String?, throwable: Throwable?, userInfo: WritableMap?) {
     expoPromise.reject(code ?: "UnknownCode", message, throwable)
   }
 
-  @Deprecated("Use reject(code, message, throwable) instead")
+  @Deprecated("Prefer passing a module-specific error code to JS. Using this method will pass the error code EUNSPECIFIED")
   override fun reject(message: String) {
-    expoPromise.reject("UnknownCode", message, null)
+    expoPromise.reject("EUNSPECIFIED", message, null)
   }
 }
