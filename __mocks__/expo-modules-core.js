@@ -11,5 +11,5 @@ module.exports = {
   // no-op polyfill installer used by newer jest-expo presets
   installExpoGlobalPolyfill: function () {},
   // default export compatibility
-  default: {},
+  default: {}
 };

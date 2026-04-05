@@ -2,20 +2,12 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 // Mock router + params
-jest.mock(
-  'expo-router',
-  () => ({
-    useLocalSearchParams: () => ({ jobId: 'j1' }),
-    useRouter: () => ({ back: jest.fn(), push: jest.fn() }),
-  }),
-  { virtual: true },
-);
+jest.mock('expo-router', () => ({
+  useLocalSearchParams: () => ({ jobId: 'j1' }),
+  useRouter: () => ({ back: jest.fn(), push: jest.fn() }),
+}), { virtual: true });
 
-jest.mock(
-  'react-native-safe-area-context',
-  () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }),
-  { virtual: true },
-);
+jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
 
 // Mock AuthContext
 jest.mock(

@@ -30,6 +30,8 @@
     "node_modules",
     "build",
     "dist",
-    "tmp_apk_extracted"
+    "tmp_apk_extracted",
+    "android/react-native/**",
+    "android/react-native/**/__typetests__/**"
   ]
 }

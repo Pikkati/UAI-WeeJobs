@@ -12,24 +12,20 @@ jest.mock(
   { virtual: true },
 );
 
-jest.mock(
-  '../context/AuthContext',
-  () => ({
-    useAuth: () => ({
-      user: {
-        id: 'u1',
-        name: 'Test Tradie',
-        email: 'tradie@example.com',
-        pricing_default: 'fixed',
-        hourly_rate: 30,
-        portfolio_photos: [],
-      },
-      logout: jest.fn(),
-      refreshUser: jest.fn(),
-    }),
+jest.mock('../context/AuthContext', () => ({
+  useAuth: () => ({
+    user: {
+      id: 'u1',
+      name: 'Test Tradie',
+      email: 'tradie@example.com',
+      pricing_default: 'fixed',
+      hourly_rate: 30,
+      portfolio_photos: [],
+    },
+    logout: jest.fn(),
+    refreshUser: jest.fn(),
   }),
-  { virtual: true },
-);
+}), { virtual: true });
 
 describe('TradieProfileScreen render', () => {
   test('renders profile header and user name', () => {

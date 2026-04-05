@@ -16,7 +16,7 @@ module.exports = Object.assign({}, localPreset || {}, {
   testEnvironment: '<rootDir>/jest-environment-custom.js',
   testEnvironmentOptions: {},
   transformIgnorePatterns: [
-    'node_modules/(?!(@?expo|expo-asset|expo-modules-core|react-native|@react-native|@unimodules|@react-navigation|@supabase|expo-font)/)',
+    'node_modules/(?!(@?expo|expo-asset|expo-modules-core|react-native|@react-native|@unimodules|@react-navigation|@supabase|expo-font)/)'
   ],
   moduleNameMapper: {
     '^expo$': '<rootDir>/__mocks__/expo-shim.js',
@@ -28,18 +28,13 @@ module.exports = Object.assign({}, localPreset || {}, {
     '^expo-linear-gradient$': '<rootDir>/__mocks__/expo-linear-gradient.js',
     '^expo-modules-core(/.*)?$': '<rootDir>/__mocks__/expo-modules-core.js',
     '^expo-router$': '<rootDir>/__mocks__/expo-router.js',
-    '^@react-native-async-storage/async-storage$':
-      '<rootDir>/__mocks__/async-storage.js',
-    '^react-native/Libraries/BatchedBridge/NativeModules$':
-      '<rootDir>/__mocks__/rn-native-modules.js',
+    '^@react-native-async-storage/async-storage$': '<rootDir>/__mocks__/async-storage.js',
+    '^react-native/Libraries/BatchedBridge/NativeModules$': '<rootDir>/__mocks__/rn-native-modules.js',
     '^react-native$': '<rootDir>/__mocks__/react-native.js',
-    '^react-native-reanimated$':
-      '<rootDir>/__mocks__/react-native-reanimated.js',
-    '^react-native-reanimated/mock$':
-      '<rootDir>/__mocks__/react-native-reanimated.js',
-    '^react-native/jest/setup(\\.js)?$':
-      '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
-    '^@/(.*)$': '<rootDir>/$1',
+    '^react-native-reanimated$': '<rootDir>/__mocks__/react-native-reanimated.js',
+    '^react-native-reanimated/mock$': '<rootDir>/__mocks__/react-native-reanimated.js',
+    '^react-native/jest/setup(\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
+    '^@/(.*)$': '<rootDir>/$1'
   },
   // Improve test isolation by resetting/clearing mocks between tests
   clearMocks: true,

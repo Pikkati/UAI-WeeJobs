@@ -35,7 +35,6 @@ module.exports = {
           'expo-status-bar',
           'expo-web-browser',
           'expo-image',
-          // Additional native modules
           'react-native-reanimated',
           'expo-haptics',
           'expo-blur',

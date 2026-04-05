@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  ReactNode,
-} from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { supabase, User } from '../lib/supabase';
 import { TEST_USERS } from '../constants/data';
@@ -15,17 +9,7 @@ type AuthContextType = {
   user: User | null;
   isLoading: boolean;
   hasSeenOnboarding: boolean;
-  login: (
-    email: string,
-    password: string,
-  ) => Promise<{
-    success: boolean;
-    error?: string;
-    user?: User;
-    needsVerification?: boolean;
-    isRateLimited?: boolean;
-    retryAfter?: number | null;
-  }>;
+  login: (email: string, password: string) => Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }>;
   signup: (
     email: string,
     password: string,
@@ -128,17 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const login = async (
-    email: string,
-    password: string,
-  ): Promise<{
-    success: boolean;
-    error?: string;
-    user?: User;
-    needsVerification?: boolean;
-    isRateLimited?: boolean;
-    retryAfter?: number | null;
-  }> => {
+  const login = async (email: string, password: string): Promise<{ success: boolean; error?: string; user?: User; needsVerification?: boolean; isRateLimited?: boolean; retryAfter?: number | null }> => {
     try {
       // Resolve the client at call-time to pick up test overrides reliably.
       // Some tests `jest.mock('../lib/supabase')` and only provide a `supabase`
@@ -624,10 +598,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (!error && data) {
         const normalizedUser = buildNormalizedUser(data as User);
-        await AsyncStorage.setItem(
-          'weejobs_user',
-          JSON.stringify(normalizedUser),
-        );
+        await AsyncStorage.setItem('weejobs_user', JSON.stringify(normalizedUser));
         setUser(normalizedUser);
       }
     } catch (error) {
