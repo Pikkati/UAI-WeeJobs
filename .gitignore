@@ -41,3 +41,6 @@ app-example
 coverage/
 # auto-optimizer backups
 assets/**/optimized-backup/
+
+# Ignore extracted APK files and build intermediates
+tmp_apk_extracted/
