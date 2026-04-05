@@ -16,7 +16,12 @@ function walk(dir: string): string[] {
     const stat = fs.statSync(full);
     if (stat && stat.isDirectory()) {
       // skip node_modules and __tests__ directories
-      if (file === 'node_modules' || file === '__tests__' || file === 'coverage_out') return;
+      if (
+        file === 'node_modules' ||
+        file === '__tests__' ||
+        file === 'coverage_out'
+      )
+        return;
       results.push(...walk(full));
     } else {
       if (full.endsWith('.ts') || full.endsWith('.tsx')) {
@@ -29,7 +34,7 @@ function walk(dir: string): string[] {
 
 describe('require-all directories (require-only)', () => {
   test('requires .ts/.tsx files under app, components, hooks, lib without throwing', () => {
-    const errors: {file: string; err: any}[] = [];
+    const errors: { file: string; err: any }[] = [];
     const optional = [
       // known optional/experimental files that may not be safe to import
       'app/admin/users',
@@ -42,7 +47,10 @@ describe('require-all directories (require-only)', () => {
       const files = walk(dir);
       files.forEach((f) => {
         // compute require path relative to __tests__ directory
-        const rel = path.relative(__dirname, f).replace(/\\/g, '/').replace(/\.(ts|tsx)$/, '');
+        const rel = path
+          .relative(__dirname, f)
+          .replace(/\\/g, '/')
+          .replace(/\.(ts|tsx)$/, '');
         try {
           // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
           require(`./${rel}`);
@@ -61,7 +69,10 @@ describe('require-all directories (require-only)', () => {
       // test is intended to be best-effort and some modules are unsafe to
       // import in the Jest environment (native-platform-only code).
       // eslint-disable-next-line no-console
-      console.warn('require-all skipped imports due to errors (see first):', errors[0]);
+      console.warn(
+        'require-all skipped imports due to errors (see first):',
+        errors[0],
+      );
     }
 
     // Pass even if some files failed to import; failures are surfaced in logs

@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  ScrollView,
+  Image,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
@@ -56,14 +64,18 @@ export default function CustomerProfileScreen() {
   };
 
   return (
-    <ScrollView 
+    <ScrollView
       style={[styles.container, { paddingTop: Spacing.md }]}
       contentContainerStyle={styles.content}
     >
       <Text style={styles.title}>Profile</Text>
 
       <View style={styles.profileCard}>
-        <TouchableOpacity style={styles.avatarWrap} onPress={handlePhotoPress} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.avatarWrap}
+          onPress={handlePhotoPress}
+          activeOpacity={0.8}
+        >
           {profilePhoto ? (
             <Image source={{ uri: profilePhoto }} style={styles.avatarImage} />
           ) : (
@@ -86,14 +98,14 @@ export default function CustomerProfileScreen() {
             {[1, 2, 3, 4, 5].map((star) => (
               <Ionicons
                 key={star}
-                name={star <= Math.round(averageRating) ? 'star' : 'star-outline'}
+                name={
+                  star <= Math.round(averageRating) ? 'star' : 'star-outline'
+                }
                 size={16}
                 color={Colors.accent}
               />
             ))}
-            <Text style={styles.ratingText}>
-              {averageRating.toFixed(1)}
-            </Text>
+            <Text style={styles.ratingText}>{averageRating.toFixed(1)}</Text>
             <Text style={styles.ratingCount}>
               ({totalReviews} tradie review{totalReviews !== 1 ? 's' : ''})
             </Text>
@@ -106,7 +118,11 @@ export default function CustomerProfileScreen() {
 
         <View style={styles.infoCard}>
           <View style={styles.infoRow}>
-            <Ionicons name="person-outline" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="person-outline"
+              size={20}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoLabel}>Name</Text>
             <Text style={styles.infoValue}>{user?.name}</Text>
           </View>
@@ -114,7 +130,11 @@ export default function CustomerProfileScreen() {
           <View style={styles.divider} />
 
           <View style={styles.infoRow}>
-            <Ionicons name="call-outline" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="call-outline"
+              size={20}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoLabel}>Phone</Text>
             <Text style={styles.infoValue}>{user?.phone || 'Not set'}</Text>
           </View>
@@ -122,7 +142,11 @@ export default function CustomerProfileScreen() {
           <View style={styles.divider} />
 
           <View style={styles.infoRow}>
-            <Ionicons name="location-outline" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="location-outline"
+              size={20}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoLabel}>Area</Text>
             <Text style={styles.infoValue}>{user?.area || 'Not set'}</Text>
           </View>
@@ -133,15 +157,31 @@ export default function CustomerProfileScreen() {
         <Text style={styles.sectionTitle}>Legal</Text>
 
         <TouchableOpacity style={styles.linkItem}>
-          <Ionicons name="document-text-outline" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="document-text-outline"
+            size={20}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.linkText}>Terms of Service</Text>
-          <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="chevron-forward"
+            size={20}
+            color={Colors.textSecondary}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.linkItem}>
-          <Ionicons name="shield-outline" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="shield-outline"
+            size={20}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.linkText}>Privacy Policy</Text>
-          <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="chevron-forward"
+            size={20}
+            color={Colors.textSecondary}
+          />
         </TouchableOpacity>
       </View>
 

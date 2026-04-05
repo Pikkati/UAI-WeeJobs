@@ -36,7 +36,9 @@ const jobMock = {
 // Mock the JobsContext directly to ensure the component receives the
 // stable override regardless of import/eval order.
 // Use require.resolve so the mock targets the exact module file path
-jest.doMock(require.resolve('../context/JobsContext'), () => ({ useJobs: () => jobMock }));
+jest.doMock(require.resolve('../context/JobsContext'), () => ({
+  useJobs: () => jobMock,
+}));
 
 jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({ jobId: 'job-123' }),
@@ -70,15 +72,23 @@ describe('ChooseTradesmanScreen', () => {
       },
     ];
 
-    const { getByText, queryByText } = render(<Screen _testInterests={testInterests} />);
+    const { getByText, queryByText } = render(
+      <Screen _testInterests={testInterests} />,
+    );
 
-    await waitFor(() => expect(getByText('1 tradesperson interested in your job')).toBeTruthy());
+    await waitFor(() =>
+      expect(getByText('1 tradesperson interested in your job')).toBeTruthy(),
+    );
 
     // Select & Book -> should call selectTradesman with jobId, tradieId and pricingType
     fireEvent.press(getByText('Select & Book'));
 
     await waitFor(() => {
-      expect(jobMock.selectTradesman).toHaveBeenCalledWith('job-123', 't1', 'fixed');
+      expect(jobMock.selectTradesman).toHaveBeenCalledWith(
+        'job-123',
+        't1',
+        'fixed',
+      );
     });
   });
 });

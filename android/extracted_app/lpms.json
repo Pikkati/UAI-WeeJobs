@@ -647,8 +647,7 @@
       "light_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-revolutpay_short-f46613e58de99e61babba9695c855909.svg",
       "dark_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-revolutpay_short_dark-1775e3eb78f72f625198c10961b0b00a.svg"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
         "requires_action": {
@@ -695,8 +694,7 @@
       "light_theme_png": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-alma_dark-9adee7a095478e23c76054e7fcb4c275.png",
       "dark_theme_png": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-alma_light-41fe66ba84194788e98548aa6e749c79.png"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
         "requires_action": {
@@ -722,21 +720,20 @@
       "light_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-sunbit-fdcaea94ae6a18dbf86d11ac9c21a397.svg",
       "dark_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-sunbit_dark-f66855f32a39171dd749d7ffa05fe986.svg"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
-          "requires_action": {
-              "type": "redirect_to_url"
-          }
+        "requires_action": {
+          "type": "redirect_to_url"
+        }
       },
       "post_confirm_handling_pi_status_specs": {
-          "succeeded": {
-              "type": "finished"
-          },
-          "requires_action": {
-              "type": "canceled"
-          }
+        "succeeded": {
+          "type": "finished"
+        },
+        "requires_action": {
+          "type": "canceled"
+        }
       }
     }
   },
@@ -749,21 +746,20 @@
       "light_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-billie-12c7376f5623c109996ff8cd2f6d7a05.svg",
       "dark_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-billie_dark-6c8ac5db6e80d5c186b280da0ccd0a5b.svg"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
-          "requires_action": {
-              "type": "redirect_to_url"
-          }
+        "requires_action": {
+          "type": "redirect_to_url"
+        }
       },
       "post_confirm_handling_pi_status_specs": {
-          "succeeded": {
-              "type": "finished"
-          },
-          "requires_action": {
-              "type": "canceled"
-          }
+        "succeeded": {
+          "type": "finished"
+        },
+        "requires_action": {
+          "type": "canceled"
+        }
       }
     }
   },
@@ -776,21 +772,20 @@
       "light_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-satispay-eca5006db20571e80caec1509c680c27.svg",
       "dark_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-satispay_dark-c01fc432e3c7b334f0204d011879bb1a.svg"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
-          "requires_action": {
-              "type": "redirect_to_url"
-          }
+        "requires_action": {
+          "type": "redirect_to_url"
+        }
       },
       "post_confirm_handling_pi_status_specs": {
-          "succeeded": {
-              "type": "finished"
-          },
-          "requires_action": {
-              "type": "canceled"
-          }
+        "succeeded": {
+          "type": "finished"
+        },
+        "requires_action": {
+          "type": "canceled"
+        }
       }
     }
   },
@@ -803,8 +798,7 @@
       "dark_theme_png": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-crypto_dark@3x-8f7b0e91b45cb56de550af37d41aac1d.png",
       "dark_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-crypto_dark-f19bb5c5400c6cde94dd53b7f1ce7217.svg"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
         "requires_action": {
@@ -1021,8 +1015,7 @@
       "light_theme_png": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-twint@3x-0d33d2bf7c7037878c2a42232362accb.png",
       "light_theme_svg": "https://js.stripe.com/v3/fingerprinted/img/payment-methods/icon-pm-twint-d86f6ccc22b739319ca4de7c83842de0.svg"
     },
-    "fields": [
-    ],
+    "fields": [],
     "next_action_spec": {
       "confirm_response_status_specs": {
         "requires_action": {

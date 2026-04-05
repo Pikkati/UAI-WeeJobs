@@ -1,16 +1,16 @@
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: 'weekly'
+      day: 'sunday'
     open-pull-requests-limit: 5
-    rebase-strategy: "auto"
-  - package-ecosystem: "github-actions"
-    directory: "/"
+    rebase-strategy: 'auto'
+  - package-ecosystem: 'github-actions'
+    directory: '/'
     schedule:
-      interval: "weekly"
-      day: "sunday"
+      interval: 'weekly'
+      day: 'sunday'
     open-pull-requests-limit: 5
-    rebase-strategy: "auto"
+    rebase-strategy: 'auto'

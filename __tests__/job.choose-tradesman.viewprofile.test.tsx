@@ -31,15 +31,21 @@ const mockJob = {
 };
 
 // Provide JobsContext mock
-jest.doMock(require.resolve('../context/JobsContext'), () => ({ useJobs: () => mockJob }));
+jest.doMock(require.resolve('../context/JobsContext'), () => ({
+  useJobs: () => mockJob,
+}));
 
 // Expose mockRouterPush so factory can reference it (name starts with "mock")
 const mockRouterPush = jest.fn();
 
-jest.mock('expo-router', () => ({
-  useLocalSearchParams: () => ({ jobId: 'job-123' }),
-  useRouter: () => ({ push: mockRouterPush, back: jest.fn() }),
-}), { virtual: true });
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: () => ({ jobId: 'job-123' }),
+    useRouter: () => ({ push: mockRouterPush, back: jest.fn() }),
+  }),
+  { virtual: true },
+);
 
 describe('ChooseTradesmanScreen view-profile', () => {
   beforeEach(() => {
@@ -76,13 +82,17 @@ describe('ChooseTradesmanScreen view-profile', () => {
 
     const { getByText } = render(<Screen _testInterests={testInterests} />);
 
-    await waitFor(() => expect(getByText('1 tradesperson interested in your job')).toBeTruthy());
+    await waitFor(() =>
+      expect(getByText('1 tradesperson interested in your job')).toBeTruthy(),
+    );
 
     // Press the tradie name (inside the card) to trigger the outer onPress
     fireEvent.press(getByText('Alice'));
 
     await waitFor(() => {
-      expect(mockRouterPush).toHaveBeenCalledWith('/public-profile?tradieId=t1&jobId=job-123');
+      expect(mockRouterPush).toHaveBeenCalledWith(
+        '/public-profile?tradieId=t1&jobId=job-123',
+      );
     });
   });
 });

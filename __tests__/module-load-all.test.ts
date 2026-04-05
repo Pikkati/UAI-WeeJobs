@@ -13,18 +13,26 @@ if (typeof process === 'undefined') {
 }
 // Safely set minimal Supabase env defaults without assuming `process.env` exists
 try {
-  const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
-  if (!env.EXPO_PUBLIC_SUPABASE_URL) env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
-  if (!env.EXPO_PUBLIC_SUPABASE_ANON_KEY) env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'anon';
+  const env = typeof process !== 'undefined' && process.env ? process.env : {};
+  if (!env.EXPO_PUBLIC_SUPABASE_URL)
+    env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
+  if (!env.EXPO_PUBLIC_SUPABASE_ANON_KEY)
+    env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'anon';
   if (typeof process !== 'undefined') process.env = env;
 } catch (err) {
   // If the test runtime prevents accessing or assigning env, continue without failing
 }
 
 // Provide simple mocks for contexts that many modules import.
-jest.mock('../lib/supabase', () => ({ supabase: {}, User: null, Review: null }));
+jest.mock('../lib/supabase', () => ({
+  supabase: {},
+  User: null,
+  Review: null,
+}));
 jest.mock('../context/JobsContext', () => ({ useJobs: () => ({ jobs: [] }) }));
-jest.mock('../context/ThemeContext', () => ({ useTheme: () => ({ theme: 'light' }) }));
+jest.mock('../context/ThemeContext', () => ({
+  useTheme: () => ({ theme: 'light' }),
+}));
 
 // Additional runtime-safe mocks for native/expo modules imported across many app files
 jest.mock('react-native', () => {
@@ -34,7 +42,8 @@ jest.mock('react-native', () => {
     View: (props) => React.createElement('div', props, props.children),
     Text: (props) => React.createElement('span', props, props.children),
     StyleSheet: { create: (s) => s },
-    TouchableOpacity: (props) => React.createElement('button', props, props.children),
+    TouchableOpacity: (props) =>
+      React.createElement('button', props, props.children),
     TextInput: (props) => React.createElement('input', props),
     Dimensions: { get: () => ({ width: 0, height: 0 }) },
   };
@@ -44,12 +53,17 @@ jest.mock(
   '@stripe/stripe-react-native',
   () => ({
     StripeProvider: ({ children }) => children,
-    useStripe: () => ({ initPaymentSheet: async () => ({}), presentPaymentSheet: async () => ({}) }),
+    useStripe: () => ({
+      initPaymentSheet: async () => ({}),
+      presentPaymentSheet: async () => ({}),
+    }),
   }),
-  { virtual: true }
+  { virtual: true },
 );
 
-jest.mock('expo-status-bar', () => ({ StatusBar: () => null }), { virtual: true });
+jest.mock('expo-status-bar', () => ({ StatusBar: () => null }), {
+  virtual: true,
+});
 
 jest.mock(
   'expo-router',
@@ -58,10 +72,12 @@ jest.mock(
     useRouter: () => ({ push: () => {} }),
     useLocalSearchParams: () => ({}),
   }),
-  { virtual: true }
+  { virtual: true },
 );
 
-jest.mock('expo-font', () => ({ useFonts: () => [true, null] }), { virtual: true });
+jest.mock('expo-font', () => ({ useFonts: () => [true, null] }), {
+  virtual: true,
+});
 
 function walkDir(dir, fileList = []) {
   const files = fs.readdirSync(dir);
@@ -77,7 +93,9 @@ function walkDir(dir, fileList = []) {
 const APP_DIR = path.join(__dirname, '..', 'app');
 let files = [];
 try {
-  files = walkDir(APP_DIR).filter((f) => !f.includes('__tests__') && !f.includes('node_modules'));
+  files = walkDir(APP_DIR).filter(
+    (f) => !f.includes('__tests__') && !f.includes('node_modules'),
+  );
 } catch (e) {
   // If no app directory, skip
   files = [];
@@ -94,7 +112,10 @@ describe('module-load: app files', () => {
       } catch (err) {
         // If import fails due to native-only runtime code, warn and continue
         // eslint-disable-next-line no-console
-        console.warn(`module-load-all: skipping ${rel} due to import error:`, err && err.message);
+        console.warn(
+          `module-load-all: skipping ${rel} due to import error:`,
+          err && err.message,
+        );
         expect(true).toBe(true);
       }
     });

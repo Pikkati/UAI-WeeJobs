@@ -13,7 +13,10 @@ describe('debug LeadUnlockModal children', () => {
     // eslint-disable-next-line no-console
     console.log('expo-image Image:', typeof Image);
     // eslint-disable-next-line no-console
-    console.log('safe-area useSafeAreaInsets:', typeof SafeArea.useSafeAreaInsets);
+    console.log(
+      'safe-area useSafeAreaInsets:',
+      typeof SafeArea.useSafeAreaInsets,
+    );
 
     expect(VerifiedProBadge).toBeDefined();
     expect(Ionicons).toBeDefined();

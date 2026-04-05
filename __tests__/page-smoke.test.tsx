@@ -2,39 +2,88 @@ import React from 'react';
 import { render, waitFor } from '@testing-library/react-native';
 
 // Lightweight runtime-safe mocks so pages can mount in Jest without full native env
-jest.mock('../lib/supabase', () => {
-  const noop = { data: [], error: null };
-  const noopResult = Promise.resolve(noop);
-  const chainable = () => {
-    const obj: any = {};
-    const methods = ['select', 'order', 'eq', 'in', 'single', 'update', 'insert', 'limit', 'match', 'ilike', 'neq', 'gte', 'lte', 'or'];
-    methods.forEach((m) => {
-      obj[m] = function() { return obj; };
-    });
-    obj.then = function(resolve: any) { return noopResult.then(resolve); };
-    obj.catch = function(fn: any) { return noopResult.catch(fn); };
-    return obj;
-  };
+jest.mock(
+  '../lib/supabase',
+  () => {
+    const noop = { data: [], error: null };
+    const noopResult = Promise.resolve(noop);
+    const chainable = () => {
+      const obj: any = {};
+      const methods = [
+        'select',
+        'order',
+        'eq',
+        'in',
+        'single',
+        'update',
+        'insert',
+        'limit',
+        'match',
+        'ilike',
+        'neq',
+        'gte',
+        'lte',
+        'or',
+      ];
+      methods.forEach((m) => {
+        obj[m] = function () {
+          return obj;
+        };
+      });
+      obj.then = function (resolve: any) {
+        return noopResult.then(resolve);
+      };
+      obj.catch = function (fn: any) {
+        return noopResult.catch(fn);
+      };
+      return obj;
+    };
 
-  return {
-    supabase: {
-      from: chainable,
-      functions: { invoke: async () => ({ data: null, error: null }) },
-    },
-    Job: undefined,
-    JobStatus: undefined,
-  };
-}, { virtual: true });
-jest.mock('../context/JobsContext', () => ({
-  JobsProvider: ({ children }) => children,
-  useJobs: () => ({ jobs: [], loading: false, fetchJobs: () => Promise.resolve(), closeApplications: () => Promise.resolve(true) }),
-}), { virtual: true });
+    return {
+      supabase: {
+        from: chainable,
+        functions: { invoke: async () => ({ data: null, error: null }) },
+      },
+      Job: undefined,
+      JobStatus: undefined,
+    };
+  },
+  { virtual: true },
+);
+jest.mock(
+  '../context/JobsContext',
+  () => ({
+    JobsProvider: ({ children }) => children,
+    useJobs: () => ({
+      jobs: [],
+      loading: false,
+      fetchJobs: () => Promise.resolve(),
+      closeApplications: () => Promise.resolve(true),
+    }),
+  }),
+  { virtual: true },
+);
 
-jest.mock('../context/AuthContext', () => ({
-  AuthProvider: ({ children }) => children,
-  useAuth: () => ({ user: null, login: async () => ({ success: false }), signup: async () => ({ success: false }) }),
-}), { virtual: true });
-jest.mock('expo-router', () => ({ useRouter: () => ({ push: () => {} }), useLocalSearchParams: () => ({}) }), { virtual: true });
+jest.mock(
+  '../context/AuthContext',
+  () => ({
+    AuthProvider: ({ children }) => children,
+    useAuth: () => ({
+      user: null,
+      login: async () => ({ success: false }),
+      signup: async () => ({ success: false }),
+    }),
+  }),
+  { virtual: true },
+);
+jest.mock(
+  'expo-router',
+  () => ({
+    useRouter: () => ({ push: () => {} }),
+    useLocalSearchParams: () => ({}),
+  }),
+  { virtual: true },
+);
 
 const pages = [
   '../app/public-profile',

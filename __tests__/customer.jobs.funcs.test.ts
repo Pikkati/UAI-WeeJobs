@@ -6,7 +6,7 @@ describe('aggregateInterestCounts', () => {
       { job_id: 'a' },
       { job_id: 'b' },
       { job_id: 'a' },
-      { },
+      {},
       { job_id: 'b' },
     ];
 

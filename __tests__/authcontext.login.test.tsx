@@ -10,12 +10,30 @@ describe('AuthProvider.login branches', () => {
     const { supabase } = require('../lib/supabase');
 
     if (supabase) {
-      if (!supabase.auth) (supabase as any).auth = { signInWithPassword: async () => ({ data: null, error: { message: 'Invalid login' } }), signOut: async () => ({}) };
-      jest.spyOn(supabase.auth, 'signInWithPassword' as any).mockImplementation(async () => ({ data: null, error: { message: 'Invalid login' } }));
+      if (!supabase.auth)
+        (supabase as any).auth = {
+          signInWithPassword: async () => ({
+            data: null,
+            error: { message: 'Invalid login' },
+          }),
+          signOut: async () => ({}),
+        };
+      jest
+        .spyOn(supabase.auth, 'signInWithPassword' as any)
+        .mockImplementation(async () => ({
+          data: null,
+          error: { message: 'Invalid login' },
+        }));
     }
 
     if (supabase && supabase.from) {
-      jest.spyOn(supabase, 'from' as any).mockImplementation(() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) }));
+      jest
+        .spyOn(supabase, 'from' as any)
+        .mockImplementation(() => ({
+          select: () => ({
+            eq: () => ({ single: async () => ({ data: null, error: null }) }),
+          }),
+        }));
     }
 
     const { AuthProvider, useAuth } = require('../context/AuthContext');
@@ -32,7 +50,7 @@ describe('AuthProvider.login branches', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -47,17 +65,36 @@ describe('AuthProvider.login branches', () => {
     const constants = require('../constants/data');
 
     if (supabase) {
-      if (!supabase.auth) (supabase as any).auth = { signInWithPassword: async () => ({ data: null, error: null }), signOut: async () => ({}) };
-      jest.spyOn(supabase.auth, 'signInWithPassword' as any).mockImplementation(async () => { throw new Error('network'); });
+      if (!supabase.auth)
+        (supabase as any).auth = {
+          signInWithPassword: async () => ({ data: null, error: null }),
+          signOut: async () => ({}),
+        };
+      jest
+        .spyOn(supabase.auth, 'signInWithPassword' as any)
+        .mockImplementation(async () => {
+          throw new Error('network');
+        });
     }
 
     if (supabase && supabase.from) {
-      jest.spyOn(supabase, 'from' as any).mockImplementation(() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) }));
+      jest
+        .spyOn(supabase, 'from' as any)
+        .mockImplementation(() => ({
+          select: () => ({
+            eq: () => ({ single: async () => ({ data: null, error: null }) }),
+          }),
+        }));
     }
 
     const original = { ...(constants.TEST_USERS || {}) };
     (constants as any).TEST_USERS = {
-      u1: { id: 'u1', email: 'fallback@example.com', password: 'pw', name: 'Fallback' },
+      u1: {
+        id: 'u1',
+        email: 'fallback@example.com',
+        password: 'pw',
+        name: 'Fallback',
+      },
     };
 
     const { AuthProvider, useAuth } = require('../context/AuthContext');
@@ -74,7 +111,7 @@ describe('AuthProvider.login branches', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {

@@ -3,6 +3,7 @@
 Date: 2026-03-24
 
 Summary:
+
 - Total advisories: 21 (5 high, 7 moderate, 9 low)
 - Most high/moderate findings are transitive under `jest-expo` and `@expo/config` (dev dependencies/test tooling).
 
@@ -99,18 +100,21 @@ For each advisory below: Name, Severity, Affected node path, Fix suggestion, Rec
     - Priority: High for `semver`, Medium for `xml2js` (dev-only)
 
 Notes & recommended approach:
+
 - All high-severity items are in devDependencies (test tooling). They do not directly affect production runtime.
 - Recommended path: create a dedicated branch `audit/jest-expo-upgrade` to upgrade `jest-expo` to 55.x and `jest` to 30.x in one PR.
   - Steps: bump `jest-expo` and `jest`, run `npm ci`, fix or update mocks (`__mocks__/*`, `jest.config.cjs`, `jest-setup.js`), run full test suite, run CI, and smoke-test Expo app.
 - If you prefer lower risk: accept dev-only advisories short-term and schedule the breaking upgrade in a planned release window.
 
 Reproduce commands:
+
 ```bash
 npm ci
 npm audit --json > /tmp/npm-audit.json
 ```
 
 Next actions (suggested):
+
 - [ ] Open `audit/jest-expo-upgrade` branch and implement upgrades + tests (recommended if you want to remediate now).
 - [ ] Or, accept dev-only advisories and schedule a planned upgrade (create an issue linking to this file).
 

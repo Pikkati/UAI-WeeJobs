@@ -42,14 +42,21 @@ function createQuery(table) {
   });
 
   // Chainable filters
-  qb.eq = jest.fn((field, value) => { qb._lastCall = { op: 'eq', args: [field, value] }; return qb; });
-  qb.match = jest.fn((obj) => { qb._lastCall = { op: 'match', args: [obj] }; return qb; });
+  qb.eq = jest.fn((field, value) => {
+    qb._lastCall = { op: 'eq', args: [field, value] };
+    return qb;
+  });
+  qb.match = jest.fn((obj) => {
+    qb._lastCall = { op: 'match', args: [obj] };
+    return qb;
+  });
   qb.order = jest.fn(() => qb);
   qb.limit = jest.fn(() => qb);
 
   qb.single = jest.fn(async () => {
     const res = getResult(table, 'single');
-    if (Array.isArray(res.data)) return { data: res.data[0] ?? null, error: res.error ?? null };
+    if (Array.isArray(res.data))
+      return { data: res.data[0] ?? null, error: res.error ?? null };
     return res;
   });
 

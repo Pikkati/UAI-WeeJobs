@@ -1,5 +1,4 @@
-Branch Protection Setup (admin steps)
-===================================
+# Branch Protection Setup (admin steps)
 
 These steps must be performed by a repository administrator in GitHub Settings â†’ Branches.
 
@@ -14,5 +13,6 @@ These steps must be performed by a repository administrator in GitHub Settings â
 4. Save the rule.
 
 Notes:
+
 - Branch protection cannot be fully configured via code in a public repo without GitHub Admin API calls. These steps document the manual configuration required.
 - After applying protections, verify by attempting a protected action or opening a PR to `UAI-Development`.

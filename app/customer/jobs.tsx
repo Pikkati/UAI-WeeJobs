@@ -1,5 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator, Alert, Modal } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+  ActivityIndicator,
+  Alert,
+  Modal,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -9,10 +19,17 @@ import { Job, JobStatus, supabase } from '../../lib/supabase';
 import { STATUS_COLORS, STATUS_LABELS } from './jobs.helpers';
 
 export function canEditOrDelete(status: JobStatus): boolean {
-  return status === 'open' || status === 'pending_customer_choice' || status === 'awaiting_customer_choice';
+  return (
+    status === 'open' ||
+    status === 'pending_customer_choice' ||
+    status === 'awaiting_customer_choice'
+  );
 }
 
-export function getActionText(status: JobStatus, interestCount: number): string | null {
+export function getActionText(
+  status: JobStatus,
+  interestCount: number,
+): string | null {
   switch (status) {
     case 'open':
     case 'pending_customer_choice':
@@ -34,10 +51,12 @@ export function getActionText(status: JobStatus, interestCount: number): string 
   }
 }
 
-export function aggregateInterestCounts(rows: Array<{ job_id?: string }>): Record<string, number> {
+export function aggregateInterestCounts(
+  rows: Array<{ job_id?: string }>,
+): Record<string, number> {
   const counts: Record<string, number> = {};
   if (!rows || !Array.isArray(rows)) return counts;
-  rows.forEach(row => {
+  rows.forEach((row) => {
     const id = row && (row.job_id as string | undefined);
     if (!id) return;
     counts[id] = (counts[id] || 0) + 1;
@@ -46,20 +65,23 @@ export function aggregateInterestCounts(rows: Array<{ job_id?: string }>): Recor
 }
 
 export default function CustomerJobsScreen() {
-  
   const { user } = useAuth();
   const { jobs, loading, fetchJobs, closeApplications } = useJobs();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
-  const [interestCounts, setInterestCounts] = useState<Record<string, number>>({});
+  const [interestCounts, setInterestCounts] = useState<Record<string, number>>(
+    {},
+  );
 
-  const myJobs = jobs.filter(j => j.customer_id === user?.id);
+  const myJobs = jobs.filter((j) => j.customer_id === user?.id);
 
   const fetchInterestCounts = useCallback(async (jobList: Job[]) => {
     const openJobIds = jobList
-      .filter(j => j.status === 'open' || j.status === 'pending_customer_choice')
-      .map(j => j.id);
+      .filter(
+        (j) => j.status === 'open' || j.status === 'pending_customer_choice',
+      )
+      .map((j) => j.id);
 
     if (openJobIds.length === 0) return;
 
@@ -70,10 +92,10 @@ export default function CustomerJobsScreen() {
         .in('job_id', openJobIds)
         .in('status', ['interested', 'shortlisted']);
 
-        if (data) {
-          const counts = aggregateInterestCounts(data);
-          setInterestCounts(counts);
-        }
+      if (data) {
+        const counts = aggregateInterestCounts(data);
+        setInterestCounts(counts);
+      }
     } catch (e) {
       console.error('Error fetching interest counts:', e);
     }
@@ -94,8 +116,6 @@ export default function CustomerJobsScreen() {
     await fetchJobs();
     setIsRefreshing(false);
   };
-
-  
 
   const handleLongPress = (job: Job) => {
     if (canEditOrDelete(job.status)) {
@@ -134,7 +154,7 @@ export default function CustomerJobsScreen() {
             }
           },
         },
-      ]
+      ],
     );
   };
 
@@ -157,45 +177,45 @@ export default function CustomerJobsScreen() {
             const success = await closeApplications(selectedJob.id);
             setShowOptionsModal(false);
             setSelectedJob(null);
-            if (!success) Alert.alert('Error', 'Failed to close applications. Please try again.');
+            if (!success)
+              Alert.alert(
+                'Error',
+                'Failed to close applications. Please try again.',
+              );
           },
         },
-      ]
+      ],
     );
   };
 
   const handleCancelJob = async () => {
     if (!selectedJob) return;
 
-    Alert.alert(
-      'Cancel Job',
-      'Are you sure you want to cancel this job?',
-      [
-        { text: 'No', style: 'cancel' },
-        {
-          text: 'Yes, Cancel Job',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              const { error } = await supabase
-                .from('jobs')
-                .update({ status: 'cancelled' })
-                .eq('id', selectedJob.id);
+    Alert.alert('Cancel Job', 'Are you sure you want to cancel this job?', [
+      { text: 'No', style: 'cancel' },
+      {
+        text: 'Yes, Cancel Job',
+        style: 'destructive',
+        onPress: async () => {
+          try {
+            const { error } = await supabase
+              .from('jobs')
+              .update({ status: 'cancelled' })
+              .eq('id', selectedJob.id);
 
-              if (error) throw error;
+            if (error) throw error;
 
-              setShowOptionsModal(false);
-              setSelectedJob(null);
-              fetchJobs();
-              Alert.alert('Cancelled', 'Your job has been cancelled.');
-            } catch (error) {
-              console.error('Error cancelling job:', error);
-              Alert.alert('Error', 'Failed to cancel job. Please try again.');
-            }
-          },
+            setShowOptionsModal(false);
+            setSelectedJob(null);
+            fetchJobs();
+            Alert.alert('Cancelled', 'Your job has been cancelled.');
+          } catch (error) {
+            console.error('Error cancelling job:', error);
+            Alert.alert('Error', 'Failed to cancel job. Please try again.');
+          }
         },
-      ]
-    );
+      },
+    ]);
   };
 
   const handleJobPress = (job: Job) => {
@@ -236,8 +256,6 @@ export default function CustomerJobsScreen() {
     }
   };
 
-  
-
   const renderJob = ({ item }: { item: Job }) => {
     const count = interestCounts[item.id] || 0;
     const actionText = getActionText(item.status, count);
@@ -249,27 +267,42 @@ export default function CustomerJobsScreen() {
       (item.status === 'open' && count > 0);
 
     return (
-      <TouchableOpacity 
-        style={[styles.jobCard, isActionable && styles.jobCardActionable]} 
+      <TouchableOpacity
+        style={[styles.jobCard, isActionable && styles.jobCardActionable]}
         onPress={() => handleJobPress(item)}
         onLongPress={() => handleLongPress(item)}
         delayLongPress={500}
       >
         {canModify && (
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.moreButton}
             onPress={() => handleLongPress(item)}
           >
-            <Ionicons name="ellipsis-vertical" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="ellipsis-vertical"
+              size={20}
+              color={Colors.textSecondary}
+            />
           </TouchableOpacity>
         )}
         <View style={styles.jobHeader}>
           <View style={styles.categoryBadge}>
-            <Ionicons name="briefcase-outline" size={16} color={Colors.accent} />
+            <Ionicons
+              name="briefcase-outline"
+              size={16}
+              color={Colors.accent}
+            />
             <Text style={styles.categoryText}>{item.category}</Text>
           </View>
-          <View style={[styles.statusBadge, { backgroundColor: STATUS_COLORS[item.status] || Colors.accent }]}>
-            <Text style={styles.statusText}>{STATUS_LABELS[item.status] || item.status}</Text>
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: STATUS_COLORS[item.status] || Colors.accent },
+            ]}
+          >
+            <Text style={styles.statusText}>
+              {STATUS_LABELS[item.status] || item.status}
+            </Text>
           </View>
         </View>
 
@@ -279,11 +312,19 @@ export default function CustomerJobsScreen() {
 
         <View style={styles.jobFooter}>
           <View style={styles.jobInfo}>
-            <Ionicons name="location-outline" size={16} color={Colors.textSecondary} />
+            <Ionicons
+              name="location-outline"
+              size={16}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.jobInfoText}>{item.area}</Text>
           </View>
           <View style={styles.jobInfo}>
-            <Ionicons name="time-outline" size={16} color={Colors.textSecondary} />
+            <Ionicons
+              name="time-outline"
+              size={16}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.jobInfoText}>{item.timing}</Text>
           </View>
         </View>
@@ -307,21 +348,35 @@ export default function CustomerJobsScreen() {
           </View>
         )}
 
-        {(item.status === 'cancelled_by_customer' || item.status === 'cancelled_by_tradie') && (
+        {(item.status === 'cancelled_by_customer' ||
+          item.status === 'cancelled_by_tradie') && (
           <View style={styles.cancellationBanner}>
             <View style={styles.cancellationRow}>
               <Ionicons name="close-circle" size={16} color={Colors.error} />
               <Text style={styles.cancellationLabel}>
-                {item.status === 'cancelled_by_tradie' ? 'Tradesperson cancelled' : 'You cancelled this job'}
+                {item.status === 'cancelled_by_tradie'
+                  ? 'Tradesperson cancelled'
+                  : 'You cancelled this job'}
               </Text>
             </View>
             <View style={styles.cancellationRow}>
               <Ionicons
-                name={item.deposit_refunded ? 'checkmark-circle' : 'close-circle'}
+                name={
+                  item.deposit_refunded ? 'checkmark-circle' : 'close-circle'
+                }
                 size={14}
                 color={item.deposit_refunded ? Colors.success : Colors.error}
               />
-              <Text style={[styles.refundLabel, { color: item.deposit_refunded ? Colors.success : Colors.error }]}>
+              <Text
+                style={[
+                  styles.refundLabel,
+                  {
+                    color: item.deposit_refunded
+                      ? Colors.success
+                      : Colors.error,
+                  },
+                ]}
+              >
                 {item.deposit_refunded
                   ? `Deposit refund: £${item.deposit_amount?.toFixed(2)}`
                   : 'No refund — deposit kept by tradesperson'}
@@ -351,9 +406,15 @@ export default function CustomerJobsScreen() {
 
       {myJobs.length === 0 ? (
         <View style={styles.emptyState}>
-          <Ionicons name="briefcase-outline" size={64} color={Colors.textSecondary} />
+          <Ionicons
+            name="briefcase-outline"
+            size={64}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.emptyTitle}>No jobs yet</Text>
-          <Text style={styles.emptyText}>Post your first job to get started</Text>
+          <Text style={styles.emptyText}>
+            Post your first job to get started
+          </Text>
           <TouchableOpacity
             style={styles.postButton}
             onPress={() => router.push('/customer/post-job')}
@@ -384,7 +445,7 @@ export default function CustomerJobsScreen() {
         animationType="fade"
         onRequestClose={() => setShowOptionsModal(false)}
       >
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.modalOverlay}
           activeOpacity={1}
           onPress={() => setShowOptionsModal(false)}
@@ -397,30 +458,50 @@ export default function CustomerJobsScreen() {
               </Text>
             )}
 
-            <TouchableOpacity style={styles.optionButton} onPress={handleEditJob}>
+            <TouchableOpacity
+              style={styles.optionButton}
+              onPress={handleEditJob}
+            >
               <Ionicons name="pencil" size={22} color={Colors.accent} />
               <Text style={styles.optionText}>Edit Job</Text>
             </TouchableOpacity>
 
-            {selectedJob && (selectedJob.status === 'open' || selectedJob.status === 'pending_customer_choice') && (
-              <TouchableOpacity style={styles.optionButton} onPress={handleCloseApplications}>
-                <Ionicons name="lock-closed" size={22} color="#22c55e" />
-                <Text style={[styles.optionText, { color: '#22c55e' }]}>Close Applications</Text>
-              </TouchableOpacity>
-            )}
+            {selectedJob &&
+              (selectedJob.status === 'open' ||
+                selectedJob.status === 'pending_customer_choice') && (
+                <TouchableOpacity
+                  style={styles.optionButton}
+                  onPress={handleCloseApplications}
+                >
+                  <Ionicons name="lock-closed" size={22} color="#22c55e" />
+                  <Text style={[styles.optionText, { color: '#22c55e' }]}>
+                    Close Applications
+                  </Text>
+                </TouchableOpacity>
+              )}
 
-            <TouchableOpacity style={styles.optionButton} onPress={handleCancelJob}>
+            <TouchableOpacity
+              style={styles.optionButton}
+              onPress={handleCancelJob}
+            >
               <Ionicons name="close-circle" size={22} color="#f59e0b" />
-              <Text style={[styles.optionText, { color: '#f59e0b' }]}>Cancel Job</Text>
+              <Text style={[styles.optionText, { color: '#f59e0b' }]}>
+                Cancel Job
+              </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.optionButton} onPress={handleDeleteJob}>
+            <TouchableOpacity
+              style={styles.optionButton}
+              onPress={handleDeleteJob}
+            >
               <Ionicons name="trash" size={22} color={Colors.error} />
-              <Text style={[styles.optionText, { color: Colors.error }]}>Delete Job</Text>
+              <Text style={[styles.optionText, { color: Colors.error }]}>
+                Delete Job
+              </Text>
             </TouchableOpacity>
 
-            <TouchableOpacity 
-              style={styles.closeModalButton} 
+            <TouchableOpacity
+              style={styles.closeModalButton}
               onPress={() => setShowOptionsModal(false)}
             >
               <Text style={styles.closeModalText}>Close</Text>

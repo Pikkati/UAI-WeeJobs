@@ -13,7 +13,7 @@ test('Collapsible toggles content visibility on press', () => {
   const utils = render(
     <Collapsible title="More info">
       <Text>Hidden content</Text>
-    </Collapsible>
+    </Collapsible>,
   );
 
   // Initially content is not visible

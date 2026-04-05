@@ -17,7 +17,7 @@ describe('SignUpScreen', () => {
   afterEach(() => {
     // Clear test override for useAuth
     // eslint-disable-next-line no-undef
-    if (typeof global !== 'undefined' && (global).__TEST_USE_AUTH__) {
+    if (typeof global !== 'undefined' && global.__TEST_USE_AUTH__) {
       delete (global as any).__TEST_USE_AUTH__;
     }
     jest.clearAllMocks();
@@ -25,7 +25,9 @@ describe('SignUpScreen', () => {
 
   it('validates email and advances to details step', async () => {
     const SignUpScreen = require('../app/onboarding/signup').default;
-    const { getByPlaceholderText, getByText, queryByText } = render(<SignUpScreen />);
+    const { getByPlaceholderText, getByText, queryByText } = render(
+      <SignUpScreen />,
+    );
 
     const emailInput = getByPlaceholderText('you@email.com');
 
@@ -78,7 +80,10 @@ describe('SignUpScreen', () => {
 
     // eslint-disable-next-line no-undef
     (global as any).__TEST_USE_AUTH__ = () => ({
-      signup: async () => ({ success: true, user: { role: 'tradesperson', id: 'u1', email: 'a@b.c' } }),
+      signup: async () => ({
+        success: true,
+        user: { role: 'tradesperson', id: 'u1', email: 'a@b.c' },
+      }),
     });
 
     const { getByPlaceholderText, getByText } = render(<SignUpScreen />);

@@ -16,10 +16,18 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 // eslint-disable-next-line no-undef
 (global as any).__TEST_SUPABASE__ = {
   auth: {
-    signUp: async ({ email }: any) => ({ data: { user: { id: 'new-id', email, confirmed_at: null } }, error: null }),
+    signUp: async ({ email }: any) => ({
+      data: { user: { id: 'new-id', email, confirmed_at: null } },
+      error: null,
+    }),
     signInWithPassword: async ({ email, password }: any) => {
       if (email === 'confirmed@example.com' && password === 'password') {
-        return { data: { user: { id: 'u1', email, confirmed_at: new Date().toISOString() } }, error: null };
+        return {
+          data: {
+            user: { id: 'u1', email, confirmed_at: new Date().toISOString() },
+          },
+          error: null,
+        };
       }
       return { data: null, error: { message: 'Invalid credentials' } };
     },
@@ -29,7 +37,14 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   from: (table: string) => ({
     select: (_: string) => ({
       eq: (_k: string, _v: string) => ({
-        single: async () => ({ data: { id: 'u1', email: 'confirmed@example.com', name: 'Confirmed User' }, error: null }),
+        single: async () => ({
+          data: {
+            id: 'u1',
+            email: 'confirmed@example.com',
+            name: 'Confirmed User',
+          },
+          error: null,
+        }),
       }),
     }),
     insert: async (_obj: any) => ({ data: null, error: null }),
@@ -43,7 +58,10 @@ console.log('TEST_SUPABASE_AT_TEST', require('../lib/supabase'));
 // More introspection
 try {
   // eslint-disable-next-line no-console
-  console.log('TEST_SUPABASE_AUTH_TYPE', typeof (require('../lib/supabase') as any).supabase.auth);
+  console.log(
+    'TEST_SUPABASE_AUTH_TYPE',
+    typeof (require('../lib/supabase') as any).supabase.auth,
+  );
 } catch (e) {
   // ignore
 }
@@ -55,7 +73,9 @@ try {
   if (typeof libSup.supabase.auth.signUp === 'function') {
     (async () => {
       try {
-        const r = await libSup.supabase.auth.signUp({ email: 'debug@example.com' });
+        const r = await libSup.supabase.auth.signUp({
+          email: 'debug@example.com',
+        });
         // eslint-disable-next-line no-console
         console.log('DEBUG_SIGNUP_RES', r);
       } catch (err) {
@@ -71,7 +91,15 @@ try {
 // Import AuthProvider dynamically after configuring global test supabase
 const { AuthProvider, useAuth } = require('../context/AuthContext');
 
-function TestInvoker({ email, password, cb }: { email: string; password?: string; cb: (res: any) => void }) {
+function TestInvoker({
+  email,
+  password,
+  cb,
+}: {
+  email: string;
+  password?: string;
+  cb: (res: any) => void;
+}) {
   const auth = useAuth();
   React.useEffect(() => {
     (async () => {
@@ -92,7 +120,7 @@ test('signup requires verification when user is unconfirmed', async () => {
   render(
     <AuthProvider>
       <TestInvoker email="new@example.com" cb={(r) => (result = r)} />
-    </AuthProvider>
+    </AuthProvider>,
   );
 
   await waitFor(() => {
@@ -106,8 +134,12 @@ test('login returns user when confirmed', async () => {
   let result: any = null;
   render(
     <AuthProvider>
-      <TestInvoker email="confirmed@example.com" password="password" cb={(r) => (result = r)} />
-    </AuthProvider>
+      <TestInvoker
+        email="confirmed@example.com"
+        password="password"
+        cb={(r) => (result = r)}
+      />
+    </AuthProvider>,
   );
 
   await waitFor(() => {

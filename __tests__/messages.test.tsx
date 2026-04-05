@@ -5,7 +5,9 @@ import { render, waitFor } from '@testing-library/react-native';
 process.env.EXPO_PUBLIC_SUPABASE_URL = 'http://localhost';
 process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }) }));
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
+}));
 
 jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({}),
@@ -14,7 +16,10 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('../context/AuthContext', () => ({
-  useAuth: () => ({ user: { id: 'test-user', role: 'customer' }, isLoading: false }),
+  useAuth: () => ({
+    user: { id: 'test-user', role: 'customer' },
+    isLoading: false,
+  }),
   AuthProvider: ({ children }: any) => children,
 }));
 

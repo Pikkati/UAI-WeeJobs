@@ -1,5 +1,14 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -22,7 +31,8 @@ export default function SignUpScreen() {
   const [resendLoading, setResendLoading] = useState(false);
   const [resendError, setResendError] = useState('');
 
-  const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  const isValidEmail = (value: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   const normalizedRole = role === 'tradie' ? 'tradesperson' : role;
 
   const getTagline = () => {
@@ -62,10 +72,16 @@ export default function SignUpScreen() {
     setIsLoading(true);
     setError('');
 
-      const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
+    const selectedRole =
+      normalizedRole === 'customer' || normalizedRole === 'tradesperson'
         ? (normalizedRole as 'customer' | 'tradesperson')
         : 'customer';
-    const result = await signup(email.trim(), password, name.trim(), selectedRole);
+    const result = await signup(
+      email.trim(),
+      password,
+      name.trim(),
+      selectedRole,
+    );
 
     if (result.success && result.needsVerification) {
       setShowVerifyMsg(true);
@@ -80,7 +96,10 @@ export default function SignUpScreen() {
         setError('Your account role is not supported.');
       }
     } else {
-      setError(result.error || 'Unable to create your account right now. Please try again.');
+      setError(
+        result.error ||
+          'Unable to create your account right now. Please try again.',
+      );
     }
 
     setIsLoading(false);
@@ -91,7 +110,12 @@ export default function SignUpScreen() {
     setResendError('');
     try {
       // Supabase does not provide a direct resend endpoint, so trigger signUp again
-      const { error } = await signup(email.trim(), password, name.trim(), normalizedRole as any);
+      const { error } = await signup(
+        email.trim(),
+        password,
+        name.trim(),
+        normalizedRole as any,
+      );
       if (error) {
         setResendError(error);
       }
@@ -115,18 +139,21 @@ export default function SignUpScreen() {
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
-      <ScrollView 
-        contentContainerStyle={styles.scrollContent} 
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <TouchableOpacity style={styles.backButton} onPress={() => {
-          if (step === 'details') {
-            setStep('initial');
-          } else {
-            router.back();
-          }
-        }}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => {
+            if (step === 'details') {
+              setStep('initial');
+            } else {
+              router.back();
+            }
+          }}
+        >
           <Ionicons name="chevron-back" size={24} color={Colors.white} />
         </TouchableOpacity>
 
@@ -143,12 +170,22 @@ export default function SignUpScreen() {
         {showVerifyMsg ? (
           <View style={styles.authSection}>
             <Text style={styles.tagline}>Verify your email</Text>
-            <Text style={{ color: Colors.textSecondary, textAlign: 'center', marginVertical: 16 }}>
-              We've sent a verification link to <Text style={{ fontWeight: 'bold' }}>{email}</Text>.
-              Please check your inbox and follow the instructions to activate your account.
+            <Text
+              style={{
+                color: Colors.textSecondary,
+                textAlign: 'center',
+                marginVertical: 16,
+              }}
+            >
+              We've sent a verification link to{' '}
+              <Text style={{ fontWeight: 'bold' }}>{email}</Text>. Please check
+              your inbox and follow the instructions to activate your account.
             </Text>
             <TouchableOpacity
-              style={[styles.signUpButton, resendLoading && styles.signUpButtonDisabled]}
+              style={[
+                styles.signUpButton,
+                resendLoading && styles.signUpButtonDisabled,
+              ]}
               onPress={handleResendVerification}
               disabled={resendLoading}
             >
@@ -156,22 +193,40 @@ export default function SignUpScreen() {
                 {resendLoading ? 'Resending...' : 'Resend Verification Email'}
               </Text>
             </TouchableOpacity>
-            {resendError ? <Text style={styles.error}>{resendError}</Text> : null}
-            <TouchableOpacity style={{ marginTop: 24 }} onPress={() => router.replace('/onboarding/login')}>
-              <Text style={{ color: Colors.link, textAlign: 'center' }}>Already verified? Sign in</Text>
+            {resendError ? (
+              <Text style={styles.error}>{resendError}</Text>
+            ) : null}
+            <TouchableOpacity
+              style={{ marginTop: 24 }}
+              onPress={() => router.replace('/onboarding/login')}
+            >
+              <Text style={{ color: Colors.link, textAlign: 'center' }}>
+                Already verified? Sign in
+              </Text>
             </TouchableOpacity>
           </View>
         ) : step === 'initial' ? (
           <View style={styles.authSection}>
-            <TouchableOpacity style={styles.socialButton} onPress={handleGooglePress}>
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={handleGooglePress}
+            >
               <View style={styles.socialIconContainer}>
                 <Text style={styles.googleIcon}>G</Text>
               </View>
               <Text style={styles.socialButtonText}>Continue with Google</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.socialButton} onPress={handleApplePress}>
-              <Ionicons name="logo-apple" size={20} color={Colors.background} style={styles.appleIcon} />
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={handleApplePress}
+            >
+              <Ionicons
+                name="logo-apple"
+                size={20}
+                color={Colors.background}
+                style={styles.appleIcon}
+              />
               <Text style={styles.socialButtonText}>Continue with Apple</Text>
             </TouchableOpacity>
 
@@ -193,8 +248,8 @@ export default function SignUpScreen() {
                 autoCorrect={false}
                 onSubmitEditing={handleEmailSubmit}
               />
-              <TouchableOpacity 
-                style={styles.emailSubmitButton} 
+              <TouchableOpacity
+                style={styles.emailSubmitButton}
                 onPress={handleEmailSubmit}
               >
                 <Ionicons name="arrow-forward" size={20} color={Colors.white} />
@@ -204,8 +259,17 @@ export default function SignUpScreen() {
             {error ? <Text style={styles.error}>{error}</Text> : null}
 
             <View style={styles.loginPrompt}>
-              <Text style={styles.loginPromptText}>Already have an account? </Text>
-              <TouchableOpacity onPress={() => router.replace({ pathname: '/onboarding/login', params: { role } })}>
+              <Text style={styles.loginPromptText}>
+                Already have an account?{' '}
+              </Text>
+              <TouchableOpacity
+                onPress={() =>
+                  router.replace({
+                    pathname: '/onboarding/login',
+                    params: { role },
+                  })
+                }
+              >
                 <Text style={styles.loginLink}>Sign in</Text>
               </TouchableOpacity>
             </View>
@@ -251,7 +315,10 @@ export default function SignUpScreen() {
             {error ? <Text style={styles.error}>{error}</Text> : null}
 
             <TouchableOpacity
-              style={[styles.signUpButton, isLoading && styles.signUpButtonDisabled]}
+              style={[
+                styles.signUpButton,
+                isLoading && styles.signUpButtonDisabled,
+              ]}
               onPress={handleSignUp}
               disabled={isLoading}
             >

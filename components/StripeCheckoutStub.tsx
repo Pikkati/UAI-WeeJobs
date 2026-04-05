@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Modal, TouchableOpacity, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -24,7 +31,7 @@ export default function StripeCheckoutStub({
 
   const handlePayment = async () => {
     setIsProcessing(true);
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     setIsProcessing(false);
     onSuccess();
   };
@@ -32,7 +39,12 @@ export default function StripeCheckoutStub({
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.overlay}>
-        <View style={[styles.container, { paddingBottom: insets.bottom + Spacing.lg }]}>
+        <View
+          style={[
+            styles.container,
+            { paddingBottom: insets.bottom + Spacing.lg },
+          ]}
+        >
           <View style={styles.handle} />
 
           <View style={styles.header}>
@@ -55,14 +67,19 @@ export default function StripeCheckoutStub({
           </View>
 
           <View style={styles.infoBox}>
-            <Ionicons name="information-circle" size={20} color={Colors.accent} />
+            <Ionicons
+              name="information-circle"
+              size={20}
+              color={Colors.accent}
+            />
             <Text style={styles.infoText}>
-              This is a simulated payment for testing purposes. No real charge will be made.
+              This is a simulated payment for testing purposes. No real charge
+              will be made.
             </Text>
           </View>
 
-          <TouchableOpacity 
-            style={[styles.payButton, isProcessing && styles.payButtonDisabled]} 
+          <TouchableOpacity
+            style={[styles.payButton, isProcessing && styles.payButtonDisabled]}
             onPress={handlePayment}
             disabled={isProcessing}
           >
@@ -70,18 +87,32 @@ export default function StripeCheckoutStub({
               <ActivityIndicator color={Colors.background} />
             ) : (
               <>
-                <Ionicons name="lock-closed" size={20} color={Colors.background} />
-                <Text style={styles.payButtonText}>Pay £{amount.toFixed(2)}</Text>
+                <Ionicons
+                  name="lock-closed"
+                  size={20}
+                  color={Colors.background}
+                />
+                <Text style={styles.payButtonText}>
+                  Pay £{amount.toFixed(2)}
+                </Text>
               </>
             )}
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.cancelButton} onPress={onCancel} disabled={isProcessing}>
+          <TouchableOpacity
+            style={styles.cancelButton}
+            onPress={onCancel}
+            disabled={isProcessing}
+          >
             <Text style={styles.cancelButtonText}>Cancel</Text>
           </TouchableOpacity>
 
           <View style={styles.footer}>
-            <Ionicons name="lock-closed" size={12} color={Colors.textSecondary} />
+            <Ionicons
+              name="lock-closed"
+              size={12}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.footerText}>Secured by Stripe</Text>
           </View>
         </View>

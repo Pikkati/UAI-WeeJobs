@@ -1,5 +1,16 @@
 import { useState, useRef } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, Animated, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Animated,
+  ActivityIndicator,
+} from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -33,7 +44,8 @@ export default function LoginScreen() {
   const [signUpPassword, setSignUpPassword] = useState('');
   const [signUpConfirmPassword, setSignUpConfirmPassword] = useState('');
   const [signUpShowPassword, setSignUpShowPassword] = useState(false);
-  const [signUpShowConfirmPassword, setSignUpShowConfirmPassword] = useState(false);
+  const [signUpShowConfirmPassword, setSignUpShowConfirmPassword] =
+    useState(false);
   const [signUpLoading, setSignUpLoading] = useState(false);
   const [signUpError, setSignUpError] = useState('');
 
@@ -42,7 +54,8 @@ export default function LoginScreen() {
   const signUpPasswordRef = useRef<any>(null);
   const signUpConfirmPasswordRef = useRef<any>(null);
 
-  const isValidEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isValidEmail = (email: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   const normalizedRole = role === 'tradie' ? 'tradesperson' : role;
 
   const getTagline = () => {
@@ -85,11 +98,15 @@ export default function LoginScreen() {
     setSignInLoading(true);
     setSignInError('');
 
-      const result = await login(signInEmail, signInPassword);
+    const result = await login(signInEmail, signInPassword);
 
     if (result.isRateLimited) {
-      const retry = result.retryAfter ? ` Try again in ${Math.ceil((result.retryAfter || 0) / 60)} minutes.` : '';
-      setSignInError(result.error || `Too many attempts. Please try again later.${retry}`);
+      const retry = result.retryAfter
+        ? ` Try again in ${Math.ceil((result.retryAfter || 0) / 60)} minutes.`
+        : '';
+      setSignInError(
+        result.error || `Too many attempts. Please try again later.${retry}`,
+      );
       setSignInLoading(false);
       return;
     }
@@ -113,7 +130,9 @@ export default function LoginScreen() {
         setSignInError('Your account role is not supported.');
       }
     } else {
-      setSignInError(result.error || 'Unable to sign in right now. Please try again.');
+      setSignInError(
+        result.error || 'Unable to sign in right now. Please try again.',
+      );
     }
 
     setSignInLoading(false);
@@ -148,14 +167,15 @@ export default function LoginScreen() {
     setSignUpLoading(true);
     setSignUpError('');
 
-    const selectedRole = normalizedRole === 'customer' || normalizedRole === 'tradesperson'
-      ? normalizedRole
-      : 'customer';
+    const selectedRole =
+      normalizedRole === 'customer' || normalizedRole === 'tradesperson'
+        ? normalizedRole
+        : 'customer';
     const result = await signup(
       signUpEmail.trim(),
       signUpPassword,
       signUpName.trim(),
-      selectedRole as any
+      selectedRole as any,
     );
 
     if (result.success && result.user) {
@@ -169,7 +189,10 @@ export default function LoginScreen() {
         setSignUpError('Your account role is not supported.');
       }
     } else {
-      setSignUpError(result.error || 'Unable to create your account right now. Please try again.');
+      setSignUpError(
+        result.error ||
+          'Unable to create your account right now. Please try again.',
+      );
     }
 
     setSignUpLoading(false);
@@ -212,7 +235,10 @@ export default function LoginScreen() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
           <Ionicons name="chevron-back" size={24} color={Colors.white} />
         </TouchableOpacity>
 
@@ -242,7 +268,12 @@ export default function LoginScreen() {
             onPress={() => switchTab('signin')}
             activeOpacity={0.7}
           >
-            <Text style={[styles.tabText, activeTab === 'signin' && styles.tabTextActive]}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === 'signin' && styles.tabTextActive,
+              ]}
+            >
               Sign In
             </Text>
           </TouchableOpacity>
@@ -251,21 +282,32 @@ export default function LoginScreen() {
             onPress={() => switchTab('signup')}
             activeOpacity={0.7}
           >
-            <Text style={[styles.tabText, activeTab === 'signup' && styles.tabTextActive]}>
+            <Text
+              style={[
+                styles.tabText,
+                activeTab === 'signup' && styles.tabTextActive,
+              ]}
+            >
               Sign Up
             </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.socialSection}>
-          <TouchableOpacity style={styles.socialButton} onPress={handleGooglePress}>
+          <TouchableOpacity
+            style={styles.socialButton}
+            onPress={handleGooglePress}
+          >
             <View style={styles.socialIconContainer}>
               <Text style={styles.googleIcon}>G</Text>
             </View>
             <Text style={styles.socialButtonText}>Continue with Google</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.socialButton} onPress={handleApplePress}>
+          <TouchableOpacity
+            style={styles.socialButton}
+            onPress={handleApplePress}
+          >
             <Ionicons name="logo-apple" size={20} color={Colors.background} />
             <Text style={styles.socialButtonText}>Continue with Apple</Text>
           </TouchableOpacity>
@@ -280,13 +322,21 @@ export default function LoginScreen() {
         {activeTab === 'signin' ? (
           <View style={styles.formSection}>
             <View style={styles.inputWrapper}>
-              <Ionicons name="mail-outline" size={20} color={Colors.textSecondary} style={styles.inputIcon} />
+              <Ionicons
+                name="mail-outline"
+                size={20}
+                color={Colors.textSecondary}
+                style={styles.inputIcon}
+              />
               <TextInput
                 style={styles.textInput}
                 placeholder="Email address"
                 placeholderTextColor={Colors.textSecondary}
                 value={signInEmail}
-                onChangeText={(text) => { setSignInEmail(text); setSignInError(''); }}
+                onChangeText={(text) => {
+                  setSignInEmail(text);
+                  setSignInError('');
+                }}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -298,30 +348,50 @@ export default function LoginScreen() {
             </View>
 
             <View style={styles.inputWrapper}>
-              <Ionicons name="lock-closed-outline" size={20} color={Colors.textSecondary} style={styles.inputIcon} />
+              <Ionicons
+                name="lock-closed-outline"
+                size={20}
+                color={Colors.textSecondary}
+                style={styles.inputIcon}
+              />
               <TextInput
                 ref={signInPasswordRef}
                 style={styles.textInput}
                 placeholder="Password"
                 placeholderTextColor={Colors.textSecondary}
                 value={signInPassword}
-                onChangeText={(text) => { setSignInPassword(text); setSignInError(''); }}
+                onChangeText={(text) => {
+                  setSignInPassword(text);
+                  setSignInError('');
+                }}
                 secureTextEntry={!signInShowPassword}
                 autoComplete="off"
                 textContentType="oneTimeCode"
                 returnKeyType="go"
                 onSubmitEditing={handleSignIn}
               />
-              <TouchableOpacity onPress={() => setSignInShowPassword(!signInShowPassword)} style={styles.eyeButton}>
-                <Ionicons name={signInShowPassword ? 'eye-off-outline' : 'eye-outline'} size={20} color={Colors.textSecondary} />
+              <TouchableOpacity
+                onPress={() => setSignInShowPassword(!signInShowPassword)}
+                style={styles.eyeButton}
+              >
+                <Ionicons
+                  name={signInShowPassword ? 'eye-off-outline' : 'eye-outline'}
+                  size={20}
+                  color={Colors.textSecondary}
+                />
               </TouchableOpacity>
             </View>
 
-            <TouchableOpacity style={styles.forgotButton} onPress={() => setSignInError('Password reset coming soon')}>
+            <TouchableOpacity
+              style={styles.forgotButton}
+              onPress={() => setSignInError('Password reset coming soon')}
+            >
               <Text style={styles.forgotText}>Forgot password?</Text>
             </TouchableOpacity>
 
-            {signInError ? <Text style={styles.error}>{signInError}</Text> : null}
+            {signInError ? (
+              <Text style={styles.error}>{signInError}</Text>
+            ) : null}
 
             {signInNeedsVerification ? (
               <>
@@ -333,23 +403,43 @@ export default function LoginScreen() {
                     const res = await resendVerification(signInEmail);
                     setSignInResendLoading(false);
                     if (res.success) {
-                      setSignInResendMessage('Verification email resent. Please check your inbox.');
+                      setSignInResendMessage(
+                        'Verification email resent. Please check your inbox.',
+                      );
                     } else {
-                      setSignInError(res.error || 'Unable to resend verification. Try signing up again or contact support.');
+                      setSignInError(
+                        res.error ||
+                          'Unable to resend verification. Try signing up again or contact support.',
+                      );
                     }
                   }}
                   disabled={signInResendLoading}
                 >
                   <Text style={[styles.forgotText, { marginTop: 8 }]}>
-                    {signInResendLoading ? 'Resending...' : 'Resend verification email'}
+                    {signInResendLoading
+                      ? 'Resending...'
+                      : 'Resend verification email'}
                   </Text>
                 </TouchableOpacity>
-                {signInResendMessage ? <Text style={{ color: Colors.success, textAlign: 'center', marginTop: 8 }}>{signInResendMessage}</Text> : null}
+                {signInResendMessage ? (
+                  <Text
+                    style={{
+                      color: Colors.success,
+                      textAlign: 'center',
+                      marginTop: 8,
+                    }}
+                  >
+                    {signInResendMessage}
+                  </Text>
+                ) : null}
               </>
             ) : null}
 
             <TouchableOpacity
-              style={[styles.primaryButton, signInLoading && styles.primaryButtonDisabled]}
+              style={[
+                styles.primaryButton,
+                signInLoading && styles.primaryButtonDisabled,
+              ]}
               testID="signin-button"
               onPress={handleSignIn}
               disabled={signInLoading}
@@ -362,7 +452,9 @@ export default function LoginScreen() {
             </TouchableOpacity>
 
             <View style={styles.switchPrompt}>
-              <Text style={styles.switchPromptText}>Don&apos;t have an account? </Text>
+              <Text style={styles.switchPromptText}>
+                Don&apos;t have an account?{' '}
+              </Text>
               <TouchableOpacity onPress={() => switchTab('signup')}>
                 <Text style={styles.switchPromptLink}>Sign Up</Text>
               </TouchableOpacity>
@@ -371,13 +463,21 @@ export default function LoginScreen() {
         ) : (
           <View style={styles.formSection}>
             <View style={styles.inputWrapper}>
-              <Ionicons name="person-outline" size={20} color={Colors.textSecondary} style={styles.inputIcon} />
+              <Ionicons
+                name="person-outline"
+                size={20}
+                color={Colors.textSecondary}
+                style={styles.inputIcon}
+              />
               <TextInput
                 style={styles.textInput}
                 placeholder="Full name"
                 placeholderTextColor={Colors.textSecondary}
                 value={signUpName}
-                onChangeText={(text) => { setSignUpName(text); setSignUpError(''); }}
+                onChangeText={(text) => {
+                  setSignUpName(text);
+                  setSignUpError('');
+                }}
                 autoCapitalize="words"
                 autoComplete="off"
                 textContentType="none"
@@ -387,14 +487,22 @@ export default function LoginScreen() {
             </View>
 
             <View style={styles.inputWrapper}>
-              <Ionicons name="mail-outline" size={20} color={Colors.textSecondary} style={styles.inputIcon} />
+              <Ionicons
+                name="mail-outline"
+                size={20}
+                color={Colors.textSecondary}
+                style={styles.inputIcon}
+              />
               <TextInput
                 ref={signUpEmailRef}
                 style={styles.textInput}
                 placeholder="Email address"
                 placeholderTextColor={Colors.textSecondary}
                 value={signUpEmail}
-                onChangeText={(text) => { setSignUpEmail(text); setSignUpError(''); }}
+                onChangeText={(text) => {
+                  setSignUpEmail(text);
+                  setSignUpError('');
+                }}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
@@ -406,51 +514,96 @@ export default function LoginScreen() {
             </View>
 
             <View style={styles.inputWrapper}>
-              <Ionicons name="lock-closed-outline" size={20} color={Colors.textSecondary} style={styles.inputIcon} />
+              <Ionicons
+                name="lock-closed-outline"
+                size={20}
+                color={Colors.textSecondary}
+                style={styles.inputIcon}
+              />
               <TextInput
                 ref={signUpPasswordRef}
                 style={styles.textInput}
                 placeholder="Create password"
                 placeholderTextColor={Colors.textSecondary}
                 value={signUpPassword}
-                onChangeText={(text) => { setSignUpPassword(text); setSignUpError(''); }}
+                onChangeText={(text) => {
+                  setSignUpPassword(text);
+                  setSignUpError('');
+                }}
                 secureTextEntry={!signUpShowPassword}
                 autoComplete="off"
                 textContentType="oneTimeCode"
                 returnKeyType="next"
-                onSubmitEditing={() => signUpConfirmPasswordRef.current?.focus()}
+                onSubmitEditing={() =>
+                  signUpConfirmPasswordRef.current?.focus()
+                }
               />
-              <TouchableOpacity onPress={() => setSignUpShowPassword(!signUpShowPassword)} style={styles.eyeButton}>
-                <Ionicons name={signUpShowPassword ? 'eye-off-outline' : 'eye-outline'} size={20} color={Colors.textSecondary} />
+              <TouchableOpacity
+                onPress={() => setSignUpShowPassword(!signUpShowPassword)}
+                style={styles.eyeButton}
+              >
+                <Ionicons
+                  name={signUpShowPassword ? 'eye-off-outline' : 'eye-outline'}
+                  size={20}
+                  color={Colors.textSecondary}
+                />
               </TouchableOpacity>
             </View>
 
             <View style={styles.inputWrapper}>
-              <Ionicons name="lock-closed-outline" size={20} color={Colors.textSecondary} style={styles.inputIcon} />
+              <Ionicons
+                name="lock-closed-outline"
+                size={20}
+                color={Colors.textSecondary}
+                style={styles.inputIcon}
+              />
               <TextInput
                 ref={signUpConfirmPasswordRef}
                 style={styles.textInput}
                 placeholder="Confirm password"
                 placeholderTextColor={Colors.textSecondary}
                 value={signUpConfirmPassword}
-                onChangeText={(text) => { setSignUpConfirmPassword(text); setSignUpError(''); }}
+                onChangeText={(text) => {
+                  setSignUpConfirmPassword(text);
+                  setSignUpError('');
+                }}
                 secureTextEntry={!signUpShowConfirmPassword}
                 autoComplete="off"
                 textContentType="oneTimeCode"
                 returnKeyType="go"
                 onSubmitEditing={handleSignUp}
               />
-              <TouchableOpacity onPress={() => setSignUpShowConfirmPassword(!signUpShowConfirmPassword)} style={styles.eyeButton}>
-                <Ionicons name={signUpShowConfirmPassword ? 'eye-off-outline' : 'eye-outline'} size={20} color={Colors.textSecondary} />
+              <TouchableOpacity
+                onPress={() =>
+                  setSignUpShowConfirmPassword(!signUpShowConfirmPassword)
+                }
+                style={styles.eyeButton}
+              >
+                <Ionicons
+                  name={
+                    signUpShowConfirmPassword
+                      ? 'eye-off-outline'
+                      : 'eye-outline'
+                  }
+                  size={20}
+                  color={Colors.textSecondary}
+                />
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.passwordHint}>Must be at least 8 characters</Text>
+            <Text style={styles.passwordHint}>
+              Must be at least 8 characters
+            </Text>
 
-            {signUpError ? <Text style={styles.error}>{signUpError}</Text> : null}
+            {signUpError ? (
+              <Text style={styles.error}>{signUpError}</Text>
+            ) : null}
 
             <TouchableOpacity
-              style={[styles.primaryButton, signUpLoading && styles.primaryButtonDisabled]}
+              style={[
+                styles.primaryButton,
+                signUpLoading && styles.primaryButtonDisabled,
+              ]}
               onPress={handleSignUp}
               disabled={signUpLoading}
             >
@@ -462,7 +615,9 @@ export default function LoginScreen() {
             </TouchableOpacity>
 
             <View style={styles.switchPrompt}>
-              <Text style={styles.switchPromptText}>Already have an account? </Text>
+              <Text style={styles.switchPromptText}>
+                Already have an account?{' '}
+              </Text>
               <TouchableOpacity onPress={() => switchTab('signin')}>
                 <Text style={styles.switchPromptLink}>Sign In</Text>
               </TouchableOpacity>

@@ -18,7 +18,13 @@ describe('LeadUnlockModal', () => {
     const onCancel = jest.fn();
 
     const { getByText } = render(
-      <LeadUnlockModal job={job as any} visible={true} onUnlock={onUnlock} onCancel={onCancel} isPro={true} />
+      <LeadUnlockModal
+        job={job as any}
+        visible={true}
+        onUnlock={onUnlock}
+        onCancel={onCancel}
+        isPro={true}
+      />,
     );
 
     expect(getByText('PRO Member Benefit')).toBeTruthy();
@@ -30,7 +36,13 @@ describe('LeadUnlockModal', () => {
     const onCancel = jest.fn();
 
     const { getByText } = render(
-      <LeadUnlockModal job={job as any} visible={true} onUnlock={onUnlock} onCancel={onCancel} unlockPrice={5} />
+      <LeadUnlockModal
+        job={job as any}
+        visible={true}
+        onUnlock={onUnlock}
+        onCancel={onCancel}
+        unlockPrice={5}
+      />,
     );
 
     expect(getByText('Unlock this job for £5')).toBeTruthy();

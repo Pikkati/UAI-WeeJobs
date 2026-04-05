@@ -2,7 +2,7 @@ name: Staging build (EAS preview)
 
 on:
   push:
-    branches: [ UAI-Development ]
+    branches: [UAI-Development]
 
 jobs:
   eas-build:

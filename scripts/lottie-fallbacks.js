@@ -15,13 +15,16 @@ if (!fs.existsSync(LOTTIE_DIR)) {
   process.exit(0);
 }
 
-if (!fs.existsSync(FALLBACK_DIR)) fs.mkdirSync(FALLBACK_DIR, { recursive: true });
+if (!fs.existsSync(FALLBACK_DIR))
+  fs.mkdirSync(FALLBACK_DIR, { recursive: true });
 
 let sharp;
 try {
   sharp = require('sharp');
 } catch (e) {
-  console.log('`sharp` not installed. To generate PNG fallbacks automatically, run:');
+  console.log(
+    '`sharp` not installed. To generate PNG fallbacks automatically, run:',
+  );
   console.log('  npm install --save-dev sharp');
   console.log('Fallback placeholders will not be generated automatically.');
   process.exit(0);
@@ -39,7 +42,14 @@ async function ensureFallbacks() {
     const out = path.join(FALLBACK_DIR, `${name}.png`);
     if (!fs.existsSync(out)) {
       // create a small placeholder 400x400 PNG
-      await sharp({ create: { width: 400, height: 400, channels: 4, background: { r: 240, g: 240, b: 240, alpha: 1 } } })
+      await sharp({
+        create: {
+          width: 400,
+          height: 400,
+          channels: 4,
+          background: { r: 240, g: 240, b: 240, alpha: 1 },
+        },
+      })
         .png()
         .toFile(out);
       console.log('Created placeholder fallback for', file, '->', out);

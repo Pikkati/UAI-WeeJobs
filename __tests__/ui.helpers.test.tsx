@@ -10,7 +10,10 @@ jest.mock('expo-router', () => ({
     const { TouchableOpacity, Text } = require('react-native');
     return (
       // @ts-ignore
-      <TouchableOpacity onPress={(e) => onPress && onPress({ preventDefault: () => {} })} accessibilityLabel={rest.accessibilityLabel}>
+      <TouchableOpacity
+        onPress={(e) => onPress && onPress({ preventDefault: () => {} })}
+        accessibilityLabel={rest.accessibilityLabel}
+      >
         <Text>{children}</Text>
       </TouchableOpacity>
     );
@@ -36,7 +39,7 @@ describe('UI helpers', () => {
     const { getByText } = render(
       <ExternalLink href="https://example.com" accessibilityLabel="ext-link">
         Go
-      </ExternalLink>
+      </ExternalLink>,
     );
 
     const el = getByText('Go');

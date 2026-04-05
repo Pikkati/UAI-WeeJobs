@@ -7,7 +7,9 @@ module.exports = {
   withSequence: (...args) => args[args.length - 1] || args[0],
   withRepeat: (v, _times) => v,
   // override any heavy animation APIs used at import-time
-  Value: function () { return { __getValue: () => 0, setValue: () => {} }; },
+  Value: function () {
+    return { __getValue: () => 0, setValue: () => {} };
+  },
   Event: () => {},
   addListener: () => {},
   removeListener: () => {},
@@ -19,7 +21,9 @@ try {
   const RN = require('react-native');
   const React = require('react');
   // Provide a minimal Animated.View component that renders a normal RN View
-  module.exports.default = { View: (props) => React.createElement(RN.View, props) };
+  module.exports.default = {
+    View: (props) => React.createElement(RN.View, props),
+  };
 } catch (e) {
   // ignore if react-native is not available in environment
 }

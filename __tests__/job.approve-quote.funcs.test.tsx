@@ -11,13 +11,21 @@ const mockJobModule: any = {
 
 jest.mock('../context/JobsContext', () => ({ useJobs: () => mockJobModule }));
 
-jest.mock('expo-router', () => ({
-  useLocalSearchParams: jest.fn(),
-  useRouter: () => ({ push: mockPush, back: jest.fn(), replace: jest.fn() }),
-  router: { push: mockPush, back: jest.fn(), replace: jest.fn() },
-}), { virtual: true });
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: jest.fn(),
+    useRouter: () => ({ push: mockPush, back: jest.fn(), replace: jest.fn() }),
+    router: { push: mockPush, back: jest.fn(), replace: jest.fn() },
+  }),
+  { virtual: true },
+);
 
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
+jest.mock(
+  'react-native-safe-area-context',
+  () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }),
+  { virtual: true },
+);
 
 describe('ApproveQuote helper flows', () => {
   beforeEach(() => {
@@ -29,15 +37,17 @@ describe('ApproveQuote helper flows', () => {
     const expo = require('expo-router');
     expo.useLocalSearchParams.mockReturnValue({ jobId: 'j1' });
 
-    mockJobModule.jobs = [{
-      id: 'j1',
-      category: 'Plumbing',
-      quote_total: 100,
-      quote_labour: 50,
-      quote_materials: 50,
-      deposit_amount: 10,
-      pricing_type: 'fixed',
-    }];
+    mockJobModule.jobs = [
+      {
+        id: 'j1',
+        category: 'Plumbing',
+        quote_total: 100,
+        quote_labour: 50,
+        quote_materials: 50,
+        deposit_amount: 10,
+        pricing_type: 'fixed',
+      },
+    ];
 
     const ApproveQuote = require('../app/job/approve-quote').default;
     const { getByText, getByPlaceholderText } = render(<ApproveQuote />);
@@ -53,6 +63,8 @@ describe('ApproveQuote helper flows', () => {
     await waitFor(() => expect(mockPush).toHaveBeenCalled());
 
     // Expect navigation to chat pathname with params (jobId included)
-    expect(mockPush).toHaveBeenCalledWith(expect.objectContaining({ pathname: '/chat/[jobId]' }));
+    expect(mockPush).toHaveBeenCalledWith(
+      expect.objectContaining({ pathname: '/chat/[jobId]' }),
+    );
   });
 });

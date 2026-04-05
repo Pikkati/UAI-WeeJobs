@@ -26,10 +26,10 @@ Workarounds:
 
 - Run typechecking and tests locally instead of relying on full ESLint until upstream fixes the issue:
 
-	```bash
-	npm run typecheck
-	npm test
-	```
+  ```bash
+  npm run typecheck
+  npm test
+  ```
 
 - See [docs/LINT_LIMITATIONS.md](docs/LINT_LIMITATIONS.md) for more details and troubleshooting steps.
 

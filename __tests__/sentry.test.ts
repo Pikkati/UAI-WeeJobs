@@ -15,7 +15,11 @@ describe('sentry shim', () => {
   test('initializes real Sentry when DSN present', () => {
     jest.resetModules();
     (process as any).env.SENTRY_DSN = 'https://example@dsn';
-    jest.doMock('@sentry/react-native', () => ({ init: jest.fn(), captureException: jest.fn(), captureMessage: jest.fn() }));
+    jest.doMock('@sentry/react-native', () => ({
+      init: jest.fn(),
+      captureException: jest.fn(),
+      captureMessage: jest.fn(),
+    }));
     const sentry = require('../lib/sentry');
     // our mock should have been returned
     expect(typeof sentry.init).toBe('function');

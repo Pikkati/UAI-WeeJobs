@@ -1,8 +1,22 @@
 const fs = require('fs');
 const path = require('path');
 
-const bundlePath = path.resolve(__dirname, '..', 'android', 'extracted_app', 'assets', 'index.android.bundle');
-const patterns = ['__EXPO_ROUTER_KEYS', '[routes-manifest]', 'routes-manifest', 'routes_manifest', '[expo-router]', 'expo-router'];
+const bundlePath = path.resolve(
+  __dirname,
+  '..',
+  'android',
+  'extracted_app',
+  'assets',
+  'index.android.bundle',
+);
+const patterns = [
+  '__EXPO_ROUTER_KEYS',
+  '[routes-manifest]',
+  'routes-manifest',
+  'routes_manifest',
+  '[expo-router]',
+  'expo-router',
+];
 
 function findAll(buffer, needle) {
   const results = [];
@@ -31,7 +45,10 @@ for (const p of patterns) {
     for (const off of hits) {
       const start = Math.max(0, off - 40);
       const end = Math.min(buf.length, off + needle.length + 40);
-      const snippet = buf.slice(start, end).toString('utf8').replace(/[^\x20-\x7E\n\r]/g, '.');
+      const snippet = buf
+        .slice(start, end)
+        .toString('utf8')
+        .replace(/[^\x20-\x7E\n\r]/g, '.');
       console.log(`FOUND:${p}:offset=${off}:context="${snippet}"`);
     }
   }

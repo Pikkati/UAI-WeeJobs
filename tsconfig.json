@@ -18,8 +18,7 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "types/**/*.d.ts"
-  ]
-  ,
+  ],
   "exclude": [
     "**/__tests__/**",
     "__tests__/**",
@@ -27,9 +26,10 @@
     "**/*.test.tsx",
     "**/*.spec.ts",
     "**/*.spec.tsx",
-    "**/__mocks__/**"
-    ,
-    "android/react-native/**",
-    "android/react-native/**/__typetests__/**"
+    "**/__mocks__/**",
+    "node_modules",
+    "build",
+    "dist",
+    "tmp_apk_extracted"
   ]
 }

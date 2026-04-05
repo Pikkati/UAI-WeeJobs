@@ -7,7 +7,10 @@ describe('parseServerError', () => {
   });
 
   test('parses 429 response-like object with retry-after header', () => {
-    const resp = { status: 429, headers: { get: (k: string) => (k === 'retry-after' ? '60' : null) } } as any;
+    const resp = {
+      status: 429,
+      headers: { get: (k: string) => (k === 'retry-after' ? '60' : null) },
+    } as any;
     const parsed = parseServerError(resp);
     expect(parsed.isRateLimited).toBe(true);
     expect(parsed.retryAfterSeconds).toBe(60);

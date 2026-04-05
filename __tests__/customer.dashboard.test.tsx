@@ -6,8 +6,12 @@ describe('CustomerDashboard module', () => {
 
   test('module loads as a function', () => {
     jest.doMock('expo-router', () => ({ router: { push: jest.fn() } }));
-    jest.doMock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' } }) }));
-    jest.doMock('../context/JobsContext', () => ({ useJobs: () => ({ jobs: [], loading: false }) }));
+    jest.doMock('../context/AuthContext', () => ({
+      useAuth: () => ({ user: { id: 'u1' } }),
+    }));
+    jest.doMock('../context/JobsContext', () => ({
+      useJobs: () => ({ jobs: [], loading: false }),
+    }));
 
     const RN = require('react-native');
     RN.Dimensions = { get: () => ({ width: 400, height: 800 }) };

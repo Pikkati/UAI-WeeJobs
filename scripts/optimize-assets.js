@@ -16,7 +16,8 @@ function collectFiles(dir, exts = ['.png', '.jpg', '.jpeg', '.svg']) {
 
 async function checkAssets(opts = {}) {
   const root = opts.dir || path.join(__dirname, '..', 'assets', 'images');
-  const maxSize = typeof opts.maxSizeBytes === 'number' ? opts.maxSizeBytes : 500 * 1024;
+  const maxSize =
+    typeof opts.maxSizeBytes === 'number' ? opts.maxSizeBytes : 500 * 1024;
   const files = collectFiles(root);
   const oversized = [];
   for (const f of files) {
@@ -37,7 +38,9 @@ if (require.main === module) {
     const maxSize = maxIdx >= 0 ? Number(argv[maxIdx + 1]) : undefined;
     try {
       const res = await checkAssets({ maxSizeBytes: maxSize });
-      console.log(`Scanned ${res.scanned} files, ${res.oversized.length} oversized`);
+      console.log(
+        `Scanned ${res.scanned} files, ${res.oversized.length} oversized`,
+      );
       if (res.oversized.length > 0) {
         console.log('Oversized files:');
         res.oversized.forEach((r) => console.log(r.path, r.size));

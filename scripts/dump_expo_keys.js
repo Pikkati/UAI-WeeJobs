@@ -1,7 +1,14 @@
 const fs = require('fs');
 const path = require('path');
 
-const bundlePath = path.resolve(__dirname, '..', 'android', 'extracted_app', 'assets', 'index.android.bundle');
+const bundlePath = path.resolve(
+  __dirname,
+  '..',
+  'android',
+  'extracted_app',
+  'assets',
+  'index.android.bundle',
+);
 if (!fs.existsSync(bundlePath)) {
   console.error('BUNDLE_NOT_FOUND', bundlePath);
   process.exit(2);
@@ -12,7 +19,11 @@ let needleIdx = -1;
 let needleName = null;
 for (const n of needles) {
   const i = buf.indexOf(Buffer.from(n, 'ascii'));
-  if (i >= 0) { needleIdx = i; needleName = n; break; }
+  if (i >= 0) {
+    needleIdx = i;
+    needleName = n;
+    break;
+  }
 }
 if (needleIdx < 0) {
   console.error('NEEDLE_NOT_FOUND');
@@ -24,9 +35,12 @@ function findArrayStart(start) {
   // find '=' then '[' (within reasonable forward window)
   let eq = -1;
   for (let i = start; i < Math.min(buf.length, start + 4096); i++) {
-    if (buf[i] === 61) { eq = i; break; } // '='
+    if (buf[i] === 61) {
+      eq = i;
+      break;
+    } // '='
   }
-  const searchStart = (eq >= 0) ? eq : start;
+  const searchStart = eq >= 0 ? eq : start;
   for (let i = searchStart; i < Math.min(buf.length, start + 131072); i++) {
     if (buf[i] === 91) return i; // '['
   }
@@ -34,7 +48,10 @@ function findArrayStart(start) {
 }
 
 const arrStart = findArrayStart(needleIdx);
-if (arrStart < 0) { console.error('ARRAY_START_NOT_FOUND'); process.exit(3); }
+if (arrStart < 0) {
+  console.error('ARRAY_START_NOT_FOUND');
+  process.exit(3);
+}
 
 // Parse bracket-matched array, handling quoted strings and escapes
 let i = arrStart;
@@ -45,16 +62,37 @@ let endIdx = -1;
 for (; i < buf.length; i++) {
   const c = buf[i];
   if (inString) {
-    if (c === 92) { i++; continue; } // skip escaped char
-    if (c === quoteChar) { inString = false; quoteChar = null; }
+    if (c === 92) {
+      i++;
+      continue;
+    } // skip escaped char
+    if (c === quoteChar) {
+      inString = false;
+      quoteChar = null;
+    }
     continue;
   } else {
-    if (c === 34 || c === 39) { inString = true; quoteChar = c; continue; } // " or '
-    if (c === 91) { depth++; }
-    if (c === 93) { depth--; if (depth === 0) { endIdx = i; break; } }
+    if (c === 34 || c === 39) {
+      inString = true;
+      quoteChar = c;
+      continue;
+    } // " or '
+    if (c === 91) {
+      depth++;
+    }
+    if (c === 93) {
+      depth--;
+      if (depth === 0) {
+        endIdx = i;
+        break;
+      }
+    }
   }
 }
-if (endIdx < 0) { console.error('ARRAY_END_NOT_FOUND'); process.exit(4); }
+if (endIdx < 0) {
+  console.error('ARRAY_END_NOT_FOUND');
+  process.exit(4);
+}
 
 const snippetBuf = buf.slice(arrStart, endIdx + 1);
 const snippet = snippetBuf.toString('utf8').replace(/[^	\n\r\x20-\x7E]/g, '.');

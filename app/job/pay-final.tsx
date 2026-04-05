@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,26 +15,30 @@ import { useJobs } from '../../context/JobsContext';
 import StripeCheckoutStub from '../../components/StripeCheckoutStub';
 
 export default function PayFinalBalanceScreen() {
-  const { jobId, mode: modeParam } = useLocalSearchParams<{ jobId: string; mode?: string }>();
+  const { jobId, mode: modeParam } = useLocalSearchParams<{
+    jobId: string;
+    mode?: string;
+  }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { jobs, payFinalBalance, payInvoice } = useJobs();
-  
+
   const [showStripeModal, setShowStripeModal] = useState(false);
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j) => j.id === jobId);
   const isInvoice = job?.pricing_type === 'hourly' || modeParam === 'invoice';
 
   const depositPaid = job?.deposit_amount || 0;
-  
-  const total = isInvoice ? (job?.invoice_total || 0) : (job?.quote_total || 0);
+
+  const total = isInvoice ? job?.invoice_total || 0 : job?.quote_total || 0;
 
   const remainingBalance = Math.max(0, total - depositPaid);
 
   const estimateTotal = job?.estimate_total || 0;
-  const variance = isInvoice && estimateTotal > 0 
-    ? ((total - estimateTotal) / estimateTotal) * 100 
-    : 0;
+  const variance =
+    isInvoice && estimateTotal > 0
+      ? ((total - estimateTotal) / estimateTotal) * 100
+      : 0;
   const hasHighVariance = Math.abs(variance) > 20;
 
   if (!job) {
@@ -44,32 +55,40 @@ export default function PayFinalBalanceScreen() {
 
   const handlePaymentSuccess = async () => {
     setShowStripeModal(false);
-    
+
     let result;
     if (isInvoice) {
       result = await payInvoice(jobId!, remainingBalance);
     } else {
       result = await payFinalBalance(jobId!, remainingBalance);
     }
-    
+
     if (result.ok) {
       Alert.alert(
         'Payment Successful!',
         'Thank you for your payment. Please confirm when the job is complete.',
-        [{ text: 'View Receipt', onPress: () => router.push(`/job/receipt?jobId=${jobId}`) }]
+        [
+          {
+            text: 'View Receipt',
+            onPress: () => router.push(`/job/receipt?jobId=${jobId}`),
+          },
+        ],
       );
     } else {
       Alert.alert('Error', 'Payment failed. Please try again.');
     }
   };
 
-  const getTitle = () => isInvoice ? 'Pay Invoice' : 'Pay Remaining Balance';
-  const getTotalLabel = () => isInvoice ? 'Invoice total' : 'Quote total';
+  const getTitle = () => (isInvoice ? 'Pay Invoice' : 'Pay Remaining Balance');
+  const getTotalLabel = () => (isInvoice ? 'Invoice total' : 'Quote total');
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{getTitle()}</Text>
@@ -94,9 +113,13 @@ export default function PayFinalBalanceScreen() {
           <View style={styles.varianceWarning}>
             <Ionicons name="warning" size={20} color={Colors.warning} />
             <View style={styles.varianceContent}>
-              <Text style={styles.varianceTitle}>Invoice differs from estimate</Text>
+              <Text style={styles.varianceTitle}>
+                Invoice differs from estimate
+              </Text>
               <Text style={styles.varianceText}>
-                Original estimate: £{estimateTotal.toFixed(2)} ({variance > 0 ? '+' : ''}{variance.toFixed(0)}%)
+                Original estimate: £{estimateTotal.toFixed(2)} (
+                {variance > 0 ? '+' : ''}
+                {variance.toFixed(0)}%)
               </Text>
             </View>
           </View>
@@ -105,29 +128,38 @@ export default function PayFinalBalanceScreen() {
         {isInvoice && (
           <View style={styles.breakdownCard}>
             <Text style={styles.sectionTitle}>Work Completed</Text>
-            
+
             <View style={styles.breakdownRow}>
               <Text style={styles.breakdownLabel}>Hours worked</Text>
-              <Text style={styles.breakdownValue}>{job.invoice_hours || 0} hrs</Text>
+              <Text style={styles.breakdownValue}>
+                {job.invoice_hours || 0} hrs
+              </Text>
             </View>
-            
+
             <View style={styles.breakdownRow}>
               <Text style={styles.breakdownLabel}>Hourly rate</Text>
-              <Text style={styles.breakdownValue}>£{(job.invoice_hourly_rate || 0).toFixed(2)}/hr</Text>
+              <Text style={styles.breakdownValue}>
+                £{(job.invoice_hourly_rate || 0).toFixed(2)}/hr
+              </Text>
             </View>
-            
+
             <View style={styles.breakdownRow}>
               <Text style={styles.breakdownLabel}>Labour</Text>
               <Text style={styles.breakdownValue}>
-                £{((job.invoice_hours || 0) * (job.invoice_hourly_rate || 0)).toFixed(2)}
+                £
+                {(
+                  (job.invoice_hours || 0) * (job.invoice_hourly_rate || 0)
+                ).toFixed(2)}
               </Text>
             </View>
-            
+
             <View style={styles.breakdownRow}>
               <Text style={styles.breakdownLabel}>Materials</Text>
-              <Text style={styles.breakdownValue}>£{(job.invoice_materials || 0).toFixed(2)}</Text>
+              <Text style={styles.breakdownValue}>
+                £{(job.invoice_materials || 0).toFixed(2)}
+              </Text>
             </View>
-            
+
             {job.invoice_notes && (
               <View style={styles.notesSection}>
                 <Text style={styles.notesLabel}>Notes:</Text>
@@ -139,27 +171,33 @@ export default function PayFinalBalanceScreen() {
 
         <View style={styles.breakdownCard}>
           <Text style={styles.sectionTitle}>Payment Summary</Text>
-          
+
           <View style={styles.breakdownRow}>
             <Text style={styles.breakdownLabel}>{getTotalLabel()}</Text>
             <Text style={styles.breakdownValue}>£{total.toFixed(2)}</Text>
           </View>
-          
+
           <View style={styles.breakdownRow}>
             <View style={styles.depositInfo}>
-              <Ionicons name="checkmark-circle" size={16} color={Colors.success} />
+              <Ionicons
+                name="checkmark-circle"
+                size={16}
+                color={Colors.success}
+              />
               <Text style={styles.breakdownLabel}>Deposit paid</Text>
             </View>
             <Text style={[styles.breakdownValue, styles.paidValue]}>
               -£{depositPaid.toFixed(2)}
             </Text>
           </View>
-          
+
           <View style={styles.divider} />
-          
+
           <View style={styles.breakdownRow}>
             <Text style={styles.totalLabel}>Remaining balance</Text>
-            <Text style={styles.totalValue}>£{remainingBalance.toFixed(2)}</Text>
+            <Text style={styles.totalValue}>
+              £{remainingBalance.toFixed(2)}
+            </Text>
           </View>
         </View>
 
@@ -175,26 +213,33 @@ export default function PayFinalBalanceScreen() {
           </View>
           <View style={styles.jobRow}>
             <Text style={styles.jobLabel}>Pricing Type</Text>
-            <Text style={styles.jobValue}>{isInvoice ? 'Hourly Rate' : 'Fixed Price'}</Text>
+            <Text style={styles.jobValue}>
+              {isInvoice ? 'Hourly Rate' : 'Fixed Price'}
+            </Text>
           </View>
         </View>
 
         <View style={styles.securityNote}>
           <Ionicons name="shield-checkmark" size={20} color={Colors.success} />
           <Text style={styles.securityText}>
-            Your payment is protected. Funds are released to the tradesperson only after you confirm the job is complete.
+            Your payment is protected. Funds are released to the tradesperson
+            only after you confirm the job is complete.
           </Text>
         </View>
 
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+      <View
+        style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+      >
         <TouchableOpacity style={styles.payButton} onPress={handlePayNow}>
           <Ionicons name="card" size={22} color={Colors.background} />
-          <Text style={styles.payButtonText}>Pay £{remainingBalance.toFixed(2)}</Text>
+          <Text style={styles.payButtonText}>
+            Pay £{remainingBalance.toFixed(2)}
+          </Text>
         </TouchableOpacity>
-        
+
         <View style={styles.stripeNote}>
           <Text style={styles.stripeText}>Powered by</Text>
           <Text style={styles.stripeLogo}>stripe</Text>
@@ -204,7 +249,7 @@ export default function PayFinalBalanceScreen() {
       <StripeCheckoutStub
         visible={showStripeModal}
         amount={remainingBalance}
-        description={isInvoice ? "Invoice payment" : "Final payment for job"}
+        description={isInvoice ? 'Invoice payment' : 'Final payment for job'}
         onSuccess={handlePaymentSuccess}
         onCancel={() => setShowStripeModal(false)}
       />

@@ -8,7 +8,9 @@ jest.mock('../context/AuthContext', () => ({
 }));
 
 // Mock router to avoid navigation
-jest.mock('expo-router', () => ({ router: { push: jest.fn(), replace: jest.fn() } }));
+jest.mock('expo-router', () => ({
+  router: { push: jest.fn(), replace: jest.fn() },
+}));
 
 describe('CustomerHome (app/customer/index)', () => {
   test('module loads and exports a component', () => {

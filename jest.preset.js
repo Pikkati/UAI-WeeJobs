@@ -19,10 +19,14 @@ const preset = Object.assign({}, expoPreset);
 
 const stripRNSetup = (arr) => {
   if (!Array.isArray(arr)) return arr;
-  return arr.filter((v) => typeof v === 'string' && !/react-native\/jest\/setup(\\.js)?$/.test(v));
+  return arr.filter(
+    (v) =>
+      typeof v === 'string' && !/react-native\/jest\/setup(\\.js)?$/.test(v),
+  );
 };
 
 if (preset.setupFiles) preset.setupFiles = stripRNSetup(preset.setupFiles);
-if (preset.setupFilesAfterEnv) preset.setupFilesAfterEnv = stripRNSetup(preset.setupFilesAfterEnv);
+if (preset.setupFilesAfterEnv)
+  preset.setupFilesAfterEnv = stripRNSetup(preset.setupFilesAfterEnv);
 
 module.exports = preset;

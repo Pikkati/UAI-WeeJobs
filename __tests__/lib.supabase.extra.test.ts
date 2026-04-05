@@ -23,7 +23,10 @@ describe('lib/supabase extra tests', () => {
     jest.resetModules();
     (global as any).__TEST_SUPABASE__ = {
       auth: {
-        signUp: jest.fn(async (opts: any) => ({ data: { user: { id: 'u1' } }, error: null }))
+        signUp: jest.fn(async (opts: any) => ({
+          data: { user: { id: 'u1' } },
+          error: null,
+        })),
       },
       from: (table: string) => ({
         select: () => ({

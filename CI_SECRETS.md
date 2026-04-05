@@ -6,9 +6,10 @@ Add these repository secrets in GitHub: Settings → Secrets → Actions.
 - EXPO_PUBLIC_SUPABASE_ANON_KEY: Supabase anon/public key
 
 Optional (if you use them):
+
 - NODE_AUTH_TOKEN: npm auth token for private package installs (if needed)
 - GH_TOKEN: GitHub token for auth-requiring actions (only if workflow needs it)
- - NPM_TOKEN: Token used by `semantic-release` or `npm publish` for publishing packages. Add this if you plan to publish packages from CI.
+- NPM_TOKEN: Token used by `semantic-release` or `npm publish` for publishing packages. Add this if you plan to publish packages from CI.
 
 Recommended secrets for release workflows:
 
@@ -38,6 +39,7 @@ gh secret set SENTRY_AUTH_TOKEN --body "<your-sentry-token>" --repo getnudged/we
 ```
 
 Notes:
+
 - Only repo admins can add secrets.
 - Do not commit secret values to the repo.
 - Once added, rerun the CI workflow or push a trivial commit to trigger it.

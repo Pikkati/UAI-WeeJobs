@@ -11,7 +11,10 @@ let jest;
 try {
   // Prefer running the local jest binary directly via node if available.
   const jestBin = require.resolve('jest/bin/jest');
-  jest = spawn(process.execPath, [jestBin, '--watchAll'], { stdio: ['pipe', 'pipe', 'pipe'], windowsHide: true });
+  jest = spawn(process.execPath, [jestBin, '--watchAll'], {
+    stdio: ['pipe', 'pipe', 'pipe'],
+    windowsHide: true,
+  });
 } catch {
   // Fallback: try npx/npm if resolving jest failed.
   let cmd, args;
@@ -22,7 +25,10 @@ try {
     cmd = 'npm';
     args = ['test', '--', '--watchAll'];
   }
-  jest = spawn(cmd, args, { stdio: ['pipe', 'pipe', 'pipe'], windowsHide: true });
+  jest = spawn(cmd, args, {
+    stdio: ['pipe', 'pipe', 'pipe'],
+    windowsHide: true,
+  });
 }
 
 jest.stdout.on('data', (data) => {
@@ -30,39 +36,78 @@ jest.stdout.on('data', (data) => {
   process.stdout.write(text);
 
   // Configuration via environment variables
-  const FAIL_DELAY_MS = parseInt(process.env.JEST_AUTOWATCH_FAIL_DELAY_MS || '300', 10);
-  const QUIT_DELAY_MS = parseInt(process.env.JEST_AUTOWATCH_QUIT_DELAY_MS || '500', 10);
-  const MAX_RETRIES = parseInt(process.env.JEST_AUTOWATCH_MAX_RETRIES || '1', 10);
-  const ALWAYS_QUIT = (process.env.JEST_AUTOWATCH_ALWAYS_QUIT || 'true') === 'true';
+  const FAIL_DELAY_MS = parseInt(
+    process.env.JEST_AUTOWATCH_FAIL_DELAY_MS || '300',
+    10,
+  );
+  const QUIT_DELAY_MS = parseInt(
+    process.env.JEST_AUTOWATCH_QUIT_DELAY_MS || '500',
+    10,
+  );
+  const MAX_RETRIES = parseInt(
+    process.env.JEST_AUTOWATCH_MAX_RETRIES || '1',
+    10,
+  );
+  const ALWAYS_QUIT =
+    (process.env.JEST_AUTOWATCH_ALWAYS_QUIT || 'true') === 'true';
 
   // Internal state stored on process to survive handler re-creation
-  process._jestAuto = process._jestAuto || { retriesLeft: MAX_RETRIES, sentF: false, sentQ: false };
+  process._jestAuto = process._jestAuto || {
+    retriesLeft: MAX_RETRIES,
+    sentF: false,
+    sentQ: false,
+  };
   const state = process._jestAuto;
 
   // Detect Jest summary lines indicating failures or completed runs
   const failedMatch = text.match(/Test Suites:\s*(\d+) failed/m);
-  const passedMatch = text.match(/Test Suites:\s*(\d+) passed/m) || text.match(/Ran all test suites\./m);
+  const passedMatch =
+    text.match(/Test Suites:\s*(\d+) passed/m) ||
+    text.match(/Ran all test suites\./m);
 
   if (failedMatch) {
     const failed = parseInt(failedMatch[1], 10) || 0;
     if (failed > 0 && state.retriesLeft > 0 && !state.sentF) {
       // Run only failed tests
       setTimeout(() => {
-        try { jest.stdin.write('f\n'); console.log('Sent key: f'); } catch (e) { console.error(e); }
+        try {
+          jest.stdin.write('f\n');
+          console.log('Sent key: f');
+        } catch (e) {
+          console.error(e);
+        }
       }, FAIL_DELAY_MS);
       state.sentF = true;
       state.retriesLeft -= 1;
-    } else if (failed > 0 && (state.retriesLeft <= 0 || !ALWAYS_QUIT) && !state.sentQ) {
+    } else if (
+      failed > 0 &&
+      (state.retriesLeft <= 0 || !ALWAYS_QUIT) &&
+      !state.sentQ
+    ) {
       // After retries exhausted, quit if configured
       if (ALWAYS_QUIT) {
-        setTimeout(() => { try { jest.stdin.write('q\n'); console.log('Sent key: q'); } catch (e) { console.error(e); } }, QUIT_DELAY_MS);
+        setTimeout(() => {
+          try {
+            jest.stdin.write('q\n');
+            console.log('Sent key: q');
+          } catch (e) {
+            console.error(e);
+          }
+        }, QUIT_DELAY_MS);
         state.sentQ = true;
       }
     }
   } else if (passedMatch) {
     // No failures — optionally quit
     if (ALWAYS_QUIT && !state.sentQ) {
-      setTimeout(() => { try { jest.stdin.write('q\n'); console.log('Sent key: q'); } catch (e) { console.error(e); } }, QUIT_DELAY_MS);
+      setTimeout(() => {
+        try {
+          jest.stdin.write('q\n');
+          console.log('Sent key: q');
+        } catch (e) {
+          console.error(e);
+        }
+      }, QUIT_DELAY_MS);
       state.sentQ = true;
     }
   }
@@ -75,6 +120,8 @@ jest.on('exit', (code, signal) => {
 });
 
 process.on('SIGINT', () => {
-  try { jest.kill('SIGINT'); } catch {}
+  try {
+    jest.kill('SIGINT');
+  } catch {}
   process.exit(0);
 });

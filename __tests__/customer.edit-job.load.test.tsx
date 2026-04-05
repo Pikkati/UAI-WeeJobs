@@ -2,17 +2,25 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 
 // Mock expo-router to provide a jobId param and a router stub
-jest.mock('expo-router', () => ({
-  useLocalSearchParams: () => ({ jobId: 'j1' }),
-  useRouter: () => ({ back: jest.fn(), push: jest.fn() }),
-}), { virtual: true });
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: () => ({ jobId: 'j1' }),
+    useRouter: () => ({ back: jest.fn(), push: jest.fn() }),
+  }),
+  { virtual: true },
+);
 
 describe('EditJobScreen load flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // eslint-disable-next-line no-undef
     const g: any = typeof global !== 'undefined' ? global : (globalThis as any);
-    if (g && g.__TEST_SUPABASE__ && typeof g.__TEST_SUPABASE__.setResponse === 'function') {
+    if (
+      g &&
+      g.__TEST_SUPABASE__ &&
+      typeof g.__TEST_SUPABASE__.setResponse === 'function'
+    ) {
       g.__TEST_SUPABASE__.setResponse('jobs', [
         {
           id: 'j1',

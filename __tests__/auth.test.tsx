@@ -16,7 +16,13 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 // Mock supabase to force a failure so AuthContext falls back to TEST_USERS
 jest.mock('../lib/supabase', () => ({
   supabase: {
-    from: () => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: { message: 'not found' } }) }) }) }),
+    from: () => ({
+      select: () => ({
+        eq: () => ({
+          single: async () => ({ data: null, error: { message: 'not found' } }),
+        }),
+      }),
+    }),
   },
 }));
 
@@ -55,7 +61,7 @@ test('AuthContext.login falls back to TEST_USERS when supabase fails', async () 
   render(
     <AuthProvider>
       <TestConsumer onDone={(r) => (result = r)} />
-    </AuthProvider>
+    </AuthProvider>,
   );
 
   await waitFor(() => {

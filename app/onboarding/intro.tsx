@@ -1,5 +1,12 @@
 import { useState, useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  FlatList,
+} from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
@@ -15,21 +22,24 @@ const slides = [
     id: '1',
     icon: 'document-text-outline',
     title: 'Post a Job\nin Minutes',
-    subtitle: 'Need something fixed? Post your job and let local tradespeople come to you.',
+    subtitle:
+      'Need something fixed? Post your job and let local tradespeople come to you.',
     forRole: 'Customers',
   },
   {
     id: '2',
     icon: 'swap-horizontal-outline',
     title: 'Swipe Jobs\nThat Suit You',
-    subtitle: 'Browse available jobs and accept the ones that match your skills and schedule.',
+    subtitle:
+      'Browse available jobs and accept the ones that match your skills and schedule.',
     forRole: 'Tradespeople',
   },
   {
     id: '3',
     icon: 'location-outline',
     title: 'Built for\nCauseway Coast',
-    subtitle: 'Connecting local people with local tradespeople. Supporting our community.',
+    subtitle:
+      'Connecting local people with local tradespeople. Supporting our community.',
     forRole: 'Local',
   },
 ];
@@ -54,7 +64,7 @@ export default function IntroScreen() {
     router.replace('/onboarding/role-select');
   };
 
-  const renderSlide = ({ item }: { item: typeof slides[0] }) => (
+  const renderSlide = ({ item }: { item: (typeof slides)[0] }) => (
     <View style={styles.slide}>
       <View style={styles.slideContent}>
         <View style={styles.iconContainer}>
@@ -75,7 +85,12 @@ export default function IntroScreen() {
         contentFit="cover"
       />
       <LinearGradient
-        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.4)', 'rgba(0,0,0,0.85)', '#000000']}
+        colors={[
+          'rgba(0,0,0,0.1)',
+          'rgba(0,0,0,0.4)',
+          'rgba(0,0,0,0.85)',
+          '#000000',
+        ]}
         locations={[0, 0.35, 0.65, 0.85]}
         style={styles.gradient}
       />
@@ -103,10 +118,7 @@ export default function IntroScreen() {
           {slides.map((_, index) => (
             <View
               key={index}
-              style={[
-                styles.dot,
-                index === currentIndex && styles.activeDot,
-              ]}
+              style={[styles.dot, index === currentIndex && styles.activeDot]}
             />
           ))}
         </View>

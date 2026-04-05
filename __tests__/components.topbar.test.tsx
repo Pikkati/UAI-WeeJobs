@@ -30,7 +30,9 @@ describe('TopBar', () => {
 
 describe('VerifiedProBadge', () => {
   test('renders small/medium/large sizes without error', () => {
-    const { toJSON, getByText } = render(<VerifiedProBadge size="small" showText={true} />);
+    const { toJSON, getByText } = render(
+      <VerifiedProBadge size="small" showText={true} />,
+    );
     expect(toJSON()).toBeTruthy();
     expect(getByText('Verified Pro')).toBeTruthy();
   });

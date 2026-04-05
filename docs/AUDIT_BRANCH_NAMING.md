@@ -1,5 +1,4 @@
-Audit and Branch Naming Conventions
-=================================
+# Audit and Branch Naming Conventions
 
 Use these conventions to keep long-running maintenance and audit work discoverable:
 

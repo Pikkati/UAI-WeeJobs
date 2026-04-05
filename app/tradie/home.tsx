@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -10,13 +16,17 @@ export default function TradieHomeScreen() {
   const { jobs } = useJobs();
 
   const activeJobs = jobs.filter(
-    j => j.tradie_id === user?.id && !['completed', 'cancelled'].includes(j.status)
+    (j) =>
+      j.tradie_id === user?.id &&
+      !['completed', 'cancelled'].includes(j.status),
   );
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.hero}>
-        <Text style={styles.greeting}>Hi {user?.name?.split(' ')[0] || 'there'}!</Text>
+        <Text style={styles.greeting}>
+          Hi {user?.name?.split(' ')[0] || 'there'}!
+        </Text>
         <Text style={styles.heroTitle}>Ready to Work?</Text>
         <Text style={styles.heroSub}>Causeway Coast & Glens</Text>
       </View>
@@ -28,9 +38,16 @@ export default function TradieHomeScreen() {
           <Text style={styles.statLabel}>Active Jobs</Text>
         </View>
         <View style={styles.statCard}>
-          <Ionicons name="star" size={22} color={Colors.warning} style={{ marginBottom: 4 }} />
+          <Ionicons
+            name="star"
+            size={22}
+            color={Colors.warning}
+            style={{ marginBottom: 4 }}
+          />
           <Text style={styles.statLabel}>
-            {user?.average_rating ? `${user.average_rating.toFixed(1)} Stars` : 'No reviews'}
+            {user?.average_rating
+              ? `${user.average_rating.toFixed(1)} Stars`
+              : 'No reviews'}
           </Text>
         </View>
         <View style={styles.statCard}>
@@ -42,7 +59,10 @@ export default function TradieHomeScreen() {
       {/* Quick actions */}
       <Text style={styles.sectionTitle}>Quick Actions</Text>
 
-      <TouchableOpacity style={styles.actionCard} onPress={() => router.push('/tradie/current-jobs')}>
+      <TouchableOpacity
+        style={styles.actionCard}
+        onPress={() => router.push('/tradie/current-jobs')}
+      >
         <View style={styles.actionIcon}>
           <Ionicons name="briefcase" size={22} color={Colors.accent} />
         </View>
@@ -54,10 +74,17 @@ export default function TradieHomeScreen() {
               : 'No active jobs'}
           </Text>
         </View>
-        <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+        <Ionicons
+          name="chevron-forward"
+          size={20}
+          color={Colors.textSecondary}
+        />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.actionCard} onPress={() => router.push('/tradie/dashboard')}>
+      <TouchableOpacity
+        style={styles.actionCard}
+        onPress={() => router.push('/tradie/dashboard')}
+      >
         <View style={styles.actionIcon}>
           <Ionicons name="grid" size={22} color={Colors.accent} />
         </View>
@@ -65,10 +92,17 @@ export default function TradieHomeScreen() {
           <Text style={styles.actionTitle}>Dashboard</Text>
           <Text style={styles.actionSub}>Earnings & payout history</Text>
         </View>
-        <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+        <Ionicons
+          name="chevron-forward"
+          size={20}
+          color={Colors.textSecondary}
+        />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.actionCard} onPress={() => router.push('/tradie/messages')}>
+      <TouchableOpacity
+        style={styles.actionCard}
+        onPress={() => router.push('/tradie/messages')}
+      >
         <View style={styles.actionIcon}>
           <Ionicons name="chatbubbles" size={22} color={Colors.accent} />
         </View>
@@ -76,16 +110,25 @@ export default function TradieHomeScreen() {
           <Text style={styles.actionTitle}>Messages</Text>
           <Text style={styles.actionSub}>Chat with customers</Text>
         </View>
-        <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+        <Ionicons
+          name="chevron-forward"
+          size={20}
+          color={Colors.textSecondary}
+        />
       </TouchableOpacity>
 
       {/* PRO upsell */}
       {(!user?.subscription_plan || user.subscription_plan === 'payg') && (
-        <TouchableOpacity style={styles.proBanner} onPress={() => router.push('/tradie/pricing')}>
+        <TouchableOpacity
+          style={styles.proBanner}
+          onPress={() => router.push('/tradie/pricing')}
+        >
           <Ionicons name="star" size={20} color={Colors.white} />
           <View style={{ flex: 1 }}>
             <Text style={styles.proTitle}>Upgrade to PRO</Text>
-            <Text style={styles.proSub}>Unlimited job leads from £49/month</Text>
+            <Text style={styles.proSub}>
+              Unlimited job leads from £49/month
+            </Text>
           </View>
           <Ionicons name="chevron-forward" size={18} color={Colors.white} />
         </TouchableOpacity>

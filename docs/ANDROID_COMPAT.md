@@ -7,10 +7,12 @@ Why a patch file
 Direct edits in `node_modules` are fragile. This repository includes a patch file so the changes are reproducible and can be applied automatically after `npm install`/`yarn` using `git apply` or `patch-package`.
 
 Files touched (node_modules)
+
 - android/src/main/java/expo/modules/kotlin/Promise.kt
 - android/src/main/java/expo/modules/kotlin/KPromiseWrapper.kt
 
 Local project changes
+
 - android/app/src/main/java/com/weejobs/app/MainActivity.kt (reflective splashscreen registration)
 - android/printSdk.gradle (debugging helper)
 - android/local.properties (path normalization)
@@ -25,6 +27,7 @@ git apply patches/expo-modules-core+55.0.18.patch
 ```
 
 Option B: Use patch-package (recommended for npm/yarn workflows):
+
 - Install patch-package as a devDependency and store the patch under `patches/` (name must match package@version format).
 - Run `npx patch-package` to generate/apply patches after `npm install`.
 

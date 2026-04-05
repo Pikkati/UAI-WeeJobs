@@ -18,6 +18,7 @@ The WeeJobs Team
 ---
 
 Notes for implementers:
+
 - When using Supabase, set `redirectTo` to the app URL that will handle the reset token if you want to deep-link into the app.
 - Keep reset links short-lived and single-use.
 - Consider logging reset requests in `audit_logs` for security monitoring.

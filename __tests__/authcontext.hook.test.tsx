@@ -20,7 +20,9 @@ describe('useAuth hook', () => {
       } catch (_) {
         (global as any).__TEST_USE_AUTH__ = undefined;
       }
-      expect(() => render(<TestComponent />)).toThrow('useAuth must be used within an AuthProvider');
+      expect(() => render(<TestComponent />)).toThrow(
+        'useAuth must be used within an AuthProvider',
+      );
     } finally {
       (global as any).__TEST_USE_AUTH__ = orig;
     }

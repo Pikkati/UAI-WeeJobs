@@ -6,7 +6,11 @@ import TopBar from '../../components/TopBar';
 
 function PostJobFAB({ onPress }: { onPress?: () => void }) {
   return (
-    <TouchableOpacity style={fabStyles.container} onPress={onPress} activeOpacity={0.8}>
+    <TouchableOpacity
+      style={fabStyles.container}
+      onPress={onPress}
+      activeOpacity={0.8}
+    >
       <View style={fabStyles.circle}>
         <Ionicons name="add" size={30} color={Colors.white} />
       </View>
@@ -71,35 +75,45 @@ export default function CustomerLayout() {
           name="index"
           options={{
             title: 'Home',
-            tabBarIcon: ({ color, size }) => <Ionicons name="home" size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home" size={size} color={color} />
+            ),
           }}
         />
         <Tabs.Screen
           name="jobs"
           options={{
             title: 'My Jobs',
-            tabBarIcon: ({ color, size }) => <Ionicons name="briefcase" size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="briefcase" size={size} color={color} />
+            ),
           }}
         />
         <Tabs.Screen
           name="post-job"
           options={{
             title: '',
-            tabBarButton: (props) => <PostJobFAB onPress={props.onPress as () => void} />,
+            tabBarButton: (props) => (
+              <PostJobFAB onPress={props.onPress as () => void} />
+            ),
           }}
         />
         <Tabs.Screen
           name="messages"
           options={{
             title: 'Messages',
-            tabBarIcon: ({ color, size }) => <Ionicons name="chatbubbles" size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="chatbubbles" size={size} color={color} />
+            ),
           }}
         />
         <Tabs.Screen
           name="dashboard"
           options={{
             title: 'Dashboard',
-            tabBarIcon: ({ color, size }) => <Ionicons name="grid" size={size} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="grid" size={size} color={color} />
+            ),
           }}
         />
         {/* Hidden — accessible via TopBar avatar tap */}

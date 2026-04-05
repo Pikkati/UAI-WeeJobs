@@ -17,7 +17,13 @@ interface PricingCardProps {
   showBadge?: boolean;
 }
 
-const CardWrapper = ({ highlight, children }: { highlight?: boolean; children: ReactNode }) => {
+const CardWrapper = ({
+  highlight,
+  children,
+}: {
+  highlight?: boolean;
+  children: ReactNode;
+}) => {
   if (highlight) {
     return (
       <LinearGradient
@@ -44,8 +50,6 @@ export default function PricingCard({
   ribbonText,
   showBadge = false,
 }: PricingCardProps) {
-  
-
   return (
     <View style={[styles.container, highlight && styles.containerHighlight]}>
       {ribbonText && (
@@ -53,7 +57,7 @@ export default function PricingCard({
           <Text style={styles.ribbonText}>{ribbonText}</Text>
         </View>
       )}
-      
+
       <CardWrapper highlight={highlight}>
         <View style={styles.content}>
           {!highlight && (
@@ -61,40 +65,56 @@ export default function PricingCard({
               <Text style={styles.labelBadgeText}>PAYG</Text>
             </View>
           )}
-          
+
           {showBadge && (
             <View style={styles.proBadgeContainer}>
               <VerifiedProBadge size="medium" />
             </View>
           )}
-          
-          <Text style={[styles.title, highlight && styles.titleHighlight]}>{title}</Text>
+
+          <Text style={[styles.title, highlight && styles.titleHighlight]}>
+            {title}
+          </Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
-          
+
           {price && (
             <View style={styles.priceContainer}>
               <Text style={styles.price}>{price}</Text>
               <Text style={styles.priceUnit}>/month</Text>
             </View>
           )}
-          
+
           <View style={styles.featuresList}>
             {features.map((feature, index) => (
               <View key={index} style={styles.featureRow}>
-                <View style={[styles.checkIcon, highlight && styles.checkIconHighlight]}>
-                  <Ionicons name="checkmark" size={14} color={highlight ? Colors.background : Colors.success} />
+                <View
+                  style={[
+                    styles.checkIcon,
+                    highlight && styles.checkIconHighlight,
+                  ]}
+                >
+                  <Ionicons
+                    name="checkmark"
+                    size={14}
+                    color={highlight ? Colors.background : Colors.success}
+                  />
                 </View>
                 <Text style={styles.featureText}>{feature}</Text>
               </View>
             ))}
           </View>
-          
-          <TouchableOpacity 
-            style={[styles.button, highlight && styles.buttonHighlight]} 
+
+          <TouchableOpacity
+            style={[styles.button, highlight && styles.buttonHighlight]}
             onPress={onPress}
             activeOpacity={0.8}
           >
-            <Text style={[styles.buttonText, highlight && styles.buttonTextHighlight]}>
+            <Text
+              style={[
+                styles.buttonText,
+                highlight && styles.buttonTextHighlight,
+              ]}
+            >
               {buttonLabel}
             </Text>
           </TouchableOpacity>

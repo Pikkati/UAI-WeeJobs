@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,7 +17,7 @@ export default function PayoutScreen() {
   const insets = useSafeAreaInsets();
   const { jobs } = useJobs();
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j) => j.id === jobId);
 
   if (!job) {
     return (
@@ -29,14 +35,21 @@ export default function PayoutScreen() {
 
   const isPaymentSent = job.status === 'completed';
 
-  const paymentStatusLabel = isPaymentSent ? 'Payment Sent' : 'Payment Processing';
-  const paymentStatusIcon: 'checkmark-circle' | 'time' = isPaymentSent ? 'checkmark-circle' : 'time';
+  const paymentStatusLabel = isPaymentSent
+    ? 'Payment Sent'
+    : 'Payment Processing';
+  const paymentStatusIcon: 'checkmark-circle' | 'time' = isPaymentSent
+    ? 'checkmark-circle'
+    : 'time';
   const paymentStatusColor = isPaymentSent ? Colors.success : Colors.warning;
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Payout Summary</Text>
@@ -44,7 +57,6 @@ export default function PayoutScreen() {
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-
         {/* Job Complete Banner */}
         <View style={styles.completeBanner}>
           <View style={styles.completeTick}>
@@ -58,7 +70,11 @@ export default function PayoutScreen() {
 
         {/* Payment Status */}
         <View style={styles.statusCard}>
-          <Ionicons name={paymentStatusIcon} size={22} color={paymentStatusColor} />
+          <Ionicons
+            name={paymentStatusIcon}
+            size={22}
+            color={paymentStatusColor}
+          />
           <View style={styles.statusContent}>
             <Text style={[styles.statusLabel, { color: paymentStatusColor }]}>
               {paymentStatusLabel}
@@ -82,7 +98,9 @@ export default function PayoutScreen() {
 
           <View style={styles.row}>
             <Text style={styles.rowLabel}>Final payment received</Text>
-            <Text style={styles.rowValue}>£{finalPaymentReceived.toFixed(2)}</Text>
+            <Text style={styles.rowValue}>
+              £{finalPaymentReceived.toFixed(2)}
+            </Text>
           </View>
 
           <View style={styles.divider} />
@@ -99,7 +117,9 @@ export default function PayoutScreen() {
                 <Text style={styles.feeBadgeText}>WeeJobs Pro</Text>
               </View>
             </View>
-            <Text style={[styles.rowValue, styles.feeValue]}>£{platformFee.toFixed(2)}</Text>
+            <Text style={[styles.rowValue, styles.feeValue]}>
+              £{platformFee.toFixed(2)}
+            </Text>
           </View>
 
           <View style={styles.divider} />
@@ -133,7 +153,9 @@ export default function PayoutScreen() {
 
           <View style={styles.row}>
             <Text style={styles.rowLabel}>Job reference</Text>
-            <Text style={styles.rowValue}>{job.id.slice(0, 8).toUpperCase()}</Text>
+            <Text style={styles.rowValue}>
+              {job.id.slice(0, 8).toUpperCase()}
+            </Text>
           </View>
 
           {job.description ? (
@@ -156,13 +178,17 @@ export default function PayoutScreen() {
 
             <View style={styles.row}>
               <Text style={styles.rowLabel}>Hourly rate</Text>
-              <Text style={styles.rowValue}>£{(job.invoice_hourly_rate || 0).toFixed(2)}/hr</Text>
+              <Text style={styles.rowValue}>
+                £{(job.invoice_hourly_rate || 0).toFixed(2)}/hr
+              </Text>
             </View>
 
             {job.invoice_materials ? (
               <View style={styles.row}>
                 <Text style={styles.rowLabel}>Materials</Text>
-                <Text style={styles.rowValue}>£{job.invoice_materials.toFixed(2)}</Text>
+                <Text style={styles.rowValue}>
+                  £{job.invoice_materials.toFixed(2)}
+                </Text>
               </View>
             ) : null}
           </View>
@@ -176,14 +202,18 @@ export default function PayoutScreen() {
             {job.quote_labour ? (
               <View style={styles.row}>
                 <Text style={styles.rowLabel}>Labour</Text>
-                <Text style={styles.rowValue}>£{job.quote_labour.toFixed(2)}</Text>
+                <Text style={styles.rowValue}>
+                  £{job.quote_labour.toFixed(2)}
+                </Text>
               </View>
             ) : null}
 
             {job.quote_materials ? (
               <View style={styles.row}>
                 <Text style={styles.rowLabel}>Materials</Text>
-                <Text style={styles.rowValue}>£{job.quote_materials.toFixed(2)}</Text>
+                <Text style={styles.rowValue}>
+                  £{job.quote_materials.toFixed(2)}
+                </Text>
               </View>
             ) : null}
 
@@ -197,7 +227,9 @@ export default function PayoutScreen() {
         <View style={{ height: 40 }} />
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+      <View
+        style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+      >
         <TouchableOpacity
           style={styles.backToJobsButton}
           onPress={() => router.replace('/tradie/current-jobs')}

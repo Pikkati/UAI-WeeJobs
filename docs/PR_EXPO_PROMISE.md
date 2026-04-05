@@ -5,6 +5,7 @@ Summary
 This PR makes `expo-modules-core` resilient to changes in the React Native `com.facebook.react.bridge.Promise` overloads by implementing a broad set of overloads in `Promise.toBridgePromise()` and ensuring `KPromiseWrapper` forwards a non-null code when required.
 
 Files changed (proposed)
+
 - packages/expo-modules-core/android/src/main/java/expo/modules/kotlin/Promise.kt
 - packages/expo-modules-core/android/src/main/java/expo/modules/kotlin/KPromiseWrapper.kt
 - packages/expo-modules-core/android/src/test/java/expo/modules/kotlin/PromiseToBridgePromiseTest.kt (unit test)

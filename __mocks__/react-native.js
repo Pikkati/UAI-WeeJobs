@@ -18,7 +18,11 @@ module.exports.default = RN;
 
 // Ensure named properties are available for different transpilation outputs
 Object.keys(RN).forEach((k) => {
-  try { module.exports[k] = RN[k]; } catch (e) { /* ignore */ }
+  try {
+    module.exports[k] = RN[k];
+  } catch (e) {
+    /* ignore */
+  }
 });
 
 // Provide a small fallback for Easing if not present

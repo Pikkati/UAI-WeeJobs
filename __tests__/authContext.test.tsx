@@ -8,10 +8,18 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
   default: {
     storage: {} as Record<string, string>,
-    getItem: jest.fn(async (k: string) => ( (global as any).__asyncStorage?.[k] ?? null )),
-    setItem: jest.fn(async (k: string, v: string) => { (global as any).__asyncStorage = (global as any).__asyncStorage || {}; (global as any).__asyncStorage[k] = v; }),
-    removeItem: jest.fn(async (k: string) => { (global as any).__asyncStorage = (global as any).__asyncStorage || {}; delete (global as any).__asyncStorage[k]; }),
-  }
+    getItem: jest.fn(
+      async (k: string) => (global as any).__asyncStorage?.[k] ?? null,
+    ),
+    setItem: jest.fn(async (k: string, v: string) => {
+      (global as any).__asyncStorage = (global as any).__asyncStorage || {};
+      (global as any).__asyncStorage[k] = v;
+    }),
+    removeItem: jest.fn(async (k: string) => {
+      (global as any).__asyncStorage = (global as any).__asyncStorage || {};
+      delete (global as any).__asyncStorage[k];
+    }),
+  },
 }));
 
 // Provide a mock supabase client
@@ -23,12 +31,23 @@ jest.mock('../lib/supabase', () => ({
   supabase: {
     auth: {
       signInWithPassword: (...args: any[]) => mockSignInWithPassword(...args),
-      signUp: jest.fn(async () => ({ data: { user: { id: 'u1', email: 'x@x.com', confirmed_at: new Date().toISOString() } }, error: null })),
+      signUp: jest.fn(async () => ({
+        data: {
+          user: {
+            id: 'u1',
+            email: 'x@x.com',
+            confirmed_at: new Date().toISOString(),
+          },
+        },
+        error: null,
+      })),
       signOut: () => mockSignOut(),
     },
     from: (table: string) => ({
       select: () => ({
-        eq: (col: string, val: string) => ({ single: async () => mockFrom(table, col, val) }),
+        eq: (col: string, val: string) => ({
+          single: async () => mockFrom(table, col, val),
+        }),
       }),
     }),
   },
@@ -55,15 +74,34 @@ describe('AuthContext', () => {
 
   test('successful login stores user and returns success', async () => {
     // Arrange: supabase signIn returns a confirmed user
-    mockSignInWithPassword.mockResolvedValueOnce({ data: { user: { id: 'u1', email: 'test@example.com', confirmed_at: new Date().toISOString() } }, error: null });
-    mockFrom.mockResolvedValueOnce({ data: { id: 'u1', email: 'test@example.com', name: 'Tester', role: 'customer', created_at: new Date().toISOString(), updated_at: new Date().toISOString() }, error: null });
+    mockSignInWithPassword.mockResolvedValueOnce({
+      data: {
+        user: {
+          id: 'u1',
+          email: 'test@example.com',
+          confirmed_at: new Date().toISOString(),
+        },
+      },
+      error: null,
+    });
+    mockFrom.mockResolvedValueOnce({
+      data: {
+        id: 'u1',
+        email: 'test@example.com',
+        name: 'Tester',
+        role: 'customer',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      },
+      error: null,
+    });
 
     let result: any = null;
 
     render(
       <AuthProvider>
         <TestInvoker email="test@example.com" cb={(r) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -74,14 +112,19 @@ describe('AuthContext', () => {
   });
 
   test('login for unconfirmed user returns needsVerification', async () => {
-    mockSignInWithPassword.mockResolvedValueOnce({ data: { user: { id: 'u2', email: 'unverified@example.com', confirmed_at: null } }, error: { message: 'User not confirmed' } });
+    mockSignInWithPassword.mockResolvedValueOnce({
+      data: {
+        user: { id: 'u2', email: 'unverified@example.com', confirmed_at: null },
+      },
+      error: { message: 'User not confirmed' },
+    });
 
     let result2: any = null;
 
     render(
       <AuthProvider>
         <TestInvoker email="unverified@example.com" cb={(r) => (result2 = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {

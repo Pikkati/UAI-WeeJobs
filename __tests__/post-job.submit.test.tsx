@@ -21,7 +21,10 @@ const insertMock = jest.fn(async () => ({ data: [{ id: 'j1' }], error: null }));
 
 // Mock auth so component has a user
 jest.mock('../context/AuthContext', () => ({
-  useAuth: () => ({ user: { id: 'cust1', name: 'Test User', phone: '0700000000' }, isLoading: false }),
+  useAuth: () => ({
+    user: { id: 'cust1', name: 'Test User', phone: '0700000000' },
+    isLoading: false,
+  }),
   AuthProvider: ({ children }: any) => children,
 }));
 
@@ -39,11 +42,17 @@ describe('PostJob submit flow', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     // Make Alert.alert call the first button's onPress so navigation occurs
-    jest.spyOn(Alert, 'alert').mockImplementation((title: any, msg: any, buttons: any) => {
-      if (Array.isArray(buttons) && buttons[0] && typeof buttons[0].onPress === 'function') {
-        buttons[0].onPress();
-      }
-    });
+    jest
+      .spyOn(Alert, 'alert')
+      .mockImplementation((title: any, msg: any, buttons: any) => {
+        if (
+          Array.isArray(buttons) &&
+          buttons[0] &&
+          typeof buttons[0].onPress === 'function'
+        ) {
+          buttons[0].onPress();
+        }
+      });
   });
 
   afterEach(() => {
@@ -59,13 +68,16 @@ describe('PostJob submit flow', () => {
       area: 'Test Area',
       category: 'Plumbing',
       title: 'Fix leaking kitchen tap',
-      description: 'There is a leak under the kitchen sink that needs fixing urgently. Please advise.',
+      description:
+        'There is a leak under the kitchen sink that needs fixing urgently. Please advise.',
       timing: 'ASAP',
       budget: '120',
       photos: [],
     };
 
-    const { getByTestId } = render(<PostJobScreen testInitialValues={initial as any} />);
+    const { getByTestId } = render(
+      <PostJobScreen testInitialValues={initial as any} />,
+    );
 
     fireEvent.press(getByTestId('post-job-submit'));
 

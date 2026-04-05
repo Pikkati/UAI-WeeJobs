@@ -1,5 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -36,8 +43,13 @@ export function getStatusDescription(status: JobStatus): string {
   }
 }
 
-export function getCancelRefundMessage(status: JobStatus, deposit_amount?: number) {
-  const depositText = deposit_amount ? `£${deposit_amount.toFixed(2)} deposit` : 'your deposit';
+export function getCancelRefundMessage(
+  status: JobStatus,
+  deposit_amount?: number,
+) {
+  const depositText = deposit_amount
+    ? `£${deposit_amount.toFixed(2)} deposit`
+    : 'your deposit';
   const refundMessage =
     status === 'booked'
       ? `You will receive a full refund of your ${depositText}.`
@@ -45,29 +57,35 @@ export function getCancelRefundMessage(status: JobStatus, deposit_amount?: numbe
   return { depositText, refundMessage };
 }
 
-
 export default function JobTrackingScreen() {
   const { jobId } = useLocalSearchParams<{ jobId: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { user } = useAuth();
-  const { jobs, getNextActionsByRole, markOnTheWay, markArrived, confirmCompletion, cancelJob } = useJobs();
-  
+  const {
+    jobs,
+    getNextActionsByRole,
+    markOnTheWay,
+    markArrived,
+    confirmCompletion,
+    cancelJob,
+  } = useJobs();
+
   const [tradieLocation, setTradieLocation] = useState({ progress: 0 });
   const [eta, setEta] = useState(15);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j) => j.id === jobId);
   const isCustomer = user?.role === 'customer';
 
   useEffect(() => {
     if (job?.status === 'on_the_way') {
       intervalRef.current = setInterval(() => {
-        setTradieLocation(prev => {
+        setTradieLocation((prev) => {
           const newProgress = Math.min(prev.progress + 0.05, 1);
           return { progress: newProgress };
         });
-        setEta(prev => Math.max(prev - 1, 0));
+        setEta((prev) => Math.max(prev - 1, 0));
       }, 2000);
     }
 
@@ -84,7 +102,11 @@ export default function JobTrackingScreen() {
     );
   }
 
-  const actions = getNextActionsByRole(job.status, isCustomer ? 'customer' : 'tradesperson', job.pricing_type);
+  const actions = getNextActionsByRole(
+    job.status,
+    isCustomer ? 'customer' : 'tradesperson',
+    job.pricing_type,
+  );
 
   const handleAction = async (action: string) => {
     switch (action) {
@@ -119,21 +141,26 @@ export default function JobTrackingScreen() {
         const confirmRole = isCustomer ? 'customer' : 'tradesperson';
         const confirmSuccess = await confirmCompletion(job.id, confirmRole);
         if (confirmSuccess) {
-          const otherPartyConfirmed = isCustomer ? job.tradie_confirmed : job.customer_confirmed;
+          const otherPartyConfirmed = isCustomer
+            ? job.tradie_confirmed
+            : job.customer_confirmed;
           if (otherPartyConfirmed) {
             Alert.alert(
               'Job Completed!',
               'Both parties have confirmed. Would you like to leave a review?',
               [
                 { text: 'Later', style: 'cancel' },
-                { text: 'Leave Review', onPress: () => router.push(`/job/review?jobId=${job.id}`) }
-              ]
+                {
+                  text: 'Leave Review',
+                  onPress: () => router.push(`/job/review?jobId=${job.id}`),
+                },
+              ],
             );
           } else {
             const otherParty = isCustomer ? 'tradesperson' : 'customer';
             Alert.alert(
               'Confirmed!',
-              `Waiting for the ${otherParty} to confirm completion.`
+              `Waiting for the ${otherParty} to confirm completion.`,
             );
           }
         }
@@ -149,7 +176,10 @@ export default function JobTrackingScreen() {
         break;
       case 'cancel_job':
         if (isCustomer) {
-          const { depositText, refundMessage } = getCancelRefundMessage(job.status, job.deposit_amount);
+          const { depositText, refundMessage } = getCancelRefundMessage(
+            job.status,
+            job.deposit_amount,
+          );
           Alert.alert(
             'Cancel Job',
             `Are you sure you want to cancel this job?\n\n${refundMessage}`,
@@ -159,9 +189,10 @@ export default function JobTrackingScreen() {
                 text: 'Cancel Job',
                 style: 'destructive',
                 onPress: async () => {
-                  const reason = job.status === 'booked'
-                    ? 'Customer cancelled before tradie departed'
-                    : 'Customer cancelled after tradie departed';
+                  const reason =
+                    job.status === 'booked'
+                      ? 'Customer cancelled before tradie departed'
+                      : 'Customer cancelled after tradie departed';
                   const success = await cancelJob(job.id, 'customer', reason);
                   if (success) {
                     Alert.alert(
@@ -169,15 +200,17 @@ export default function JobTrackingScreen() {
                       job.status === 'booked'
                         ? 'Your job has been cancelled. A full refund will be processed to your original payment method.'
                         : 'Your job has been cancelled. No refund applies as the tradesperson was already on their way.',
-                      [{ text: 'OK', onPress: () => router.back() }]
+                      [{ text: 'OK', onPress: () => router.back() }],
                     );
                   }
                 },
               },
-            ]
+            ],
           );
         } else {
-          const depositText = job.deposit_amount ? `£${job.deposit_amount.toFixed(2)}` : 'the';
+          const depositText = job.deposit_amount
+            ? `£${job.deposit_amount.toFixed(2)}`
+            : 'the';
           Alert.alert(
             'Cancel Job',
             `Are you sure you want to cancel this job?\n\nThe customer will receive a full refund of their ${depositText} deposit. You will not receive any payment.`,
@@ -187,17 +220,21 @@ export default function JobTrackingScreen() {
                 text: 'Cancel Job',
                 style: 'destructive',
                 onPress: async () => {
-                  const success = await cancelJob(job.id, 'tradie', 'Tradie cancelled');
+                  const success = await cancelJob(
+                    job.id,
+                    'tradie',
+                    'Tradie cancelled',
+                  );
                   if (success) {
                     Alert.alert(
                       'Job Cancelled',
                       'The job has been cancelled. The customer will receive a full refund.',
-                      [{ text: 'OK', onPress: () => router.back() }]
+                      [{ text: 'OK', onPress: () => router.back() }],
                     );
                   }
                 },
               },
-            ]
+            ],
           );
         }
         break;
@@ -207,7 +244,10 @@ export default function JobTrackingScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Job Tracking</Text>
@@ -224,21 +264,28 @@ export default function JobTrackingScreen() {
             <View style={styles.customerPin}>
               <Ionicons name="home" size={20} color={Colors.white} />
             </View>
-            
+
             {job.status === 'on_the_way' && (
-              <View style={[
-                styles.tradieMarker,
-                { left: `${20 + (tradieLocation.progress * 60)}%` }
-              ]}>
+              <View
+                style={[
+                  styles.tradieMarker,
+                  { left: `${20 + tradieLocation.progress * 60}%` },
+                ]}
+              >
                 <Ionicons name="car" size={20} color={Colors.background} />
               </View>
             )}
 
-            <View style={[styles.tradiePin, { opacity: job.status === 'booked' ? 1 : 0.3 }]}>
+            <View
+              style={[
+                styles.tradiePin,
+                { opacity: job.status === 'booked' ? 1 : 0.3 },
+              ]}
+            >
               <Ionicons name="hammer" size={20} color={Colors.white} />
             </View>
           </View>
-          
+
           <Text style={styles.mapLabel}>Map Preview</Text>
         </View>
 
@@ -252,34 +299,56 @@ export default function JobTrackingScreen() {
           </View>
         )}
 
-        <View style={[
-          styles.statusCard,
-          (job.status === 'cancelled_by_customer' || job.status === 'cancelled_by_tradie') && styles.cancelledCard,
-        ]}>
+        <View
+          style={[
+            styles.statusCard,
+            (job.status === 'cancelled_by_customer' ||
+              job.status === 'cancelled_by_tradie') &&
+              styles.cancelledCard,
+          ]}
+        >
           <Text style={styles.statusLabel}>Current Status</Text>
-          <Text style={[
-            styles.statusText,
-            (job.status === 'cancelled_by_customer' || job.status === 'cancelled_by_tradie') && styles.cancelledStatusText,
-          ]}>
+          <Text
+            style={[
+              styles.statusText,
+              (job.status === 'cancelled_by_customer' ||
+                job.status === 'cancelled_by_tradie') &&
+                styles.cancelledStatusText,
+            ]}
+          >
             {job.status === 'booked' && 'Job booked - waiting for tradesperson'}
             {job.status === 'on_the_way' && 'Tradesperson is on the way'}
             {job.status === 'in_progress' && 'Work in progress'}
-            {job.status === 'awaiting_quote_approval' && 'Quote sent - awaiting approval'}
-            {job.status === 'awaiting_final_payment' && 'Quote approved - awaiting payment'}
+            {job.status === 'awaiting_quote_approval' &&
+              'Quote sent - awaiting approval'}
+            {job.status === 'awaiting_final_payment' &&
+              'Quote approved - awaiting payment'}
             {job.status === 'paid' && 'Payment received'}
-            {job.status === 'awaiting_confirmation' && 'Waiting for completion confirmation'}
+            {job.status === 'awaiting_confirmation' &&
+              'Waiting for completion confirmation'}
             {job.status === 'completed' && 'Job completed!'}
             {job.status === 'cancelled_by_customer' && 'Cancelled by customer'}
-            {job.status === 'cancelled_by_tradie' && 'Cancelled by tradesperson'}
+            {job.status === 'cancelled_by_tradie' &&
+              'Cancelled by tradesperson'}
           </Text>
-          {(job.status === 'cancelled_by_customer' || job.status === 'cancelled_by_tradie') && (
+          {(job.status === 'cancelled_by_customer' ||
+            job.status === 'cancelled_by_tradie') && (
             <View style={styles.refundRow}>
               <Ionicons
-                name={job.deposit_refunded ? 'checkmark-circle' : 'close-circle'}
+                name={
+                  job.deposit_refunded ? 'checkmark-circle' : 'close-circle'
+                }
                 size={16}
                 color={job.deposit_refunded ? Colors.success : Colors.error}
               />
-              <Text style={[styles.refundText, { color: job.deposit_refunded ? Colors.success : Colors.error }]}>
+              <Text
+                style={[
+                  styles.refundText,
+                  {
+                    color: job.deposit_refunded ? Colors.success : Colors.error,
+                  },
+                ]}
+              >
                 {job.deposit_refunded
                   ? `Deposit refund of £${job.deposit_amount?.toFixed(2)} will be processed`
                   : 'No refund — deposit goes to tradesperson'}
@@ -309,7 +378,9 @@ export default function JobTrackingScreen() {
           {job.quote_total && (
             <View style={styles.detailRow}>
               <Text style={styles.detailLabel}>Quote Total</Text>
-              <Text style={styles.detailValue}>£{job.quote_total.toFixed(2)}</Text>
+              <Text style={styles.detailValue}>
+                £{job.quote_total.toFixed(2)}
+              </Text>
             </View>
           )}
         </View>
@@ -318,7 +389,9 @@ export default function JobTrackingScreen() {
       </ScrollView>
 
       {actions.length > 0 && (
-        <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+        <View
+          style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+        >
           {actions.map((action, index) => (
             <TouchableOpacity
               key={action.action}
@@ -332,10 +405,14 @@ export default function JobTrackingScreen() {
               onPress={() => handleAction(action.action)}
               disabled={action.action === 'none'}
             >
-              <Text style={[
-                styles.actionButtonText,
-                action.variant !== 'primary' && action.variant !== 'danger' && styles.secondaryButtonText,
-              ]}>
+              <Text
+                style={[
+                  styles.actionButtonText,
+                  action.variant !== 'primary' &&
+                    action.variant !== 'danger' &&
+                    styles.secondaryButtonText,
+                ]}
+              >
                 {action.label}
               </Text>
             </TouchableOpacity>

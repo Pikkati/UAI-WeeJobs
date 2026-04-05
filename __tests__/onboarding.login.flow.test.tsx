@@ -5,7 +5,13 @@ import { render, fireEvent, act } from '@testing-library/react-native';
 jest.mock('react-native', () => {
   const RN = jest.requireActual('react-native');
   RN.Animated = {
-    Value: function (v) { this._value = v; this.setValue = (x) => { this._value = x; }; this.interpolate = () => ({ __getValue: () => 0, }); },
+    Value: function (v) {
+      this._value = v;
+      this.setValue = (x) => {
+        this._value = x;
+      };
+      this.interpolate = () => ({ __getValue: () => 0 });
+    },
     spring: () => ({ start: () => {} }),
     timing: () => ({ start: () => {} }),
   };
@@ -39,7 +45,10 @@ jest.mock('react-native-safe-area-context', () => ({
 jest.mock('../context/AuthContext', () => ({
   useAuth: () => ({
     login: jest.fn(async () => ({ success: true, user: { role: 'customer' } })),
-    signup: jest.fn(async () => ({ success: true, user: { role: 'customer' } })),
+    signup: jest.fn(async () => ({
+      success: true,
+      user: { role: 'customer' },
+    })),
     resendVerification: jest.fn(async () => ({ success: true })),
   }),
 }));

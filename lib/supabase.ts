@@ -6,7 +6,8 @@ let _supabaseAnonKey = '';
 
 try {
   // Defensive access to process.env for test environments where `process` may be proxied or missing
-  const proc: any = typeof process !== 'undefined' ? process : (globalThis as any).process;
+  const proc: any =
+    typeof process !== 'undefined' ? process : (globalThis as any).process;
   if (proc && proc.env) {
     supabaseUrl = proc.env.EXPO_PUBLIC_SUPABASE_URL || '';
     _supabaseAnonKey = proc.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -15,7 +16,11 @@ try {
   // ignore and keep empty strings
 }
 
-if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith('https://')) {
+if (
+  supabaseUrl &&
+  !supabaseUrl.startsWith('http://') &&
+  !supabaseUrl.startsWith('https://')
+) {
   supabaseUrl = `https://${supabaseUrl}`;
 }
 
@@ -24,7 +29,9 @@ if (supabaseUrl && !supabaseUrl.startsWith('http://') && !supabaseUrl.startsWith
 // chainable and thenable so code can await at any point in the chain.
 const _fallbackSupabase = (() => {
   const createChain = (singleResult = false) => {
-    const promiseValue = singleResult ? { data: null, error: null } : { data: [], error: null };
+    const promiseValue = singleResult
+      ? { data: null, error: null }
+      : { data: [], error: null };
     // Reusable chain object. Methods return the same object to allow chaining.
     const q: any = {
       select: (..._args: any[]) => q,
@@ -35,8 +42,10 @@ const _fallbackSupabase = (() => {
       update: (..._args: any[]) => q,
       insert: (..._args: any[]) => q,
       single: () => Promise.resolve({ data: null, error: null }),
-      then: (onFulfilled: any, onRejected?: any) => Promise.resolve(promiseValue).then(onFulfilled, onRejected),
-      catch: (onRejected: any) => Promise.resolve(promiseValue).catch(onRejected),
+      then: (onFulfilled: any, onRejected?: any) =>
+        Promise.resolve(promiseValue).then(onFulfilled, onRejected),
+      catch: (onRejected: any) =>
+        Promise.resolve(promiseValue).catch(onRejected),
     };
     return q;
   };
@@ -61,7 +70,8 @@ let _realClient: any = null;
 const resolveClient = () => {
   try {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const g: any = typeof global !== 'undefined' ? (global as any) : (globalThis as any);
+    const g: any =
+      typeof global !== 'undefined' ? (global as any) : (globalThis as any);
     if (g && g.__TEST_SUPABASE__) {
       // Prefer returning the stable test container object directly so any
       // Jest mock functions assigned to it keep their original identity
@@ -76,16 +86,29 @@ const resolveClient = () => {
         // with the fallback chainable API so tests can safely `Object.assign`
         // into it without losing behavior.
         // eslint-disable-next-line no-console
-        console.log('DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys:', Object.keys(g.__TEST_SUPABASE__ || {}));
+        console.log(
+          'DEBUG(supabase.resolveClient) global.__TEST_SUPABASE__ keys:',
+          Object.keys(g.__TEST_SUPABASE__ || {}),
+        );
         // eslint-disable-next-line no-console
-        console.log('DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity');
+        console.log(
+          'DEBUG(supabase.resolveClient) returning global.__TEST_SUPABASE__ directly to preserve mock identity',
+        );
         try {
-          const testFromRes = g.__TEST_SUPABASE__.from && g.__TEST_SUPABASE__.from('users');
+          const testFromRes =
+            g.__TEST_SUPABASE__.from && g.__TEST_SUPABASE__.from('users');
           // eslint-disable-next-line no-console
-          console.log('DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof:', typeof testFromRes, testFromRes && Object.keys(testFromRes || {}));
+          console.log(
+            'DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from("users") typeof:',
+            typeof testFromRes,
+            testFromRes && Object.keys(testFromRes || {}),
+          );
         } catch (e) {
           // eslint-disable-next-line no-console
-          console.log('DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from call threw:', e && (e as any).message ? (e as any).message : e);
+          console.log(
+            'DEBUG(supabase.resolveClient) direct __TEST_SUPABASE__.from call threw:',
+            e && (e as any).message ? (e as any).message : e,
+          );
         }
       } catch {
         // ignore debug failures
@@ -104,7 +127,8 @@ const resolveClient = () => {
   let url = '';
   let key = '';
   try {
-    const proc: any = typeof process !== 'undefined' ? process : (globalThis as any).process;
+    const proc: any =
+      typeof process !== 'undefined' ? process : (globalThis as any).process;
     if (proc && proc.env) {
       url = proc.env.EXPO_PUBLIC_SUPABASE_URL || '';
       key = proc.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || '';
@@ -145,22 +169,30 @@ const wrapInstance = (target: any): any => {
         // owning object. Fall back to binding for normal functions.
         if ((val as any)._isMockFunction) {
           const orig = val as any;
-          const boundWrapper = function boundWrapper(this: any, ...args: any[]) {
+          const boundWrapper = function boundWrapper(
+            this: any,
+            ...args: any[]
+          ) {
             return orig.apply(t, args);
           };
           try {
             // Attempt to preserve common Jest mock metadata properties.
             (boundWrapper as any)._isMockFunction = true;
-            if ((orig as any).mock) (boundWrapper as any).mock = (orig as any).mock;
-            if ((orig as any).getMockName) (boundWrapper as any).getMockName = (orig as any).getMockName.bind(orig);
+            if ((orig as any).mock)
+              (boundWrapper as any).mock = (orig as any).mock;
+            if ((orig as any).getMockName)
+              (boundWrapper as any).getMockName = (
+                orig as any
+              ).getMockName.bind(orig);
             // Copy any own properties to retain call counts and helpers.
-                    Object.getOwnPropertyNames(orig).forEach((k) => {
-                      try {
-                        if (!(k in boundWrapper)) (boundWrapper as any)[k] = (orig as any)[k];
-                      } catch {
-                          // ignore non-writable properties
-                        }
-                    });
+            Object.getOwnPropertyNames(orig).forEach((k) => {
+              try {
+                if (!(k in boundWrapper))
+                  (boundWrapper as any)[k] = (orig as any)[k];
+              } catch {
+                // ignore non-writable properties
+              }
+            });
           } catch {
             // best-effort preservation; ignore on failure
           }
@@ -316,7 +348,12 @@ export type Job = {
   updated_at: string;
 };
 
-export type InterestStatus = 'interested' | 'shortlisted' | 'selected' | 'rejected' | 'withdrawn';
+export type InterestStatus =
+  | 'interested'
+  | 'shortlisted'
+  | 'selected'
+  | 'rejected'
+  | 'withdrawn';
 
 export type JobInterest = {
   id: string;

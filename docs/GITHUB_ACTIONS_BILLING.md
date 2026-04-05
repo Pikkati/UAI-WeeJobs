@@ -10,6 +10,7 @@ If GitHub Actions jobs are blocked with messages like "recent account payments h
   - Update workflows to include `runs-on: [self-hosted, linux]` or use runner labels.
 
 Local-first recommendation:
+
 - Use the `act` emulator for local verification and pin modern container images when required, e.g. in the workflow or via `act -P ubuntu-latest=nektos/act-environments-ubuntu:22.04`.
 
 If you want, I can draft a short admin checklist to share with organization owners to restore billing quickly.

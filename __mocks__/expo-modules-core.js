@@ -5,9 +5,11 @@ module.exports = {
   setUpJsLogger: function () {},
   NativeModulesProxy: {},
   // stub for requireNativeModule used by expo-font and others
-  requireNativeModule: function () { return {}; },
+  requireNativeModule: function () {
+    return {};
+  },
   // no-op polyfill installer used by newer jest-expo presets
   installExpoGlobalPolyfill: function () {},
   // default export compatibility
-  default: {}
+  default: {},
 };

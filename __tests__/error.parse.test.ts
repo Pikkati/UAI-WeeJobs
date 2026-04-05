@@ -7,7 +7,10 @@ describe('parseServerError', () => {
   });
 
   test('handles Response-like 429 with headers.get', () => {
-    const res: any = { status: 429, headers: { get: (k: string) => (k === 'retry-after' ? '120' : null) } };
+    const res: any = {
+      status: 429,
+      headers: { get: (k: string) => (k === 'retry-after' ? '120' : null) },
+    };
     const parsed = parseServerError(res);
     expect(parsed.isRateLimited).toBe(true);
     expect(parsed.retryAfterSeconds).toBe(120);

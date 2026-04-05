@@ -14,22 +14,25 @@ export default function PricingHomeScreen() {
     Alert.alert(
       'Pay As You Go Selected',
       "You'll pay £2-5 to unlock each job, plus 10% on completion. Perfect for getting started!",
-      [{ text: 'Continue', onPress: () => router.back() }]
+      [{ text: 'Continue', onPress: () => router.back() }],
     );
   };
 
   const handleSelectPRO = () => {
     Alert.alert(
       'PRO Subscription',
-      "£49/month gets you unlimited job unlocks, lower fees, and the Verified Pro badge. Coming soon!",
-      [{ text: 'Got it', onPress: () => router.back() }]
+      '£49/month gets you unlimited job unlocks, lower fees, and the Verified Pro badge. Coming soon!',
+      [{ text: 'Got it', onPress: () => router.back() }],
     );
   };
 
   return (
-    <ScrollView 
-      style={styles.container} 
-      contentContainerStyle={[styles.content, { paddingTop: Spacing.md, paddingBottom: insets.bottom + Spacing.xl }]}
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={[
+        styles.content,
+        { paddingTop: Spacing.md, paddingBottom: insets.bottom + Spacing.xl },
+      ]}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.header}>
@@ -39,9 +42,7 @@ export default function PricingHomeScreen() {
           contentFit="contain"
         />
         <Text style={styles.title}>Choose Your Plan</Text>
-        <Text style={styles.subtitle}>
-          Start earning with WeeJobs today
-        </Text>
+        <Text style={styles.subtitle}>Start earning with WeeJobs today</Text>
       </View>
 
       <View style={styles.cardsContainer}>
@@ -50,10 +51,10 @@ export default function PricingHomeScreen() {
           subtitle="Grow your business with every job"
           price="£49"
           features={[
-            "5-7% completion fee only",
-            "Unlimited lead unlocks",
-            "Priority placement on all jobs",
-            "Verified Pro badge on profile",
+            '5-7% completion fee only',
+            'Unlimited lead unlocks',
+            'Priority placement on all jobs',
+            'Verified Pro badge on profile',
           ]}
           buttonLabel="Upgrade to PRO"
           onPress={handleSelectPRO}
@@ -66,10 +67,10 @@ export default function PricingHomeScreen() {
           title="PAY AS YOU GO"
           subtitle="Only pay when you need to"
           features={[
-            "£2-5 to unlock a job",
-            "10% completion fee",
-            "No monthly cost",
-            "Perfect for beginners",
+            '£2-5 to unlock a job',
+            '10% completion fee',
+            'No monthly cost',
+            'Perfect for beginners',
           ]}
           buttonLabel="Continue with PAYG"
           onPress={handleSelectPAYG}

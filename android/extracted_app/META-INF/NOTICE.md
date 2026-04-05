@@ -2,7 +2,7 @@
 
 This content is produced and maintained by the Eclipse Jakarta Dependency Injection project.
 
-* Project home: https://projects.eclipse.org/projects/cdi.batch
+- Project home: https://projects.eclipse.org/projects/cdi.batch
 
 ## Trademarks
 

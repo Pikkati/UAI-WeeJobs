@@ -11,18 +11,33 @@ jest.mock('react-native', () => {
   const React = require('react');
   return {
     ...RN,
-    FlatList: ({ data, renderItem, ...rest }: any) => React.createElement(RN.View, rest, data?.map((item: any, i: number) => renderItem({ item, index: i })) ),
+    FlatList: ({ data, renderItem, ...rest }: any) =>
+      React.createElement(
+        RN.View,
+        rest,
+        data?.map((item: any, i: number) => renderItem({ item, index: i })),
+      ),
   };
 });
 
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }) }));
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
+}));
 jest.mock('../context/AuthContext', () => ({
   useAuth: () => ({ user: { id: 'admin1', role: 'admin' }, isLoading: false }),
   AuthProvider: ({ children }: any) => children,
 }));
 
 let usersData: any[] = [
-  { id: 'u1', name: 'User One', email: 'u1@example.com', role: 'customer', area: 'Test Area', created_at: '2026-03-01', updated_at: '2026-03-01' },
+  {
+    id: 'u1',
+    name: 'User One',
+    email: 'u1@example.com',
+    role: 'customer',
+    area: 'Test Area',
+    created_at: '2026-03-01',
+    updated_at: '2026-03-01',
+  },
 ];
 const auditInserted: any[] = [];
 
@@ -39,28 +54,62 @@ describe('AdminUsersScreen', () => {
           from: (table: string) => {
             if (table === 'users') {
               return {
-                select: () => ({ order: async () => ({ data: usersData, error: null }) }),
-                update: (payload: any) => ({ eq: async (_col: string, id: string) => { const user = usersData.find(u => u.id === id); if (user) user.role = payload.role; return { error: null }; } }),
+                select: () => ({
+                  order: async () => ({ data: usersData, error: null }),
+                }),
+                update: (payload: any) => ({
+                  eq: async (_col: string, id: string) => {
+                    const user = usersData.find((u) => u.id === id);
+                    if (user) user.role = payload.role;
+                    return { error: null };
+                  },
+                }),
               };
             }
             if (table === 'audit_logs') {
-              return { insert: async (p: any) => { auditInserted.push(p); return { data: null, error: null }; } };
+              return {
+                insert: async (p: any) => {
+                  auditInserted.push(p);
+                  return { data: null, error: null };
+                },
+              };
             }
-            return { select: () => ({ order: async () => ({ data: [], error: null }) }) };
+            return {
+              select: () => ({
+                order: async () => ({ data: [], error: null }),
+              }),
+            };
           },
         },
         getSupabaseClient: () => ({
           from: (table: string) => {
             if (table === 'users') {
               return {
-                select: () => ({ order: async () => ({ data: usersData, error: null }) }),
-                update: (payload: any) => ({ eq: async (_col: string, id: string) => { const user = usersData.find(u => u.id === id); if (user) user.role = payload.role; return { error: null }; } }),
+                select: () => ({
+                  order: async () => ({ data: usersData, error: null }),
+                }),
+                update: (payload: any) => ({
+                  eq: async (_col: string, id: string) => {
+                    const user = usersData.find((u) => u.id === id);
+                    if (user) user.role = payload.role;
+                    return { error: null };
+                  },
+                }),
               };
             }
             if (table === 'audit_logs') {
-              return { insert: async (p: any) => { auditInserted.push(p); return { data: null, error: null }; } };
+              return {
+                insert: async (p: any) => {
+                  auditInserted.push(p);
+                  return { data: null, error: null };
+                },
+              };
             }
-            return { select: () => ({ order: async () => ({ data: [], error: null }) }) };
+            return {
+              select: () => ({
+                order: async () => ({ data: [], error: null }),
+              }),
+            };
           },
         }),
       };
@@ -87,7 +136,17 @@ describe('AdminUsersScreen', () => {
   });
 
   beforeEach(() => {
-    usersData = [ { id: 'u1', name: 'User One', email: 'u1@example.com', role: 'customer', area: 'Test Area', created_at: '2026-03-01', updated_at: '2026-03-01' } ];
+    usersData = [
+      {
+        id: 'u1',
+        name: 'User One',
+        email: 'u1@example.com',
+        role: 'customer',
+        area: 'Test Area',
+        created_at: '2026-03-01',
+        updated_at: '2026-03-01',
+      },
+    ];
     auditInserted.length = 0;
   });
 

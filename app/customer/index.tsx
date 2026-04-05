@@ -1,4 +1,14 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Dimensions, TextInput, FlatList, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Dimensions,
+  TextInput,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
@@ -16,7 +26,9 @@ export default function CustomerHome() {
   const { user } = useAuth();
 
   const [query, setQuery] = React.useState('');
-  const [selectedCategory, setSelectedCategory] = React.useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = React.useState<string | null>(
+    null,
+  );
   const [results, setResults] = React.useState<Job[]>([]);
   const [searching, setSearching] = React.useState(false);
 
@@ -29,7 +41,11 @@ export default function CustomerHome() {
   const runSearch = async () => {
     setSearching(true);
     try {
-      let qb = supabase.from('jobs').select('*').eq('status', 'open').order('created_at', { ascending: false });
+      let qb = supabase
+        .from('jobs')
+        .select('*')
+        .eq('status', 'open')
+        .order('created_at', { ascending: false });
       if (selectedCategory) qb = qb.eq('category', selectedCategory);
       if (query && query.trim()) {
         const q = `%${query.trim()}%`;
@@ -74,18 +90,35 @@ export default function CustomerHome() {
           returnKeyType="search"
           onSubmitEditing={runSearch}
         />
-        <View style={{ flexDirection: 'row', gap: Spacing.md, marginTop: Spacing.sm }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: Spacing.md,
+            marginTop: Spacing.sm,
+          }}
+        >
           <TouchableOpacity
-            style={[styles.filterButton, selectedCategory === null && styles.filterButtonActive]}
-            onPress={() => { setSelectedCategory(null); runSearch(); }}
+            style={[
+              styles.filterButton,
+              selectedCategory === null && styles.filterButtonActive,
+            ]}
+            onPress={() => {
+              setSelectedCategory(null);
+              runSearch();
+            }}
           >
             <Text style={styles.filterText}>All</Text>
           </TouchableOpacity>
           {JOB_CATEGORIES.slice(0, 6).map((c) => (
             <TouchableOpacity
               key={c}
-              style={[styles.filterButton, selectedCategory === c && styles.filterButtonActive]}
-              onPress={() => { setSelectedCategory(selectedCategory === c ? null : c); }}
+              style={[
+                styles.filterButton,
+                selectedCategory === c && styles.filterButtonActive,
+              ]}
+              onPress={() => {
+                setSelectedCategory(selectedCategory === c ? null : c);
+              }}
             >
               <Text style={styles.filterText}>{c}</Text>
             </TouchableOpacity>
@@ -105,12 +138,19 @@ export default function CustomerHome() {
             data={results}
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => (
-              <TouchableOpacity style={styles.resultCard} onPress={() => router.push(`/job/${item.id}`)}>
+              <TouchableOpacity
+                style={styles.resultCard}
+                onPress={() => router.push(`/job/${item.id}`)}
+              >
                 <Text style={styles.resultTitle}>{item.name}</Text>
-                <Text style={styles.resultMeta}>{item.area} • {item.category}</Text>
+                <Text style={styles.resultMeta}>
+                  {item.area} • {item.category}
+                </Text>
               </TouchableOpacity>
             )}
-            ListEmptyComponent={<Text style={styles.emptyText}>No jobs found</Text>}
+            ListEmptyComponent={
+              <Text style={styles.emptyText}>No jobs found</Text>
+            }
           />
         )}
       </View>

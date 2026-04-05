@@ -42,7 +42,9 @@ try {
   // eslint-disable-next-line global-require
   const { Text } = require('react-native');
   if (Text && Text.defaultProps == null) {
-    Text.defaultProps = Object.assign({}, Text.defaultProps, { allowFontScaling: false });
+    Text.defaultProps = Object.assign({}, Text.defaultProps, {
+      allowFontScaling: false,
+    });
   }
 } catch {
   // ignore if react-native isn't available at setup time
@@ -54,7 +56,12 @@ try {
   if (typeof process !== 'undefined' && process.env.JEST_WORKER_ID) {
     if (!global.__TEST_USE_AUTH__) {
       global.__TEST_USE_AUTH__ = () => ({
-        user: { id: 'u1', email: 'test@example.com', name: 'Test User', role: 'customer' },
+        user: {
+          id: 'u1',
+          email: 'test@example.com',
+          name: 'Test User',
+          role: 'customer',
+        },
         isLoading: false,
         hasSeenOnboarding: false,
         login: async () => ({ success: false }),
@@ -76,7 +83,12 @@ try {
         expressInterest: async () => false,
         closeApplications: async () => false,
         selectTradesman: async () => false,
-        payDeposit: async () => ({ paymentIntent: '', ephemeralKey: '', customer: '', merchantDisplayName: '' }),
+        payDeposit: async () => ({
+          paymentIntent: '',
+          ephemeralKey: '',
+          customer: '',
+          merchantDisplayName: '',
+        }),
         markOnTheWay: async () => false,
         markArrived: async () => false,
         sendEstimate: async () => false,
@@ -102,7 +114,10 @@ try {
     // happen after imports (due to hoisting). To avoid identity/race issues we
     // expose a stable object and copy assigned values into it when tests
     // reassign, so modules that captured the original object see updates.
-    if (typeof Object.getOwnPropertyDescriptor(global, '__TEST_SUPABASE__') === 'undefined') {
+    if (
+      typeof Object.getOwnPropertyDescriptor(global, '__TEST_SUPABASE__') ===
+      'undefined'
+    ) {
       // Allow tests to seed predictable responses for table queries via
       // `global.__TEST_SUPABASE__.setResponse(table, data)`. This makes
       // top-level module fetches predictable without requiring large
@@ -110,15 +125,28 @@ try {
       const __TEST_SUPABASE_RESPONSES = {};
 
       const createChain = (table = null, singleResult = false) => {
-        const respPresent = table && Object.prototype.hasOwnProperty.call(__TEST_SUPABASE_RESPONSES, table);
+        const respPresent =
+          table &&
+          Object.prototype.hasOwnProperty.call(
+            __TEST_SUPABASE_RESPONSES,
+            table,
+          );
         const resp = respPresent ? __TEST_SUPABASE_RESPONSES[table] : undefined;
 
         let promiseValue;
         if (singleResult) {
-          const data = resp !== undefined ? (Array.isArray(resp) ? (resp.length > 0 ? resp[0] : null) : resp) : null;
+          const data =
+            resp !== undefined
+              ? Array.isArray(resp)
+                ? resp.length > 0
+                  ? resp[0]
+                  : null
+                : resp
+              : null;
           promiseValue = { data, error: null };
         } else {
-          const data = resp !== undefined ? (Array.isArray(resp) ? resp : [resp]) : [];
+          const data =
+            resp !== undefined ? (Array.isArray(resp) ? resp : [resp]) : [];
           promiseValue = { data, error: null };
         }
 
@@ -131,20 +159,36 @@ try {
           update: (..._args) => q,
           insert: (..._args) => q,
           delete: (..._args) => q,
-          single: async () => (singleResult ? promiseValue : (Array.isArray(promiseValue.data) ? { data: promiseValue.data[0] || null, error: null } : promiseValue)),
-          then: (onFulfilled, onRejected) => Promise.resolve(promiseValue).then(onFulfilled, onRejected),
-          catch: (onRejected) => Promise.resolve(promiseValue).catch(onRejected),
+          single: async () =>
+            singleResult
+              ? promiseValue
+              : Array.isArray(promiseValue.data)
+                ? { data: promiseValue.data[0] || null, error: null }
+                : promiseValue,
+          then: (onFulfilled, onRejected) =>
+            Promise.resolve(promiseValue).then(onFulfilled, onRejected),
+          catch: (onRejected) =>
+            Promise.resolve(promiseValue).catch(onRejected),
         };
         return q;
       };
 
       const __TEST_SUPABASE_INTERNAL = {
         __responses__: __TEST_SUPABASE_RESPONSES,
-        setResponse: (table, data) => { __TEST_SUPABASE_RESPONSES[table] = data; },
-        clearResponses: () => { Object.keys(__TEST_SUPABASE_RESPONSES).forEach((k) => delete __TEST_SUPABASE_RESPONSES[k]); },
+        setResponse: (table, data) => {
+          __TEST_SUPABASE_RESPONSES[table] = data;
+        },
+        clearResponses: () => {
+          Object.keys(__TEST_SUPABASE_RESPONSES).forEach(
+            (k) => delete __TEST_SUPABASE_RESPONSES[k],
+          );
+        },
         auth: {
           signUp: async (_opts) => ({ data: { user: null }, error: null }),
-          signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
+          signInWithPassword: async (_opts) => ({
+            data: null,
+            error: { message: 'not_authenticated' },
+          }),
           signOut: async () => ({ error: null }),
           resetPasswordForEmail: async () => ({ error: null }),
         },
@@ -178,12 +222,20 @@ try {
               __TEST_SUPABASE_INTERNAL.from = (_table) => createChain(false);
             }
             if (!__TEST_SUPABASE_INTERNAL.functions) {
-              __TEST_SUPABASE_INTERNAL.functions = { invoke: async () => ({ data: null, error: null }) };
+              __TEST_SUPABASE_INTERNAL.functions = {
+                invoke: async () => ({ data: null, error: null }),
+              };
             }
             if (!__TEST_SUPABASE_INTERNAL.auth) {
               __TEST_SUPABASE_INTERNAL.auth = {
-                signUp: async (_opts) => ({ data: { user: null }, error: null }),
-                signInWithPassword: async (_opts) => ({ data: null, error: { message: 'not_authenticated' } }),
+                signUp: async (_opts) => ({
+                  data: { user: null },
+                  error: null,
+                }),
+                signInWithPassword: async (_opts) => ({
+                  data: null,
+                  error: { message: 'not_authenticated' },
+                }),
                 signOut: async () => ({ error: null }),
                 resetPasswordForEmail: async () => ({ error: null }),
               };
@@ -215,7 +267,7 @@ try {
       // ignore in weird CI envs
     }
   }
-  } catch {
+} catch {
   // ignore test fallback setup errors
 }
 
@@ -239,7 +291,13 @@ try {
       rn.StyleSheet.create = rn.StyleSheet.create || ((s) => s);
     }
     rn.StyleSheet.flatten = rn.StyleSheet.flatten || ((s) => s);
-    rn.StyleSheet.absoluteFillObject = rn.StyleSheet.absoluteFillObject || { position: 'absolute', left: 0, right: 0, top: 0, bottom: 0 };
+    rn.StyleSheet.absoluteFillObject = rn.StyleSheet.absoluteFillObject || {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+    };
   }
 } catch {
   // ignore; best-effort shim for testing environments
@@ -250,14 +308,19 @@ try {
 // Suppress noisy react-test-renderer deprecation warning during tests by
 // filtering the specific message. Set WEEJOBS_DEBUG=true to re-enable all logs.
 try {
-  if (typeof process !== 'undefined' && process.env && process.env.JEST_WORKER_ID) {
+  if (
+    typeof process !== 'undefined' &&
+    process.env &&
+    process.env.JEST_WORKER_ID
+  ) {
     const _origConsoleError = console.error;
     try {
       // Expose the original console.error so tests can forward to it
       // when they want to suppress or filter messages via the
       // `__TEST_CONSOLE_ERROR_HANDLER__` hook.
       // eslint-disable-next-line no-undef
-      if (typeof global !== 'undefined') (global).__JEST_ORIG_CONSOLE_ERROR__ = _origConsoleError;
+      if (typeof global !== 'undefined')
+        global.__JEST_ORIG_CONSOLE_ERROR__ = _origConsoleError;
     } catch {
       // ignore
     }
@@ -271,7 +334,8 @@ try {
         try {
           const a0 = args && args[0];
           if (typeof a0 === 'string') return a0.includes(needle);
-          if (a0 && typeof a0.message === 'string') return a0.message.includes(needle);
+          if (a0 && typeof a0.message === 'string')
+            return a0.message.includes(needle);
         } catch {
           // ignore
         }
@@ -286,7 +350,10 @@ try {
 
         // Quiet the frequent act() warning which is often noisy in Jest
         // environments while still allowing it to be enabled when needed.
-        if (firstArgIncludes('not wrapped in act') && process.env.WEEJOBS_DEBUG !== 'true') {
+        if (
+          firstArgIncludes('not wrapped in act') &&
+          process.env.WEEJOBS_DEBUG !== 'true'
+        ) {
           return;
         }
       } catch {
@@ -298,7 +365,10 @@ try {
         // This allows individual tests to suppress known noisy warnings
         // without trying to spy the globally-wrapped `console.error`.
         // eslint-disable-next-line no-undef
-        const handler = (typeof global !== 'undefined' && (global).__TEST_CONSOLE_ERROR_HANDLER__) || _origConsoleError;
+        const handler =
+          (typeof global !== 'undefined' &&
+            global.__TEST_CONSOLE_ERROR_HANDLER__) ||
+          _origConsoleError;
         handler.apply(console, args);
       } catch {
         _origConsoleError.apply(console, args);

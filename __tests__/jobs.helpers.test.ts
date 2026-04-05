@@ -1,4 +1,8 @@
-import { canEditOrDelete, getActionText, STATUS_LABELS } from '../app/customer/jobs.helpers';
+import {
+  canEditOrDelete,
+  getActionText,
+  STATUS_LABELS,
+} from '../app/customer/jobs.helpers';
 
 describe('jobs.helpers', () => {
   it('canEditOrDelete returns true for open/pending/awaiting_customer_choice', () => {
@@ -10,9 +14,15 @@ describe('jobs.helpers', () => {
 
   it('getActionText uses interestCounts and job status to return hints', () => {
     const job = { id: 'j1', status: 'open' } as any;
-    expect(getActionText(job, { j1: 2 })).toContain('Tap to view interested tradespeople');
-    expect(getActionText({ ...job, status: 'awaiting_quote_approval' }, {})).toContain('review the quote');
-    expect(getActionText({ ...job, status: 'completed' }, {})).toContain('leave a review');
+    expect(getActionText(job, { j1: 2 })).toContain(
+      'Tap to view interested tradespeople',
+    );
+    expect(
+      getActionText({ ...job, status: 'awaiting_quote_approval' }, {}),
+    ).toContain('review the quote');
+    expect(getActionText({ ...job, status: 'completed' }, {})).toContain(
+      'leave a review',
+    );
   });
 
   it('STATUS_LABELS contains friendly labels for common statuses', () => {

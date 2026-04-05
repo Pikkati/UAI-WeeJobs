@@ -20,7 +20,11 @@ describe('chat [jobId] helpers', () => {
   test('shouldShowDateFor compares adjacent messages', () => {
     const msgs = [
       { created_at: new Date().toISOString() },
-      { created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() },
+      {
+        created_at: new Date(
+          Date.now() - 2 * 24 * 60 * 60 * 1000,
+        ).toISOString(),
+      },
     ];
 
     expect(shouldShowDateFor(msgs, 0)).toBe(true);

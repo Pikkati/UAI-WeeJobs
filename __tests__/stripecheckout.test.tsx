@@ -15,7 +15,7 @@ describe('StripeCheckoutStub', () => {
         description="Test payment"
         onSuccess={onSuccess}
         onCancel={onCancel}
-      />
+      />,
     );
 
     const payButton = getByText('Pay £12.34');
@@ -48,7 +48,7 @@ describe('StripeCheckoutStub', () => {
         description="Cancel test"
         onSuccess={onSuccess}
         onCancel={onCancel}
-      />
+      />,
     );
 
     const cancelButton = getByText('Cancel');

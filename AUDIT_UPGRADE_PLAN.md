@@ -21,5 +21,6 @@ Priority actions:
 4. After successful upgrades, update `package-lock.json` and open PR summarizing the dependency changes and test results.
 
 Notes:
+
 - Some fixes are SemVer-major and may require code/config changes. Start with `jest-expo` since it impacts dev/test infra.
 - Keep CI Docker test matrix running during the upgrade to detect regressions across Node versions.

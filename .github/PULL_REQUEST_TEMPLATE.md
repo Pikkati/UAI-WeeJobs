@@ -22,12 +22,15 @@ Provide steps to reproduce or validate the changes locally (commands, env vars, 
 ### Reviewer notes
 
 Anything reviewers should pay special attention to (edge cases, performance, security).
+
 <!-- Describe the change in a single sentence -->
+
 ### Summary
 
 <!-- Why is this change required? Provide link to the issue. -->
 
 ### Checklist
+
 - [ ] PR targets `UAI-Development` branch
 - [ ] Tests added / updated
 - [ ] `npx tsc --noEmit` passes
@@ -38,6 +41,7 @@ Anything reviewers should pay special attention to (edge cases, performance, sec
 ### Notes for reviewers
 
 <!-- Additional context -->
+
 ## Pull Request Checklist
 
 - **Base branch:** Target the `UAI-Development` branch for all feature, audit, and upgrade PRs. Do not open work directly against `main`.

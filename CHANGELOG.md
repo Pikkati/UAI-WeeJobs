@@ -9,8 +9,8 @@ Format: Keep entries brief and link to PRs when available.
 - CI: test/mocks and workflow updates (TypeScript fixes, Jest mocks, Node 24)
 - Tests: added lightweight integration smoke test
 - Docs: added CI/test docs and Codecov badge
- - Chore: created `audit/pin-dev-deps` branch with lockfile-only audit fixes
- - Chore: removed or gated noisy debug `console.log` calls across app and lib
+- Chore: created `audit/pin-dev-deps` branch with lockfile-only audit fixes
+- Chore: removed or gated noisy debug `console.log` calls across app and lib
 
 ## 0.0.0 - Initial
 

@@ -2,7 +2,10 @@ import { processStripeEvent } from '../scripts/stripe-webhook';
 
 describe('Stripe webhook processing', () => {
   it('handles payment_intent.succeeded with job_id and updates DB', async () => {
-    const mockEq = jest.fn(async () => ({ data: [{ id: 'job-123' }], error: null }));
+    const mockEq = jest.fn(async () => ({
+      data: [{ id: 'job-123' }],
+      error: null,
+    }));
     const mockUpdate = jest.fn(() => ({ eq: mockEq }));
     const mockFrom = jest.fn(() => ({ update: mockUpdate }));
     const mockSupabase = { from: mockFrom } as any;
@@ -27,7 +30,10 @@ describe('Stripe webhook processing', () => {
   });
 
   it('handles charge.refunded and updates DB via upsertJobRefund', async () => {
-    const mockEq = jest.fn(async () => ({ data: [{ id: 'job-456' }], error: null }));
+    const mockEq = jest.fn(async () => ({
+      data: [{ id: 'job-456' }],
+      error: null,
+    }));
     const mockUpdate = jest.fn(() => ({ eq: mockEq }));
     const mockFrom = jest.fn(() => ({ update: mockUpdate }));
     const mockSupabase = { from: mockFrom } as any;

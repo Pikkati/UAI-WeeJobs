@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -17,7 +24,13 @@ function StarRating({ rating }: { rating: number }) {
       {[...Array(5)].map((_, i) => (
         <Ionicons
           key={i}
-          name={i < fullStars ? 'star' : i === fullStars && hasHalfStar ? 'star-half' : 'star-outline'}
+          name={
+            i < fullStars
+              ? 'star'
+              : i === fullStars && hasHalfStar
+                ? 'star-half'
+                : 'star-outline'
+          }
           size={14}
           color={Colors.accent}
         />
@@ -26,7 +39,9 @@ function StarRating({ rating }: { rating: number }) {
   );
 }
 
-export default function ChooseTradesmanScreen({ _testInterests }: { _testInterests?: JobInterest[] } = {}) {
+export default function ChooseTradesmanScreen({
+  _testInterests,
+}: { _testInterests?: JobInterest[] } = {}) {
   const { jobId } = useLocalSearchParams<{ jobId: string }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -36,8 +51,6 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
   const [isLoading, setIsLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [isSelecting, setIsSelecting] = useState<string | null>(null);
-
-  
 
   useEffect(() => {
     // Allow tests to inject interests synchronously to avoid async timing issues
@@ -67,7 +80,7 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
   const handleSelectTradesman = async (tradieId: string) => {
     setIsSelecting(tradieId);
     try {
-      const selectedInterest = interests.find(i => i.tradie_id === tradieId);
+      const selectedInterest = interests.find((i) => i.tradie_id === tradieId);
       const pricingType = selectedInterest?.tradie?.pricing_default ?? 'fixed';
       await selectTradesman(jobId!, tradieId, pricingType);
       router.push(`/job/pay-deposit?jobId=${jobId}&tradieId=${tradieId}`);
@@ -84,7 +97,9 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
 
   if (isLoading) {
     return (
-      <View style={[styles.container, styles.centered, { paddingTop: insets.top }]}>
+      <View
+        style={[styles.container, styles.centered, { paddingTop: insets.top }]}
+      >
         <ActivityIndicator size="large" color={Colors.accent} />
       </View>
     );
@@ -92,20 +107,32 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
 
   if (loadError) {
     return (
-      <View style={[styles.container, styles.centered, { paddingTop: insets.top }]}>
+      <View
+        style={[styles.container, styles.centered, { paddingTop: insets.top }]}
+      >
         <Ionicons name="alert-circle-outline" size={48} color={Colors.error} />
         <Text style={styles.emptyTitle}>Couldn&apos;t load tradespersons</Text>
-        <Text style={styles.emptySubtitle}>Check your connection and try again.</Text>
+        <Text style={styles.emptySubtitle}>
+          Check your connection and try again.
+        </Text>
       </View>
     );
   }
 
   if (interests.length === 0) {
     return (
-      <View style={[styles.container, styles.centered, { paddingTop: insets.top }]}>
-        <Ionicons name="people-outline" size={48} color={Colors.textSecondary} />
+      <View
+        style={[styles.container, styles.centered, { paddingTop: insets.top }]}
+      >
+        <Ionicons
+          name="people-outline"
+          size={48}
+          color={Colors.textSecondary}
+        />
         <Text style={styles.emptyTitle}>No tradespersons yet</Text>
-        <Text style={styles.emptySubtitle}>Check back soon — interested tradespersons will appear here.</Text>
+        <Text style={styles.emptySubtitle}>
+          Check back soon — interested tradespersons will appear here.
+        </Text>
       </View>
     );
   }
@@ -113,7 +140,10 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
   return (
     <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Choose Tradesperson</Text>
@@ -121,7 +151,8 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
       </View>
 
       <Text style={styles.subtitle}>
-        {interests.length} tradesperson{interests.length !== 1 ? 's' : ''} interested in your job
+        {interests.length} tradesperson{interests.length !== 1 ? 's' : ''}{' '}
+        interested in your job
       </Text>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -143,23 +174,30 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
                 <View style={styles.tradieInfo}>
                   <View style={styles.nameRow}>
                     <Text style={styles.tradieName}>{tradie.name}</Text>
-                    {tradie.is_verified_pro && <VerifiedProBadge size="small" showText={false} />}
+                    {tradie.is_verified_pro && (
+                      <VerifiedProBadge size="small" showText={false} />
+                    )}
                   </View>
                   <View style={styles.ratingRow}>
                     <StarRating rating={tradie.average_rating || 0} />
                     <Text style={styles.ratingText}>
-                      {tradie.average_rating?.toFixed(1)} ({tradie.total_reviews} reviews)
+                      {tradie.average_rating?.toFixed(1)} (
+                      {tradie.total_reviews} reviews)
                     </Text>
                   </View>
                 </View>
-                <View style={[
-                  styles.planBadge,
-                  tradie.subscription_plan === 'pro' && styles.proBadge,
-                ]}>
-                  <Text style={[
-                    styles.planText,
-                    tradie.subscription_plan === 'pro' && styles.proText,
-                  ]}>
+                <View
+                  style={[
+                    styles.planBadge,
+                    tradie.subscription_plan === 'pro' && styles.proBadge,
+                  ]}
+                >
+                  <Text
+                    style={[
+                      styles.planText,
+                      tradie.subscription_plan === 'pro' && styles.proText,
+                    ]}
+                  >
                     {tradie.subscription_plan?.toUpperCase()}
                   </Text>
                 </View>
@@ -167,24 +205,45 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
 
               <View style={styles.statsRow}>
                 <View style={styles.stat}>
-                  <Ionicons name="location-outline" size={16} color={Colors.textSecondary} />
-                  <Text style={styles.statText}>{interest.distance_miles} miles away</Text>
+                  <Ionicons
+                    name="location-outline"
+                    size={16}
+                    color={Colors.textSecondary}
+                  />
+                  <Text style={styles.statText}>
+                    {interest.distance_miles} miles away
+                  </Text>
                 </View>
                 <View style={styles.stat}>
-                  <Ionicons name="checkmark-done-outline" size={16} color={Colors.textSecondary} />
-                  <Text style={styles.statText}>{tradie.jobs_completed} jobs completed</Text>
+                  <Ionicons
+                    name="checkmark-done-outline"
+                    size={16}
+                    color={Colors.textSecondary}
+                  />
+                  <Text style={styles.statText}>
+                    {tradie.jobs_completed} jobs completed
+                  </Text>
                 </View>
               </View>
 
               {/* View Profile hint */}
               <View style={styles.viewProfileHint}>
-                <Text style={styles.viewProfileText}>Tap to view full profile</Text>
-                <Ionicons name="chevron-forward" size={14} color={Colors.textSecondary} />
+                <Text style={styles.viewProfileText}>
+                  Tap to view full profile
+                </Text>
+                <Ionicons
+                  name="chevron-forward"
+                  size={14}
+                  color={Colors.textSecondary}
+                />
               </View>
 
               {/* Select & Book – separate press target so it doesn't open the profile */}
               <TouchableOpacity
-                style={[styles.selectButton, isSelecting === tradie.id && styles.selectButtonDisabled]}
+                style={[
+                  styles.selectButton,
+                  isSelecting === tradie.id && styles.selectButtonDisabled,
+                ]}
                 onPress={(e) => {
                   // FireEvent.press may call the handler with undefined event
                   // so guard access to `stopPropagation` safely.
@@ -197,7 +256,11 @@ export default function ChooseTradesmanScreen({ _testInterests }: { _testInteres
                   <ActivityIndicator color={Colors.background} size="small" />
                 ) : (
                   <>
-                    <Ionicons name="checkmark-circle" size={20} color={Colors.background} />
+                    <Ionicons
+                      name="checkmark-circle"
+                      size={20}
+                      color={Colors.background}
+                    />
                     <Text style={styles.selectButtonText}>Select & Book</Text>
                   </>
                 )}

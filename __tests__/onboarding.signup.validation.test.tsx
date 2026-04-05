@@ -1,10 +1,28 @@
 import React from 'react';
-import { render, fireEvent, findByText, waitFor } from '@testing-library/react-native';
+import {
+  render,
+  fireEvent,
+  findByText,
+  waitFor,
+} from '@testing-library/react-native';
 
 // Mocks
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
-jest.mock('expo-router', () => ({ useLocalSearchParams: jest.fn(), router: { replace: jest.fn(), back: jest.fn() } }), { virtual: true });
-jest.mock('../context/AuthContext', () => ({ useAuth: jest.fn() }), { virtual: true });
+jest.mock(
+  'react-native-safe-area-context',
+  () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }),
+  { virtual: true },
+);
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: jest.fn(),
+    router: { replace: jest.fn(), back: jest.fn() },
+  }),
+  { virtual: true },
+);
+jest.mock('../context/AuthContext', () => ({ useAuth: jest.fn() }), {
+  virtual: true,
+});
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -16,7 +34,11 @@ describe('LoginScreen sign-up validation', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ signup: jest.fn(), login: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      signup: jest.fn(),
+      login: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
     const { getByText, findByText, getAllByText } = render(<LoginScreen />);
@@ -33,10 +55,15 @@ describe('LoginScreen sign-up validation', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ signup: jest.fn(), login: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      signup: jest.fn(),
+      login: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
-    const { getByText, getByPlaceholderText, findByText, getAllByText } = render(<LoginScreen />);
+    const { getByText, getByPlaceholderText, findByText, getAllByText } =
+      render(<LoginScreen />);
 
     fireEvent.press(getAllByText('Sign Up')[0]);
     fireEvent.changeText(getByPlaceholderText('Full name'), 'Alice');
@@ -51,10 +78,15 @@ describe('LoginScreen sign-up validation', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ signup: jest.fn(), login: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      signup: jest.fn(),
+      login: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
-    const { getByText, getByPlaceholderText, findByText, getAllByText } = render(<LoginScreen />);
+    const { getByText, getByPlaceholderText, findByText, getAllByText } =
+      render(<LoginScreen />);
 
     fireEvent.press(getAllByText('Sign Up')[0]);
     fireEvent.changeText(getByPlaceholderText('Full name'), 'Alice');
@@ -70,10 +102,15 @@ describe('LoginScreen sign-up validation', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ signup: jest.fn(), login: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      signup: jest.fn(),
+      login: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
-    const { getByText, getByPlaceholderText, findByText, getAllByText } = render(<LoginScreen />);
+    const { getByText, getByPlaceholderText, findByText, getAllByText } =
+      render(<LoginScreen />);
 
     fireEvent.press(getAllByText('Sign Up')[0]);
     fireEvent.changeText(getByPlaceholderText('Full name'), 'Alice');
@@ -89,10 +126,15 @@ describe('LoginScreen sign-up validation', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ signup: jest.fn(), login: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      signup: jest.fn(),
+      login: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
-    const { getByText, getByPlaceholderText, findByText, getAllByText } = render(<LoginScreen />);
+    const { getByText, getByPlaceholderText, findByText, getAllByText } =
+      render(<LoginScreen />);
 
     fireEvent.press(getAllByText('Sign Up')[0]);
     fireEvent.changeText(getByPlaceholderText('Full name'), 'Alice');
@@ -107,7 +149,10 @@ describe('LoginScreen sign-up validation', () => {
 
     // mismatch
     fireEvent.changeText(getByPlaceholderText('Create password'), 'longenough');
-    fireEvent.changeText(getByPlaceholderText('Confirm password'), 'notmatching');
+    fireEvent.changeText(
+      getByPlaceholderText('Confirm password'),
+      'notmatching',
+    );
     fireEvent.press(getByText('Create Account'));
     const matchErr = await findByText('Passwords do not match');
     expect(matchErr).toBeTruthy();
@@ -118,18 +163,32 @@ describe('LoginScreen sign-up validation', () => {
     const replaceSpy = expo.router.replace;
     expo.useLocalSearchParams.mockReturnValue({ role: 'tradie' });
 
-    const mockSignup = jest.fn().mockResolvedValue({ success: true, user: { role: 'tradesperson' } });
+    const mockSignup = jest
+      .fn()
+      .mockResolvedValue({ success: true, user: { role: 'tradesperson' } });
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ signup: mockSignup, login: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      signup: mockSignup,
+      login: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
-    const { getByText, getByPlaceholderText, getAllByText } = render(<LoginScreen />);
+    const { getByText, getByPlaceholderText, getAllByText } = render(
+      <LoginScreen />,
+    );
 
     fireEvent.press(getAllByText('Sign Up')[0]);
     fireEvent.changeText(getByPlaceholderText('Full name'), 'Alice');
     fireEvent.changeText(getByPlaceholderText('Email address'), 'a@b.com');
-    fireEvent.changeText(getByPlaceholderText('Create password'), 'longpassword');
-    fireEvent.changeText(getByPlaceholderText('Confirm password'), 'longpassword');
+    fireEvent.changeText(
+      getByPlaceholderText('Create password'),
+      'longpassword',
+    );
+    fireEvent.changeText(
+      getByPlaceholderText('Confirm password'),
+      'longpassword',
+    );
     fireEvent.press(getByText('Create Account'));
 
     await waitFor(() => expect(replaceSpy).toHaveBeenCalled());

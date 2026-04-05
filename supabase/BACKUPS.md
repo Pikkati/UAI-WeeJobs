@@ -25,29 +25,35 @@ Before major releases or after schema changes:
 - [ ] Run smoke tests on restored DB (basic queries, RLS checks)
 - [ ] Validate indexes and constraints
 - [ ] Document any manual steps or issues
-Database backups and restore (Supabase/Postgres)
-===============================================
+      Database backups and restore (Supabase/Postgres)
+      ===============================================
 
 Recommended backup and restore practices for the staging/production Supabase projects.
 
-1) Scheduled snapshots (Supabase)
- - Use Supabase project settings to enable automated backups/snapshots.
- - Configure retention windows appropriate to your compliance needs.
+1. Scheduled snapshots (Supabase)
 
-2) Manual logical backup (pg_dump)
- - Export schema and data: `pg_dump --format=custom --file=weejobs-backup.dump --dbname=<CONN_STRING>`
- - For only schema: `pg_dump --schema-only --file=schema.sql --dbname=<CONN_STRING>`
+- Use Supabase project settings to enable automated backups/snapshots.
+- Configure retention windows appropriate to your compliance needs.
 
-3) Restore (pg_restore / psql)
- - Restore custom dump: `pg_restore --clean --no-owner --dbname=<CONN_STRING> weejobs-backup.dump`
- - Restore schema-only: `psql --dbname=<CONN_STRING> < schema.sql`
+2. Manual logical backup (pg_dump)
 
-4) Migrations
- - Keep SQL migrations under `supabase/` in repo and apply via the Supabase SQL editor or your CI migration runner.
- - Example files: `supabase/migration-full.sql`, `supabase/production-rls.sql`, `supabase/fix-rls.sql`.
+- Export schema and data: `pg_dump --format=custom --file=weejobs-backup.dump --dbname=<CONN_STRING>`
+- For only schema: `pg_dump --schema-only --file=schema.sql --dbname=<CONN_STRING>`
 
-5) Testing restores
- - Regularly test restores into a temporary project to validate migration and backup integrity.
+3. Restore (pg_restore / psql)
 
-6) Rollback plan
- - For destructive migrations, create a rollback SQL and validate it in staging before running in production.
+- Restore custom dump: `pg_restore --clean --no-owner --dbname=<CONN_STRING> weejobs-backup.dump`
+- Restore schema-only: `psql --dbname=<CONN_STRING> < schema.sql`
+
+4. Migrations
+
+- Keep SQL migrations under `supabase/` in repo and apply via the Supabase SQL editor or your CI migration runner.
+- Example files: `supabase/migration-full.sql`, `supabase/production-rls.sql`, `supabase/fix-rls.sql`.
+
+5. Testing restores
+
+- Regularly test restores into a temporary project to validate migration and backup integrity.
+
+6. Rollback plan
+
+- For destructive migrations, create a rollback SQL and validate it in staging before running in production.

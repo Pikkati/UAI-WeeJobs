@@ -35,8 +35,7 @@ export function setThemeMode(mode: 'light' | 'dark') {
   const source = mode === 'light' ? lightColors : darkColors;
   Object.keys(source).forEach((k) => {
     // @ts-ignore
-    Colors[k] = // @ts-ignore
-      source[k];
+    Colors[k] = source[k]; // @ts-ignore
   });
 }
 

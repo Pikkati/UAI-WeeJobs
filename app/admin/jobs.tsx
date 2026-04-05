@@ -1,5 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, FlatList, RefreshControl, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -42,7 +49,12 @@ export default function AdminJobsScreen() {
     <View style={styles.jobCard}>
       <View style={styles.jobHeader}>
         <Text style={styles.jobId}>#{item.id.slice(0, 8)}</Text>
-        <View style={[styles.statusBadge, { backgroundColor: STATUS_COLORS[item.status] }]}>
+        <View
+          style={[
+            styles.statusBadge,
+            { backgroundColor: STATUS_COLORS[item.status] },
+          ]}
+        >
           <Text style={styles.statusText}>{STATUS_LABELS[item.status]}</Text>
         </View>
       </View>
@@ -51,19 +63,35 @@ export default function AdminJobsScreen() {
 
       <View style={styles.infoGrid}>
         <View style={styles.infoItem}>
-          <Ionicons name="person-outline" size={14} color={Colors.textSecondary} />
+          <Ionicons
+            name="person-outline"
+            size={14}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.infoText}>{item.name}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Ionicons name="location-outline" size={14} color={Colors.textSecondary} />
+          <Ionicons
+            name="location-outline"
+            size={14}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.infoText}>{item.area}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Ionicons name="time-outline" size={14} color={Colors.textSecondary} />
+          <Ionicons
+            name="time-outline"
+            size={14}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.infoText}>{item.timing}</Text>
         </View>
         <View style={styles.infoItem}>
-          <Ionicons name="calendar-outline" size={14} color={Colors.textSecondary} />
+          <Ionicons
+            name="calendar-outline"
+            size={14}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.infoText}>
             {new Date(item.created_at).toLocaleDateString()}
           </Text>
@@ -100,7 +128,11 @@ export default function AdminJobsScreen() {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Ionicons name="briefcase-outline" size={48} color={Colors.textSecondary} />
+            <Ionicons
+              name="briefcase-outline"
+              size={48}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.emptyText}>No jobs found</Text>
           </View>
         }

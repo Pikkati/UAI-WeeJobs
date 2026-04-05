@@ -36,10 +36,12 @@ describe('ThemeProvider/useTheme', () => {
     const utils = render(
       <ThemeProvider>
         <TestConsumer />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
-    await waitFor(() => expect(utils.getByTestId('mode').props.children).toBe('light'));
+    await waitFor(() =>
+      expect(utils.getByTestId('mode').props.children).toBe('light'),
+    );
     // Colors should have been updated to light scheme
     expect(Colors.background).toBe('#FFFFFF');
   });
@@ -49,7 +51,7 @@ describe('ThemeProvider/useTheme', () => {
     const utils = render(
       <ThemeProvider>
         <TestConsumer />
-      </ThemeProvider>
+      </ThemeProvider>,
     );
 
     await waitFor(() => expect(utils.getByTestId('mode')).toBeTruthy());
@@ -63,12 +65,18 @@ describe('ThemeProvider/useTheme', () => {
   });
 });
 // Module-load test for ThemeContext
-jest.mock('../lib/supabase', () => ({ supabase: {}, User: null, Review: null }));
+jest.mock('../lib/supabase', () => ({
+  supabase: {},
+  User: null,
+  Review: null,
+}));
 describe('context/ThemeContext module load', () => {
   it('requires without throwing and exports useTheme', () => {
     // eslint-disable-next-line global-require
     const mod = require('../context/ThemeContext');
     expect(mod).toBeTruthy();
-    expect(typeof mod.useTheme === 'function' || typeof mod.default === 'object').toBeTruthy();
+    expect(
+      typeof mod.useTheme === 'function' || typeof mod.default === 'object',
+    ).toBeTruthy();
   });
 });

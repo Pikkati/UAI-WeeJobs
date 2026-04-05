@@ -1,11 +1,11 @@
 Title: test: stabilize Jest — chainable supabase mock & Expo mocks
 
-Summary
--------
+## Summary
+
 This PR introduces a set of test-time improvements to make the Jest suite stable and deterministic in CI and locally.
 
-Key changes
------------
+## Key changes
+
 - Add a chainable Supabase mock at `__mocks__/lib/supabase.js` to support `.from(...).insert/.select` and chaining (`eq`, `match`, `single`).
 - Add lightweight Expo/React Native test mocks:
   - `__mocks__/expo-image.js`
@@ -18,18 +18,18 @@ Key changes
 - Set `IS_REACT_ACT_ENVIRONMENT` in `jest-setup.js` to reduce act() warnings in React 18+/19 tests.
 - Add a smoke harness `__tests__/smoke.harness.test.tsx` and an npm script `test:smoke` for quick validation.
 
-Testing
--------
+## Testing
+
 - Ran the full Jest suite locally (`--runInBand`) — all tests passed in my environment.
 - Added smoke test to catch regressions quickly.
 
-Notes
------
+## Notes
+
 - This PR is intentionally focused and avoids touching large build artifacts (I created a separate, focused branch).
 - I did not bump `jest-expo` here; there's a separate PR draft for the `jest-expo` upgrade under `PRs/chore-upgrade-jest-expo-55.md`.
 
-How to test locally
--------------------
+## How to test locally
+
 Run the smoke test:
 
 ```bash

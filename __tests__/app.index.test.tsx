@@ -12,9 +12,18 @@ describe('SplashScreen navigation', () => {
     jest.resetModules();
     jest.doMock('expo-router', () => {
       const mockReplace = jest.fn();
-      return { router: { replace: mockReplace }, __getMockReplace: () => mockReplace };
+      return {
+        router: { replace: mockReplace },
+        __getMockReplace: () => mockReplace,
+      };
     });
-    jest.doMock('../context/AuthContext', () => ({ useAuth: () => ({ user: { role: 'customer' }, isLoading: false, hasSeenOnboarding: false }) }));
+    jest.doMock('../context/AuthContext', () => ({
+      useAuth: () => ({
+        user: { role: 'customer' },
+        isLoading: false,
+        hasSeenOnboarding: false,
+      }),
+    }));
     const RN = require('react-native');
     RN.Dimensions = { get: () => ({ width: 400, height: 800 }) };
     const Splash = require('../app/index').default;
@@ -25,9 +34,18 @@ describe('SplashScreen navigation', () => {
     jest.resetModules();
     jest.doMock('expo-router', () => {
       const mockReplace = jest.fn();
-      return { router: { replace: mockReplace }, __getMockReplace: () => mockReplace };
+      return {
+        router: { replace: mockReplace },
+        __getMockReplace: () => mockReplace,
+      };
     });
-    jest.doMock('../context/AuthContext', () => ({ useAuth: () => ({ user: null, isLoading: false, hasSeenOnboarding: false }) }));
+    jest.doMock('../context/AuthContext', () => ({
+      useAuth: () => ({
+        user: null,
+        isLoading: false,
+        hasSeenOnboarding: false,
+      }),
+    }));
     const RN = require('react-native');
     RN.Dimensions = { get: () => ({ width: 400, height: 800 }) };
     const Splash = require('../app/index').default;

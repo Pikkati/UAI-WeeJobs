@@ -1,5 +1,14 @@
 import { useState, useEffect, type ComponentProps } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -51,53 +60,140 @@ type ActionConfig = {
   label: string;
   icon: IconName;
   color: string;
-  action: 'navigate' | 'on_the_way' | 'arrived' | 'send_quote' | 'send_estimate' | 'send_invoice' | 'confirm' | 'none';
+  action:
+    | 'navigate'
+    | 'on_the_way'
+    | 'arrived'
+    | 'send_quote'
+    | 'send_estimate'
+    | 'send_invoice'
+    | 'confirm'
+    | 'none';
 };
 
-export const getActionForStatus = (status: JobStatus, pricingType?: string): ActionConfig | null => {
+export const getActionForStatus = (
+  status: JobStatus,
+  pricingType?: string,
+): ActionConfig | null => {
   const isHourly = pricingType === 'hourly';
-  
+
   switch (status) {
     case 'booked':
       if (isHourly) {
-        return { label: 'Send Estimate', icon: 'calculator', color: '#22d3ee', action: 'send_estimate' };
+        return {
+          label: 'Send Estimate',
+          icon: 'calculator',
+          color: '#22d3ee',
+          action: 'send_estimate',
+        };
       }
-      return { label: 'I\'m On My Way', icon: 'car', color: '#3b82f6', action: 'on_the_way' };
+      return {
+        label: "I'm On My Way",
+        icon: 'car',
+        color: '#3b82f6',
+        action: 'on_the_way',
+      };
     case 'estimate_acknowledged':
-      return { label: 'I\'m On My Way', icon: 'car', color: '#3b82f6', action: 'on_the_way' };
+      return {
+        label: "I'm On My Way",
+        icon: 'car',
+        color: '#3b82f6',
+        action: 'on_the_way',
+      };
     case 'on_the_way':
-      return { label: 'I\'ve Arrived', icon: 'location', color: '#8b5cf6', action: 'arrived' };
+      return {
+        label: "I've Arrived",
+        icon: 'location',
+        color: '#8b5cf6',
+        action: 'arrived',
+      };
     case 'in_progress':
       if (isHourly) {
-        return { label: 'Send Invoice', icon: 'receipt', color: '#f59e0b', action: 'send_invoice' };
+        return {
+          label: 'Send Invoice',
+          icon: 'receipt',
+          color: '#f59e0b',
+          action: 'send_invoice',
+        };
       }
-      return { label: 'Send Quote', icon: 'document-text', color: '#f59e0b', action: 'send_quote' };
+      return {
+        label: 'Send Quote',
+        icon: 'document-text',
+        color: '#f59e0b',
+        action: 'send_quote',
+      };
     case 'awaiting_quote_approval':
-      return { label: 'Waiting for Approval...', icon: 'time', color: Colors.textSecondary, action: 'none' };
+      return {
+        label: 'Waiting for Approval...',
+        icon: 'time',
+        color: Colors.textSecondary,
+        action: 'none',
+      };
     case 'awaiting_invoice_payment':
-      return { label: 'Waiting for Payment...', icon: 'card', color: Colors.textSecondary, action: 'none' };
+      return {
+        label: 'Waiting for Payment...',
+        icon: 'card',
+        color: Colors.textSecondary,
+        action: 'none',
+      };
     case 'awaiting_final_payment':
-      return { label: 'Waiting for Payment...', icon: 'card', color: Colors.textSecondary, action: 'none' };
+      return {
+        label: 'Waiting for Payment...',
+        icon: 'card',
+        color: Colors.textSecondary,
+        action: 'none',
+      };
     case 'paid':
-      return { label: 'Mark Complete', icon: 'checkmark-circle', color: Colors.success, action: 'confirm' };
+      return {
+        label: 'Mark Complete',
+        icon: 'checkmark-circle',
+        color: Colors.success,
+        action: 'confirm',
+      };
     case 'awaiting_confirmation':
-      return { label: 'Confirm Completion', icon: 'checkmark-done', color: '#3b82f6', action: 'confirm' };
+      return {
+        label: 'Confirm Completion',
+        icon: 'checkmark-done',
+        color: '#3b82f6',
+        action: 'confirm',
+      };
     default:
       return null;
   }
 };
 
 export default function TradieCurrentJobsScreen() {
-  
   const { user } = useAuth();
-  const { jobs, loading, fetchJobs, markOnTheWay, markArrived, confirmCompletion } = useJobs();
+  const {
+    jobs,
+    loading,
+    fetchJobs,
+    markOnTheWay,
+    markArrived,
+    confirmCompletion,
+  } = useJobs();
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [loadingJobId, setLoadingJobId] = useState<string | null>(null);
 
-  const myJobs = jobs.filter(j => j.tradie_id === user?.id);
-  const activeJobs = myJobs.filter(j => !['completed', 'cancelled', 'cancelled_by_customer', 'cancelled_by_tradie', 'open', 'pending_customer_choice', 'awaiting_customer_choice'].includes(j.status));
-  const completedJobs = myJobs.filter(j => j.status === 'completed');
-  const cancelledJobs = myJobs.filter(j => j.status === 'cancelled_by_customer' || j.status === 'cancelled_by_tradie');
+  const myJobs = jobs.filter((j) => j.tradie_id === user?.id);
+  const activeJobs = myJobs.filter(
+    (j) =>
+      ![
+        'completed',
+        'cancelled',
+        'cancelled_by_customer',
+        'cancelled_by_tradie',
+        'open',
+        'pending_customer_choice',
+        'awaiting_customer_choice',
+      ].includes(j.status),
+  );
+  const completedJobs = myJobs.filter((j) => j.status === 'completed');
+  const cancelledJobs = myJobs.filter(
+    (j) =>
+      j.status === 'cancelled_by_customer' ||
+      j.status === 'cancelled_by_tradie',
+  );
 
   useEffect(() => {
     fetchJobs();
@@ -115,9 +211,9 @@ export default function TradieCurrentJobsScreen() {
 
   const handleAction = async (job: Job, action: ActionConfig['action']) => {
     if (action === 'none') return;
-    
+
     setLoadingJobId(job.id);
-    
+
     try {
       switch (action) {
         case 'on_the_way':
@@ -125,15 +221,19 @@ export default function TradieCurrentJobsScreen() {
             'Start Navigation',
             'Confirm you are on your way to the job site?',
             [
-              { text: 'Cancel', style: 'cancel', onPress: () => setLoadingJobId(null) },
-              { 
-                text: 'Yes, Start', 
+              {
+                text: 'Cancel',
+                style: 'cancel',
+                onPress: () => setLoadingJobId(null),
+              },
+              {
+                text: 'Yes, Start',
                 onPress: async () => {
                   await markOnTheWay(job.id);
                   setLoadingJobId(null);
-                }
-              }
-            ]
+                },
+              },
+            ],
           );
           return;
         case 'arrived':
@@ -141,15 +241,19 @@ export default function TradieCurrentJobsScreen() {
             'Arrived at Job',
             'Confirm you have arrived at the job site?',
             [
-              { text: 'Cancel', style: 'cancel', onPress: () => setLoadingJobId(null) },
-              { 
-                text: 'Yes, Arrived', 
+              {
+                text: 'Cancel',
+                style: 'cancel',
+                onPress: () => setLoadingJobId(null),
+              },
+              {
+                text: 'Yes, Arrived',
                 onPress: async () => {
                   await markArrived(job.id);
                   setLoadingJobId(null);
-                }
-              }
-            ]
+                },
+              },
+            ],
           );
           return;
         case 'send_quote':
@@ -166,20 +270,30 @@ export default function TradieCurrentJobsScreen() {
             'Confirm Completion',
             'Mark this job as complete? The customer will also need to confirm.',
             [
-              { text: 'Cancel', style: 'cancel', onPress: () => setLoadingJobId(null) },
-              { 
-                text: 'Confirm Complete', 
+              {
+                text: 'Cancel',
+                style: 'cancel',
+                onPress: () => setLoadingJobId(null),
+              },
+              {
+                text: 'Confirm Complete',
                 onPress: async () => {
                   await confirmCompletion(job.id, 'tradesperson');
                   setLoadingJobId(null);
                   if (job.customer_confirmed) {
-                    Alert.alert('Job Completed!', 'Both parties have confirmed. The job is now complete.');
+                    Alert.alert(
+                      'Job Completed!',
+                      'Both parties have confirmed. The job is now complete.',
+                    );
                   } else {
-                    Alert.alert('Confirmed!', 'Waiting for customer to confirm completion.');
+                    Alert.alert(
+                      'Confirmed!',
+                      'Waiting for customer to confirm completion.',
+                    );
                   }
-                }
-              }
-            ]
+                },
+              },
+            ],
           );
           return;
         case 'navigate':
@@ -191,25 +305,35 @@ export default function TradieCurrentJobsScreen() {
     }
   };
 
-    const renderJob = ({ item }: { item: Job }) => {
+  const renderJob = ({ item }: { item: Job }) => {
     const actionConfig = getActionForStatus(item.status, item.pricing_type);
     const isActionable = actionConfig && actionConfig.action !== 'none';
     const isLoading = loadingJobId === item.id;
-    
 
     return (
-      <TouchableOpacity 
-        style={[styles.jobCard, isActionable && styles.jobCardActionable]} 
+      <TouchableOpacity
+        style={[styles.jobCard, isActionable && styles.jobCardActionable]}
         onPress={() => handleJobPress(item)}
         activeOpacity={0.7}
       >
         <View style={styles.jobHeader}>
           <View style={styles.categoryBadge}>
-            <Ionicons name="briefcase-outline" size={16} color={Colors.accent} />
+            <Ionicons
+              name="briefcase-outline"
+              size={16}
+              color={Colors.accent}
+            />
             <Text style={styles.categoryText}>{item.category}</Text>
           </View>
-          <View style={[styles.statusBadge, { backgroundColor: STATUS_COLORS[item.status] || Colors.accent }]}>
-            <Text style={styles.statusText}>{STATUS_LABELS[item.status] || item.status}</Text>
+          <View
+            style={[
+              styles.statusBadge,
+              { backgroundColor: STATUS_COLORS[item.status] || Colors.accent },
+            ]}
+          >
+            <Text style={styles.statusText}>
+              {STATUS_LABELS[item.status] || item.status}
+            </Text>
           </View>
         </View>
 
@@ -230,28 +354,42 @@ export default function TradieCurrentJobsScreen() {
 
         <View style={styles.jobFooter}>
           <View style={styles.infoRow}>
-            <Ionicons name="location-outline" size={16} color={Colors.textSecondary} />
+            <Ionicons
+              name="location-outline"
+              size={16}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoTextSmall}>{item.area}</Text>
           </View>
           <View style={styles.infoRow}>
-            <Ionicons name="time-outline" size={16} color={Colors.textSecondary} />
+            <Ionicons
+              name="time-outline"
+              size={16}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoTextSmall}>{item.timing}</Text>
           </View>
         </View>
 
         {item.deposit_paid && (
           <View style={styles.depositBadge}>
-            <Ionicons name="checkmark-circle" size={14} color={Colors.success} />
-            <Text style={styles.depositText}>Deposit Paid: £{item.deposit_amount?.toFixed(2)}</Text>
+            <Ionicons
+              name="checkmark-circle"
+              size={14}
+              color={Colors.success}
+            />
+            <Text style={styles.depositText}>
+              Deposit Paid: £{item.deposit_amount?.toFixed(2)}
+            </Text>
           </View>
         )}
 
         {actionConfig && (
-          <TouchableOpacity 
+          <TouchableOpacity
             style={[
-              styles.actionBanner, 
+              styles.actionBanner,
               { backgroundColor: actionConfig.color },
-              actionConfig.action === 'none' && styles.actionBannerDisabled
+              actionConfig.action === 'none' && styles.actionBannerDisabled,
             ]}
             onPress={() => handleAction(item, actionConfig.action)}
             disabled={actionConfig.action === 'none' || isLoading}
@@ -261,10 +399,18 @@ export default function TradieCurrentJobsScreen() {
               <ActivityIndicator size="small" color={Colors.background} />
             ) : (
               <>
-                <Ionicons name={actionConfig.icon} size={18} color={Colors.background} />
+                <Ionicons
+                  name={actionConfig.icon}
+                  size={18}
+                  color={Colors.background}
+                />
                 <Text style={styles.actionText}>{actionConfig.label}</Text>
                 {actionConfig.action !== 'none' && (
-                  <Ionicons name="chevron-forward" size={18} color={Colors.background} />
+                  <Ionicons
+                    name="chevron-forward"
+                    size={18}
+                    color={Colors.background}
+                  />
                 )}
               </>
             )}
@@ -296,7 +442,9 @@ export default function TradieCurrentJobsScreen() {
         {item.description || 'No description'}
       </Text>
       {item.quote_total && (
-        <Text style={styles.completedEarnings}>Earned: £{item.quote_total.toFixed(2)}</Text>
+        <Text style={styles.completedEarnings}>
+          Earned: £{item.quote_total.toFixed(2)}
+        </Text>
       )}
     </TouchableOpacity>
   );
@@ -319,9 +467,16 @@ export default function TradieCurrentJobsScreen() {
       </Text>
       <View style={styles.cancelledMeta}>
         <Text style={styles.cancelledBy}>
-          {item.status === 'cancelled_by_customer' ? 'Cancelled by customer' : 'Cancelled by you'}
+          {item.status === 'cancelled_by_customer'
+            ? 'Cancelled by customer'
+            : 'Cancelled by you'}
         </Text>
-        <Text style={[styles.refundOutcome, { color: item.deposit_refunded ? Colors.success : Colors.error }]}>
+        <Text
+          style={[
+            styles.refundOutcome,
+            { color: item.deposit_refunded ? Colors.success : Colors.error },
+          ]}
+        >
           {item.deposit_refunded
             ? `Refund: £${item.deposit_amount?.toFixed(2)} to customer`
             : 'No refund — deposit kept by you'}
@@ -344,25 +499,39 @@ export default function TradieCurrentJobsScreen() {
 
       {myJobs.length === 0 ? (
         <View style={styles.emptyState}>
-          <Ionicons name="briefcase-outline" size={64} color={Colors.textSecondary} />
+          <Ionicons
+            name="briefcase-outline"
+            size={64}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.emptyTitle}>No jobs yet</Text>
-            <Text style={styles.emptyText}>
-            Swipe right on jobs to express interest{ '\n'}Once selected, they&apos;ll appear here
+          <Text style={styles.emptyText}>
+            Swipe right on jobs to express interest{'\n'}Once selected,
+            they&apos;ll appear here
           </Text>
         </View>
       ) : (
         <FlatList
           data={[...activeJobs, ...completedJobs, ...cancelledJobs]}
           renderItem={({ item, index }) => {
-            const isCancelledStart = cancelledJobs.length > 0 && index === activeJobs.length + completedJobs.length;
+            const isCancelledStart =
+              cancelledJobs.length > 0 &&
+              index === activeJobs.length + completedJobs.length;
             if (index < activeJobs.length) return renderJob({ item });
-            if (index < activeJobs.length + completedJobs.length) return renderCompletedJob({ item });
+            if (index < activeJobs.length + completedJobs.length)
+              return renderCompletedJob({ item });
             return (
               <>
                 {isCancelledStart && (
                   <View style={styles.cancelledSectionHeader}>
-                    <Ionicons name="close-circle-outline" size={18} color={Colors.error} />
-                    <Text style={styles.cancelledSectionTitle}>Cancelled ({cancelledJobs.length})</Text>
+                    <Ionicons
+                      name="close-circle-outline"
+                      size={18}
+                      color={Colors.error}
+                    />
+                    <Text style={styles.cancelledSectionTitle}>
+                      Cancelled ({cancelledJobs.length})
+                    </Text>
                   </View>
                 )}
                 {renderCancelledJob({ item })}
@@ -383,7 +552,9 @@ export default function TradieCurrentJobsScreen() {
             activeJobs.length > 0 ? (
               <View style={styles.sectionHeader}>
                 <Ionicons name="flash" size={18} color={Colors.accent} />
-                <Text style={styles.sectionTitle}>Active Jobs ({activeJobs.length})</Text>
+                <Text style={styles.sectionTitle}>
+                  Active Jobs ({activeJobs.length})
+                </Text>
               </View>
             ) : null
           }

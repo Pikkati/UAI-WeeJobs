@@ -2,7 +2,9 @@ const { processStripeEvent } = require('../scripts/stripe-webhook');
 
 describe('processStripeEvent', () => {
   it('updates job status for payment_intent.payment_failed', async () => {
-    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job123' }], error: null });
+    const eq = jest
+      .fn()
+      .mockResolvedValue({ data: [{ id: 'job123' }], error: null });
     const update = jest.fn(() => ({ eq }));
     const from = jest.fn(() => ({ update }));
     const supabaseMock = { from };
@@ -27,7 +29,9 @@ describe('processStripeEvent', () => {
   });
 
   it('handles payment_intent.canceled', async () => {
-    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job456' }], error: null });
+    const eq = jest
+      .fn()
+      .mockResolvedValue({ data: [{ id: 'job456' }], error: null });
     const update = jest.fn(() => ({ eq }));
     const from = jest.fn(() => ({ update }));
     const supabaseMock = { from };
@@ -53,7 +57,9 @@ describe('processStripeEvent', () => {
   });
 
   it('handles invoice.payment_failed', async () => {
-    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job789' }], error: null });
+    const eq = jest
+      .fn()
+      .mockResolvedValue({ data: [{ id: 'job789' }], error: null });
     const update = jest.fn(() => ({ eq }));
     const from = jest.fn(() => ({ update }));
     const supabaseMock = { from };
@@ -91,7 +97,9 @@ describe('processStripeEvent', () => {
   });
 
   it('handles payment_intent.succeeded', async () => {
-    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job999' }], error: null });
+    const eq = jest
+      .fn()
+      .mockResolvedValue({ data: [{ id: 'job999' }], error: null });
     const update = jest.fn(() => ({ eq }));
     const from = jest.fn(() => ({ update }));
     const supabaseMock = { from };
@@ -116,7 +124,9 @@ describe('processStripeEvent', () => {
   });
 
   it('handles charge.refunded', async () => {
-    const eq = jest.fn().mockResolvedValue({ data: [{ id: 'job555' }], error: null });
+    const eq = jest
+      .fn()
+      .mockResolvedValue({ data: [{ id: 'job555' }], error: null });
     const update = jest.fn(() => ({ eq }));
     const from = jest.fn(() => ({ update }));
     const supabaseMock = { from };

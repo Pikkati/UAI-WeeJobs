@@ -32,7 +32,13 @@ describe('LeadUnlockModal reporting flow', () => {
     const onCancel = jest.fn();
 
     const { getByText } = render(
-      <LeadUnlockModal job={job as any} visible={true} onUnlock={onUnlock} onCancel={onCancel} tradieId="t1" />
+      <LeadUnlockModal
+        job={job as any}
+        visible={true}
+        onUnlock={onUnlock}
+        onCancel={onCancel}
+        tradieId="t1"
+      />,
     );
 
     // Open report UI

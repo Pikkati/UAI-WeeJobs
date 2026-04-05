@@ -18,7 +18,7 @@ try {
   Stripe = null;
 }
 
-const env = (typeof process !== 'undefined' && process.env) ? process.env : {};
+const env = typeof process !== 'undefined' && process.env ? process.env : {};
 const port = env.PORT || 4242;
 const stripeSecret = env.STRIPE_SECRET || env.EXPO_PUBLIC_STRIPE_SECRET;
 const endpointSecret = env.STRIPE_ENDPOINT_SECRET || env.STRIPE_WEBHOOK_SECRET;
@@ -26,17 +26,27 @@ const supabaseUrl = env.SUPABASE_URL;
 const supabaseKey = env.SUPABASE_SERVICE_ROLE_KEY || env.SUPABASE_KEY;
 
 if (!stripeSecret) {
-  console.warn('Warning: STRIPE_SECRET not set. Webhook verification will be skipped.');
+  console.warn(
+    'Warning: STRIPE_SECRET not set. Webhook verification will be skipped.',
+  );
 }
 if (!supabaseUrl || !supabaseKey) {
-  console.warn('Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.');
+  console.warn(
+    'Warning: SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY is not set. DB updates will be unavailable.',
+  );
 }
 
 const stripe = Stripe && stripeSecret ? Stripe(stripeSecret) : null;
-const supabase = supabaseUrl && supabaseKey ? require('@supabase/supabase-js').createClient(supabaseUrl, supabaseKey) : null;
+const supabase =
+  supabaseUrl && supabaseKey
+    ? require('@supabase/supabase-js').createClient(supabaseUrl, supabaseKey)
+    : null;
 const app = express ? express() : null;
 
-const upsertJobPaymentIntent = async (paymentIntent, supabaseClient = supabase) => {
+const upsertJobPaymentIntent = async (
+  paymentIntent,
+  supabaseClient = supabase,
+) => {
   const metadata = paymentIntent.metadata || {};
   const jobId = metadata.job_id;
   const paymentType = metadata.payment_type || 'deposit';
@@ -61,7 +71,10 @@ const upsertJobPaymentIntent = async (paymentIntent, supabaseClient = supabase) 
     }
   }
 
-  const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+  const { data, error } = await supabaseClient
+    .from('jobs')
+    .update(updates)
+    .eq('id', jobId);
   if (error) {
     throw error;
   }
@@ -77,7 +90,9 @@ const upsertJobRefund = async (charge, supabaseClient = supabase) => {
   let paymentType = charge.metadata?.payment_type || 'deposit';
 
   if (!jobId && charge.payment_intent && stripe) {
-    const paymentIntent = await stripe.paymentIntents.retrieve(charge.payment_intent);
+    const paymentIntent = await stripe.paymentIntents.retrieve(
+      charge.payment_intent,
+    );
     jobId = paymentIntent.metadata?.job_id;
     paymentType = paymentIntent.metadata?.payment_type || paymentType;
   }
@@ -91,7 +106,10 @@ const upsertJobRefund = async (charge, supabaseClient = supabase) => {
     status: 'cancelled_by_customer',
   };
 
-  const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+  const { data, error } = await supabaseClient
+    .from('jobs')
+    .update(updates)
+    .eq('id', jobId);
   if (error) {
     throw error;
   }
@@ -107,16 +125,27 @@ async function processStripeEvent(event, supabaseClient) {
     case 'payment_intent.succeeded': {
       const paymentIntent = event.data.object;
       if (!paymentIntent || !paymentIntent.metadata?.job_id) {
-        console.log('payment_intent.succeeded missing job_id; skipped DB update');
+        console.log(
+          'payment_intent.succeeded missing job_id; skipped DB update',
+        );
         return null;
       }
-      return await upsertJobPaymentIntent(paymentIntent, supabaseClient || supabase);
+      return await upsertJobPaymentIntent(
+        paymentIntent,
+        supabaseClient || supabase,
+      );
     }
 
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object;
-      if (!paymentIntent || !paymentIntent.metadata?.job_id || !supabaseClient) {
-        console.log('payment_intent.payment_failed missing job_id or supabase; skipped DB update');
+      if (
+        !paymentIntent ||
+        !paymentIntent.metadata?.job_id ||
+        !supabaseClient
+      ) {
+        console.log(
+          'payment_intent.payment_failed missing job_id or supabase; skipped DB update',
+        );
         return null;
       }
 
@@ -127,7 +156,10 @@ async function processStripeEvent(event, supabaseClient) {
         last_payment_error: paymentIntent.last_payment_error?.message || null,
       };
 
-      const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+      const { data, error } = await supabaseClient
+        .from('jobs')
+        .update(updates)
+        .eq('id', jobId);
       if (error) {
         throw error;
       }
@@ -141,8 +173,14 @@ async function processStripeEvent(event, supabaseClient) {
 
     case 'payment_intent.canceled': {
       const paymentIntent = event.data.object;
-      if (!paymentIntent || !paymentIntent.metadata?.job_id || !supabaseClient) {
-        console.log('payment_intent.canceled missing job_id or supabase; skipped DB update');
+      if (
+        !paymentIntent ||
+        !paymentIntent.metadata?.job_id ||
+        !supabaseClient
+      ) {
+        console.log(
+          'payment_intent.canceled missing job_id or supabase; skipped DB update',
+        );
         return null;
       }
 
@@ -152,7 +190,10 @@ async function processStripeEvent(event, supabaseClient) {
         status: 'cancelled_by_customer',
       };
 
-      const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+      const { data, error } = await supabaseClient
+        .from('jobs')
+        .update(updates)
+        .eq('id', jobId);
       if (error) throw error;
       return data;
     }
@@ -160,17 +201,24 @@ async function processStripeEvent(event, supabaseClient) {
     case 'invoice.payment_failed': {
       const invoice = event.data.object;
       if (!invoice || !invoice.metadata?.job_id || !supabaseClient) {
-        console.log('invoice.payment_failed missing job_id or supabase; skipped DB update');
+        console.log(
+          'invoice.payment_failed missing job_id or supabase; skipped DB update',
+        );
         return null;
       }
 
       const jobId = invoice.metadata.job_id;
       const updates = {
         status: 'payment_failed',
-        last_payment_error: invoice.closed ? 'invoice closed' : invoice.failure_reason || null,
+        last_payment_error: invoice.closed
+          ? 'invoice closed'
+          : invoice.failure_reason || null,
       };
 
-      const { data, error } = await supabaseClient.from('jobs').update(updates).eq('id', jobId);
+      const { data, error } = await supabaseClient
+        .from('jobs')
+        .update(updates)
+        .eq('id', jobId);
       if (error) throw error;
       return data;
     }
@@ -187,37 +235,46 @@ if (app && express) {
     const buf = req.body;
 
     if (stripe && endpointSecret && sig) {
-    let event;
-    try {
-      event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
-    } catch (err) {
-      console.error('⚠️  Webhook signature verification failed.', err.message);
-      return res.status(400).send(`Webhook Error: ${err.message}`);
+      let event;
+      try {
+        event = stripe.webhooks.constructEvent(buf, sig, endpointSecret);
+      } catch (err) {
+        console.error(
+          '⚠️  Webhook signature verification failed.',
+          err.message,
+        );
+        return res.status(400).send(`Webhook Error: ${err.message}`);
+      }
+      console.log('Received event:', event.type);
+      try {
+        await processStripeEvent(event, supabase);
+        return res.json({ received: true });
+      } catch (dbErr) {
+        console.error('Failed to process Stripe event', dbErr);
+        return res.status(500).send('DB update failed');
+      }
     }
-    console.log('Received event:', event.type);
-    try {
-      await processStripeEvent(event, supabase);
-      return res.json({ received: true });
-    } catch (dbErr) {
-      console.error('Failed to process Stripe event', dbErr);
-      return res.status(500).send('DB update failed');
-    }
-  }
 
-  // Fallback parsing if stripe not configured — attempt JSON parse
-  try {
-    const json = JSON.parse(buf.toString('utf8'));
-    console.log('Received (unverified) event:', json.type || json);
-    return res.json({ received: true });
-  } catch (err) {
-    console.error('Failed to parse webhook body', err.message);
-    return res.status(400).send('Invalid payload');
-  }
+    // Fallback parsing if stripe not configured — attempt JSON parse
+    try {
+      const json = JSON.parse(buf.toString('utf8'));
+      console.log('Received (unverified) event:', json.type || json);
+      return res.json({ received: true });
+    } catch (err) {
+      console.error('Failed to parse webhook body', err.message);
+      return res.status(400).send('Invalid payload');
+    }
   });
 
-  app.get('/', (req, res) => res.send('Stripe webhook listener. POST /webhook'));
+  app.get('/', (req, res) =>
+    res.send('Stripe webhook listener. POST /webhook'),
+  );
 
-  app.listen(port, () => console.log(`Stripe webhook listener running on http://localhost:${port}/webhook`));
+  app.listen(port, () =>
+    console.log(
+      `Stripe webhook listener running on http://localhost:${port}/webhook`,
+    ),
+  );
 }
 
 module.exports = {

@@ -3,7 +3,7 @@ name: Release Gate
 on:
   pull_request:
     types: [opened, synchronize, edited, reopened]
-    branches: [ UAI-Development ]
+    branches: [UAI-Development]
     paths:
       - 'package.json'
       - 'CHANGELOG.md'

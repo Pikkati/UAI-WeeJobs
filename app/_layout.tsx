@@ -12,7 +12,8 @@ if ((Text as any).defaultProps == null) (Text as any).defaultProps = {};
 (Text as any).defaultProps.allowFontScaling = false;
 (Text as any).defaultProps.maxFontSizeMultiplier = 1;
 
-if ((TextInput as any).defaultProps == null) (TextInput as any).defaultProps = {};
+if ((TextInput as any).defaultProps == null)
+  (TextInput as any).defaultProps = {};
 (TextInput as any).defaultProps.allowFontScaling = false;
 (TextInput as any).defaultProps.maxFontSizeMultiplier = 1;
 

@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
@@ -39,7 +47,7 @@ export default function LeadUnlockModal({
   tradieId,
 }: LeadUnlockModalProps) {
   const _insets = useSafeAreaInsets();
-  
+
   const [isReporting, setIsReporting] = useState(false);
   const [reportReason, setReportReason] = useState('');
   const [isSubmittingReport, setIsSubmittingReport] = useState(false);
@@ -52,7 +60,8 @@ export default function LeadUnlockModal({
       // `supabase` object that may not include a chainable `.from()` or
       // an `.insert` method. Guard to avoid a TypeError and fail
       // gracefully in those environments.
-      const fromFn = supabase && typeof supabase.from === 'function' ? supabase.from : null;
+      const fromFn =
+        supabase && typeof supabase.from === 'function' ? supabase.from : null;
       if (!fromFn) {
         // Reporting is unavailable in this environment; show a user-friendly alert.
         Alert.alert('Error', 'Reporting is not available in this environment.');
@@ -72,12 +81,18 @@ export default function LeadUnlockModal({
       if (error) throw error;
       setIsReporting(false);
       setReportReason('');
-      Alert.alert('Report Submitted', 'Thank you for reporting this job. We will review it shortly.');
+      Alert.alert(
+        'Report Submitted',
+        'Thank you for reporting this job. We will review it shortly.',
+      );
     } catch (err) {
       // Prefer a non-fatal warning to reduce noisy error stacks in test logs.
       // Keep the message concise so CI logs remain readable.
       // Safely extract message from unknown `err`.
-      const errMsg = err && typeof err === 'object' && 'message' in err ? (err as any).message : String(err);
+      const errMsg =
+        err && typeof err === 'object' && 'message' in err
+          ? (err as any).message
+          : String(err);
       // eslint-disable-next-line no-console
       console.warn('Report submission failed:', errMsg);
       Alert.alert('Error', 'Failed to submit report. Please try again.');
@@ -92,7 +107,12 @@ export default function LeadUnlockModal({
     return (
       <Modal visible={visible} animationType="fade" transparent>
         <View style={styles.overlay}>
-          <View style={[styles.proContainer, { paddingBottom: _insets.bottom + Spacing.lg }]}>
+          <View
+            style={[
+              styles.proContainer,
+              { paddingBottom: _insets.bottom + Spacing.lg },
+            ]}
+          >
             <VerifiedProBadge size="large" />
             <Text style={styles.proTitle}>PRO Member Benefit</Text>
             <Text style={styles.proText}>
@@ -100,7 +120,11 @@ export default function LeadUnlockModal({
               No unlock fees required!
             </Text>
             <TouchableOpacity style={styles.proButton} onPress={onUnlock}>
-              <Ionicons name="checkmark-circle" size={24} color={Colors.background} />
+              <Ionicons
+                name="checkmark-circle"
+                size={24}
+                color={Colors.background}
+              />
               <Text style={styles.proButtonText}>Accept Job</Text>
             </TouchableOpacity>
           </View>
@@ -112,7 +136,12 @@ export default function LeadUnlockModal({
   return (
     <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.overlay}>
-        <View style={[styles.container, { paddingBottom: _insets.bottom + Spacing.lg }]}>
+        <View
+          style={[
+            styles.container,
+            { paddingBottom: _insets.bottom + Spacing.lg },
+          ]}
+        >
           <View style={styles.handle} />
 
           <View style={styles.header}>
@@ -124,28 +153,40 @@ export default function LeadUnlockModal({
               />
             </View>
             <View style={styles.headerText}>
-              <Text style={styles.title}>Unlock this job for £{unlockPrice}</Text>
+              <Text style={styles.title}>
+                Unlock this job for £{unlockPrice}
+              </Text>
               <Text style={styles.category}>{job.category}</Text>
             </View>
           </View>
 
           <View style={styles.previewCard}>
             <Text style={styles.previewLabel}>Job Preview</Text>
-            
+
             <View style={styles.previewRow}>
-              <Ionicons name="location-outline" size={16} color={Colors.textSecondary} />
+              <Ionicons
+                name="location-outline"
+                size={16}
+                color={Colors.textSecondary}
+              />
               <Text style={styles.previewText}>{job.area}</Text>
             </View>
-            
+
             <View style={styles.previewRow}>
-              <Ionicons name="time-outline" size={16} color={Colors.textSecondary} />
+              <Ionicons
+                name="time-outline"
+                size={16}
+                color={Colors.textSecondary}
+              />
               <Text style={styles.previewText}>{job.timing}</Text>
             </View>
-            
+
             {job.budget && (
               <View style={styles.previewRow}>
                 <Ionicons name="cash-outline" size={16} color={Colors.accent} />
-                <Text style={[styles.previewText, styles.budgetText]}>{job.budget}</Text>
+                <Text style={[styles.previewText, styles.budgetText]}>
+                  {job.budget}
+                </Text>
               </View>
             )}
 
@@ -159,10 +200,16 @@ export default function LeadUnlockModal({
               <View style={styles.photoPreview}>
                 {job.photos.slice(0, 3).map((photo, index) => (
                   <View key={index} style={styles.photoThumb}>
-                    <Image source={{ uri: photo }} style={styles.photoImage} contentFit="cover" />
+                    <Image
+                      source={{ uri: photo }}
+                      style={styles.photoImage}
+                      contentFit="cover"
+                    />
                     {index === 2 && job.photos!.length > 3 && (
                       <View style={styles.photoOverlay}>
-                        <Text style={styles.photoOverlayText}>+{job.photos!.length - 3}</Text>
+                        <Text style={styles.photoOverlayText}>
+                          +{job.photos!.length - 3}
+                        </Text>
                       </View>
                     )}
                   </View>
@@ -172,33 +219,58 @@ export default function LeadUnlockModal({
           </View>
 
           <View style={styles.infoBox}>
-            <Ionicons name="information-circle" size={20} color={Colors.accent} />
+            <Ionicons
+              name="information-circle"
+              size={20}
+              color={Colors.accent}
+            />
             <Text style={styles.infoText}>
-              Unlocking reveals full contact details and lets you message the customer.
+              Unlocking reveals full contact details and lets you message the
+              customer.
             </Text>
           </View>
 
           {isReporting ? (
             <View style={styles.reportContainer}>
-              <Text style={styles.reportTitle}>Why are you reporting this job?</Text>
+              <Text style={styles.reportTitle}>
+                Why are you reporting this job?
+              </Text>
               {REPORT_REASONS.map((reason) => (
                 <TouchableOpacity
                   key={reason}
-                  style={[styles.reasonOption, reportReason === reason && styles.reasonOptionSelected]}
+                  style={[
+                    styles.reasonOption,
+                    reportReason === reason && styles.reasonOptionSelected,
+                  ]}
                   onPress={() => setReportReason(reason)}
                   activeOpacity={0.7}
                 >
-                  <View style={[styles.reasonRadio, reportReason === reason && styles.reasonRadioSelected]}>
-                    {reportReason === reason && <View style={styles.reasonRadioDot} />}
+                  <View
+                    style={[
+                      styles.reasonRadio,
+                      reportReason === reason && styles.reasonRadioSelected,
+                    ]}
+                  >
+                    {reportReason === reason && (
+                      <View style={styles.reasonRadioDot} />
+                    )}
                   </View>
-                  <Text style={[styles.reasonText, reportReason === reason && styles.reasonTextSelected]}>
+                  <Text
+                    style={[
+                      styles.reasonText,
+                      reportReason === reason && styles.reasonTextSelected,
+                    ]}
+                  >
                     {reason}
                   </Text>
                 </TouchableOpacity>
               ))}
               <View style={styles.reportButtons}>
                 <TouchableOpacity
-                  style={[styles.submitReportButton, !reportReason && styles.submitReportButtonDisabled]}
+                  style={[
+                    styles.submitReportButton,
+                    !reportReason && styles.submitReportButtonDisabled,
+                  ]}
                   onPress={handleReport}
                   disabled={!reportReason || isSubmittingReport}
                   activeOpacity={0.8}
@@ -206,12 +278,17 @@ export default function LeadUnlockModal({
                   {isSubmittingReport ? (
                     <ActivityIndicator color={Colors.white} size="small" />
                   ) : (
-                    <Text style={styles.submitReportButtonText}>Submit Report</Text>
+                    <Text style={styles.submitReportButtonText}>
+                      Submit Report
+                    </Text>
                   )}
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={styles.cancelButton}
-                  onPress={() => { setIsReporting(false); setReportReason(''); }}
+                  onPress={() => {
+                    setIsReporting(false);
+                    setReportReason('');
+                  }}
                   activeOpacity={0.8}
                 >
                   <Text style={styles.cancelButtonText}>Cancel</Text>
@@ -226,8 +303,14 @@ export default function LeadUnlockModal({
                   onPress={onUnlock}
                   activeOpacity={0.8}
                 >
-                  <Ionicons name="lock-open" size={22} color={Colors.background} />
-                  <Text style={styles.unlockButtonText}>Unlock for £{unlockPrice}</Text>
+                  <Ionicons
+                    name="lock-open"
+                    size={22}
+                    color={Colors.background}
+                  />
+                  <Text style={styles.unlockButtonText}>
+                    Unlock for £{unlockPrice}
+                  </Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -244,7 +327,11 @@ export default function LeadUnlockModal({
                     onPress={() => setIsReporting(true)}
                     activeOpacity={0.7}
                   >
-                    <Ionicons name="flag-outline" size={16} color={Colors.textSecondary} />
+                    <Ionicons
+                      name="flag-outline"
+                      size={16}
+                      color={Colors.textSecondary}
+                    />
                     <Text style={styles.reportButtonText}>Report this job</Text>
                   </TouchableOpacity>
                 )}

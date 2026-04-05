@@ -13,7 +13,10 @@ describe('Module load: app/_layout', () => {
       } catch (err) {
         // If native-only code still errors, skip safely
         // eslint-disable-next-line no-console
-        console.warn('module-load-layout: import failed, skipping', err && err.message);
+        console.warn(
+          'module-load-layout: import failed, skipping',
+          err && err.message,
+        );
         expect(true).toBe(true);
       }
     });

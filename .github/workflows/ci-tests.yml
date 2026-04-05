@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ UAI-Development, main ]
+    branches: [UAI-Development, main]
   pull_request:
-    branches: [ UAI-Development, main ]
+    branches: [UAI-Development, main]
 
 jobs:
   test:
