@@ -6,26 +6,24 @@ console.log('jest-setup.js: File loaded');
 
 console.log('Jest setup file loaded');
 
-const mockReactNative = jest.requireActual('react-native');
-
-jest.mock('react-native', () => {
-  const actualReactNative = jest.requireActual('react-native');
-  console.log('Mocking NativeModules and additional internals - Step 5');
-  return {
-    ...actualReactNative,
-    NativeModules: {
-      ...actualReactNative.NativeModules,
-      UIManager: {},
-      PlatformConstants: { forceTouchAvailable: false },
-      AccessibilityInfo: {},
-      DeviceInfo: { getDeviceName: jest.fn(() => 'Test Device') },
-      Networking: { fetch: jest.fn() },
-      TurboModuleRegistry: {},
+jest.mock('react-native', () => ({
+  NativeModules: {
+    DeviceInfo: {
+      getConstants: jest.fn(() => ({
+        DeviceName: 'Test Device',
+        SystemName: 'Test OS',
+        SystemVersion: '1.0.0',
+      })),
     },
-  };
-});
-
-console.log('Mocked NativeModules:', jest.requireMock('react-native').NativeModules);
+    UIManager: {},
+    PlatformConstants: { forceTouchAvailable: false },
+    AccessibilityInfo: {},
+    DeviceInfo: { getDeviceName: jest.fn(() => 'Test Device') },
+    Networking: { fetch: jest.fn() },
+    TurboModuleRegistry: {},
+  },
+}));
+console.log('Simplified react-native mock in jest-setup.js');
 
 // Basic Jest setup: polyfills and harmless globals used by some Expo internals
 if (typeof global.TextDecoderStream === 'undefined') {
@@ -603,37 +601,24 @@ jest.mock('react-native/Libraries/Core/ReactNative', () => {
 });
 
 // Add debugging logs to trace calls to `TurboModuleRegistry.getEnforcing` and verify if the mock is being applied.
-jest.mock('react-native/Libraries/TurboModule/TurboModuleRegistry', () => {
-  const originalModule = jest.requireActual('react-native/Libraries/TurboModule/TurboModuleRegistry');
-  const mockGetEnforcing = jest.fn((name) => {
-    console.log(`Mocked TurboModuleRegistry.getEnforcing called with: ${name}`);
-    if (name === 'DeviceInfo') {
-      return {
-        getDeviceName: jest.fn(() => 'Test Device'),
-        getConstants: jest.fn(() => ({
-          brand: 'Test Brand',
-          model: 'Test Model',
-          screen: {
-            width: 1080,
-            height: 1920,
-            scale: 2,
-          },
-        })),
-      };
-    }
-    return originalModule.getEnforcing(name);
-  });
-  return {
-    ...originalModule,
-    getEnforcing: mockGetEnforcing,
-  };
-});
-console.log('Added debugging logs to TurboModuleRegistry.getEnforcing mock');
-
-// Mock TurboModuleRegistry to resolve `getEnforcing` error
 jest.mock('react-native/Libraries/TurboModule/TurboModuleRegistry', () => ({
-  getEnforcing: jest.fn(() => ({})),
+  getEnforcing: jest.fn(() => ({
+    DeviceName: 'Mock Device',
+    SystemName: 'Mock OS',
+    SystemVersion: '1.0.0',
+  })),
+  get: jest.fn(() => ({})),
 }));
+
+jest.mock('react-native/Libraries/Utilities/NativeDeviceInfo', () => ({
+  getConstants: jest.fn(() => ({
+    DeviceName: 'Mock Device',
+    SystemName: 'Mock OS',
+    SystemVersion: '1.0.0',
+  })),
+}));
+
+console.log('Revised mocks for TurboModuleRegistry and NativeDeviceInfo in jest-setup.js');
 
 console.log('Debugging AuthContext resolution');
 try {
@@ -643,35 +628,35 @@ try {
   console.error('Error resolving AuthContext:', error);
 }
 
-jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
-  return {
-    set: jest.fn((dimensions) => {
-      console.log('Mocked Dimensions.set called with:', dimensions);
-    }),
-    get: jest.fn(() => {
-      console.log('Mocked Dimensions.get called');
-      return {
-        screen: {
-          width: 1080,
-          height: 1920,
-          scale: 2,
-        },
-      };
-    }),
-  };
-});
-console.log('Completely mocked Dimensions module');
-
-jest.mock('react-native/Libraries/Utilities/PixelRatio', () => require('../__mocks__/PixelRatio'));
-console.log('Explicitly mocked PixelRatio in jest-setup.js');
-
 jest.resetModules();
-console.log('Cleared Jest module cache for PixelRatio');
-
-// Debugging PixelRatio mock
-const PixelRatio = require('react-native/Libraries/Utilities/PixelRatio');
-console.log('PixelRatio mock loaded in jest-setup.js:', PixelRatio);
+jest.doMock('react-native/Libraries/Utilities/PixelRatio', () => require('../__mocks__/PixelRatio'));
+console.log('Forced Dimensions and PixelRatio mocks in jest-setup.js');
 
 // Add debugging logs to verify Jest setup execution
 console.log('Jest setup file executed');
 console.log('Jest setup file executed before tests');
+
+if (typeof afterEach === 'function') {
+  afterEach(() => {
+    jest.clearAllMocks();
+    jest.resetModules();
+    Object.keys(global).forEach((key) => {
+      if (key.startsWith('__TEST_')) {
+        delete global[key];
+      }
+    });
+  });
+} else {
+  console.warn('afterEach is not available in this context. Skipping cleanup.');
+}
+
+require('./__mocks__/Dimensions');
+
+const Module = require('module');
+const originalRequire = Module.prototype.require;
+Module.prototype.require = function (moduleName) {
+  if (moduleName.includes('Dimensions')) {
+    console.log('Resolving module:', moduleName);
+  }
+  return originalRequire.apply(this, arguments);
+};

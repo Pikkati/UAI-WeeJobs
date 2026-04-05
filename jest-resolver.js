@@ -2,6 +2,8 @@ const path = require('path');
 
 // Custom Jest Resolver
 module.exports = (request, options) => {
+  console.log('Custom Resolver Debug: Resolving request:', request);
+
   // Mapping for specific module resolutions
   const customResolutions = {
     'AuthContext': path.resolve(__dirname, 'context/AuthContext.tsx'),
@@ -17,6 +19,10 @@ module.exports = (request, options) => {
       __dirname,
       '__mocks__/PixelRatio.js'
     ),
+    'jest-sequencer': path.resolve(
+      __dirname,
+      'node_modules/@jest/test-sequencer/build/index.js'
+    ),
   };
 
   // Check if the request matches a custom resolution
@@ -27,9 +33,16 @@ module.exports = (request, options) => {
     }
   }
 
-  // Fallback for unresolved modules
+  if (request.includes('react-native/Libraries/Utilities/Dimensions')) {
+    console.log('Custom Resolver Debug: Resolving Dimensions mock:', path.resolve(__dirname, '__mocks__/Dimensions.js'));
+    return path.resolve(__dirname, '__mocks__/Dimensions.js');
+  }
+
+  // Log fallback resolution
   try {
-    return options.defaultResolver(request, options);
+    const resolvedPath = options.defaultResolver(request, options);
+    console.log('Custom Resolver Debug: Default resolution for', request, ':', resolvedPath);
+    return resolvedPath;
   } catch (error) {
     console.error('Resolution Failed for:', request, error);
     throw error;

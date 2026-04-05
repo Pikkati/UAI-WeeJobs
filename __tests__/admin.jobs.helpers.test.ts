@@ -14,4 +14,18 @@ describe('admin jobs helpers', () => {
       expect(STATUS_COLORS[k].length).toBeGreaterThan(0);
     });
   });
+
+  test('STATUS_COLORS has correct color values', () => {
+    expect(STATUS_COLORS.open).toBe('accent');
+    expect(STATUS_COLORS.accepted).toBe('success');
+    expect(STATUS_COLORS.completed).toBe('text-secondary');
+    expect(STATUS_COLORS.cancelled).toBe('error');
+  });
+
+  test('STATUS_LABELS has correct labels', () => {
+    expect(STATUS_LABELS.open).toBe('Open');
+    expect(STATUS_LABELS.accepted).toBe('Accepted');
+    expect(STATUS_LABELS.completed).toBe('Completed');
+    expect(STATUS_LABELS.cancelled).toBe('Cancelled');
+  });
 });

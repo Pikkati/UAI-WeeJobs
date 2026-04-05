@@ -1,11 +1,14 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
+import Dimensions from 'react-native/Libraries/Utilities/Dimensions';
+console.log('Test file loaded Dimensions:', Dimensions.get('screen'));
+console.log('Forcing Dimensions usage:', Dimensions.get('screen'));
 
-const mockJobModule: any = {
-  jobs: [],
-  approveQuote: jest.fn(),
-  acknowledgeEstimate: jest.fn(),
-};
+jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
+  const mockDimensions = require('../__mocks__/Dimensions');
+  console.log('Explicitly mocking Dimensions in test file:', mockDimensions);
+  return mockDimensions;
+});
 
 jest.mock('../context/JobsContext', () => ({
   useJobs: () => mockJobModule,
@@ -16,6 +19,33 @@ jest.mock('expo-router', () => ({
   router: { push: jest.fn(), back: jest.fn(), replace: jest.fn() },
   useRouter: () => ({ push: jest.fn(), back: jest.fn(), replace: jest.fn() }),
 }), { virtual: true });
+
+jest.resetModules();
+
+type Job = {
+  id: string;
+  quote_total?: number;
+  quote_labour?: number;
+  quote_materials?: number;
+  deposit_amount?: number;
+  pricing_type: string;
+  quote_notes?: string;
+  estimate_hours?: number;
+  estimate_hourly_rate?: number;
+  estimate_materials?: number;
+  estimate_total?: number;
+  estimate_notes?: string;
+};
+
+const mockJobModule = {
+  jobs: [] as Job[],
+  approveQuote: jest.fn(),
+  acknowledgeEstimate: jest.fn(),
+};
+
+jest.mock('../context/JobsContext', () => ({
+  useJobs: () => mockJobModule,
+}));
 
 describe('ApproveQuoteScreen', () => {
   beforeEach(() => {

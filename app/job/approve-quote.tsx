@@ -18,7 +18,7 @@ export default function ApproveQuoteScreen() {
   const [showMessageModal, setShowMessageModal] = useState(false);
   const [changeMessage, setChangeMessage] = useState('');
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j: { id: string }) => j.id === jobId);
   const isHourly = job?.pricing_type === 'hourly';
 
   const mode: Mode = useMemo(() => {
@@ -42,17 +42,15 @@ export default function ApproveQuoteScreen() {
         }
       } else {
         success = await approveQuote(jobId!);
-        if (success) {
-          router.push(`/job/pay-final?jobId=${jobId}`);
-        }
       }
-      
+
       if (!success) {
-        throw new Error('Failed to approve');
+        console.error(`Failed to ${mode === 'estimate' ? 'acknowledge estimate' : 'approve quote'} for jobId: ${jobId}`);
+        Alert.alert('Error', 'An error occurred while processing your request. Please try again.');
       }
     } catch (error) {
-      console.error('Approve quote error:', error);
-      Alert.alert('Error', `Failed to ${mode === 'estimate' ? 'acknowledge estimate' : 'approve quote'}. Please try again.`);
+      console.error('Unexpected error in handleApprove:', error);
+      Alert.alert('Error', 'An unexpected error occurred. Please try again later.');
     } finally {
       setIsApproving(false);
     }

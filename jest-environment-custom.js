@@ -21,8 +21,8 @@ class CustomEnvironment extends JsdomEnvironment {
   async setup() {
     await super.setup();
     try {
-      this.global.testEnvironmentOptions = this.global.testEnvironmentOptions || {};
-      console.log('testEnvironmentOptions:', this.global.testEnvironmentOptions);
+      console.log('Global variables at setup:', Object.keys(this.global));
+
       if (typeof this.global.window === 'undefined') {
         Object.defineProperty(this.global, 'window', {
           value: this.global,
@@ -45,8 +45,8 @@ class CustomEnvironment extends JsdomEnvironment {
           }
         }
       }
-    } catch {
-      // Ignore setup errors
+    } catch (error) {
+      console.error('Error during environment setup:', error);
     }
   }
 }

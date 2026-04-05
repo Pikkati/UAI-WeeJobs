@@ -1,13 +1,15 @@
+// Jest Configuration File
+// This file contains the configuration for Jest, the testing framework.
+
 const path = require('path');
 const rootDir = __dirname;
 
-// Jest configuration
 module.exports = {
-  // Files to run before the test suite
-  setupFiles: ['<rootDir>/jest-setup-minimal.js'],
+  // Setup files to run before the test suite
+  setupFiles: [],
   setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
 
-  // Ignore patterns for modules
+  // Ignore patterns for specific modules
   modulePathIgnorePatterns: [
     '<rootDir>/tmp_apk_extracted/react-native',
     '<rootDir>/tmp_apk_extracted/react-native/react-native',
@@ -24,18 +26,22 @@ module.exports = {
     '^.+\\.[jt]sx?$': 'babel-jest',
   },
 
-  // Module name mappings
+  // Module name mappings for mocking
   moduleNameMapper: {
     '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
     '^../../context/AuthContext$': '<rootDir>/context/AuthContext',
     '^context/AuthContext$': '<rootDir>/context/AuthContext',
     'react-native/Libraries/TurboModule/TurboModuleRegistry': '<rootDir>/__mocks__/TurboModuleRegistry.js',
-    'react-native/Libraries/Utilities/PixelRatio': '<rootDir>/__mocks__/PixelRatio.js',
+    'react-native/Libraries/Utilities/Dimensions': '<rootDir>/__mocks__/Dimensions.js',
+    'react-native/Libraries/Utilities/PixelRatio': '<rootDir>/jest-setup.js',
   },
 
   // Test file patterns
-  testMatch: ['<rootDir>/__tests__/**/*.js'],
+  testMatch: ['<rootDir>/__tests__/**/*.{js,ts,tsx}'],
 
-  // Custom resolver
+  // Custom resolver for module resolution
   resolver: '<rootDir>/jest-resolver.js',
+
+  // Custom test environment
+  testEnvironment: 'jest-environment-jsdom',
 };

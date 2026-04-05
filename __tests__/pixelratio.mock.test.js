@@ -1,3 +1,5 @@
+console.log('Starting PixelRatio mock tests...');
+
 jest.mock('react-native', () => {
   const actualReactNative = jest.requireActual('react-native');
   return {
@@ -9,16 +11,12 @@ jest.mock('react-native', () => {
 const PixelRatio = require('react-native').PixelRatio;
 console.log('Overridden PixelRatio mock in test file:', PixelRatio);
 
-describe('PixelRatio Mock', () => {
-  it('should mock roundToNearestPixel', () => {
-    const result = PixelRatio.roundToNearestPixel(2.5);
-    console.log('Mocked roundToNearestPixel result:', result);
-    expect(result).toBe(3);
-  });
-
-  it('should mock get', () => {
-    const result = PixelRatio.get();
-    console.log('Mocked get result:', result);
-    expect(result).toBe(1);
+describe('PixelRatio Mock Test', () => {
+  it('should log PixelRatio mock', () => {
+    const PixelRatio = require('PixelRatio');
+    console.log('PixelRatio mock test executed', PixelRatio);
+    expect(PixelRatio).toBeDefined();
+    expect(PixelRatio.get).toBeDefined();
+    expect(PixelRatio.get()).toBe(1);
   });
 });

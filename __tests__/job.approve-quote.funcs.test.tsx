@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
+import ApproveQuoteScreen from '../app/job/approve-quote';
 
 const mockPush = jest.fn();
 
@@ -54,5 +55,31 @@ describe('ApproveQuote helper flows', () => {
 
     // Expect navigation to chat pathname with params (jobId included)
     expect(mockPush).toHaveBeenCalledWith(expect.objectContaining({ pathname: '/chat/[jobId]' }));
+  });
+
+  it('handles approveQuote failure gracefully', async () => {
+    const expo = require('expo-router');
+    expo.useLocalSearchParams.mockReturnValue({ jobId: 'j1' });
+
+    mockJobModule.jobs = [{
+      id: 'j1',
+      category: 'Plumbing',
+      quote_total: 100,
+      quote_labour: 50,
+      quote_materials: 50,
+      deposit_amount: 10,
+      pricing_type: 'fixed',
+    }];
+
+    mockJobModule.approveQuote.mockResolvedValueOnce(false);
+
+    const { getByText } = render(<ApproveQuoteScreen />);
+
+    fireEvent.press(getByText('Approve Quote'));
+
+    await waitFor(() => {
+      expect(mockJobModule.approveQuote).toHaveBeenCalledWith('j1');
+      expect(getByText('An error occurred while processing your request. Please try again.')).toBeTruthy();
+    });
   });
 });
