@@ -31,16 +31,4 @@ jest.mock('react-native/Libraries/Components/ScrollView/ScrollView', () => {
 
 console.log('Jest setup file executed: ScrollView.Context mock applied.');
 
-jest.mock('react-native/Libraries/Utilities/PixelRatio', () => {
-  console.log('Explicitly mocking PixelRatio in Jest setup file');
-  return {
-    roundToNearestPixel: jest.fn((value) => {
-      console.log('PixelRatio.roundToNearestPixel called with:', value);
-      return value;
-    }),
-    get: jest.fn(() => {
-      console.log('PixelRatio.get called');
-      return 1;
-    }),
-  };
-});
+console.log('PixelRatio mock from jest-setup-minimal.js loaded:', require('react-native/Libraries/Utilities/PixelRatio'));

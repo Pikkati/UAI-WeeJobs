@@ -662,28 +662,15 @@ jest.mock('react-native/Libraries/Utilities/Dimensions', () => {
 });
 console.log('Completely mocked Dimensions module');
 
-jest.mock('react-native/Libraries/Utilities/PixelRatio', () => {
-  console.log('Forcing PixelRatio mock globally');
-  return {
-    roundToNearestPixel: jest.fn((value) => {
-      console.log('PixelRatio.roundToNearestPixel called with:', value);
-      return value;
-    }),
-    get: jest.fn(() => {
-      console.log('PixelRatio.get called');
-      return 1;
-    }),
-  };
-});
-console.log('Manually mocked PixelRatio in the Jest setup file');
+jest.mock('react-native/Libraries/Utilities/PixelRatio', () => require('../__mocks__/PixelRatio'));
+console.log('Explicitly mocked PixelRatio in jest-setup.js');
 
 jest.resetModules();
 console.log('Cleared Jest module cache for PixelRatio');
 
-// Mock `@expo/vector-icons`
-jest.mock('@expo/vector-icons', () => ({
-  MaterialIcons: jest.fn(() => null),
-}));
+// Debugging PixelRatio mock
+const PixelRatio = require('react-native/Libraries/Utilities/PixelRatio');
+console.log('PixelRatio mock loaded in jest-setup.js:', PixelRatio);
 
 // Add debugging logs to verify Jest setup execution
 console.log('Jest setup file executed');

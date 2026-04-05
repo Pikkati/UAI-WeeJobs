@@ -1,39 +1,33 @@
 const path = require('path');
 
+// Custom Jest Resolver
 module.exports = (request, options) => {
-  console.log('Custom Resolver Invoked:', request);
-
-  if (request.includes('AuthContext')) {
-    const resolvedPath = path.resolve(__dirname, 'context/AuthContext.tsx');
-    console.log('Resolved Path for AuthContext:', resolvedPath);
-    return resolvedPath;
-  }
-
-  if (request.includes('react-native/Libraries/Core/ReactNative')) {
-    const resolvedPath = path.resolve(__dirname, 'node_modules/react-native/Libraries/Core/ReactNative.js');
-    console.log('Resolved Path for ReactNative:', resolvedPath);
-    return resolvedPath;
-  }
-
-  if (request.includes('react-native/Libraries/BatchedBridge/NativeModules')) {
-    const resolvedPath = path.resolve(
+  // Mapping for specific module resolutions
+  const customResolutions = {
+    'AuthContext': path.resolve(__dirname, 'context/AuthContext.tsx'),
+    'react-native/Libraries/Core/ReactNative': path.resolve(
+      __dirname,
+      'node_modules/react-native/Libraries/Core/ReactNative.js'
+    ),
+    'react-native/Libraries/BatchedBridge/NativeModules': path.resolve(
       __dirname,
       'node_modules/react-native/Libraries/BatchedBridge/NativeModules.js'
-    );
-    console.log('Resolved Path for NativeModules:', resolvedPath);
-    return resolvedPath;
-  }
+    ),
+    'react-native/Libraries/Utilities/PixelRatio': path.resolve(
+      __dirname,
+      '__mocks__/PixelRatio.js'
+    ),
+  };
 
-  if (request.includes('react-native/Libraries/Utilities/PixelRatio')) {
-    const resolvedPath = path.resolve(__dirname, '__mocks__/PixelRatio.js');
-    console.log('Custom Resolver Debug: Resolving PixelRatio to mock:', resolvedPath);
-    console.log('Custom Resolver Debug: Request:', request);
-    console.log('Custom Resolver Debug: Options:', options);
-    return resolvedPath;
+  // Check if the request matches a custom resolution
+  for (const [key, resolvedPath] of Object.entries(customResolutions)) {
+    if (request.includes(key)) {
+      console.log('Custom Resolver Debug: Resolving', key, 'mock:', resolvedPath);
+      return resolvedPath;
+    }
   }
 
   // Fallback for unresolved modules
-  console.log('Fallback Resolver Invoked for:', request);
   try {
     return options.defaultResolver(request, options);
   } catch (error) {
