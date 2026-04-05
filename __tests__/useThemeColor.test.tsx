@@ -1,6 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
+import '../jest-setup';
+console.log('Explicitly required jest-setup.js in useThemeColor.test.tsx');
+
 import { useThemeColor } from '../hooks/useThemeColor';
 import { Colors as AppColors } from '../constants/Colors';
 import { Text } from 'react-native';

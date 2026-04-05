@@ -1,0 +1,124 @@
+Initialized native services in: C:\Users\Sosuk\.gradle\native
+Initialized jansi services in: C:\Users\Sosuk\.gradle\native
+Removing 0 daemon stop events from registry
+Previous Daemon (38388) stopped at Fri Apr 03 19:56:49 PDT 2026 stop command received
+Starting a Gradle Daemon, 1 stopped Daemon could not be reused, use --status for details
+Daemon JVM discovery is an incubating feature.
+Received JVM installation metadata from 'C:\Program Files\Microsoft\jdk-21.0.9.10-hotspot': {JAVA_HOME=C:\Program Files\Microsoft\jdk-21.0.9.10-hotspot, JAVA_VERSION=21.0.9, JAVA_VENDOR=Microsoft, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.9+10-LTS, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.9+10-LTS, VM_VENDOR=Microsoft, OS_ARCH=amd64}
+Starting process 'command 'C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe''. Working directory: C:\Users\Sosuk\.gradle\.tmp\tmp-jvm11152138594983372407probe Command: C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot\bin\java.exe''
+Received JVM installation metadata from 'C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot': {JAVA_HOME=C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot, JAVA_VERSION=17.0.18, JAVA_VENDOR=Eclipse Adoptium, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.18+8, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.18+8, VM_VENDOR=Eclipse Adoptium, OS_ARCH=amd64}
+Starting process 'command 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\bin\java.exe''. Working directory: C:\Users\Sosuk\.gradle\.tmp\tmp-jvm2425376617231879195probe Command: C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Starting process 'command 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108\bin\java.exe''. Working directory: C:\Users\Sosuk\.gradle\.tmp\tmp-jvm17255133081673695593probe Command: C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108': {JAVA_HOME=C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-171616599733230909146.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108, JAVA_VERSION=21.0.10, JAVA_VENDOR=JetBrains s.r.o., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.10+1-b1163.108, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.10+1-b1163.108, VM_VENDOR=JetBrains s.r.o., OS_ARCH=amd64}
+Provisioned JDK from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect' does not satisfy the specification {languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false} with metadata DefaultJvmInstallationMetadata{languageVersion=21, javaVersion='21.0.10', javaVendor='JetBrains s.r.o.', runtimeName='OpenJDK Runtime Environment', runtimeVersion='21.0.10+1-b1163.108', jvmName='OpenJDK 64-Bit Server VM', jvmVersion='21.0.10+1-b1163.108', jvmVendor='JetBrains s.r.o.', architecture='amd64'} and capabilities [JAVA_COMPILER, JAVADOC_TOOL, JAR_TOOL]
+Re-downloading toolchain from URI https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect because unpacking the existing archive jbrsdk_jcef-21-JetBrains-17.0.10-windows-x64-b1163.108.tar.gz failed with an exception
+org.gradle.api.GradleException: Toolchain provisioned from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect' doesn't satisfy the specification: {languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false} and must have the executable 'javac', the executable 'javadoc', and the executable 'jar'.
+	at org.gradle.jvm.toolchain.internal.install.DefaultJdkCacheDirectory.validateMetadataMatchesSpec(DefaultJdkCacheDirectory.java:259)
+	at org.gradle.jvm.toolchain.internal.install.DefaultJdkCacheDirectory.provisionFromArchive(DefaultJdkCacheDirectory.java:155)
+	at org.gradle.launcher.daemon.toolchain.DaemonJavaToolchainProvisioningService.tryInstall(DaemonJavaToolchainProvisioningService.java:90)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.downloadToolchain(JavaToolchainQueryService.java:229)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.lambda$query$2(JavaToolchainQueryService.java:199)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.query(JavaToolchainQueryService.java:199)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.lambda$resolveToolchain$1(JavaToolchainQueryService.java:166)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.resolveToolchain(JavaToolchainQueryService.java:164)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.lambda$findMatchingToolchain$0(JavaToolchainQueryService.java:142)
+	at org.gradle.api.internal.provider.DefaultProvider.calculateOwnValue(DefaultProvider.java:73)
+	at org.gradle.api.internal.provider.AbstractMinimalProvider.calculateOwnPresentValue(AbstractMinimalProvider.java:80)
+	at org.gradle.api.internal.provider.AbstractMinimalProvider.get(AbstractMinimalProvider.java:100)
+	at org.gradle.launcher.daemon.client.DefaultDaemonStarter.startDaemon(DefaultDaemonStarter.java:113)
+	at org.gradle.launcher.daemon.client.DefaultDaemonConnector.doStartDaemon(DefaultDaemonConnector.java:219)
+	at org.gradle.launcher.daemon.client.DefaultDaemonConnector.startDaemon(DefaultDaemonConnector.java:213)
+	at org.gradle.launcher.daemon.client.DaemonClient.execute(DaemonClient.java:169)
+	at org.gradle.launcher.daemon.client.DaemonClient.execute(DaemonClient.java:97)
+	at org.gradle.launcher.cli.RunBuildAction.run(RunBuildAction.java:56)
+	at org.gradle.internal.Actions$RunnableActionAdapter.execute(Actions.java:167)
+	at org.gradle.launcher.cli.DefaultCommandLineActionFactory$ParseAndBuildAction.execute(DefaultCommandLineActionFactory.java:377)
+	at org.gradle.launcher.cli.DefaultCommandLineActionFactory$ParseAndBuildAction.execute(DefaultCommandLineActionFactory.java:341)
+	at org.gradle.launcher.cli.DebugLoggerWarningAction.execute(DebugLoggerWarningAction.java:74)
+	at org.gradle.launcher.cli.DebugLoggerWarningAction.execute(DebugLoggerWarningAction.java:30)
+	at org.gradle.launcher.cli.WelcomeMessageAction.execute(WelcomeMessageAction.java:97)
+	at org.gradle.launcher.cli.WelcomeMessageAction.execute(WelcomeMessageAction.java:40)
+	at org.gradle.launcher.cli.NativeServicesInitializingAction.execute(NativeServicesInitializingAction.java:50)
+	at org.gradle.launcher.cli.NativeServicesInitializingAction.execute(NativeServicesInitializingAction.java:27)
+	at org.gradle.launcher.cli.ExceptionReportingAction.execute(ExceptionReportingAction.java:41)
+	at org.gradle.launcher.cli.ExceptionReportingAction.execute(ExceptionReportingAction.java:26)
+	at org.gradle.launcher.cli.DefaultCommandLineActionFactory$WithLogging.execute(DefaultCommandLineActionFactory.java:489)
+	at org.gradle.launcher.Main.doAction(Main.java:35)
+	at org.gradle.launcher.bootstrap.EntryPoint.run(EntryPoint.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.launcher.bootstrap.ProcessBootstrap.runNoExit(ProcessBootstrap.java:72)
+	at org.gradle.launcher.bootstrap.ProcessBootstrap.run(ProcessBootstrap.java:39)
+	at org.gradle.launcher.GradleMain.main(GradleMain.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.wrapper.GradleWrapperMain.main(SourceFile:70)
+Downloading https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect to C:\Users\Sosuk\.gradle\jdks\jbrsdk_jcef-21-JetBrains-17.0.10-windows-x64-b1163.108.tar.gz
+Starting process 'command 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\bin\java.exe''. Working directory: C:\Users\Sosuk\.gradle\.tmp\tmp-jvm15837169527972561422probe Command: C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Starting process 'command 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108\bin\java.exe''. Working directory: C:\Users\Sosuk\.gradle\.tmp\tmp-jvm10514412221510461551probe Command: C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108\bin\java.exe -Xmx32m -Xms32m -cp . JavaProbe
+Successfully started process 'command 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108\bin\java.exe''
+Received JVM installation metadata from 'C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108': {JAVA_HOME=C:\Users\Sosuk\.gradle\.tmp\jdks\jbrsdk_jcef-21-JetBrains-1715973657259818444343.tmp\jbrsdk_jcef-21.0.10-windows-x64-b1163.108, JAVA_VERSION=21.0.10, JAVA_VENDOR=JetBrains s.r.o., RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=21.0.10+1-b1163.108, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=21.0.10+1-b1163.108, VM_VENDOR=JetBrains s.r.o., OS_ARCH=amd64}
+Provisioned JDK from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect' does not satisfy the specification {languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false} with metadata DefaultJvmInstallationMetadata{languageVersion=21, javaVersion='21.0.10', javaVendor='JetBrains s.r.o.', runtimeName='OpenJDK Runtime Environment', runtimeVersion='21.0.10+1-b1163.108', jvmName='OpenJDK 64-Bit Server VM', jvmVersion='21.0.10+1-b1163.108', jvmVendor='JetBrains s.r.o.', architecture='amd64'} and capabilities [JAVA_COMPILER, JAVADOC_TOOL, JAR_TOOL]
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Unable to download toolchain matching the requirements ({languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false}) from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect', due to: Toolchain provisioned from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect' doesn't satisfy the specification: {languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false} and must have the executable 'javac', the executable 'javadoc', and the executable 'jar'.
+
+* Try:
+> Run with --debug option to get more log output.
+> Run with --scan to generate a Build Scan (Powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+* Exception is:
+org.gradle.jvm.toolchain.internal.install.exceptions.ToolchainDownloadException: Unable to download toolchain matching the requirements ({languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false}) from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect', due to: Toolchain provisioned from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect' doesn't satisfy the specification: {languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false} and must have the executable 'javac', the executable 'javadoc', and the executable 'jar'.
+	at org.gradle.launcher.daemon.toolchain.DaemonJavaToolchainProvisioningService.tryInstall(DaemonJavaToolchainProvisioningService.java:107)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.downloadToolchain(JavaToolchainQueryService.java:229)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.lambda$query$2(JavaToolchainQueryService.java:199)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.query(JavaToolchainQueryService.java:199)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.lambda$resolveToolchain$1(JavaToolchainQueryService.java:166)
+	at java.base/java.util.concurrent.ConcurrentHashMap.computeIfAbsent(ConcurrentHashMap.java:1708)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.resolveToolchain(JavaToolchainQueryService.java:164)
+	at org.gradle.jvm.toolchain.internal.JavaToolchainQueryService.lambda$findMatchingToolchain$0(JavaToolchainQueryService.java:142)
+	at org.gradle.api.internal.provider.DefaultProvider.calculateOwnValue(DefaultProvider.java:73)
+	at org.gradle.api.internal.provider.AbstractMinimalProvider.calculateOwnPresentValue(AbstractMinimalProvider.java:80)
+	at org.gradle.api.internal.provider.AbstractMinimalProvider.get(AbstractMinimalProvider.java:100)
+	at org.gradle.launcher.daemon.client.DefaultDaemonStarter.startDaemon(DefaultDaemonStarter.java:113)
+	at org.gradle.launcher.daemon.client.DefaultDaemonConnector.doStartDaemon(DefaultDaemonConnector.java:219)
+	at org.gradle.launcher.daemon.client.DefaultDaemonConnector.startDaemon(DefaultDaemonConnector.java:213)
+	at org.gradle.launcher.daemon.client.DaemonClient.execute(DaemonClient.java:169)
+	at org.gradle.launcher.daemon.client.DaemonClient.execute(DaemonClient.java:97)
+	at org.gradle.launcher.cli.RunBuildAction.run(RunBuildAction.java:56)
+	at org.gradle.internal.Actions$RunnableActionAdapter.execute(Actions.java:167)
+	at org.gradle.launcher.cli.DefaultCommandLineActionFactory$ParseAndBuildAction.execute(DefaultCommandLineActionFactory.java:377)
+	at org.gradle.launcher.cli.DefaultCommandLineActionFactory$ParseAndBuildAction.execute(DefaultCommandLineActionFactory.java:341)
+	at org.gradle.launcher.cli.DebugLoggerWarningAction.execute(DebugLoggerWarningAction.java:74)
+	at org.gradle.launcher.cli.DebugLoggerWarningAction.execute(DebugLoggerWarningAction.java:30)
+	at org.gradle.launcher.cli.WelcomeMessageAction.execute(WelcomeMessageAction.java:97)
+	at org.gradle.launcher.cli.WelcomeMessageAction.execute(WelcomeMessageAction.java:40)
+	at org.gradle.launcher.cli.NativeServicesInitializingAction.execute(NativeServicesInitializingAction.java:50)
+	at org.gradle.launcher.cli.NativeServicesInitializingAction.execute(NativeServicesInitializingAction.java:27)
+	at org.gradle.launcher.cli.ExceptionReportingAction.execute(ExceptionReportingAction.java:41)
+	at org.gradle.launcher.cli.ExceptionReportingAction.execute(ExceptionReportingAction.java:26)
+	at org.gradle.launcher.cli.DefaultCommandLineActionFactory$WithLogging.execute(DefaultCommandLineActionFactory.java:489)
+	at org.gradle.launcher.Main.doAction(Main.java:35)
+	at org.gradle.launcher.bootstrap.EntryPoint.run(EntryPoint.java:53)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.launcher.bootstrap.ProcessBootstrap.runNoExit(ProcessBootstrap.java:72)
+	at org.gradle.launcher.bootstrap.ProcessBootstrap.run(ProcessBootstrap.java:39)
+	at org.gradle.launcher.GradleMain.main(GradleMain.java:26)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.gradle.wrapper.GradleWrapperMain.main(SourceFile:70)
+Caused by: org.gradle.api.GradleException: Toolchain provisioned from 'https://api.foojay.io/disco/v3.0/ids/056dc25d3b9d168ede8b94d3d2f99942/redirect' doesn't satisfy the specification: {languageVersion=17, vendor=JetBrains, implementation=vendor-specific, nativeImageCapable=false} and must have the executable 'javac', the executable 'javadoc', and the executable 'jar'.
+	at org.gradle.jvm.toolchain.internal.install.DefaultJdkCacheDirectory.validateMetadataMatchesSpec(DefaultJdkCacheDirectory.java:259)
+	at org.gradle.jvm.toolchain.internal.install.DefaultJdkCacheDirectory.provisionFromArchive(DefaultJdkCacheDirectory.java:155)
+	at org.gradle.launcher.daemon.toolchain.DaemonJavaToolchainProvisioningService.tryInstall(DaemonJavaToolchainProvisioningService.java:95)
+	... 39 more
+

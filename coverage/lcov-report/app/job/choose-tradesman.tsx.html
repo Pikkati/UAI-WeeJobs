@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.45% </span>
+                <span class="strong">25.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/51</span>
+                <span class='fraction'>14/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.33% </span>
+                <span class="strong">5.4% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/30</span>
+                <span class='fraction'>2/37</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">26.41% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/49</span>
+                <span class='fraction'>14/53</span>
             </div>
         
             
@@ -426,7 +426,16 @@
 <a name='L361'></a><a href='#L361'>361</a>
 <a name='L362'></a><a href='#L362'>362</a>
 <a name='L363'></a><a href='#L363'>363</a>
-<a name='L364'></a><a href='#L364'>364</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -468,6 +477,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -607,6 +623,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -631,7 +649,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -817,7 +835,7 @@ function <span class="fstat-no" title="function not covered" >StarRating(</span>
   );
 }
 &nbsp;
-export default function ChooseTradesmanScreen() {
+export default function ChooseTradesmanScreen({ _testInterests }: { _testInterests?: JobInterest[] } = {}) {
   const { jobId } = useLocalSearchParams&lt;{ jobId: string }&gt;();
   const router = useRouter();
   const insets = useSafeAreaInsets();
@@ -831,12 +849,19 @@ export default function ChooseTradesmanScreen() {
   
 &nbsp;
   useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+    // Allow tests to inject interests synchronously to avoid async timing issues
+<span class="cstat-no" title="statement not covered" >    if (_testInterests) {</span>
+<span class="cstat-no" title="statement not covered" >      setInterests(Array.isArray(_testInterests) ? _testInterests : []);</span>
+<span class="cstat-no" title="statement not covered" >      setIsLoading(false);</span>
+<span class="cstat-no" title="statement not covered" >      return;</span>
+    }
+&nbsp;
     const loadInterests = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      setIsLoading(true);</span>
 <span class="cstat-no" title="statement not covered" >      setLoadError(false);</span>
 <span class="cstat-no" title="statement not covered" >      try {</span>
         const data = <span class="cstat-no" title="statement not covered" >await fetchInterests(jobId!);</span>
-<span class="cstat-no" title="statement not covered" >        setInterests(data);</span>
+<span class="cstat-no" title="statement not covered" >        setInterests(Array.isArray(data) ? data : []);</span>
       } catch (error) {
 <span class="cstat-no" title="statement not covered" >        console.error('Error fetching interests:', error);</span>
 <span class="cstat-no" title="statement not covered" >        setLoadError(true);</span>
@@ -846,7 +871,7 @@ export default function ChooseTradesmanScreen() {
     };
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    loadInterests();</span>
-  }, [jobId, fetchInterests]);
+  }, [jobId, fetchInterests, _testInterests]);
 &nbsp;
   const handleSelectTradesman = <span class="fstat-no" title="function not covered" >as</span>ync (tradieId: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >    setIsSelecting(tradieId);</span>
@@ -970,7 +995,9 @@ export default function ChooseTradesmanScreen() {
               &lt;TouchableOpacity
                 style={[styles.selectButton, isSelecting === tradie.id &amp;&amp; styles.selectButtonDisabled]}
                 onPress={<span class="fstat-no" title="function not covered" >(e</span>) =&gt; {
-<span class="cstat-no" title="statement not covered" >                  e.stopPropagation?.();</span>
+                  // FireEvent.press may call the handler with undefined event
+                  // so guard access to `stopPropagation` safely.
+<span class="cstat-no" title="statement not covered" >                  e?.stopPropagation?.();</span>
 <span class="cstat-no" title="statement not covered" >                  handleSelectTradesman(tradie.id);</span>
                 }}
                 disabled={isSelecting !== null}
@@ -1159,7 +1186,7 @@ const styles = StyleSheet.create({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-29T15:51:33.690Z
+                at 2026-04-04T23:57:49.043Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

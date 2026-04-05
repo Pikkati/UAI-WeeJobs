@@ -4,7 +4,13 @@ import { render, fireEvent, findByText, waitFor } from '@testing-library/react-n
 // Mocks
 jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
 jest.mock('expo-router', () => ({ useLocalSearchParams: jest.fn(), router: { replace: jest.fn(), back: jest.fn() } }), { virtual: true });
-jest.mock('../context/AuthContext', () => ({ useAuth: jest.fn() }), { virtual: true });
+jest.mock("../context/AuthContext", () => ({
+  useAuth: jest.fn(() => ({
+    user: { id: "test-user-id", name: "Test User" },
+    login: jest.fn(),
+    logout: jest.fn(),
+  })),
+}));
 
 afterEach(() => {
   jest.clearAllMocks();

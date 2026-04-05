@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/18</span>
+                <span class='fraction'>3/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/10</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">16.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>1/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.66% </span>
+                <span class="strong">20% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/15</span>
+                <span class='fraction'>3/15</span>
             </div>
         
             
@@ -153,25 +153,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,18 +238,18 @@ import { useAuth } from '../../context/AuthContext';
 export default function AdminLayout() {
   const { user, isLoading } = useAuth();
 &nbsp;
-  useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isLoading) <span class="cstat-no" title="statement not covered" >return;</span>
+  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >    if (isLoading) <span class="cstat-no" title="statement not covered" >return;</span></span>
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!user) {
+<span class="cstat-no" title="statement not covered" >    if (!user) {</span>
 <span class="cstat-no" title="statement not covered" >      router.replace('/onboarding/intro');</span>
 <span class="cstat-no" title="statement not covered" >      return;</span>
     }
 &nbsp;
     // Redirect non-admin users to their respective home
-    if (user.role !== 'admin') {
-      if (user.role === 'customer') router.replace('/customer');
-      else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="else path not taken" >E</span>if (user.role === 'tradesperson') <span class="cstat-no" title="statement not covered" >router.replace('/tradie/home');</span></span>
+<span class="cstat-no" title="statement not covered" >    if (user.role !== 'admin') {</span>
+<span class="cstat-no" title="statement not covered" >      if (user.role === 'customer') <span class="cstat-no" title="statement not covered" >router.replace('/customer');</span></span>
+      else <span class="cstat-no" title="statement not covered" >if (user.role === 'tradesperson') <span class="cstat-no" title="statement not covered" >router.replace('/tradie/home');</span></span>
       else <span class="cstat-no" title="statement not covered" >router.replace('/customer');</span>
     }
   }, [isLoading, user]);
@@ -319,7 +319,7 @@ export default function AdminLayout() {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-03-29T15:51:33.690Z
+                at 2026-04-04T23:57:49.043Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

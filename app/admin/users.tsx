@@ -1,3 +1,6 @@
+import { global } from "../../global";
+
+/// <reference path="../../global.d.ts" />
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { View, Text, StyleSheet, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity } from 'react-native';

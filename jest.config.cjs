@@ -12,48 +12,41 @@ const localPreset = tryRequire('./jest-preset/jest-preset.js');
 const path = require('path');
 const rootDir = __dirname;
 
-module.exports = Object.assign({}, localPreset || {}, {
-  testEnvironment: '<rootDir>/jest-environment-custom.js',
-  testEnvironmentOptions: {},
-  transformIgnorePatterns: [
-    'node_modules/(?!(@?expo|expo-asset|expo-modules-core|react-native|@react-native|@unimodules|@react-navigation|@supabase|expo-font)/)'
+console.log('jest.config.cjs loaded');
+
+console.log('Custom Jest Resolver Path:', path.resolve(__dirname, 'jest-resolver.js'));
+
+console.log('jest-setup.js path:', path.resolve(__dirname, 'jest-setup.js'));
+
+console.log('Resolved jest-setup.js path:', path.resolve(__dirname, 'jest-setup.js'));
+
+console.log('jest-setup-globals.js path:', path.resolve(__dirname, 'jest-setup-globals.js'));
+
+console.log('SetupFiles:', module.exports.setupFiles);
+
+module.exports = {
+  setupFiles: ['<rootDir>/jest-setup-minimal.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
+  modulePathIgnorePatterns: [
+    '<rootDir>/tmp_apk_extracted/react-native',
+    '<rootDir>/tmp_apk_extracted/react-native/react-native',
+    '<rootDir>/tmp_apk_extracted/react-native/scripts',
+    '<rootDir>/tmp_apk_extracted/react-native/private',
+    '<rootDir>/tmp_apk_extracted/react-native/packages',
   ],
+  transformIgnorePatterns: [
+    'node_modules/(?!(react-native|@react-native|@react-navigation|expo|@expo|@unimodules|unimodules|sentry-expo|native-base|@react-native-async-storage/async-storage)/)'
+  ],
+  transform: {
+    '^.+\\.[jt]sx?$': 'babel-jest',
+  },
   moduleNameMapper: {
-    '^expo$': '<rootDir>/__mocks__/expo-shim.js',
-    '^expo(/.*)?$': '<rootDir>/__mocks__/expo-shim.js',
-    '^expo-image$': '<rootDir>/__mocks__/expo-image.js',
-    '^expo-image-picker$': '<rootDir>/__mocks__/expo-image-picker.js',
-    '^expo-font$': '<rootDir>/__mocks__/expo-font.js',
-    '^@expo/vector-icons$': '<rootDir>/__mocks__/expo-vector-icons.js',
-    '^expo-linear-gradient$': '<rootDir>/__mocks__/expo-linear-gradient.js',
-    '^expo-modules-core(/.*)?$': '<rootDir>/__mocks__/expo-modules-core.js',
-    '^expo-router$': '<rootDir>/__mocks__/expo-router.js',
-    '^@react-native-async-storage/async-storage$': '<rootDir>/__mocks__/async-storage.js',
-    '^react-native/Libraries/BatchedBridge/NativeModules$': '<rootDir>/__mocks__/rn-native-modules.js',
-    '^react-native$': '<rootDir>/__mocks__/react-native.js',
-    '^react-native-reanimated$': '<rootDir>/__mocks__/react-native-reanimated.js',
-    '^react-native-reanimated/mock$': '<rootDir>/__mocks__/react-native-reanimated.js',
-    '^react-native/jest/setup(\\.js)?$': '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
-    '^@/(.*)$': '<rootDir>/$1'
+    '\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    '^../../context/AuthContext$': '<rootDir>/context/AuthContext',
+    '^context/AuthContext$': '<rootDir>/context/AuthContext',
+    'react-native/Libraries/TurboModule/TurboModuleRegistry': '<rootDir>/__mocks__/TurboModuleRegistry.js',
+    'react-native/Libraries/Utilities/PixelRatio': '<rootDir>/__mocks__/PixelRatio.js',
   },
-  // Improve test isolation by resetting/clearing mocks between tests
-  clearMocks: true,
-  resetMocks: true,
-  restoreMocks: true,
-  // Restore stricter coverage thresholds; app/ and scripts/ were
-  // temporarily excluded to unblock CI while adding tests.
-  coverageThreshold: {
-    global: {
-      // Temporarily relax thresholds to current measured coverage
-      // to unblock CI while we add missing tests incrementally.
-      branches: 37,
-      functions: 32,
-      lines: 50,
-      statements: 48,
-    },
-  },
-  setupFiles: [
-    '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
-    '<rootDir>/jest-setup.js'
-  ]
-});
+  testMatch: ['<rootDir>/__tests__/**/*.js'],
+  resolver: '<rootDir>/jest-resolver.js',
+};

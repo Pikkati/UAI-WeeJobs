@@ -8,4 +8,7 @@ module.exports = {
 		...(defaultConfig.transformer || {}),
 		unstable_allowRequireContext: true,
 	},
+	server: {
+		port: 8082,
+	},
 };

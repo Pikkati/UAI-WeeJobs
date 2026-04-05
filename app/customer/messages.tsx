@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import { supabase, Message, Job } from '../../lib/supabase';
+import { global } from "../../global";
 
 type Conversation = {
   job: Job;

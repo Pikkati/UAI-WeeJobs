@@ -17,6 +17,14 @@ type Stats = {
   tradies: number;
 };
 
+type Job = {
+  status: string;
+};
+
+type User = {
+  role: string;
+};
+
 export default function AdminDashboard() {
   const insets = useSafeAreaInsets();
   const [stats, setStats] = useState<Stats | null>(null);
@@ -45,8 +53,8 @@ export default function AdminDashboard() {
         throw usersRes.error;
       }
 
-      const jobs = jobsRes.data || [];
-      const users = usersRes.data || [];
+      const jobs: Job[] = jobsRes.data || [];
+      const users: User[] = usersRes.data || [];
 
       setStats({
         totalJobs: jobs.length,

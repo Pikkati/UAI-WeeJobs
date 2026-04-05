@@ -21,6 +21,8 @@ class CustomEnvironment extends JsdomEnvironment {
   async setup() {
     await super.setup();
     try {
+      this.global.testEnvironmentOptions = this.global.testEnvironmentOptions || {};
+      console.log('testEnvironmentOptions:', this.global.testEnvironmentOptions);
       if (typeof this.global.window === 'undefined') {
         Object.defineProperty(this.global, 'window', {
           value: this.global,
@@ -29,10 +31,8 @@ class CustomEnvironment extends JsdomEnvironment {
           enumerable: true,
         });
       } else {
-        // If window exists but is non-configurable, attempt to replace only when safe.
         const desc = Object.getOwnPropertyDescriptor(this.global, 'window');
         if (desc && !desc.configurable) {
-          // try to define a proxy reference property to avoid redefinition errors
           try {
             Object.defineProperty(this.global, '__window_proxy', {
               value: this.global.window,
@@ -41,12 +41,12 @@ class CustomEnvironment extends JsdomEnvironment {
               enumerable: false,
             });
           } catch {
-            // ignore: best-effort
+            // Ignore errors
           }
         }
       }
     } catch {
-      // ignore if cannot redefine
+      // Ignore setup errors
     }
   }
 }

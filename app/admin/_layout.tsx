@@ -46,7 +46,7 @@ export default function AdminLayout() {
         name="index"
         options={{
           title: 'Dashboard',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="grid" size={size} color={color} />
           ),
         }}
@@ -55,7 +55,7 @@ export default function AdminLayout() {
         name="jobs"
         options={{
           title: 'All Jobs',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="briefcase" size={size} color={color} />
           ),
         }}
@@ -64,7 +64,7 @@ export default function AdminLayout() {
         name="users"
         options={{
           title: 'Users',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="people" size={size} color={color} />
           ),
         }}
@@ -73,7 +73,7 @@ export default function AdminLayout() {
         name="settings"
         options={{
           title: 'Settings',
-          tabBarIcon: ({ color, size }) => (
+          tabBarIcon: ({ color, size }: { color: string; size: number }) => (
             <Ionicons name="settings" size={size} color={color} />
           ),
         }}

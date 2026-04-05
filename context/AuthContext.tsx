@@ -4,6 +4,7 @@ import { supabase, User } from '../lib/supabase';
 import { TEST_USERS } from '../constants/data';
 import { parseServerError } from '../lib/error';
 import * as analytics from '../lib/analytics';
+import { global } from "global";
 
 type AuthContextType = {
   user: User | null;

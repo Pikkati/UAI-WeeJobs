@@ -1,0 +1,15 @@
+// Init script to intercept and neutralize the Foojay toolchain resolver plugin
+// This attempts to replace the plugin with a harmless module during plugin
+// resolution so the plugin's provisioning logic is not applied at settings time.
+settingsEvaluated { settings ->
+  if (settings.pluginManagement != null) {
+    settings.pluginManagement.resolutionStrategy {
+      eachPlugin { details ->
+        if (details.requested.id.id == 'org.gradle.toolchains.foojay-resolver-convention') {
+          // Replace with a dummy module that won't apply provisioning logic
+          details.useModule('org.gradle:empty-module:0.0')
+        }
+      }
+    }
+  }
+}

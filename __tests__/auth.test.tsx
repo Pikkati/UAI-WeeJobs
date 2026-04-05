@@ -30,6 +30,14 @@ jest.mock('../context/AuthContext', () => {
   };
 });
 
+jest.mock("../context/AuthContext", () => ({
+  useAuth: jest.fn(() => ({
+    user: { id: "test-user-id", name: "Test User" },
+    login: jest.fn(),
+    logout: jest.fn(),
+  })),
+}));
+
 function TestConsumer({ onDone }: { onDone: (res: any) => void }) {
   const { user, login } = useAuth();
 

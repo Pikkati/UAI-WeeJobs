@@ -7,6 +7,7 @@
     "optimize:assets": "node scripts/optimize-assets.js",
     "smoke": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js '.*smoke.*' --runInBand -i",
     "test:ci": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js --coverage --runInBand -i",
+    "test": "jest",
     "type": "tsc --noEmit",
     "lint": "eslint . --cache",
     "test:q": "node --max-old-space-size=4096 node_modules/jest/bin/jest.js -i"
@@ -22,10 +23,13 @@
     "expo-image-picker": "^55.0.15-canary-20260327-0789fbc",
     "expo-router": "^55.0.9-canary-20260327-0789fbc",
     "expo-splash-screen": "^55.0.14-canary-20260327-0789fbc",
+    "global": "^4.4.0",
     "pg": "^8.11.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-native": "^0.84.1",
+    "react-native-reanimated": "^4.3.0",
+    "react-native-safe-area-context": "^5.7.0",
     "react-native-web": "^0.21.2",
     "react-native-worklets": "^0.8.1",
     "stripe": "^21.0.1"
@@ -35,21 +39,22 @@
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
-    "@react-native-community/cli": "^20.1.3",
-    "@react-native/metro-config": "^0.84.1",
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.14",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
+    "babel-plugin-module-resolver": "^5.0.3",
     "babel-preset-expo": "^55.0.13",
     "eslint": "^8.0.0",
     "eslint-config-expo": "~55.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^7.0.1",
+    "hermes-eslint": "^0.34.0",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "30.3.0",
@@ -59,7 +64,8 @@
     "semantic-release": "^25.0.3",
     "sharp": "^0.32.1",
     "svgo": "^3.1.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "wait-for-expect": "^4.0.0"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx,jsx}": [
