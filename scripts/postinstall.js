@@ -2,6 +2,97 @@
 const fs = require('fs');
 const path = require('path');
 
+function replaceExactlyOnce(content, from, to) {
+  if (content.includes(to)) {
+    return content;
+  }
+
+  const occurrences = content.split(from).length - 1;
+  if (occurrences !== 1) {
+    throw new Error(`Expected to find snippet exactly once, found ${occurrences}`);
+  }
+
+  return content.replace(from, to);
+}
+
+function replaceAllOccurrences(content, from, to) {
+  if (!content.includes(from)) {
+    return content;
+  }
+
+  return content.split(from).join(to);
+}
+
+function patchReactNativeGradlePlugin() {
+  const target = path.join(
+    __dirname,
+    '..',
+    'node_modules',
+    '@react-native',
+    'gradle-plugin',
+    'settings-plugin',
+    'src',
+    'main',
+    'kotlin',
+    'com',
+    'facebook',
+    'react',
+    'ReactSettingsExtension.kt',
+  );
+
+  if (!fs.existsSync(target)) {
+    console.log('[postinstall] Skipped RN Gradle plugin patch, file not found:', target);
+    return;
+  }
+
+  let content = fs.readFileSync(target, 'utf8');
+
+  content = replaceExactlyOnce(
+    content,
+    "import org.gradle.api.file.FileCollection\n",
+    '',
+  );
+
+  content = replaceExactlyOnce(
+    content,
+    `  private val outputFile =\n      settings.layout.rootDirectory.file("build/generated/autolinking/autolinking.json").asFile\n  private val outputFolder =\n      settings.layout.rootDirectory.file("build/generated/autolinking/").asFile\n`,
+    `  private val outputFile =\n      File(settings.rootDir, "build/generated/autolinking/autolinking.json")\n  private val outputFolder =\n      File(settings.rootDir, "build/generated/autolinking/")\n`,
+  );
+
+  content = replaceExactlyOnce(
+    content,
+    `      workingDirectory: File? = settings.layout.rootDirectory.dir("../").asFile,\n      lockFiles: FileCollection =\n          settings.layout.rootDirectory\n              .dir("../")\n              .files("yarn.lock", "package-lock.json", "package.json", "react-native.config.js"),\n`,
+    `      workingDirectory: File? = File(settings.rootDir, "../"),\n      lockFiles: Collection<File> =\n        listOf(\n          File(settings.rootDir, "../yarn.lock"),\n          File(settings.rootDir, "../package-lock.json"),\n          File(settings.rootDir, "../package.json"),\n          File(settings.rootDir, "../react-native.config.js"),\n        ),\n`,
+  );
+
+  content = replaceAllOccurrences(
+    content,
+    '     * @param lockFiles The [FileCollection] of the lockfiles to check.\n',
+    '     * @param lockFiles The collection of lockfiles to check.\n',
+  );
+
+  content = replaceAllOccurrences(
+    content,
+    '    * @param lockFiles The [FileCollection] of the lockfiles to check.\n',
+    '    * @param lockFiles The collection of lockfiles to check.\n',
+  );
+
+  content = replaceAllOccurrences(
+    content,
+    '        lockFiles: FileCollection,\n',
+    '      lockFiles: Collection<File>,\n',
+  );
+
+  content = replaceExactlyOnce(
+    content,
+    '    internal fun checkAndUpdateLockfiles(lockFiles: FileCollection, outputFolder: File): Boolean {\n',
+    '      internal fun checkAndUpdateLockfiles(lockFiles: Collection<File>, outputFolder: File): Boolean {\n',
+  );
+
+  fs.writeFileSync(target, content, 'utf8');
+  console.log('[postinstall] Patched', target);
+}
+
 try {
   const target = path.join(
     __dirname,
@@ -22,9 +113,10 @@ try {
   fs.mkdirSync(path.dirname(target), { recursive: true });
   fs.writeFileSync(target, content, 'utf8');
   console.log('[postinstall] Wrote', target);
+  patchReactNativeGradlePlugin();
 } catch (err) {
   console.error(
-    '[postinstall] failed to write react-native/jest setup redirect:',
+    '[postinstall] failed during postinstall patching:',
     err && err.message,
   );
   process.exitCode = 0;

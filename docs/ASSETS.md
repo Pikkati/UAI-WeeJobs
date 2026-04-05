@@ -43,6 +43,24 @@ Run image minification (example):
 node scripts/optimize-assets.js
 ```
 
+Run the asset usage audit against source routes/components and compare results to `assets/manifest.json`:
+
+```bash
+npm run assets:audit
+```
+
+Validate required manifest metadata and on-disk file references:
+
+```bash
+npm run assets:validate
+```
+
+Regenerate the SVG sprite from `assets/icons/*.svg`:
+
+```bash
+npm run assets:icon-sprite
+```
+
 ## Handoff checklist
 
 - Attach source file and exported assets.

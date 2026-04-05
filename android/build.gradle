@@ -22,6 +22,13 @@ allprojects {
   }
 }
 
+// Add Kotlin version compatibility flag
+allprojects {
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions.freeCompilerArgs += "-Xskip-metadata-version-check"
+    }
+}
+
 // Workaround: allow Kotlin to skip metadata-version checks so modules
 // compiled with a newer Kotlin metadata version don't fail the build.
 subprojects {
@@ -42,4 +49,12 @@ task installDebugAndRun {
     println "Installed debug APK to connected device(s)."
     println "Start the app with: adb shell am start -n com.weejobs.app/.MainActivity"
   }
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { details ->
+        if (details.requested.group == 'org.jetbrains.kotlin') {
+            details.useVersion '1.8.0' // Replace with the required version
+        }
+    }
 }

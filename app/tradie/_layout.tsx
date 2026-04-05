@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/theme';
 import TopBar from '../../components/TopBar';
+import Icon from '../../components/icons/Icon';
 
 function FindJobsFAB({ onPress }: { onPress?: () => void }) {
   return (
@@ -12,7 +13,7 @@ function FindJobsFAB({ onPress }: { onPress?: () => void }) {
       activeOpacity={0.8}
     >
       <View style={fabStyles.circle}>
-        <Ionicons name="search" size={26} color={Colors.white} />
+        <Icon name="search" size={26} color={Colors.white} />
       </View>
       <Text style={fabStyles.label}>FIND JOBS</Text>
     </TouchableOpacity>
@@ -77,7 +78,7 @@ export default function TradieLayout() {
           options={{
             title: 'Home',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" size={size} color={color} />
+              <Icon name="home" size={size} color={color} />
             ),
           }}
         />
@@ -86,7 +87,7 @@ export default function TradieLayout() {
           options={{
             title: 'My Jobs',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="briefcase" size={size} color={color} />
+              <Icon name="briefcase" size={size} color={color} />
             ),
           }}
         />
@@ -104,7 +105,7 @@ export default function TradieLayout() {
           options={{
             title: 'Messages',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="chatbubbles" size={size} color={color} />
+              <Icon name="chatbubbles" size={size} color={color} />
             ),
           }}
         />

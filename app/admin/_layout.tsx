@@ -3,6 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/theme';
 import { useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import Icon from '../../components/icons/Icon';
 
 export default function AdminLayout() {
   const { user, isLoading } = useAuth();
@@ -56,7 +57,7 @@ export default function AdminLayout() {
         options={{
           title: 'All Jobs',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="briefcase" size={size} color={color} />
+            <Icon name="briefcase" size={size} color={color} />
           ),
         }}
       />
@@ -74,7 +75,7 @@ export default function AdminLayout() {
         options={{
           title: 'Settings',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
+            <Icon name="settings" size={size} color={color} />
           ),
         }}
       />

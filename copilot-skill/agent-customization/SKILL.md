@@ -1,13 +1,15 @@
-# Agent Customization Notes
+# Legacy Skill Notes
 
-Purpose: record the repository branch policy and instructions for automation agents.
+This folder is a legacy notes location.
 
-- Default working branch: `UAI-Development` — all active development, audits, and upgrades must target this branch.
-- `main` is reserved for stable releases only. Do NOT merge experimental or upgrade branches directly into `main`.
-- If you are an automation agent or CI workflow: when creating long-running upgrade changes, create a dedicated branch under `audit/` or `UAI-Development`, run tests, and open a PR against `UAI-Development`.
+The canonical GitHub Copilot customization files for this repository are now:
 
-If a mistaken merge to `main` occurs:
+- `.github/copilot-instructions.md` — workspace-wide rules
+- `.github/skills/weejobs-workflow/SKILL.md` — repo workflow skill
 
-1. Create a backup branch from the current `main` (example: `backup/main-post-merge`).
-2. Reset `main` to the intended stable commit and force-push (only with repo admin approval).
-3. Continue development on `UAI-Development` and open PRs as needed.
+Key repo rules remain the same:
+
+- Default working branch: `UAI-Development`
+- Stable release branch: `main`
+- Graphics and asset work should follow the docs in `docs/`
+- Repo-wide validation should use the existing `npm run` scripts before proposing merges

@@ -14,6 +14,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../constants/theme';
 import { useTheme } from '../context/ThemeContext';
 import { useAuth } from '../context/AuthContext';
+import Icon from '../components/icons/Icon';
 
 export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
@@ -44,7 +45,7 @@ export default function SettingsScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <Ionicons name="arrow-back" size={24} color={Colors.white} />
+          <Icon name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
         <View style={{ width: 40 }} />
@@ -76,7 +77,7 @@ export default function SettingsScreen() {
             <View style={styles.divider} />
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
-                <Ionicons
+                <Icon
                   name="briefcase-outline"
                   size={20}
                   color={Colors.textSecondary}
@@ -93,7 +94,7 @@ export default function SettingsScreen() {
             <View style={styles.divider} />
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
-                <Ionicons
+                <Icon
                   name="chatbubbles-outline"
                   size={20}
                   color={Colors.textSecondary}
@@ -146,6 +147,31 @@ export default function SettingsScreen() {
             </View>
           </View>
         </View>
+
+        {__DEV__ ? (
+          <View style={styles.section}>
+            <Text style={styles.sectionLabel}>Developer</Text>
+            <TouchableOpacity onPress={() => router.push('/dev/graphics-preview')}>
+              <View style={styles.card}>
+                <View style={styles.settingRow}>
+                  <View style={styles.settingInfo}>
+                    <Ionicons
+                      name="images-outline"
+                      size={20}
+                      color={Colors.accent}
+                    />
+                    <Text style={styles.settingLabel}>Graphics Preview</Text>
+                  </View>
+                  <Ionicons
+                    name="chevron-forward"
+                    size={18}
+                    color={Colors.textSecondary}
+                  />
+                </View>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : null}
 
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>Account</Text>

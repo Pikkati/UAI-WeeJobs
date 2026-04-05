@@ -41,3 +41,7 @@ app-example
 coverage/
 # auto-optimizer backups
 assets/**/optimized-backup/
+
+# temporary extracted Android build outputs
+tmp_apk_extracted/**/.cxx/
+tmp_apk_extracted/**/build/

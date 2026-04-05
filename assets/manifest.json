@@ -1,16 +1,439 @@
 {
-  "version": 1,
+  "version": 2,
+  "updatedAt": "2026-04-05",
+  "namingConvention": {
+    "case": "lowercase-kebab-case",
+    "formatPolicy": [
+      "svg for vector logos/icons when available",
+      "png/webp for shipped raster UI assets",
+      "directional variants should use .rtl naming"
+    ]
+  },
+  "coverage": {
+    "status": "partial",
+    "shippedCount": 16,
+    "missingCount": 5,
+    "notes": [
+      "Manifest now covers current shipped visual assets in source control.",
+      "The dedicated WeeJobs SVG logo family and illustration suite are still missing.",
+      "A starter WeeJobs-owned SVG icon pack now exists, but runtime UI still leans on Ionicons while migration is in progress."
+    ]
+  },
   "assets": [
     {
-      "id": "logo-primary",
+      "id": "brand-logo-primary-png",
       "type": "logo",
-      "path": "assets/logos/logo-primary.svg",
-      "variants": [
-        "assets/logos/logo-primary.png",
-        "assets/logos/logo-primary@2x.png"
+      "path": "assets/images/weejobs-logo.png",
+      "fileName": "weejobs-logo.png",
+      "status": "shipped",
+      "usage": [
+        "splash",
+        "onboarding",
+        "customer-home",
+        "tradie-home",
+        "admin-home",
+        "pricing"
       ],
       "alt": "WeeJobs logo",
-      "usage": "app-header, marketing"
+      "accessibilityLabel": "WeeJobs logo",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Primary brand asset currently shipped as PNG only.",
+        "Needs vector source and dedicated logo-family exports."
+      ]
+    },
+    {
+      "id": "hero-handyman-primary",
+      "type": "hero",
+      "path": "assets/images/hero-handyman.png",
+      "fileName": "hero-handyman.png",
+      "status": "shipped",
+      "usage": [
+        "splash-background",
+        "onboarding-intro"
+      ],
+      "alt": "Handyman hero image",
+      "accessibilityLabel": "Handyman hero image",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Only hero/illustration-style image currently used in app routes.",
+        "Needs responsive/export variants and metadata for focal point handling."
+      ]
+    },
+    {
+      "id": "app-icon-primary",
+      "type": "app-icon",
+      "path": "assets/images/icon.png",
+      "fileName": "icon.png",
+      "status": "shipped",
+      "usage": [
+        "expo-app-icon",
+        "mobile-shell"
+      ],
+      "alt": "WeeJobs application icon",
+      "accessibilityLabel": "WeeJobs application icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Should eventually be backed by a documented 1024x1024 source asset bundle."
+      ]
+    },
+    {
+      "id": "android-adaptive-icon-foreground",
+      "type": "app-icon",
+      "path": "assets/images/adaptive-icon.png",
+      "fileName": "adaptive-icon.png",
+      "status": "shipped",
+      "usage": [
+        "android-adaptive-icon"
+      ],
+      "alt": "WeeJobs Android adaptive icon foreground",
+      "accessibilityLabel": "WeeJobs Android adaptive icon foreground",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Needs documented background/foreground source linkage for design handoff."
+      ]
+    },
+    {
+      "id": "web-favicon-primary",
+      "type": "favicon",
+      "path": "assets/images/favicon.png",
+      "fileName": "favicon.png",
+      "status": "shipped",
+      "usage": [
+        "web-favicon"
+      ],
+      "alt": "WeeJobs web favicon",
+      "accessibilityLabel": "WeeJobs web favicon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Dedicated favicon bundle and SVG export are still missing."
+      ]
+    },
+    {
+      "id": "splash-icon-primary",
+      "type": "splash",
+      "path": "assets/images/splash-icon.png",
+      "fileName": "splash-icon.png",
+      "status": "shipped",
+      "usage": [
+        "expo-splash-screen"
+      ],
+      "alt": "WeeJobs splash icon",
+      "accessibilityLabel": "WeeJobs splash icon",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Should be linked to the same brand-source package as app icon exports."
+      ]
+    },
+    {
+      "id": "icon-placeholder-svg",
+      "type": "icon",
+      "path": "assets/icons/placeholder.svg",
+      "fileName": "placeholder.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-pipeline-placeholder"
+      ],
+      "alt": "Placeholder icon asset",
+      "accessibilityLabel": "Placeholder icon asset",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Placeholder only; not a production-ready WeeJobs icon set."
+      ]
+    },
+    {
+      "id": "icon-search-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-search.svg",
+      "fileName": "icon-search.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "search-actions"
+      ],
+      "alt": "Search icon",
+      "accessibilityLabel": "Search icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Starter WeeJobs-owned icon set asset."
+      ]
+    },
+    {
+      "id": "icon-home-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-home.svg",
+      "fileName": "icon-home.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "navigation"
+      ],
+      "alt": "Home icon",
+      "accessibilityLabel": "Home icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Starter WeeJobs-owned icon set asset."
+      ]
+    },
+    {
+      "id": "icon-briefcase-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-briefcase.svg",
+      "fileName": "icon-briefcase.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "jobs-navigation"
+      ],
+      "alt": "Briefcase icon",
+      "accessibilityLabel": "Briefcase icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Starter WeeJobs-owned icon set asset."
+      ]
+    },
+    {
+      "id": "icon-chat-bubbles-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-chat-bubbles.svg",
+      "fileName": "icon-chat-bubbles.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "messages-navigation"
+      ],
+      "alt": "Chat bubbles icon",
+      "accessibilityLabel": "Chat bubbles icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Starter WeeJobs-owned icon set asset."
+      ]
+    },
+    {
+      "id": "icon-user-circle-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-user-circle.svg",
+      "fileName": "icon-user-circle.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "profile-surfaces"
+      ],
+      "alt": "User profile icon",
+      "accessibilityLabel": "User profile icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Starter WeeJobs-owned icon set asset."
+      ]
+    },
+    {
+      "id": "icon-settings-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-settings.svg",
+      "fileName": "icon-settings.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "settings-surfaces"
+      ],
+      "alt": "Settings icon",
+      "accessibilityLabel": "Settings icon",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Starter WeeJobs-owned icon set asset."
+      ]
+    },
+    {
+      "id": "icon-arrow-back-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-arrow-back.svg",
+      "fileName": "icon-arrow-back.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "directional-navigation"
+      ],
+      "alt": "Back arrow icon",
+      "accessibilityLabel": "Back arrow icon",
+      "themeSupport": "both",
+      "rtlSupport": "mirrored-required",
+      "sourceReference": null,
+      "notes": [
+        "Starter directional icon with an explicit RTL variant."
+      ]
+    },
+    {
+      "id": "icon-arrow-back-rtl-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-arrow-back.rtl.svg",
+      "fileName": "icon-arrow-back.rtl.svg",
+      "status": "shipped",
+      "usage": [
+        "icon-system",
+        "directional-navigation",
+        "rtl-variant"
+      ],
+      "alt": "Back arrow icon RTL variant",
+      "accessibilityLabel": "Back arrow icon RTL variant",
+      "themeSupport": "both",
+      "rtlSupport": "supported",
+      "sourceReference": null,
+      "notes": [
+        "Mirrored directional variant for RTL layouts."
+      ]
+    },
+    {
+      "id": "icon-sprite-generated",
+      "type": "icon",
+      "path": "assets/sprite/sprite.svg",
+      "fileName": "sprite.svg",
+      "status": "shipped",
+      "usage": [
+        "generated-icon-sprite"
+      ],
+      "alt": "Generated icon sprite",
+      "accessibilityLabel": "Generated icon sprite",
+      "themeSupport": "both",
+      "rtlSupport": "supported",
+      "sourceReference": null,
+      "notes": [
+        "Sprite exists, but the underlying repo-owned icon library is not standardized yet."
+      ]
+    },
+    {
+      "id": "legacy-react-logo-primary",
+      "type": "illustration",
+      "path": "assets/images/react-logo.png",
+      "fileName": "react-logo.png",
+      "status": "legacy",
+      "usage": [
+        "legacy-scaffold"
+      ],
+      "alt": "Legacy React logo asset",
+      "accessibilityLabel": "Legacy React logo asset",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Scaffold-era asset; retain until formally removed or replaced."
+      ]
+    },
+    {
+      "id": "legacy-react-logo-2x",
+      "type": "illustration",
+      "path": "assets/images/react-logo@2x.png",
+      "fileName": "react-logo@2x.png",
+      "status": "legacy",
+      "usage": [
+        "legacy-scaffold"
+      ],
+      "alt": "Legacy React logo asset at 2x scale",
+      "accessibilityLabel": "Legacy React logo asset at 2x scale",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Scaffold-era raster scale variant; keep only until the legacy starter assets are retired."
+      ]
+    },
+    {
+      "id": "legacy-react-logo-3x",
+      "type": "illustration",
+      "path": "assets/images/react-logo@3x.png",
+      "fileName": "react-logo@3x.png",
+      "status": "legacy",
+      "usage": [
+        "legacy-scaffold"
+      ],
+      "alt": "Legacy React logo asset at 3x scale",
+      "accessibilityLabel": "Legacy React logo asset at 3x scale",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Scaffold-era raster scale variant; keep only until the legacy starter assets are retired."
+      ]
+    },
+    {
+      "id": "legacy-react-logo-partial",
+      "type": "illustration",
+      "path": "assets/images/partial-react-logo.png",
+      "fileName": "partial-react-logo.png",
+      "status": "legacy",
+      "usage": [
+        "legacy-scaffold"
+      ],
+      "alt": "Legacy partial React logo asset",
+      "accessibilityLabel": "Legacy partial React logo asset",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": null,
+      "notes": [
+        "Not part of the intended WeeJobs design system."
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "id": "logo-family-svg-exports",
+      "type": "logo",
+      "recommendedPath": "assets/logos/logo-primary.svg",
+      "reason": "The shipped PNG logo lacks a full vector family with stacked, mark-only, and monochrome variants.",
+      "priority": "high"
+    },
+    {
+      "id": "weejobs-owned-icon-set",
+      "type": "icon",
+      "recommendedPath": "assets/icons/icon-search.svg",
+      "reason": "A starter icon pack now exists, but the app still depends on Ionicons instead of using the repo-owned WeeJobs icon system end to end.",
+      "priority": "high"
+    },
+    {
+      "id": "empty-state-illustrations",
+      "type": "illustration",
+      "recommendedPath": "assets/images/empty-state-no-jobs.png",
+      "reason": "The app has no dedicated empty-state or status illustration set yet.",
+      "priority": "high"
+    },
+    {
+      "id": "favicon-export-bundle",
+      "type": "favicon",
+      "recommendedPath": "assets/favicons/favicon.svg",
+      "reason": "Only a single PNG favicon is tracked; the full browser/PWA set is missing.",
+      "priority": "medium"
+    },
+    {
+      "id": "lottie-and-fallbacks",
+      "type": "illustration",
+      "recommendedPath": "assets/lottie/",
+      "reason": "No motion assets or fallback PNGs are currently registered, which blocks richer preview coverage.",
+      "priority": "medium"
     }
   ]
 }

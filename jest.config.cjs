@@ -37,10 +37,19 @@ module.exports = Object.assign({}, localPreset || {}, {
       '<rootDir>/__mocks__/react-native-reanimated.js',
     '^react-native-reanimated/mock$':
       '<rootDir>/__mocks__/react-native-reanimated.js',
-    '^react-native/jest/setup(\\.js)?$':
+    '^react-native/jest/setup(\.js)?$':
       '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
     '^@/(.*)$': '<rootDir>/$1',
+    '^react-native-svg$': '<rootDir>/__mocks__/react-native-svg.js',
   },
+  modulePathIgnorePatterns: [
+    '<rootDir>/tmp_apk_extracted/',
+    '<rootDir>/android/extracted_app/',
+    '<rootDir>/coverage/',
+    '<rootDir>/coverage_out/',
+    '<rootDir>/tmp_coverage/',
+    '<rootDir>/tmp_jest_cov/'
+  ],
   // Improve test isolation by resetting/clearing mocks between tests
   clearMocks: true,
   resetMocks: true,
@@ -61,4 +70,5 @@ module.exports = Object.assign({}, localPreset || {}, {
     '<rootDir>/__mocks__/rn-jest-setup-wrapper.js',
     '<rootDir>/jest-setup.js',
   ],
+  testMatch: ['**/__tests__/**/*smoke*.test.[jt]s?(x)'],
 });

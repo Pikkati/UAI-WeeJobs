@@ -3,6 +3,7 @@ import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors } from '../../constants/theme';
 import TopBar from '../../components/TopBar';
+import Icon from '../../components/icons/Icon';
 
 function PostJobFAB({ onPress }: { onPress?: () => void }) {
   return (
@@ -76,7 +77,7 @@ export default function CustomerLayout() {
           options={{
             title: 'Home',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" size={size} color={color} />
+              <Icon name="home" size={size} color={color} />
             ),
           }}
         />
@@ -85,7 +86,7 @@ export default function CustomerLayout() {
           options={{
             title: 'My Jobs',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="briefcase" size={size} color={color} />
+              <Icon name="briefcase" size={size} color={color} />
             ),
           }}
         />
@@ -103,7 +104,7 @@ export default function CustomerLayout() {
           options={{
             title: 'Messages',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="chatbubbles" size={size} color={color} />
+              <Icon name="chatbubbles" size={size} color={color} />
             ),
           }}
         />

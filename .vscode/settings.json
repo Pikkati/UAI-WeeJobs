@@ -1,4 +1,26 @@
 {
   "weejobs.branchNote": "UAI-Development is the working branch. Do not merge directly into main.",
-  "git.defaultBranch": "UAI-Development"
+  "git.defaultBranch": "UAI-Development",
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": true
+  },
+  "search.exclude": {
+    "**/tmp_apk_extracted/**": true,
+    "**/android/extracted_app/**": true,
+    "**/coverage/**": true,
+    "**/coverage_out/**": true,
+    "**/tmp_coverage/**": true,
+    "**/tmp_jest_cov/**": true
+  },
+  "files.watcherExclude": {
+    "**/tmp_apk_extracted/**": true,
+    "**/android/extracted_app/**": true,
+    "**/coverage/**": true,
+    "**/coverage_out/**": true,
+    "**/tmp_coverage/**": true,
+    "**/tmp_jest_cov/**": true
+  }
 }

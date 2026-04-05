@@ -4,6 +4,7 @@ import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
+import Icon from '../../components/icons/Icon';
 
 export default function RoleSelectScreen() {
   return (
@@ -12,7 +13,7 @@ export default function RoleSelectScreen() {
         style={styles.backButton}
         onPress={() => router.push('/onboarding/intro')}
       >
-        <Ionicons name="arrow-back" size={24} color={Colors.white} />
+        <Icon name="arrow-back" size={24} color={Colors.white} />
       </TouchableOpacity>
 
       <Image
@@ -32,7 +33,7 @@ export default function RoleSelectScreen() {
           onPress={() => router.push('/onboarding/login?role=customer')}
         >
           <View style={styles.roleIcon}>
-            <Ionicons name="home-outline" size={32} color={Colors.accent} />
+            <Icon name="home-outline" size={32} color={Colors.accent} />
           </View>
           <View style={styles.roleText}>
             <Text style={styles.roleTitle}>I Need a Job Done</Text>

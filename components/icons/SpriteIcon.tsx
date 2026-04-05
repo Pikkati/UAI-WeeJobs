@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Icon } from './Icon';
 
 type SpriteIconProps = {
   id: string; // icon name without prefix, e.g. 'search-outline'
@@ -14,12 +14,15 @@ type SpriteIconProps = {
 export function SpriteIcon({
   id,
   size = 24,
+  color = '#000',
   accessibilityLabel,
 }: SpriteIconProps) {
   return (
-    <View
+    <Icon
+      name={id}
+      size={size}
+      color={color}
       accessibilityLabel={accessibilityLabel || `sprite-icon-${id}`}
-      style={{ width: size, height: size }}
     />
   );
 }

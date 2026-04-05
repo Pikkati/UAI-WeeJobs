@@ -23,6 +23,7 @@ function checkDir(dir) {
   for (const file of files) {
     const ext = path.extname(file);
     const base = path.basename(file, ext);
+    if (/\.rtl$/i.test(base)) continue;
     if (!isDirectional(base)) continue;
     // check for rtl variant
     const rtlName = `${base}.rtl${ext}`;
