@@ -61,6 +61,12 @@ Regenerate the SVG sprite from `assets/icons/*.svg`:
 npm run assets:icon-sprite
 ```
 
+Generate the curated external-partner editable graphics package:
+
+```bash
+npm run assets:partner-package
+```
+
 ## Handoff checklist
 
 - Attach source file and exported assets.

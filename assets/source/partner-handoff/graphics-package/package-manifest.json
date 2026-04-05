@@ -1,0 +1,153 @@
+{
+  "version": 1,
+  "generatedAt": "2026-04-05T21:32:15.559Z",
+  "packageName": "weejobs-external-partner-graphics-package",
+  "packageRoot": "assets/source/partner-handoff/graphics-package",
+  "editableAssetCount": 21,
+  "referenceAssetCount": 7,
+  "docsIncluded": [
+    "docs/GRAPHICS_REQUIREMENTS.md",
+    "docs/ASSETS.md",
+    "docs/ASSETS_GUIDELINES.md",
+    "docs/FIGMA_SYNC_WORKFLOW.md",
+    "docs/GRAPHICS_PREVIEW_SURFACE.md",
+    "docs/EXTERNAL_PARTNER_GRAPHICS_HANDOFF.md"
+  ],
+  "editableAssets": [
+    {
+      "id": "brand-logo-primary-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-primary.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-primary-svg"
+    },
+    {
+      "id": "brand-logo-stacked-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-stacked.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-stacked-svg"
+    },
+    {
+      "id": "brand-logo-mark-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-mark.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-mark-svg"
+    },
+    {
+      "id": "brand-logo-primary-white-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-primary-white.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-primary-white-svg"
+    },
+    {
+      "id": "favicon-primary-svg",
+      "type": "favicon",
+      "path": "assets/favicons/favicon.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#favicon-primary-svg"
+    },
+    {
+      "id": "icon-placeholder-svg",
+      "type": "icon",
+      "path": "assets/icons/placeholder.svg",
+      "sourceReference": null
+    },
+    {
+      "id": "icon-search-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-search.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-search-starter"
+    },
+    {
+      "id": "icon-home-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-home.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-home-starter"
+    },
+    {
+      "id": "icon-briefcase-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-briefcase.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-briefcase-starter"
+    },
+    {
+      "id": "icon-chat-bubbles-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-chat-bubbles.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-chat-bubbles-starter"
+    },
+    {
+      "id": "icon-user-circle-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-user-circle.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-user-circle-starter"
+    },
+    {
+      "id": "icon-settings-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-settings.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-settings-starter"
+    },
+    {
+      "id": "icon-arrow-back-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-arrow-back.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-arrow-back-starter"
+    },
+    {
+      "id": "icon-arrow-back-rtl-starter",
+      "type": "icon",
+      "path": "assets/icons/icon-arrow-back.rtl.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-arrow-back-starter"
+    },
+    {
+      "id": "icon-sprite-generated",
+      "type": "icon",
+      "path": "assets/sprite/sprite.svg",
+      "sourceReference": null
+    },
+    {
+      "id": "illustration-empty-state-no-jobs",
+      "type": "illustration",
+      "path": "assets/images/img-empty-state-no-jobs.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-empty-state-no-jobs"
+    },
+    {
+      "id": "illustration-empty-state-no-messages",
+      "type": "illustration",
+      "path": "assets/images/img-empty-state-no-messages.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-empty-state-no-messages"
+    },
+    {
+      "id": "illustration-avatar-placeholder",
+      "type": "illustration",
+      "path": "assets/images/img-avatar-placeholder.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-avatar-placeholder"
+    },
+    {
+      "id": "illustration-badge-verified-pro",
+      "type": "illustration",
+      "path": "assets/images/img-badge-verified-pro.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-badge-verified-pro"
+    },
+    {
+      "id": "lottie-empty-state-pulse-source",
+      "type": "illustration",
+      "path": "assets/lottie/lottie-empty-state-pulse.json",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#lottie-empty-state-pulse-source"
+    },
+    {
+      "id": "lottie-empty-state-pulse-fallback",
+      "type": "illustration",
+      "path": "assets/lottie/fallbacks/lottie-empty-state-pulse.svg",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#lottie-empty-state-pulse-source"
+    }
+  ],
+  "sourceMap": {
+    "file": "assets/source/figma-exports/weejobs-starter-source-map.json",
+    "entries": 18
+  },
+  "partnerNotes": [
+    "SVG and Lottie JSON files are the primary editable sources in this package.",
+    "PNG assets included here are reference outputs for context, not the preferred editable source.",
+    "If a live Figma file is introduced later, map it in the included source-map file and sourceReference fields."
+  ]
+}

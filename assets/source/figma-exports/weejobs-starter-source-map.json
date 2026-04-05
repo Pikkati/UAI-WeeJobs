@@ -1,0 +1,250 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-05",
+  "file": "weejobs-starter-external-handoff",
+  "notes": [
+    "This source map is repo-first and partner-editable even before live Figma IDs are attached.",
+    "SVG and Lottie JSON files listed here are the current editable source assets for external partners."
+  ],
+  "entries": [
+    {
+      "assetId": "brand-logo-primary-png",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "logo-primary",
+      "editablePath": "assets/logos/logo-primary.svg",
+      "exportedPaths": [
+        "assets/images/weejobs-logo.png",
+        "assets/logos/logo-primary.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/logos/logo-primary.svg",
+      "notes": "PNG app logo currently maps back to the editable vector starter file."
+    },
+    {
+      "assetId": "brand-logo-primary-svg",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "logo-primary",
+      "editablePath": "assets/logos/logo-primary.svg",
+      "exportedPaths": [
+        "assets/logos/logo-primary.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/logos/logo-primary.svg",
+      "notes": "Primary partner-editable horizontal lockup."
+    },
+    {
+      "assetId": "brand-logo-stacked-svg",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "logo-stacked",
+      "editablePath": "assets/logos/logo-stacked.svg",
+      "exportedPaths": [
+        "assets/logos/logo-stacked.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/logos/logo-stacked.svg",
+      "notes": "Stacked lockup scaffold."
+    },
+    {
+      "assetId": "brand-logo-mark-svg",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "logo-mark",
+      "editablePath": "assets/logos/logo-mark.svg",
+      "exportedPaths": [
+        "assets/logos/logo-mark.svg",
+        "assets/favicons/favicon.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/logos/logo-mark.svg",
+      "notes": "Base mark currently reused for favicon scaffolding."
+    },
+    {
+      "assetId": "brand-logo-primary-white-svg",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "logo-primary-white",
+      "editablePath": "assets/logos/logo-primary-white.svg",
+      "exportedPaths": [
+        "assets/logos/logo-primary-white.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/logos/logo-primary-white.svg",
+      "notes": "Light-surface wordmark variant."
+    },
+    {
+      "assetId": "favicon-primary-svg",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "favicon-primary",
+      "editablePath": "assets/favicons/favicon.svg",
+      "exportedPaths": [
+        "assets/favicons/favicon.svg",
+        "assets/images/favicon.png"
+      ],
+      "partnerPackagePath": "graphics-package/assets/favicons/favicon.svg",
+      "notes": "Starter favicon family source."
+    },
+    {
+      "assetId": "icon-search-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-search",
+      "editablePath": "assets/icons/icon-search.svg",
+      "exportedPaths": [
+        "assets/icons/icon-search.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-search.svg",
+      "notes": "Starter icon family entry."
+    },
+    {
+      "assetId": "icon-home-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-home",
+      "editablePath": "assets/icons/icon-home.svg",
+      "exportedPaths": [
+        "assets/icons/icon-home.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-home.svg",
+      "notes": "Starter icon family entry."
+    },
+    {
+      "assetId": "icon-briefcase-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-briefcase",
+      "editablePath": "assets/icons/icon-briefcase.svg",
+      "exportedPaths": [
+        "assets/icons/icon-briefcase.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-briefcase.svg",
+      "notes": "Starter icon family entry."
+    },
+    {
+      "assetId": "icon-chat-bubbles-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-chat-bubbles",
+      "editablePath": "assets/icons/icon-chat-bubbles.svg",
+      "exportedPaths": [
+        "assets/icons/icon-chat-bubbles.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-chat-bubbles.svg",
+      "notes": "Starter icon family entry."
+    },
+    {
+      "assetId": "icon-user-circle-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-user-circle",
+      "editablePath": "assets/icons/icon-user-circle.svg",
+      "exportedPaths": [
+        "assets/icons/icon-user-circle.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-user-circle.svg",
+      "notes": "Starter icon family entry."
+    },
+    {
+      "assetId": "icon-settings-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-settings",
+      "editablePath": "assets/icons/icon-settings.svg",
+      "exportedPaths": [
+        "assets/icons/icon-settings.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-settings.svg",
+      "notes": "Starter icon family entry."
+    },
+    {
+      "assetId": "icon-arrow-back-starter",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "icon-arrow-back",
+      "editablePath": "assets/icons/icon-arrow-back.svg",
+      "exportedPaths": [
+        "assets/icons/icon-arrow-back.svg",
+        "assets/icons/icon-arrow-back.rtl.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/icons/icon-arrow-back.svg",
+      "notes": "Directional source with RTL counterpart."
+    },
+    {
+      "assetId": "illustration-empty-state-no-jobs",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "img-empty-state-no-jobs",
+      "editablePath": "assets/images/img-empty-state-no-jobs.svg",
+      "exportedPaths": [
+        "assets/images/img-empty-state-no-jobs.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/images/img-empty-state-no-jobs.svg",
+      "notes": "Starter empty-state family entry."
+    },
+    {
+      "assetId": "illustration-empty-state-no-messages",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "img-empty-state-no-messages",
+      "editablePath": "assets/images/img-empty-state-no-messages.svg",
+      "exportedPaths": [
+        "assets/images/img-empty-state-no-messages.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/images/img-empty-state-no-messages.svg",
+      "notes": "Starter empty-state family entry."
+    },
+    {
+      "assetId": "illustration-avatar-placeholder",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "img-avatar-placeholder",
+      "editablePath": "assets/images/img-avatar-placeholder.svg",
+      "exportedPaths": [
+        "assets/images/img-avatar-placeholder.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/images/img-avatar-placeholder.svg",
+      "notes": "Starter avatar family entry."
+    },
+    {
+      "assetId": "illustration-badge-verified-pro",
+      "sourceType": "repo-svg",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "img-badge-verified-pro",
+      "editablePath": "assets/images/img-badge-verified-pro.svg",
+      "exportedPaths": [
+        "assets/images/img-badge-verified-pro.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/images/img-badge-verified-pro.svg",
+      "notes": "Starter badge family entry."
+    },
+    {
+      "assetId": "lottie-empty-state-pulse-source",
+      "sourceType": "repo-json",
+      "figmaFileKey": null,
+      "figmaNodeId": null,
+      "frameName": "lottie-empty-state-pulse",
+      "editablePath": "assets/lottie/lottie-empty-state-pulse.json",
+      "exportedPaths": [
+        "assets/lottie/lottie-empty-state-pulse.json",
+        "assets/lottie/fallbacks/lottie-empty-state-pulse.svg"
+      ],
+      "partnerPackagePath": "graphics-package/assets/lottie/lottie-empty-state-pulse.json",
+      "notes": "Starter motion source scaffold with fallback."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "updatedAt": "2026-04-05",
+  "file": "replace-with-figma-file-name",
+  "entries": [
+    {
+      "assetId": "brand-logo-primary-png",
+      "figmaFileKey": "replace-me",
+      "figmaNodeId": "replace-me",
+      "frameName": "replace-me",
+      "exportedPaths": [
+        "assets/images/weejobs-logo.png"
+      ],
+      "notes": "replace-me"
+    }
+  ]
+}

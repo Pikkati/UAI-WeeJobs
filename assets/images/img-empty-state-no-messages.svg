@@ -1,0 +1,8 @@
+<svg width="240" height="180" viewBox="0 0 240 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="240" height="180" rx="28" fill="#0F172A"/>
+  <circle cx="120" cy="72" r="42" fill="#111827" stroke="#334155" stroke-width="2"/>
+  <path d="M92 92H89C84.58 92 81 88.42 81 84V58C81 53.58 84.58 50 89 50H126C130.42 50 134 53.58 134 58V84C134 88.42 130.42 92 126 92H112L100 102V92Z" stroke="#60A5FA" stroke-width="3" stroke-linejoin="round"/>
+  <path d="M134 64H149C153.42 64 157 67.58 157 72V89C157 93.42 153.42 97 149 97H140L130 105V97" stroke="#60A5FA" stroke-width="3" stroke-linejoin="round"/>
+  <text x="120" y="132" fill="white" font-size="16" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="700">No messages yet</text>
+  <text x="120" y="150" fill="#94A3B8" font-size="11" text-anchor="middle" font-family="Arial, Helvetica, sans-serif">Conversations will appear here once a job starts</text>
+</svg>

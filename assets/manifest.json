@@ -11,11 +11,11 @@
   },
   "coverage": {
     "status": "partial",
-    "shippedCount": 16,
-    "missingCount": 5,
+    "shippedCount": 26,
+    "missingCount": 2,
     "notes": [
       "Manifest now covers current shipped visual assets in source control.",
-      "The dedicated WeeJobs SVG logo family and illustration suite are still missing.",
+      "Starter logo, illustration, favicon, and lottie fallback families now exist in source control and are registered for review.",
       "A starter WeeJobs-owned SVG icon pack now exists, but runtime UI still leans on Ionicons while migration is in progress."
     ]
   },
@@ -38,10 +38,87 @@
       "accessibilityLabel": "WeeJobs logo",
       "themeSupport": "dark",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-primary-png",
       "notes": [
         "Primary brand asset currently shipped as PNG only.",
         "Needs vector source and dedicated logo-family exports."
+      ]
+    },
+    {
+      "id": "brand-logo-primary-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-primary.svg",
+      "fileName": "logo-primary.svg",
+      "status": "shipped",
+      "usage": [
+        "brand-system",
+        "graphics-playground"
+      ],
+      "alt": "WeeJobs primary vector logo",
+      "accessibilityLabel": "WeeJobs primary vector logo",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-primary-svg",
+      "notes": [
+        "Starter vector wordmark for the logo family scaffold."
+      ]
+    },
+    {
+      "id": "brand-logo-stacked-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-stacked.svg",
+      "fileName": "logo-stacked.svg",
+      "status": "shipped",
+      "usage": [
+        "brand-system",
+        "graphics-playground"
+      ],
+      "alt": "WeeJobs stacked vector logo",
+      "accessibilityLabel": "WeeJobs stacked vector logo",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-stacked-svg",
+      "notes": [
+        "Starter stacked lockup for the logo family scaffold."
+      ]
+    },
+    {
+      "id": "brand-logo-mark-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-mark.svg",
+      "fileName": "logo-mark.svg",
+      "status": "shipped",
+      "usage": [
+        "brand-system",
+        "favicon-source",
+        "graphics-playground"
+      ],
+      "alt": "WeeJobs logo mark",
+      "accessibilityLabel": "WeeJobs logo mark",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-mark-svg",
+      "notes": [
+        "Starter mark/icon for the logo family scaffold."
+      ]
+    },
+    {
+      "id": "brand-logo-primary-white-svg",
+      "type": "logo",
+      "path": "assets/logos/logo-primary-white.svg",
+      "fileName": "logo-primary-white.svg",
+      "status": "shipped",
+      "usage": [
+        "brand-system",
+        "light-background-preview"
+      ],
+      "alt": "WeeJobs primary light-background logo variant",
+      "accessibilityLabel": "WeeJobs primary light-background logo variant",
+      "themeSupport": "light",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#brand-logo-primary-white-svg",
+      "notes": [
+        "Starter light-surface logo variant for the family scaffold."
       ]
     },
     {
@@ -114,9 +191,28 @@
       "accessibilityLabel": "WeeJobs web favicon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#favicon-primary-svg",
       "notes": [
         "Dedicated favicon bundle and SVG export are still missing."
+      ]
+    },
+    {
+      "id": "favicon-primary-svg",
+      "type": "favicon",
+      "path": "assets/favicons/favicon.svg",
+      "fileName": "favicon.svg",
+      "status": "shipped",
+      "usage": [
+        "favicon-family",
+        "graphics-playground"
+      ],
+      "alt": "WeeJobs favicon SVG",
+      "accessibilityLabel": "WeeJobs favicon SVG",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#favicon-primary-svg",
+      "notes": [
+        "Starter vector favicon for the dedicated favicon family."
       ]
     },
     {
@@ -169,7 +265,7 @@
       "accessibilityLabel": "Search icon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-search-starter",
       "notes": [
         "Starter WeeJobs-owned icon set asset."
       ]
@@ -188,7 +284,7 @@
       "accessibilityLabel": "Home icon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-home-starter",
       "notes": [
         "Starter WeeJobs-owned icon set asset."
       ]
@@ -207,7 +303,7 @@
       "accessibilityLabel": "Briefcase icon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-briefcase-starter",
       "notes": [
         "Starter WeeJobs-owned icon set asset."
       ]
@@ -226,7 +322,7 @@
       "accessibilityLabel": "Chat bubbles icon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-chat-bubbles-starter",
       "notes": [
         "Starter WeeJobs-owned icon set asset."
       ]
@@ -245,7 +341,7 @@
       "accessibilityLabel": "User profile icon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-user-circle-starter",
       "notes": [
         "Starter WeeJobs-owned icon set asset."
       ]
@@ -264,7 +360,7 @@
       "accessibilityLabel": "Settings icon",
       "themeSupport": "both",
       "rtlSupport": "not-applicable",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-settings-starter",
       "notes": [
         "Starter WeeJobs-owned icon set asset."
       ]
@@ -283,7 +379,7 @@
       "accessibilityLabel": "Back arrow icon",
       "themeSupport": "both",
       "rtlSupport": "mirrored-required",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-arrow-back-starter",
       "notes": [
         "Starter directional icon with an explicit RTL variant."
       ]
@@ -303,7 +399,7 @@
       "accessibilityLabel": "Back arrow icon RTL variant",
       "themeSupport": "both",
       "rtlSupport": "supported",
-      "sourceReference": null,
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#icon-arrow-back-starter",
       "notes": [
         "Mirrored directional variant for RTL layouts."
       ]
@@ -324,6 +420,121 @@
       "sourceReference": null,
       "notes": [
         "Sprite exists, but the underlying repo-owned icon library is not standardized yet."
+      ]
+    },
+    {
+      "id": "illustration-empty-state-no-jobs",
+      "type": "illustration",
+      "path": "assets/images/img-empty-state-no-jobs.svg",
+      "fileName": "img-empty-state-no-jobs.svg",
+      "status": "shipped",
+      "usage": [
+        "empty-state-family",
+        "graphics-playground"
+      ],
+      "alt": "Empty state illustration for no jobs",
+      "accessibilityLabel": "Empty state illustration for no jobs",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-empty-state-no-jobs",
+      "notes": [
+        "Starter empty-state illustration scaffold."
+      ]
+    },
+    {
+      "id": "illustration-empty-state-no-messages",
+      "type": "illustration",
+      "path": "assets/images/img-empty-state-no-messages.svg",
+      "fileName": "img-empty-state-no-messages.svg",
+      "status": "shipped",
+      "usage": [
+        "empty-state-family",
+        "graphics-playground"
+      ],
+      "alt": "Empty state illustration for no messages",
+      "accessibilityLabel": "Empty state illustration for no messages",
+      "themeSupport": "dark",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-empty-state-no-messages",
+      "notes": [
+        "Starter empty-state illustration scaffold."
+      ]
+    },
+    {
+      "id": "illustration-avatar-placeholder",
+      "type": "illustration",
+      "path": "assets/images/img-avatar-placeholder.svg",
+      "fileName": "img-avatar-placeholder.svg",
+      "status": "shipped",
+      "usage": [
+        "avatar-family",
+        "graphics-playground"
+      ],
+      "alt": "Avatar placeholder illustration",
+      "accessibilityLabel": "Avatar placeholder illustration",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-avatar-placeholder",
+      "notes": [
+        "Starter avatar placeholder scaffold."
+      ]
+    },
+    {
+      "id": "illustration-badge-verified-pro",
+      "type": "illustration",
+      "path": "assets/images/img-badge-verified-pro.svg",
+      "fileName": "img-badge-verified-pro.svg",
+      "status": "shipped",
+      "usage": [
+        "badge-family",
+        "graphics-playground"
+      ],
+      "alt": "Verified pro badge illustration",
+      "accessibilityLabel": "Verified pro badge illustration",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#illustration-badge-verified-pro",
+      "notes": [
+        "Starter badge scaffold."
+      ]
+    },
+    {
+      "id": "lottie-empty-state-pulse-source",
+      "type": "illustration",
+      "path": "assets/lottie/lottie-empty-state-pulse.json",
+      "fileName": "lottie-empty-state-pulse.json",
+      "status": "shipped",
+      "usage": [
+        "lottie-family",
+        "graphics-playground"
+      ],
+      "alt": "Lottie source for empty state pulse",
+      "accessibilityLabel": "Lottie source for empty state pulse",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#lottie-empty-state-pulse-source",
+      "notes": [
+        "Starter Lottie source scaffold for future motion previews."
+      ]
+    },
+    {
+      "id": "lottie-empty-state-pulse-fallback",
+      "type": "illustration",
+      "path": "assets/lottie/fallbacks/lottie-empty-state-pulse.svg",
+      "fileName": "lottie-empty-state-pulse.svg",
+      "status": "shipped",
+      "usage": [
+        "lottie-family",
+        "fallback-family",
+        "graphics-playground"
+      ],
+      "alt": "Fallback image for empty state pulse animation",
+      "accessibilityLabel": "Fallback image for empty state pulse animation",
+      "themeSupport": "both",
+      "rtlSupport": "not-applicable",
+      "sourceReference": "assets/source/figma-exports/weejobs-starter-source-map.json#lottie-empty-state-pulse-source",
+      "notes": [
+        "Starter motion fallback scaffold."
       ]
     },
     {
@@ -404,7 +615,7 @@
       "id": "logo-family-svg-exports",
       "type": "logo",
       "recommendedPath": "assets/logos/logo-primary.svg",
-      "reason": "The shipped PNG logo lacks a full vector family with stacked, mark-only, and monochrome variants.",
+      "reason": "A starter vector logo family now exists, but it still needs real design-source linkage and final production exports.",
       "priority": "high"
     },
     {
@@ -418,21 +629,7 @@
       "id": "empty-state-illustrations",
       "type": "illustration",
       "recommendedPath": "assets/images/empty-state-no-jobs.png",
-      "reason": "The app has no dedicated empty-state or status illustration set yet.",
-      "priority": "high"
-    },
-    {
-      "id": "favicon-export-bundle",
-      "type": "favicon",
-      "recommendedPath": "assets/favicons/favicon.svg",
-      "reason": "Only a single PNG favicon is tracked; the full browser/PWA set is missing.",
-      "priority": "medium"
-    },
-    {
-      "id": "lottie-and-fallbacks",
-      "type": "illustration",
-      "recommendedPath": "assets/lottie/",
-      "reason": "No motion assets or fallback PNGs are currently registered, which blocks richer preview coverage.",
+      "reason": "Starter empty-state illustrations now exist, but the family still needs production coverage across more app scenarios.",
       "priority": "medium"
     }
   ]
