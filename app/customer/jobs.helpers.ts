@@ -36,14 +36,23 @@ export const STATUS_LABELS: Partial<Record<JobStatus, string>> = {
 };
 
 export function canEditOrDelete(status: JobStatus): boolean {
-  return status === 'open' || status === 'pending_customer_choice' || status === 'awaiting_customer_choice';
+  return (
+    status === 'open' ||
+    status === 'pending_customer_choice' ||
+    status === 'awaiting_customer_choice'
+  );
 }
 
-export function getActionText(job: Job, interestCounts: Record<string, number> = {}): string | null {
+export function getActionText(
+  job: Job,
+  interestCounts: Record<string, number> = {},
+): string | null {
   switch (job.status) {
     case 'open':
     case 'pending_customer_choice':
-      return (interestCounts[job.id] || 0) > 0 ? 'Tap to view interested tradespeople' : null;
+      return (interestCounts[job.id] || 0) > 0
+        ? 'Tap to view interested tradespeople'
+        : null;
     case 'awaiting_customer_choice':
       return 'Tap to choose your tradesperson';
     case 'awaiting_quote_approval':

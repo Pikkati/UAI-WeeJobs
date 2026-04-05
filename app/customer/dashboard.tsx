@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -6,9 +12,17 @@ import { useAuth } from '../../context/AuthContext';
 import { useJobs } from '../../context/JobsContext';
 
 const ACTIVE_STATUSES = [
-  'open', 'pending_customer_choice', 'awaiting_customer_choice', 'booked',
-  'estimate_acknowledged', 'on_the_way', 'in_progress', 'awaiting_quote_approval',
-  'awaiting_invoice_payment', 'awaiting_final_payment', 'awaiting_confirmation',
+  'open',
+  'pending_customer_choice',
+  'awaiting_customer_choice',
+  'booked',
+  'estimate_acknowledged',
+  'on_the_way',
+  'in_progress',
+  'awaiting_quote_approval',
+  'awaiting_invoice_payment',
+  'awaiting_final_payment',
+  'awaiting_confirmation',
 ];
 
 const STATUS_LABELS: Record<string, string> = {
@@ -26,17 +40,23 @@ export default function CustomerDashboardScreen() {
   const { user } = useAuth();
   const { jobs } = useJobs();
 
-  const myJobs = jobs.filter(j => j.customer_id === user?.id);
-  const activeJobs = myJobs.filter(j => ACTIVE_STATUSES.includes(j.status));
-  const completedJobs = myJobs.filter(j => j.status === 'completed');
+  const myJobs = jobs.filter((j) => j.customer_id === user?.id);
+  const activeJobs = myJobs.filter((j) => ACTIVE_STATUSES.includes(j.status));
+  const completedJobs = myJobs.filter((j) => j.status === 'completed');
   const totalSpent = completedJobs.reduce(
     (sum, j) => sum + (j.deposit_amount || 0) + (j.final_payment_amount || 0),
-    0
+    0,
   );
 
   const getStatusColor = (status: string) => {
     if (['on_the_way', 'in_progress'].includes(status)) return Colors.success;
-    if (['awaiting_quote_approval', 'awaiting_invoice_payment', 'awaiting_final_payment'].includes(status))
+    if (
+      [
+        'awaiting_quote_approval',
+        'awaiting_invoice_payment',
+        'awaiting_final_payment',
+      ].includes(status)
+    )
       return Colors.warning;
     return Colors.accent;
   };
@@ -65,27 +85,51 @@ export default function CustomerDashboardScreen() {
       {activeJobs.length > 0 && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Active Jobs</Text>
-          {activeJobs.slice(0, 4).map(job => (
+          {activeJobs.slice(0, 4).map((job) => (
             <TouchableOpacity
               key={job.id}
               style={styles.jobCard}
-              onPress={() => router.push({ pathname: '/job/tracking', params: { jobId: job.id } })}
+              onPress={() =>
+                router.push({
+                  pathname: '/job/tracking',
+                  params: { jobId: job.id },
+                })
+              }
             >
               <View style={styles.jobInfo}>
                 <Text style={styles.jobCategory}>{job.category}</Text>
                 <Text style={styles.jobArea}>{job.area}</Text>
               </View>
-              <View style={[styles.badge, { backgroundColor: getStatusColor(job.status) + '22' }]}>
-                <Text style={[styles.badgeText, { color: getStatusColor(job.status) }]}>
+              <View
+                style={[
+                  styles.badge,
+                  { backgroundColor: getStatusColor(job.status) + '22' },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.badgeText,
+                    { color: getStatusColor(job.status) },
+                  ]}
+                >
                   {STATUS_LABELS[job.status] || job.status}
                 </Text>
               </View>
             </TouchableOpacity>
           ))}
           {activeJobs.length > 4 && (
-            <TouchableOpacity style={styles.viewAllRow} onPress={() => router.push('/customer/jobs')}>
-              <Text style={styles.viewAllText}>View all {activeJobs.length} active jobs</Text>
-              <Ionicons name="chevron-forward" size={16} color={Colors.accent} />
+            <TouchableOpacity
+              style={styles.viewAllRow}
+              onPress={() => router.push('/customer/jobs')}
+            >
+              <Text style={styles.viewAllText}>
+                View all {activeJobs.length} active jobs
+              </Text>
+              <Ionicons
+                name="chevron-forward"
+                size={16}
+                color={Colors.accent}
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -96,18 +140,27 @@ export default function CustomerDashboardScreen() {
         <Text style={styles.sectionTitle}>Payment History</Text>
         {completedJobs.length === 0 ? (
           <View style={styles.emptyCard}>
-            <Ionicons name="receipt-outline" size={32} color={Colors.textSecondary} />
+            <Ionicons
+              name="receipt-outline"
+              size={32}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.emptyTitle}>No completed jobs yet</Text>
-            <Text style={styles.emptySubtitle}>Your payment history will appear here</Text>
+            <Text style={styles.emptySubtitle}>
+              Your payment history will appear here
+            </Text>
           </View>
         ) : (
-          completedJobs.map(job => {
-            const paid = (job.deposit_amount || 0) + (job.final_payment_amount || 0);
+          completedJobs.map((job) => {
+            const paid =
+              (job.deposit_amount || 0) + (job.final_payment_amount || 0);
             return (
               <View key={job.id} style={styles.paymentCard}>
                 <View style={styles.jobInfo}>
                   <Text style={styles.jobCategory}>{job.category}</Text>
-                  <Text style={styles.jobArea}>{job.area} · #{job.id.slice(0, 8).toUpperCase()}</Text>
+                  <Text style={styles.jobArea}>
+                    {job.area} · #{job.id.slice(0, 8).toUpperCase()}
+                  </Text>
                 </View>
                 <Text style={styles.paidAmount}>£{paid.toFixed(2)}</Text>
               </View>
@@ -119,11 +172,17 @@ export default function CustomerDashboardScreen() {
       {/* Quick actions */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <TouchableOpacity style={styles.primaryBtn} onPress={() => router.push('/customer/post-job')}>
+        <TouchableOpacity
+          style={styles.primaryBtn}
+          onPress={() => router.push('/customer/post-job')}
+        >
           <Ionicons name="add-circle" size={20} color={Colors.background} />
           <Text style={styles.primaryBtnText}>Post a New Job</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.secondaryBtn} onPress={() => router.push('/customer/jobs')}>
+        <TouchableOpacity
+          style={styles.secondaryBtn}
+          onPress={() => router.push('/customer/jobs')}
+        >
           <Ionicons name="briefcase-outline" size={20} color={Colors.accent} />
           <Text style={styles.secondaryBtnText}>View All My Jobs</Text>
         </TouchableOpacity>

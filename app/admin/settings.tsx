@@ -44,9 +44,14 @@ export default function AdminSettingsScreen() {
         <Text style={styles.sectionTitle}>Admin Options</Text>
 
         <View style={styles.infoCard}>
-          <Ionicons name="construct-outline" size={24} color={Colors.textSecondary} />
+          <Ionicons
+            name="construct-outline"
+            size={24}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.infoText}>
-            Advanced admin features like user management, job moderation, and analytics will be available in future updates.
+            Advanced admin features like user management, job moderation, and
+            analytics will be available in future updates.
           </Text>
         </View>
       </View>

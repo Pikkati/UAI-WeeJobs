@@ -9,7 +9,11 @@ import { JobsProvider, useJobs } from '../context/JobsContext';
 (global as any).__TEST_USE_AUTH__ = () => ({ user: { id: 'u1' } });
 
 // Ensure AuthContext hook resolves to a test user (module-level mocks)
-jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' } }) }), { virtual: true });
+jest.mock(
+  '../context/AuthContext',
+  () => ({ useAuth: () => ({ user: { id: 'u1' } }) }),
+  { virtual: true },
+);
 
 // Provide a synchronous test cache so JobsProvider loads without remote fetch
 // eslint-disable-next-line no-undef
@@ -36,10 +40,10 @@ function ActionConsumer() {
   const a4 = getNextActionsByRole('paid', 'customer');
   return (
     <>
-      <Text testID="a1">{a1.map(a => a.label).join(',')}</Text>
-      <Text testID="a2">{a2.map(a => a.label).join(',')}</Text>
-      <Text testID="a3">{a3.map(a => a.label).join(',')}</Text>
-      <Text testID="a4">{a4.map(a => a.label).join(',')}</Text>
+      <Text testID="a1">{a1.map((a) => a.label).join(',')}</Text>
+      <Text testID="a2">{a2.map((a) => a.label).join(',')}</Text>
+      <Text testID="a3">{a3.map((a) => a.label).join(',')}</Text>
+      <Text testID="a4">{a4.map((a) => a.label).join(',')}</Text>
     </>
   );
 }
@@ -49,7 +53,7 @@ describe('JobsContext helpers', () => {
     const utils = render(
       <JobsProvider>
         <CalcConsumer />
-      </JobsProvider>
+      </JobsProvider>,
     );
 
     expect(utils.getByTestId('d1').props.children).toBe('20');
@@ -63,12 +67,14 @@ describe('JobsContext helpers', () => {
     const utils = render(
       <JobsProvider>
         <ActionConsumer />
-      </JobsProvider>
+      </JobsProvider>,
     );
 
     expect(utils.getByTestId('a1').props.children).toContain('View Estimate');
     expect(utils.getByTestId('a2').props.children).toContain('Send Estimate');
     expect(utils.getByTestId('a3').props.children).toContain('View Payout');
-    expect(utils.getByTestId('a4').props.children).toContain('Confirm Complete');
+    expect(utils.getByTestId('a4').props.children).toContain(
+      'Confirm Complete',
+    );
   });
 });

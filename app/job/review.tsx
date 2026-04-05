@@ -1,5 +1,13 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, TextInput, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+  Alert,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,11 +16,21 @@ import { useJobs } from '../../context/JobsContext';
 import { supabase } from '../../lib/supabase';
 import { useAuth } from '../../context/AuthContext';
 
-function StarRatingInput({ rating, onRatingChange }: { rating: number; onRatingChange: (r: number) => void }) {
+function StarRatingInput({
+  rating,
+  onRatingChange,
+}: {
+  rating: number;
+  onRatingChange: (r: number) => void;
+}) {
   return (
     <View style={styles.starInputContainer}>
       {[1, 2, 3, 4, 5].map((star) => (
-        <TouchableOpacity key={star} onPress={() => onRatingChange(star)} style={styles.starButton}>
+        <TouchableOpacity
+          key={star}
+          onPress={() => onRatingChange(star)}
+          style={styles.starButton}
+        >
           <Ionicons
             name={star <= rating ? 'star' : 'star-outline'}
             size={40}
@@ -30,12 +48,12 @@ export default function ReviewScreen() {
   const insets = useSafeAreaInsets();
   const { jobs } = useJobs();
   const { user } = useAuth();
-  
+
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j) => j.id === jobId);
 
   if (!job) {
     return (
@@ -72,17 +90,18 @@ export default function ReviewScreen() {
         throw error;
       }
 
-      Alert.alert(
-        'Review Submitted!',
-        'Thank you for your feedback.',
-        [{ text: 'OK', onPress: () => router.push('/customer') }]
-      );
+      Alert.alert('Review Submitted!', 'Thank you for your feedback.', [
+        { text: 'OK', onPress: () => router.push('/customer') },
+      ]);
     } catch (error: any) {
       // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
       const sentry = require('../../lib/sentry');
       sentry.captureException?.(error);
       if (error.code === '23505') {
-        Alert.alert('Already Reviewed', 'You have already submitted a review for this job.');
+        Alert.alert(
+          'Already Reviewed',
+          'You have already submitted a review for this job.',
+        );
       } else {
         Alert.alert('Error', 'Failed to submit review. Please try again.');
       }
@@ -93,19 +112,28 @@ export default function ReviewScreen() {
 
   const getRatingLabel = (r: number) => {
     switch (r) {
-      case 1: return 'Poor';
-      case 2: return 'Fair';
-      case 3: return 'Good';
-      case 4: return 'Very Good';
-      case 5: return 'Excellent';
-      default: return 'Tap to rate';
+      case 1:
+        return 'Poor';
+      case 2:
+        return 'Fair';
+      case 3:
+        return 'Good';
+      case 4:
+        return 'Very Good';
+      case 5:
+        return 'Excellent';
+      default:
+        return 'Tap to rate';
     }
   };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="close" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Leave a Review</Text>
@@ -121,9 +149,7 @@ export default function ReviewScreen() {
         </View>
 
         <View style={styles.ratingSection}>
-          <Text style={styles.sectionTitle}>
-            How was your experience?
-          </Text>
+          <Text style={styles.sectionTitle}>How was your experience?</Text>
           <StarRatingInput rating={rating} onRatingChange={setRating} />
           <Text style={styles.ratingLabel}>{getRatingLabel(rating)}</Text>
         </View>
@@ -145,16 +171,22 @@ export default function ReviewScreen() {
         <View style={styles.tipCard}>
           <Ionicons name="bulb" size={20} color={Colors.accent} />
           <Text style={styles.tipText}>
-            Your honest review helps others make informed decisions and rewards good tradespeople.
+            Your honest review helps others make informed decisions and rewards
+            good tradespeople.
           </Text>
         </View>
 
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+      <View
+        style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+      >
         <TouchableOpacity
-          style={[styles.submitButton, rating === 0 && styles.submitButtonDisabled]}
+          style={[
+            styles.submitButton,
+            rating === 0 && styles.submitButtonDisabled,
+          ]}
           onPress={handleSubmitReview}
           disabled={rating === 0 || isSubmitting}
         >
@@ -164,7 +196,10 @@ export default function ReviewScreen() {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.skipButton} onPress={() => router.push('/customer')}>
+        <TouchableOpacity
+          style={styles.skipButton}
+          onPress={() => router.push('/customer')}
+        >
           <Text style={styles.skipButtonText}>Skip for now</Text>
         </TouchableOpacity>
       </View>

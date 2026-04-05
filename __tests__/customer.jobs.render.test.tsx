@@ -11,14 +11,30 @@ jest.mock('react-native', () => {
     ...RN,
     FlatList: (props: any) => {
       const { data, renderItem } = props || {};
-      return React.createElement(RN.View, {}, data && data.map((item: any, index: number) => renderItem({ item, index })));
+      return React.createElement(
+        RN.View,
+        {},
+        data &&
+          data.map((item: any, index: number) => renderItem({ item, index })),
+      );
     },
   };
 });
 
 // Minimal expo-router stub used by the screen
-jest.mock('expo-router', () => ({ router: { push: jest.fn(), back: jest.fn(), replace: jest.fn() }, useLocalSearchParams: () => ({}) }), { virtual: true });
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
+jest.mock(
+  'expo-router',
+  () => ({
+    router: { push: jest.fn(), back: jest.fn(), replace: jest.fn() },
+    useLocalSearchParams: () => ({}),
+  }),
+  { virtual: true },
+);
+jest.mock(
+  'react-native-safe-area-context',
+  () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }),
+  { virtual: true },
+);
 
 const mockFetchJobs = jest.fn();
 const mockCloseApplications = jest.fn();
@@ -34,16 +50,24 @@ const mockJob = {
   created_at: new Date().toISOString(),
 };
 
-jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1', role: 'customer' } }) }), { virtual: true });
+jest.mock(
+  '../context/AuthContext',
+  () => ({ useAuth: () => ({ user: { id: 'u1', role: 'customer' } }) }),
+  { virtual: true },
+);
 
-jest.mock('../context/JobsContext', () => ({
-  useJobs: () => ({
-    jobs: [mockJob],
-    loading: false,
-    fetchJobs: mockFetchJobs,
-    closeApplications: mockCloseApplications,
+jest.mock(
+  '../context/JobsContext',
+  () => ({
+    useJobs: () => ({
+      jobs: [mockJob],
+      loading: false,
+      fetchJobs: mockFetchJobs,
+      closeApplications: mockCloseApplications,
+    }),
   }),
-}), { virtual: true });
+  { virtual: true },
+);
 
 describe('CustomerJobsScreen render', () => {
   beforeEach(() => {
@@ -51,8 +75,15 @@ describe('CustomerJobsScreen render', () => {
     // Seed job_interests so fetchInterestCounts produces non-zero counts
     // eslint-disable-next-line no-undef
     const g: any = typeof global !== 'undefined' ? global : (globalThis as any);
-    if (g && g.__TEST_SUPABASE__ && typeof g.__TEST_SUPABASE__.setResponse === 'function') {
-      g.__TEST_SUPABASE__.setResponse('job_interests', [{ job_id: 'job1' }, { job_id: 'job1' }]);
+    if (
+      g &&
+      g.__TEST_SUPABASE__ &&
+      typeof g.__TEST_SUPABASE__.setResponse === 'function'
+    ) {
+      g.__TEST_SUPABASE__.setResponse('job_interests', [
+        { job_id: 'job1' },
+        { job_id: 'job1' },
+      ]);
     }
   });
 

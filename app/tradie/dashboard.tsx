@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -6,9 +12,14 @@ import { useAuth } from '../../context/AuthContext';
 import { useJobs } from '../../context/JobsContext';
 
 const ACTIVE_STATUSES = [
-  'booked', 'estimate_acknowledged', 'on_the_way', 'in_progress',
-  'awaiting_quote_approval', 'awaiting_invoice_payment',
-  'awaiting_final_payment', 'awaiting_confirmation',
+  'booked',
+  'estimate_acknowledged',
+  'on_the_way',
+  'in_progress',
+  'awaiting_quote_approval',
+  'awaiting_invoice_payment',
+  'awaiting_final_payment',
+  'awaiting_confirmation',
 ];
 
 const STATUS_LABELS: Record<string, string> = {
@@ -25,9 +36,9 @@ export default function TradieDashboardScreen() {
   const { user } = useAuth();
   const { jobs } = useJobs();
 
-  const myJobs = jobs.filter(j => j.tradie_id === user?.id);
-  const activeJobs = myJobs.filter(j => ACTIVE_STATUSES.includes(j.status));
-  const completedJobs = myJobs.filter(j => j.status === 'completed');
+  const myJobs = jobs.filter((j) => j.tradie_id === user?.id);
+  const activeJobs = myJobs.filter((j) => ACTIVE_STATUSES.includes(j.status));
+  const completedJobs = myJobs.filter((j) => j.status === 'completed');
 
   const totalEarned = completedJobs.reduce((sum, j) => {
     const gross = (j.deposit_amount || 0) + (j.final_payment_amount || 0);
@@ -37,7 +48,10 @@ export default function TradieDashboardScreen() {
 
   const getStatusColor = (status: string) => {
     if (['on_the_way', 'in_progress'].includes(status)) return Colors.success;
-    if (['awaiting_quote_approval', 'awaiting_invoice_payment'].includes(status)) return Colors.warning;
+    if (
+      ['awaiting_quote_approval', 'awaiting_invoice_payment'].includes(status)
+    )
+      return Colors.warning;
     return Colors.accent;
   };
 
@@ -65,7 +79,7 @@ export default function TradieDashboardScreen() {
       {activeJobs.length > 0 && (
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Active Jobs</Text>
-          {activeJobs.slice(0, 4).map(job => (
+          {activeJobs.slice(0, 4).map((job) => (
             <TouchableOpacity
               key={job.id}
               style={styles.jobCard}
@@ -75,17 +89,36 @@ export default function TradieDashboardScreen() {
                 <Text style={styles.jobCategory}>{job.category}</Text>
                 <Text style={styles.jobArea}>{job.area}</Text>
               </View>
-              <View style={[styles.badge, { backgroundColor: getStatusColor(job.status) + '22' }]}>
-                <Text style={[styles.badgeText, { color: getStatusColor(job.status) }]}>
+              <View
+                style={[
+                  styles.badge,
+                  { backgroundColor: getStatusColor(job.status) + '22' },
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.badgeText,
+                    { color: getStatusColor(job.status) },
+                  ]}
+                >
                   {STATUS_LABELS[job.status] || job.status}
                 </Text>
               </View>
             </TouchableOpacity>
           ))}
           {activeJobs.length > 4 && (
-            <TouchableOpacity style={styles.viewAllRow} onPress={() => router.push('/tradie/current-jobs')}>
-              <Text style={styles.viewAllText}>View all {activeJobs.length} active jobs</Text>
-              <Ionicons name="chevron-forward" size={16} color={Colors.accent} />
+            <TouchableOpacity
+              style={styles.viewAllRow}
+              onPress={() => router.push('/tradie/current-jobs')}
+            >
+              <Text style={styles.viewAllText}>
+                View all {activeJobs.length} active jobs
+              </Text>
+              <Ionicons
+                name="chevron-forward"
+                size={16}
+                color={Colors.accent}
+              />
             </TouchableOpacity>
           )}
         </View>
@@ -96,13 +129,20 @@ export default function TradieDashboardScreen() {
         <Text style={styles.sectionTitle}>Recent Payouts</Text>
         {completedJobs.length === 0 ? (
           <View style={styles.emptyCard}>
-            <Ionicons name="wallet-outline" size={32} color={Colors.textSecondary} />
+            <Ionicons
+              name="wallet-outline"
+              size={32}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.emptyTitle}>No completed jobs yet</Text>
-            <Text style={styles.emptySubtitle}>Your earnings will appear here</Text>
+            <Text style={styles.emptySubtitle}>
+              Your earnings will appear here
+            </Text>
           </View>
         ) : (
-          completedJobs.map(job => {
-            const gross = (job.deposit_amount || 0) + (job.final_payment_amount || 0);
+          completedJobs.map((job) => {
+            const gross =
+              (job.deposit_amount || 0) + (job.final_payment_amount || 0);
             const fee = user?.subscription_plan === 'pro' ? 0 : gross * 0.1;
             const net = gross - fee;
             return (
@@ -110,12 +150,17 @@ export default function TradieDashboardScreen() {
                 key={job.id}
                 style={styles.payoutCard}
                 onPress={() =>
-                  router.push({ pathname: '/tradie/payout', params: { jobId: job.id } })
+                  router.push({
+                    pathname: '/tradie/payout',
+                    params: { jobId: job.id },
+                  })
                 }
               >
                 <View style={styles.jobInfo}>
                   <Text style={styles.jobCategory}>{job.category}</Text>
-                  <Text style={styles.jobArea}>{job.area} · #{job.id.slice(0, 8).toUpperCase()}</Text>
+                  <Text style={styles.jobArea}>
+                    {job.area} · #{job.id.slice(0, 8).toUpperCase()}
+                  </Text>
                 </View>
                 <View style={styles.payoutRight}>
                   <Text style={styles.payoutAmount}>£{net.toFixed(2)}</Text>
@@ -130,11 +175,17 @@ export default function TradieDashboardScreen() {
       {/* Quick actions */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Quick Actions</Text>
-        <TouchableOpacity style={styles.primaryBtn} onPress={() => router.push('/tradie/index')}>
+        <TouchableOpacity
+          style={styles.primaryBtn}
+          onPress={() => router.push('/tradie/index')}
+        >
           <Ionicons name="search" size={20} color={Colors.background} />
           <Text style={styles.primaryBtnText}>Find New Jobs</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.secondaryBtn} onPress={() => router.push('/tradie/current-jobs')}>
+        <TouchableOpacity
+          style={styles.secondaryBtn}
+          onPress={() => router.push('/tradie/current-jobs')}
+        >
           <Ionicons name="briefcase-outline" size={20} color={Colors.accent} />
           <Text style={styles.secondaryBtnText}>View My Jobs</Text>
         </TouchableOpacity>

@@ -2,9 +2,22 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 
 // Static mocks that we will configure per-test
-jest.mock('expo-router', () => ({ useLocalSearchParams: jest.fn(), router: { replace: jest.fn(), back: jest.fn() } }), { virtual: true });
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
-jest.mock('../context/AuthContext', () => ({ useAuth: jest.fn() }), { virtual: true });
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: jest.fn(),
+    router: { replace: jest.fn(), back: jest.fn() },
+  }),
+  { virtual: true },
+);
+jest.mock(
+  'react-native-safe-area-context',
+  () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }),
+  { virtual: true },
+);
+jest.mock('../context/AuthContext', () => ({ useAuth: jest.fn() }), {
+  virtual: true,
+});
 
 afterEach(() => {
   jest.clearAllMocks();
@@ -16,7 +29,11 @@ describe('LoginScreen flows', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ login: jest.fn(), signup: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      login: jest.fn(),
+      signup: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
     const { getByText } = render(<LoginScreen />);
@@ -29,7 +46,11 @@ describe('LoginScreen flows', () => {
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ login: jest.fn(), signup: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      login: jest.fn(),
+      signup: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
     const { getByTestId, findByText } = render(<LoginScreen />);
@@ -44,14 +65,29 @@ describe('LoginScreen flows', () => {
     const expo = require('expo-router');
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
-    const mockLogin = jest.fn().mockResolvedValue({ isRateLimited: true, retryAfter: 120, error: undefined });
+    const mockLogin = jest
+      .fn()
+      .mockResolvedValue({
+        isRateLimited: true,
+        retryAfter: 120,
+        error: undefined,
+      });
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ login: mockLogin, signup: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      login: mockLogin,
+      signup: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
-    const { getByTestId, getByPlaceholderText, findByText } = render(<LoginScreen />);
+    const { getByTestId, getByPlaceholderText, findByText } = render(
+      <LoginScreen />,
+    );
 
-    fireEvent.changeText(getByPlaceholderText('Email address'), 'u@example.com');
+    fireEvent.changeText(
+      getByPlaceholderText('Email address'),
+      'u@example.com',
+    );
     fireEvent.changeText(getByPlaceholderText('Password'), 'pass1234');
     fireEvent.press(getByTestId('signin-button'));
 
@@ -64,14 +100,23 @@ describe('LoginScreen flows', () => {
     const replaceSpy = expo.router.replace;
     expo.useLocalSearchParams.mockReturnValue({ role: 'customer' });
 
-    const mockLogin = jest.fn().mockResolvedValue({ success: true, user: { role: 'customer' } });
+    const mockLogin = jest
+      .fn()
+      .mockResolvedValue({ success: true, user: { role: 'customer' } });
     const auth = require('../context/AuthContext');
-    auth.useAuth.mockReturnValue({ login: mockLogin, signup: jest.fn(), resendVerification: jest.fn() });
+    auth.useAuth.mockReturnValue({
+      login: mockLogin,
+      signup: jest.fn(),
+      resendVerification: jest.fn(),
+    });
 
     const LoginScreen = require('../app/onboarding/login').default;
     const { getByTestId, getByPlaceholderText } = render(<LoginScreen />);
 
-    fireEvent.changeText(getByPlaceholderText('Email address'), 'u@example.com');
+    fireEvent.changeText(
+      getByPlaceholderText('Email address'),
+      'u@example.com',
+    );
     fireEvent.changeText(getByPlaceholderText('Password'), 'pass1234');
     fireEvent.press(getByTestId('signin-button'));
 

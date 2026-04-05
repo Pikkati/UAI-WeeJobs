@@ -34,8 +34,14 @@ export default function TopBar() {
         </TouchableOpacity>
 
         {/* Logo */}
-        <View style={styles.logoWrap} accessible accessibilityLabel="WeeJobs logo">
-          <Text style={styles.logo} accessibilityRole="header">WeeJobs</Text>
+        <View
+          style={styles.logoWrap}
+          accessible
+          accessibilityLabel="WeeJobs logo"
+        >
+          <Text style={styles.logo} accessibilityRole="header">
+            WeeJobs
+          </Text>
         </View>
 
         {/* Bell + Avatar */}
@@ -46,7 +52,11 @@ export default function TopBar() {
             accessibilityRole="button"
             accessibilityLabel="Notifications"
           >
-            <Ionicons name="notifications-outline" size={22} color={Colors.white} />
+            <Ionicons
+              name="notifications-outline"
+              size={22}
+              color={Colors.white}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.avatar}

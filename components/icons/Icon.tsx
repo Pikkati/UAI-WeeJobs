@@ -9,9 +9,19 @@ type IconProps = {
 };
 
 // Minimal Icon scaffold: replace with real SVG imports or an icon system later.
-export function Icon({ name, size = 24, color = '#000', accessibilityLabel }: IconProps) {
+export function Icon({
+  name,
+  size = 24,
+  color = '#000',
+  accessibilityLabel,
+}: IconProps) {
   // Placeholder implementation to keep module-load safe in tests.
-  return <View accessibilityLabel={accessibilityLabel || `icon-${name}`} style={{ width: size, height: size }} />;
+  return (
+    <View
+      accessibilityLabel={accessibilityLabel || `icon-${name}`}
+      style={{ width: size, height: size }}
+    />
+  );
 }
 
 export default Icon;

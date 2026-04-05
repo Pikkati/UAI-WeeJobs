@@ -11,15 +11,24 @@ jest.mock('react-native', () => {
   const React = require('react');
   return {
     ...RN,
-    FlatList: ({ data, renderItem, ...rest }: any) => React.createElement(
-      RN.View,
-      rest,
-      ...(data || []).map((item: any, i: number) => React.createElement(RN.View, { key: item.id || i }, renderItem({ item, index: i })))
-    ),
+    FlatList: ({ data, renderItem, ...rest }: any) =>
+      React.createElement(
+        RN.View,
+        rest,
+        ...(data || []).map((item: any, i: number) =>
+          React.createElement(
+            RN.View,
+            { key: item.id || i },
+            renderItem({ item, index: i }),
+          ),
+        ),
+      ),
   };
 });
 
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }) }));
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
+}));
 
 jest.mock('expo-router', () => ({
   useLocalSearchParams: () => ({}),
@@ -28,7 +37,10 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('../context/AuthContext', () => ({
-  useAuth: () => ({ user: { id: 'cust1', role: 'customer' }, isLoading: false }),
+  useAuth: () => ({
+    user: { id: 'cust1', role: 'customer' },
+    isLoading: false,
+  }),
   AuthProvider: ({ children }: any) => children,
 }));
 
@@ -40,9 +52,17 @@ jest.mock('../lib/supabase', () => ({
           select: () => ({
             eq: () => ({
               in: () => ({
-                order: async () => ({ data: [
-                  { id: 'job1', tradie_id: 'tradie1', category: 'Plumbing', updated_at: '2026-03-02T00:00:00Z' }
-                ], error: null }),
+                order: async () => ({
+                  data: [
+                    {
+                      id: 'job1',
+                      tradie_id: 'tradie1',
+                      category: 'Plumbing',
+                      updated_at: '2026-03-02T00:00:00Z',
+                    },
+                  ],
+                  error: null,
+                }),
               }),
             }),
           }),
@@ -52,7 +72,12 @@ jest.mock('../lib/supabase', () => ({
       if (table === 'users') {
         return {
           select: () => ({
-            eq: () => ({ single: async () => ({ data: { name: 'Tradie Joe' }, error: null }) }),
+            eq: () => ({
+              single: async () => ({
+                data: { name: 'Tradie Joe' },
+                error: null,
+              }),
+            }),
           }),
         };
       }
@@ -62,14 +87,27 @@ jest.mock('../lib/supabase', () => ({
           select: () => ({
             eq: () => ({
               order: () => ({
-                limit: async () => ({ data: [ { id: 'm1', content: 'Hello there', created_at: '2026-03-03T00:00:00Z' } ], error: null }),
+                limit: async () => ({
+                  data: [
+                    {
+                      id: 'm1',
+                      content: 'Hello there',
+                      created_at: '2026-03-03T00:00:00Z',
+                    },
+                  ],
+                  error: null,
+                }),
               }),
             }),
           }),
         };
       }
 
-      return { select: () => ({ eq: () => ({ order: async () => ({ data: [], error: null }) }) }) };
+      return {
+        select: () => ({
+          eq: () => ({ order: async () => ({ data: [], error: null }) }),
+        }),
+      };
     },
   },
 }));
@@ -89,7 +127,12 @@ describe('Messages navigation', () => {
     // eslint-disable-next-line no-undef
     (global as any).__TEST_CONSOLE_ERROR_HANDLER__ = (...args: any[]) => {
       try {
-        if (args && args[0] && typeof args[0] === 'string' && args[0].includes('not wrapped in act')) {
+        if (
+          args &&
+          args[0] &&
+          typeof args[0] === 'string' &&
+          args[0].includes('not wrapped in act')
+        ) {
           return;
         }
       } catch {
@@ -100,7 +143,8 @@ describe('Messages navigation', () => {
       (global as any).__TEST_CONSOLE_ERROR_HANDLER__ = undefined; // temporarily clear to avoid recursion
       try {
         // eslint-disable-next-line no-undef
-        const orig = (global as any).__JEST_ORIG_CONSOLE_ERROR__ || console.error;
+        const orig =
+          (global as any).__JEST_ORIG_CONSOLE_ERROR__ || console.error;
         orig.apply(console, args as any);
       } finally {
         // eslint-disable-next-line no-undef
@@ -118,7 +162,11 @@ describe('Messages navigation', () => {
     await waitFor(() => {
       expect(router.push).toHaveBeenCalledWith({
         pathname: '/chat/[jobId]',
-        params: { jobId: 'job1', recipientName: 'Tradie Joe', jobCategory: 'Plumbing' },
+        params: {
+          jobId: 'job1',
+          recipientName: 'Tradie Joe',
+          jobCategory: 'Plumbing',
+        },
       });
     });
     // restore console handler and cleanup override

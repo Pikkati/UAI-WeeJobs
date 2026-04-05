@@ -20,8 +20,10 @@ beforeEach(() => {
   const chain: any = {
     select: (..._args: any[]) => chain,
     order: (..._args: any[]) => chain,
-    then: (onFulfilled: any) => Promise.resolve({ data: [job], error: null }).then(onFulfilled),
-    catch: (onRejected: any) => Promise.resolve({ data: [job], error: null }).catch(onRejected),
+    then: (onFulfilled: any) =>
+      Promise.resolve({ data: [job], error: null }).then(onFulfilled),
+    catch: (onRejected: any) =>
+      Promise.resolve({ data: [job], error: null }).catch(onRejected),
   };
 
   // Test override used by lib/supabase.resolveClient
@@ -35,7 +37,10 @@ describe('AdminJobsScreen module', () => {
     // Import after setting __TEST_SUPABASE__ so resolveClient uses the override
     // eslint-disable-next-line global-require
     const AdminJobsModule = require('../app/admin/jobs');
-    const Comp = AdminJobsModule && AdminJobsModule.default ? AdminJobsModule.default : AdminJobsModule;
+    const Comp =
+      AdminJobsModule && AdminJobsModule.default
+        ? AdminJobsModule.default
+        : AdminJobsModule;
     expect(typeof Comp === 'function' || typeof Comp === 'object').toBeTruthy();
   });
 });

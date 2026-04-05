@@ -13,9 +13,7 @@
           "title": "@tootallnate/once vulnerable to Incorrect Control Flow Scoping",
           "url": "https://github.com/advisories/GHSA-vpq2-c234-7xj6",
           "severity": "low",
-          "cwe": [
-            "CWE-705"
-          ],
+          "cwe": ["CWE-705"],
           "cvss": {
             "score": 3.3,
             "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L"
@@ -23,13 +21,9 @@
           "range": "<3.0.1"
         }
       ],
-      "effects": [
-        "http-proxy-agent"
-      ],
+      "effects": ["http-proxy-agent"],
       "range": "<3.0.1",
-      "nodes": [
-        "node_modules/@tootallnate/once"
-      ],
+      "nodes": ["node_modules/@tootallnate/once"],
       "fixAvailable": {
         "name": "jest-expo",
         "version": "47.0.1",
@@ -48,10 +42,7 @@
           "title": "ajv has ReDoS when using `$data` option",
           "url": "https://github.com/advisories/GHSA-2g4f-4pwh-qvx6",
           "severity": "moderate",
-          "cwe": [
-            "CWE-400",
-            "CWE-1333"
-          ],
+          "cwe": ["CWE-400", "CWE-1333"],
           "cvss": {
             "score": 0,
             "vectorString": null
@@ -61,25 +52,17 @@
       ],
       "effects": [],
       "range": "<6.14.0",
-      "nodes": [
-        "node_modules/ajv"
-      ],
+      "nodes": ["node_modules/ajv"],
       "fixAvailable": true
     },
     "fbjs": {
       "name": "fbjs",
       "severity": "high",
       "isDirect": false,
-      "via": [
-        "isomorphic-fetch"
-      ],
-      "effects": [
-        "prop-types"
-      ],
+      "via": ["isomorphic-fetch"],
+      "effects": ["prop-types"],
       "range": "0.7.0 - 1.0.0",
-      "nodes": [
-        "node_modules/react-native-deck-swiper/node_modules/fbjs"
-      ],
+      "nodes": ["node_modules/react-native-deck-swiper/node_modules/fbjs"],
       "fixAvailable": {
         "name": "react-native-deck-swiper",
         "version": "1.1.7",
@@ -98,9 +81,7 @@
           "title": "flatted vulnerable to unbounded recursion DoS in parse() revive phase",
           "url": "https://github.com/advisories/GHSA-25h7-pfq9-p65f",
           "severity": "high",
-          "cwe": [
-            "CWE-674"
-          ],
+          "cwe": ["CWE-674"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -114,9 +95,7 @@
           "title": "Prototype Pollution via parse() in NodeJS flatted",
           "url": "https://github.com/advisories/GHSA-rf6f-7fwh-wjgh",
           "severity": "high",
-          "cwe": [
-            "CWE-1321"
-          ],
+          "cwe": ["CWE-1321"],
           "cvss": {
             "score": 0,
             "vectorString": null
@@ -126,25 +105,17 @@
       ],
       "effects": [],
       "range": "<=3.4.1",
-      "nodes": [
-        "node_modules/flatted"
-      ],
+      "nodes": ["node_modules/flatted"],
       "fixAvailable": true
     },
     "http-proxy-agent": {
       "name": "http-proxy-agent",
       "severity": "low",
       "isDirect": false,
-      "via": [
-        "@tootallnate/once"
-      ],
-      "effects": [
-        "jsdom"
-      ],
+      "via": ["@tootallnate/once"],
+      "effects": ["jsdom"],
       "range": "4.0.1 - 5.0.0",
-      "nodes": [
-        "node_modules/http-proxy-agent"
-      ],
+      "nodes": ["node_modules/http-proxy-agent"],
       "fixAvailable": {
         "name": "jest-expo",
         "version": "47.0.1",
@@ -155,16 +126,10 @@
       "name": "isomorphic-fetch",
       "severity": "high",
       "isDirect": false,
-      "via": [
-        "node-fetch"
-      ],
-      "effects": [
-        "fbjs"
-      ],
+      "via": ["node-fetch"],
+      "effects": ["fbjs"],
       "range": "2.0.0 - 2.2.1",
-      "nodes": [
-        "node_modules/isomorphic-fetch"
-      ],
+      "nodes": ["node_modules/isomorphic-fetch"],
       "fixAvailable": {
         "name": "react-native-deck-swiper",
         "version": "1.1.7",
@@ -175,16 +140,10 @@
       "name": "jest-environment-jsdom",
       "severity": "low",
       "isDirect": false,
-      "via": [
-        "jsdom"
-      ],
-      "effects": [
-        "jest-expo"
-      ],
+      "via": ["jsdom"],
+      "effects": ["jest-expo"],
       "range": "27.0.1 - 30.0.0-rc.1",
-      "nodes": [
-        "node_modules/jest-environment-jsdom"
-      ],
+      "nodes": ["node_modules/jest-environment-jsdom"],
       "fixAvailable": {
         "name": "jest-expo",
         "version": "47.0.1",
@@ -195,14 +154,10 @@
       "name": "jest-expo",
       "severity": "low",
       "isDirect": true,
-      "via": [
-        "jest-environment-jsdom"
-      ],
+      "via": ["jest-environment-jsdom"],
       "effects": [],
       "range": ">=48.0.0",
-      "nodes": [
-        "node_modules/jest-expo"
-      ],
+      "nodes": ["node_modules/jest-expo"],
       "fixAvailable": {
         "name": "jest-expo",
         "version": "47.0.1",
@@ -221,9 +176,7 @@
           "title": "js-yaml has prototype pollution in merge (<<)",
           "url": "https://github.com/advisories/GHSA-mh29-5h37-fv8m",
           "severity": "moderate",
-          "cwe": [
-            "CWE-1321"
-          ],
+          "cwe": ["CWE-1321"],
           "cvss": {
             "score": 5.3,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
@@ -237,9 +190,7 @@
           "title": "js-yaml has prototype pollution in merge (<<)",
           "url": "https://github.com/advisories/GHSA-mh29-5h37-fv8m",
           "severity": "moderate",
-          "cwe": [
-            "CWE-1321"
-          ],
+          "cwe": ["CWE-1321"],
           "cvss": {
             "score": 5.3,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
@@ -259,16 +210,10 @@
       "name": "jsdom",
       "severity": "low",
       "isDirect": false,
-      "via": [
-        "http-proxy-agent"
-      ],
-      "effects": [
-        "jest-environment-jsdom"
-      ],
+      "via": ["http-proxy-agent"],
+      "effects": ["jest-environment-jsdom"],
       "range": "16.6.0 - 22.1.0",
-      "nodes": [
-        "node_modules/jsdom"
-      ],
+      "nodes": ["node_modules/jsdom"],
       "fixAvailable": {
         "name": "jest-expo",
         "version": "47.0.1",
@@ -287,9 +232,7 @@
           "title": "Lodash has Prototype Pollution Vulnerability in `_.unset` and `_.omit` functions",
           "url": "https://github.com/advisories/GHSA-xxjr-mmjv-4gpg",
           "severity": "moderate",
-          "cwe": [
-            "CWE-1321"
-          ],
+          "cwe": ["CWE-1321"],
           "cvss": {
             "score": 6.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
@@ -299,9 +242,7 @@
       ],
       "effects": [],
       "range": "4.0.0 - 4.17.21",
-      "nodes": [
-        "node_modules/lodash"
-      ],
+      "nodes": ["node_modules/lodash"],
       "fixAvailable": true
     },
     "minimatch": {
@@ -316,9 +257,7 @@
           "title": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
           "url": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
           "severity": "high",
-          "cwe": [
-            "CWE-1333"
-          ],
+          "cwe": ["CWE-1333"],
           "cvss": {
             "score": 0,
             "vectorString": null
@@ -332,9 +271,7 @@
           "title": "minimatch has a ReDoS via repeated wildcards with non-matching literal in pattern",
           "url": "https://github.com/advisories/GHSA-3ppc-4f35-3m26",
           "severity": "high",
-          "cwe": [
-            "CWE-1333"
-          ],
+          "cwe": ["CWE-1333"],
           "cvss": {
             "score": 0,
             "vectorString": null
@@ -348,9 +285,7 @@
           "title": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
           "url": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
           "severity": "high",
-          "cwe": [
-            "CWE-407"
-          ],
+          "cwe": ["CWE-407"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -364,9 +299,7 @@
           "title": "minimatch has ReDoS: matchOne() combinatorial backtracking via multiple non-adjacent GLOBSTAR segments",
           "url": "https://github.com/advisories/GHSA-7r86-cg39-jmmj",
           "severity": "high",
-          "cwe": [
-            "CWE-407"
-          ],
+          "cwe": ["CWE-407"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -380,9 +313,7 @@
           "title": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
           "url": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
           "severity": "high",
-          "cwe": [
-            "CWE-1333"
-          ],
+          "cwe": ["CWE-1333"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -396,9 +327,7 @@
           "title": "minimatch ReDoS: nested *() extglobs generate catastrophically backtracking regular expressions",
           "url": "https://github.com/advisories/GHSA-23c5-xmqv-rm74",
           "severity": "high",
-          "cwe": [
-            "CWE-1333"
-          ],
+          "cwe": ["CWE-1333"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -426,11 +355,7 @@
           "title": "node-fetch forwards secure headers to untrusted sites",
           "url": "https://github.com/advisories/GHSA-r683-j2x4-v87g",
           "severity": "high",
-          "cwe": [
-            "CWE-173",
-            "CWE-200",
-            "CWE-601"
-          ],
+          "cwe": ["CWE-173", "CWE-200", "CWE-601"],
           "cvss": {
             "score": 8.8,
             "vectorString": "CVSS:3.0/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H"
@@ -438,13 +363,9 @@
           "range": "<2.6.7"
         }
       ],
-      "effects": [
-        "isomorphic-fetch"
-      ],
+      "effects": ["isomorphic-fetch"],
       "range": "<2.6.7",
-      "nodes": [
-        "node_modules/isomorphic-fetch/node_modules/node-fetch"
-      ],
+      "nodes": ["node_modules/isomorphic-fetch/node_modules/node-fetch"],
       "fixAvailable": {
         "name": "react-native-deck-swiper",
         "version": "1.1.7",
@@ -455,12 +376,8 @@
       "name": "prop-types",
       "severity": "high",
       "isDirect": false,
-      "via": [
-        "fbjs"
-      ],
-      "effects": [
-        "react-native-deck-swiper"
-      ],
+      "via": ["fbjs"],
+      "effects": ["react-native-deck-swiper"],
       "range": "15.5.0-alpha.0 - 15.6.1",
       "nodes": [
         "node_modules/react-native-deck-swiper/node_modules/prop-types"
@@ -475,14 +392,10 @@
       "name": "react-native-deck-swiper",
       "severity": "high",
       "isDirect": true,
-      "via": [
-        "prop-types"
-      ],
+      "via": ["prop-types"],
       "effects": [],
       "range": ">=1.1.8",
-      "nodes": [
-        "node_modules/react-native-deck-swiper"
-      ],
+      "nodes": ["node_modules/react-native-deck-swiper"],
       "fixAvailable": {
         "name": "react-native-deck-swiper",
         "version": "1.1.7",
@@ -501,10 +414,7 @@
           "title": "Undici: Malicious WebSocket 64-bit length overflows parser and crashes the client",
           "url": "https://github.com/advisories/GHSA-f269-vfmq-vjvj",
           "severity": "high",
-          "cwe": [
-            "CWE-248",
-            "CWE-1284"
-          ],
+          "cwe": ["CWE-248", "CWE-1284"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -518,9 +428,7 @@
           "title": "Undici has an HTTP Request/Response Smuggling issue",
           "url": "https://github.com/advisories/GHSA-2mjp-6q6p-2qxm",
           "severity": "moderate",
-          "cwe": [
-            "CWE-444"
-          ],
+          "cwe": ["CWE-444"],
           "cvss": {
             "score": 6.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
@@ -534,9 +442,7 @@
           "title": "Undici has Unbounded Memory Consumption in WebSocket permessage-deflate Decompression",
           "url": "https://github.com/advisories/GHSA-vrm6-8vpv-qv8q",
           "severity": "high",
-          "cwe": [
-            "CWE-409"
-          ],
+          "cwe": ["CWE-409"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -550,9 +456,7 @@
           "title": "Undici has Unhandled Exception in WebSocket Client Due to Invalid server_max_window_bits Validation",
           "url": "https://github.com/advisories/GHSA-v9p9-hfj2-hcw8",
           "severity": "high",
-          "cwe": [
-            "CWE-248"
-          ],
+          "cwe": ["CWE-248"],
           "cvss": {
             "score": 7.5,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
@@ -566,9 +470,7 @@
           "title": "Undici has CRLF Injection in undici via `upgrade` option",
           "url": "https://github.com/advisories/GHSA-4992-7rv2-5pvq",
           "severity": "moderate",
-          "cwe": [
-            "CWE-93"
-          ],
+          "cwe": ["CWE-93"],
           "cvss": {
             "score": 4.6,
             "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:N"
@@ -578,9 +480,7 @@
       ],
       "effects": [],
       "range": "<=6.23.0",
-      "nodes": [
-        "node_modules/undici"
-      ],
+      "nodes": ["node_modules/undici"],
       "fixAvailable": true
     }
   },

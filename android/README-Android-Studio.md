@@ -96,4 +96,3 @@ winget install --id Android.AndroidSDK.PlatformTools -e --accept-package-agreeme
 ```
 
 If `winget` is not available on your system, install it via Microsoft Store or use the Android SDK Manager inside Android Studio to install "Android SDK Platform-Tools".
-

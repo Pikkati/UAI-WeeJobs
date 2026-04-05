@@ -38,7 +38,10 @@ export const formatDate = (dateString: string) => {
 };
 
 // exported helper for unit tests that doesn't rely on component-scoped `messages`
-export const shouldShowDateFor = (msgs: { created_at: string }[], currentIndex: number) => {
+export const shouldShowDateFor = (
+  msgs: { created_at: string }[],
+  currentIndex: number,
+) => {
   if (currentIndex === 0) return true;
   const currentDate = new Date(msgs[currentIndex].created_at).toDateString();
   const prevDate = new Date(msgs[currentIndex - 1].created_at).toDateString();
@@ -47,12 +50,13 @@ export const shouldShowDateFor = (msgs: { created_at: string }[], currentIndex: 
 
 export default function ChatScreen() {
   const insets = useSafeAreaInsets();
-  const { jobId, recipientName, jobCategory, initialMessage } = useLocalSearchParams<{
-    jobId: string;
-    recipientName: string;
-    jobCategory: string;
-    initialMessage?: string;
-  }>();
+  const { jobId, recipientName, jobCategory, initialMessage } =
+    useLocalSearchParams<{
+      jobId: string;
+      recipientName: string;
+      jobCategory: string;
+      initialMessage?: string;
+    }>();
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
@@ -113,7 +117,8 @@ export default function ChatScreen() {
   const sendMessage = async () => {
     if (!newMessage.trim() || !user || !job) return;
 
-    const receiverId = user.role === 'customer' ? job.tradie_id : job.customer_id;
+    const receiverId =
+      user.role === 'customer' ? job.tradie_id : job.customer_id;
     if (!receiverId) return;
 
     setIsSending(true);
@@ -154,11 +159,14 @@ export default function ChatScreen() {
     }
   };
 
-
   const shouldShowDate = (currentIndex: number) => {
     if (currentIndex === 0) return true;
-    const currentDate = new Date(messages[currentIndex].created_at).toDateString();
-    const prevDate = new Date(messages[currentIndex - 1].created_at).toDateString();
+    const currentDate = new Date(
+      messages[currentIndex].created_at,
+    ).toDateString();
+    const prevDate = new Date(
+      messages[currentIndex - 1].created_at,
+    ).toDateString();
     return currentDate !== prevDate;
   };
 
@@ -181,11 +189,18 @@ export default function ChatScreen() {
             isOwnMessage ? styles.ownMessage : styles.otherMessage,
           ]}
         >
-          <Text style={[styles.messageText, isOwnMessage && styles.ownMessageText]}>
+          <Text
+            style={[styles.messageText, isOwnMessage && styles.ownMessageText]}
+          >
             {item.content}
           </Text>
           <View style={styles.messageFooter}>
-            <Text style={[styles.messageTime, isOwnMessage && styles.ownMessageTime]}>
+            <Text
+              style={[
+                styles.messageTime,
+                isOwnMessage && styles.ownMessageTime,
+              ]}
+            >
               {formatTime(item.created_at)}
             </Text>
             {isOwnMessage && (
@@ -217,7 +232,10 @@ export default function ChatScreen() {
       keyboardVerticalOffset={0}
     >
       <View style={[styles.header, { paddingTop: insets.top + Spacing.sm }]}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <View style={styles.headerInfo}>
@@ -237,7 +255,11 @@ export default function ChatScreen() {
       <View style={styles.chatContainer}>
         {messages.length === 0 ? (
           <View style={styles.emptyChat}>
-            <Ionicons name="chatbubble-ellipses-outline" size={48} color={Colors.textSecondary} />
+            <Ionicons
+              name="chatbubble-ellipses-outline"
+              size={48}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.emptyChatText}>No messages yet</Text>
             <Text style={styles.emptyChatSubtext}>Start the conversation!</Text>
           </View>
@@ -249,12 +271,19 @@ export default function ChatScreen() {
             keyExtractor={(item) => item.id}
             contentContainerStyle={styles.messagesList}
             showsVerticalScrollIndicator={false}
-            onContentSizeChange={() => flatListRef.current?.scrollToEnd({ animated: false })}
+            onContentSizeChange={() =>
+              flatListRef.current?.scrollToEnd({ animated: false })
+            }
           />
         )}
       </View>
 
-      <View style={[styles.inputContainer, { paddingBottom: insets.bottom + Spacing.sm }]}>
+      <View
+        style={[
+          styles.inputContainer,
+          { paddingBottom: insets.bottom + Spacing.sm },
+        ]}
+      >
         <View style={styles.inputWrapper}>
           <TextInput
             style={styles.input}
@@ -267,7 +296,10 @@ export default function ChatScreen() {
           />
         </View>
         <TouchableOpacity
-          style={[styles.sendButton, (!newMessage.trim() || isSending) && styles.sendButtonDisabled]}
+          style={[
+            styles.sendButton,
+            (!newMessage.trim() || isSending) && styles.sendButtonDisabled,
+          ]}
           onPress={sendMessage}
           disabled={!newMessage.trim() || isSending}
         >

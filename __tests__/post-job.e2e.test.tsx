@@ -4,7 +4,12 @@ import { render, fireEvent, waitFor } from '@testing-library/react-native';
 // Mock auth to provide a signed-in user
 jest.mock('../context/AuthContext', () => ({
   useAuth: () => ({
-    user: { id: 'test-user', name: 'Test User', phone: '0123456789', area: 'Test Area' },
+    user: {
+      id: 'test-user',
+      name: 'Test User',
+      phone: '0123456789',
+      area: 'Test Area',
+    },
   }),
 }));
 
@@ -17,7 +22,7 @@ jest.mock(
     useRouter: () => ({ push: mockPush, back: jest.fn() }),
     router: { push: mockPush },
   }),
-  { virtual: true }
+  { virtual: true },
 );
 
 // Mock supabase insert
@@ -31,26 +36,26 @@ jest.mock('../lib/supabase', () => ({
 // Silence ImagePicker and expo-image imports used in the component
 jest.mock(
   'expo-image-picker',
-  () => ({ launchImageLibraryAsync: jest.fn(async () => ({ canceled: true })) }),
-  { virtual: true }
+  () => ({
+    launchImageLibraryAsync: jest.fn(async () => ({ canceled: true })),
+  }),
+  { virtual: true },
 );
 jest.mock(
   'expo-image',
-  () => ({ Image: (props: any) => require('react').createElement('Image', props) }),
-  { virtual: true }
+  () => ({
+    Image: (props: any) => require('react').createElement('Image', props),
+  }),
+  { virtual: true },
 );
 
 // Mock vector icons and fonts to avoid ESM/native module parsing in Jest
-jest.mock(
-  '@expo/vector-icons',
-  () => ({ Ionicons: (props: any) => null }),
-  { virtual: true }
-);
-jest.mock(
-  'expo-font',
-  () => ({ loadAsync: jest.fn(async () => true) }),
-  { virtual: true }
-);
+jest.mock('@expo/vector-icons', () => ({ Ionicons: (props: any) => null }), {
+  virtual: true,
+});
+jest.mock('expo-font', () => ({ loadAsync: jest.fn(async () => true) }), {
+  virtual: true,
+});
 
 // Use a lightweight mock of the real screen to avoid importing native modules
 const PostJobScreen = () => {
@@ -60,9 +65,15 @@ const PostJobScreen = () => {
     null,
     React.createElement(
       'TouchableOpacity',
-      { testID: 'post-btn', onPress: async () => { await mockInsert(); mockPush('/customer/jobs'); } },
-      React.createElement('Text', null, 'Post Job')
-    )
+      {
+        testID: 'post-btn',
+        onPress: async () => {
+          await mockInsert();
+          mockPush('/customer/jobs');
+        },
+      },
+      React.createElement('Text', null, 'Post Job'),
+    ),
   );
 };
 

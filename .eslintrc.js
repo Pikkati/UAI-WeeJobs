@@ -1,12 +1,14 @@
 module.exports = {
   env: { node: true },
-  extends: [
-    'expo',
-  ],
+  extends: ['expo'],
   ignorePatterns: ['dist/*'],
   settings: {
     'import/resolver': {
-      typescript: { project: ['./tsconfig.json'], tsconfigRootDir: __dirname, alwaysTryTypes: true },
+      typescript: {
+        project: ['./tsconfig.json'],
+        tsconfigRootDir: __dirname,
+        alwaysTryTypes: true,
+      },
       node: { extensions: ['.js', '.jsx', '.ts', '.tsx'], paths: ['.'] },
     },
     // Ignore unresolved import errors for native/expo modules and static assets
@@ -17,7 +19,7 @@ module.exports = {
       '^@stripe/',
       '^react-native(-.*)?',
       '^@react-navigation/.*',
-      '^@/'
+      '^@/',
     ],
     'import/core-modules': [
       'expo-router',
@@ -32,7 +34,7 @@ module.exports = {
       'expo-haptics',
       'expo-web-browser',
       'expo-symbols',
-      'expo-blur'
+      'expo-blur',
     ],
   },
   rules: {
@@ -41,19 +43,22 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['app/**/*.ts', 'app/**/*.tsx', 'components/**/*.ts', 'components/**/*.tsx'],
+      files: [
+        'app/**/*.ts',
+        'app/**/*.tsx',
+        'components/**/*.ts',
+        'components/**/*.tsx',
+      ],
       rules: {
-        'import/no-unresolved': 'off'
-      }
-    }
-    ,
+        'import/no-unresolved': 'off',
+      },
+    },
     {
       files: ['supabase/functions/**/*.{ts,tsx,js,jsx}'],
       rules: {
-        'import/no-unresolved': 'off'
-      }
-    }
-    ,
+        'import/no-unresolved': 'off',
+      },
+    },
     {
       files: ['**/__mocks__/**', '**/__tests__/**'],
       env: { jest: true },
@@ -63,8 +68,8 @@ module.exports = {
         'react/display-name': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
         'no-unused-vars': 'off',
-        'react-hooks/exhaustive-deps': 'off'
-      }
-    }
+        'react-hooks/exhaustive-deps': 'off',
+      },
+    },
   ],
 };

@@ -7,14 +7,22 @@ import { Text } from 'react-native';
 
 jest.mock('../hooks/useColorScheme', () => ({ useColorScheme: () => 'dark' }));
 
-function TestDisplay({ props, name }: { props: any; name: keyof typeof Colors.light & keyof typeof Colors.dark }) {
+function TestDisplay({
+  props,
+  name,
+}: {
+  props: any;
+  name: keyof typeof Colors.light & keyof typeof Colors.dark;
+}) {
   const color = useThemeColor(props, name as any);
   return <Text>{color}</Text>;
 }
 
 describe('useThemeColor', () => {
   test('returns prop color when provided for current theme', () => {
-    const { getByText } = render(<TestDisplay props={{ dark: '#123456' }} name="tint" />);
+    const { getByText } = render(
+      <TestDisplay props={{ dark: '#123456' }} name="tint" />,
+    );
     expect(getByText('#123456')).toBeTruthy();
   });
 

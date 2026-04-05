@@ -14,10 +14,10 @@ test('PricingCard renders and triggers onPress', () => {
       title="Pro"
       subtitle="Best plan"
       price="$10"
-      features={["Feature A", "Feature B"]}
+      features={['Feature A', 'Feature B']}
       buttonLabel="Buy"
       onPress={onPress}
-    />
+    />,
   );
 
   expect(utils.toJSON()).toBeTruthy();

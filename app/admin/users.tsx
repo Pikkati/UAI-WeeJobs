@@ -1,6 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { View, Text, StyleSheet, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  RefreshControl,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -36,18 +44,38 @@ export default function AdminUsersScreen() {
       const client = (global as any).__TEST_SUPABASE__ || getSupabaseClient();
       // Debug: inspect client shape at call-time
       // eslint-disable-next-line no-console
-      console.log('DEBUG(component) getSupabaseClient typeof:', typeof getSupabaseClient);
+      console.log(
+        'DEBUG(component) getSupabaseClient typeof:',
+        typeof getSupabaseClient,
+      );
       // eslint-disable-next-line no-console
-      console.log('DEBUG(component) client keys:', client && Object.keys(client || {}));
+      console.log(
+        'DEBUG(component) client keys:',
+        client && Object.keys(client || {}),
+      );
       // eslint-disable-next-line no-console
-      console.log('DEBUG(component) client.from typeof:', client && typeof client.from);
+      console.log(
+        'DEBUG(component) client.from typeof:',
+        client && typeof client.from,
+      );
       // eslint-disable-next-line no-console
       try {
         // Compare function identity between the resolved client and the stable test container
         // eslint-disable-next-line no-console
-        console.log('DEBUG(component) client.from === global.__TEST_SUPABASE__.from:', client && (global as any).__TEST_SUPABASE__ && client.from === (global as any).__TEST_SUPABASE__.from);
+        console.log(
+          'DEBUG(component) client.from === global.__TEST_SUPABASE__.from:',
+          client &&
+            (global as any).__TEST_SUPABASE__ &&
+            client.from === (global as any).__TEST_SUPABASE__.from,
+        );
         // eslint-disable-next-line no-console
-        console.log('DEBUG(component) client.from.toString:', client && client.from && client.from.toString && client.from.toString().slice(0,200));
+        console.log(
+          'DEBUG(component) client.from.toString:',
+          client &&
+            client.from &&
+            client.from.toString &&
+            client.from.toString().slice(0, 200),
+        );
       } catch {
         // ignore
       }
@@ -56,18 +84,41 @@ export default function AdminUsersScreen() {
         // Capture the raw return value and inspect it immediately
         const ret = client && client.from && client.from.call(client, 'users');
         // eslint-disable-next-line no-console
-        console.log('DEBUG(component) raw client.from return:', ret, 'typeof:', typeof ret, 'ownKeys:', ret && Object.getOwnPropertyNames(ret));
+        console.log(
+          'DEBUG(component) raw client.from return:',
+          ret,
+          'typeof:',
+          typeof ret,
+          'ownKeys:',
+          ret && Object.getOwnPropertyNames(ret),
+        );
         supFrom = ret;
       } catch {
         supFrom = undefined;
       }
       // Fallback to the stable test container when present (test-only)
-      if (!supFrom && (global as any).__TEST_SUPABASE__ && (global as any).__TEST_SUPABASE__.from) {
-        supFrom = (global as any).__TEST_SUPABASE__.from.call((global as any).__TEST_SUPABASE__, 'users');
+      if (
+        !supFrom &&
+        (global as any).__TEST_SUPABASE__ &&
+        (global as any).__TEST_SUPABASE__.from
+      ) {
+        supFrom = (global as any).__TEST_SUPABASE__.from.call(
+          (global as any).__TEST_SUPABASE__,
+          'users',
+        );
       }
       // eslint-disable-next-line no-console
-      console.log('DEBUG(component) supFrom typeof:', typeof supFrom, 'keys:', supFrom && Object.keys(supFrom || {}));
-      const { data, error } = await (supFrom && supFrom.select('*').order('created_at', { ascending: false })) || { data: [], error: null };
+      console.log(
+        'DEBUG(component) supFrom typeof:',
+        typeof supFrom,
+        'keys:',
+        supFrom && Object.keys(supFrom || {}),
+      );
+      const { data, error } = (await (supFrom &&
+        supFrom.select('*').order('created_at', { ascending: false }))) || {
+        data: [],
+        error: null,
+      };
 
       if (error) throw error;
       setUsers(data || []);
@@ -104,19 +155,24 @@ export default function AdminUsersScreen() {
       } catch {
         userFrom = undefined;
       }
-      if (!userFrom) throw new Error('No supabase client available for updating users');
-      const { error: updateError } = await userFrom.update({ role: 'admin' }).eq('id', targetUser.id);
+      if (!userFrom)
+        throw new Error('No supabase client available for updating users');
+      const { error: updateError } = await userFrom
+        .update({ role: 'admin' })
+        .eq('id', targetUser.id);
       if (updateError) throw updateError;
 
       // Log to audit_logs
       const client2 = (global as any).__TEST_SUPABASE__ || getSupabaseClient();
       let auditFrom: any;
       try {
-        auditFrom = client2 && client2.from && client2.from.call(client2, 'audit_logs');
+        auditFrom =
+          client2 && client2.from && client2.from.call(client2, 'audit_logs');
       } catch {
         auditFrom = undefined;
       }
-      if (!auditFrom) throw new Error('No supabase client available for audit logs');
+      if (!auditFrom)
+        throw new Error('No supabase client available for audit logs');
       await auditFrom.insert({
         admin_id: adminUser.id,
         action: 'promote_to_admin',
@@ -136,7 +192,7 @@ export default function AdminUsersScreen() {
 
   const renderUser = ({ item }: { item: User }) => (
     <View style={styles.userCard}>
-      <View style={[styles.avatar, { borderColor: ROLE_COLORS[item.role] }]}> 
+      <View style={[styles.avatar, { borderColor: ROLE_COLORS[item.role] }]}>
         <Ionicons
           name={ROLE_ICONS[item.role] as any}
           size={24}
@@ -147,12 +203,15 @@ export default function AdminUsersScreen() {
         <Text style={styles.userName}>{item.name}</Text>
         <Text style={styles.userEmail}>{item.email}</Text>
         <View style={styles.userMeta}>
-          <View style={[styles.roleBadge, { backgroundColor: ROLE_COLORS[item.role] }]}> 
+          <View
+            style={[
+              styles.roleBadge,
+              { backgroundColor: ROLE_COLORS[item.role] },
+            ]}
+          >
             <Text style={styles.roleText}>{ROLE_LABELS[item.role]}</Text>
           </View>
-          {item.area && (
-            <Text style={styles.areaText}>{item.area}</Text>
-          )}
+          {item.area && <Text style={styles.areaText}>{item.area}</Text>}
         </View>
         {item.role !== 'admin' && (
           <TouchableOpacity
@@ -179,11 +238,13 @@ export default function AdminUsersScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}> 
+    <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
       <Text style={styles.title}>Users</Text>
       <Text style={styles.subtitle}>{users.length} registered users</Text>
       {promoteError && (
-        <Text style={{ color: Colors.error, marginBottom: 8 }}>{promoteError}</Text>
+        <Text style={{ color: Colors.error, marginBottom: 8 }}>
+          {promoteError}
+        </Text>
       )}
       <FlatList
         data={users}
@@ -201,7 +262,11 @@ export default function AdminUsersScreen() {
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={
           <View style={styles.emptyState}>
-            <Ionicons name="people-outline" size={48} color={Colors.textSecondary} />
+            <Ionicons
+              name="people-outline"
+              size={48}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.emptyText}>No users found</Text>
           </View>
         }

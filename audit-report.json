@@ -1,12 +1,55 @@
 {
   "metadata": {
-    "vulnerabilities": { "info": 0, "low": 5, "moderate": 0, "high": 0, "critical": 0, "total": 5 }
+    "vulnerabilities": {
+      "info": 0,
+      "low": 5,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 5
+    }
   },
   "vulnerabilities": {
-    "@tootallnate/once": { "severity": "low", "fixAvailable": { "name": "jest-expo", "version": "47.0.1", "isSemVerMajor": true } },
-    "http-proxy-agent": { "severity": "low", "fixAvailable": { "name": "jest-expo", "version": "47.0.1", "isSemVerMajor": true } },
-    "jest-environment-jsdom": { "severity": "low", "fixAvailable": { "name": "jest-expo", "version": "47.0.1", "isSemVerMajor": true } },
-    "jest-expo": { "severity": "low", "isDirect": true, "fixAvailable": { "name": "jest-expo", "version": "47.0.1", "isSemVerMajor": true } },
-    "jsdom": { "severity": "low", "fixAvailable": { "name": "jest-expo", "version": "47.0.1", "isSemVerMajor": true } }
+    "@tootallnate/once": {
+      "severity": "low",
+      "fixAvailable": {
+        "name": "jest-expo",
+        "version": "47.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "http-proxy-agent": {
+      "severity": "low",
+      "fixAvailable": {
+        "name": "jest-expo",
+        "version": "47.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "jest-environment-jsdom": {
+      "severity": "low",
+      "fixAvailable": {
+        "name": "jest-expo",
+        "version": "47.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "jest-expo": {
+      "severity": "low",
+      "isDirect": true,
+      "fixAvailable": {
+        "name": "jest-expo",
+        "version": "47.0.1",
+        "isSemVerMajor": true
+      }
+    },
+    "jsdom": {
+      "severity": "low",
+      "fixAvailable": {
+        "name": "jest-expo",
+        "version": "47.0.1",
+        "isSemVerMajor": true
+      }
+    }
   }
 }

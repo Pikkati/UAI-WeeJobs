@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,14 +16,17 @@ import { supabase } from '../../lib/supabase';
 import { useStripe } from '@stripe/stripe-react-native';
 
 export default function PayDepositScreen() {
-  const { jobId, tradieId } = useLocalSearchParams<{ jobId: string; tradieId: string }>();
+  const { jobId, tradieId } = useLocalSearchParams<{
+    jobId: string;
+    tradieId: string;
+  }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { jobs, payDeposit, calculateDeposit } = useJobs();
-  
+
   const [tradieName, setTradieName] = useState('Tradesperson');
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j) => j.id === jobId);
   const depositAmount = job ? calculateDeposit(job.budget || undefined) : 20;
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
 
@@ -55,45 +65,44 @@ export default function PayDepositScreen() {
     );
   }
 
-const handlePayDeposit = async () => {
-  try {
-    if (!jobId) {
-      Alert.alert('Error', 'Missing job ID');
-      return;
+  const handlePayDeposit = async () => {
+    try {
+      if (!jobId) {
+        Alert.alert('Error', 'Missing job ID');
+        return;
+      }
+
+      const paymentData = await payDeposit(jobId);
+
+      const { error: initError } = await initPaymentSheet({
+        merchantDisplayName: paymentData.merchantDisplayName,
+        customerId: paymentData.customer,
+        customerEphemeralKeySecret: paymentData.ephemeralKey,
+        paymentIntentClientSecret: paymentData.paymentIntent,
+        allowsDelayedPaymentMethods: true,
+      });
+
+      if (initError) {
+        Alert.alert('Error', initError.message);
+        return;
+      }
+
+      const { error: paymentError } = await presentPaymentSheet();
+
+      if (paymentError) {
+        Alert.alert('Payment failed', paymentError.message);
+        return;
+      }
+
+      Alert.alert(
+        'Payment successful',
+        `Deposit paid. Confirming booking with ${tradieName}...`,
+        [{ text: 'OK' }],
+      );
+    } catch (err: any) {
+      Alert.alert('Error', err.message || 'Something went wrong');
     }
-
-    const paymentData = await payDeposit(jobId);
-
-    const { error: initError } = await initPaymentSheet({
-      merchantDisplayName: paymentData.merchantDisplayName,
-      customerId: paymentData.customer,
-      customerEphemeralKeySecret: paymentData.ephemeralKey,
-      paymentIntentClientSecret: paymentData.paymentIntent,
-      allowsDelayedPaymentMethods: true,
-    });
-
-    if (initError) {
-      Alert.alert('Error', initError.message);
-      return;
-    }
-
-    const { error: paymentError } = await presentPaymentSheet();
-
-    if (paymentError) {
-      Alert.alert('Payment failed', paymentError.message);
-      return;
-    }
-
-    Alert.alert(
-      'Payment successful',
-      `Deposit paid. Confirming booking with ${tradieName}...`,
-      [{ text: 'OK' }]
-    );
-
-  } catch (err: any) {
-    Alert.alert('Error', err.message || 'Something went wrong');
-  }
-};
+  };
 
   const handleCancel = () => {
     Alert.alert(
@@ -101,15 +110,22 @@ const handlePayDeposit = async () => {
       'Are you sure you want to cancel? No payment will be taken.',
       [
         { text: 'No, Continue', style: 'cancel' },
-        { text: 'Yes, Cancel', style: 'destructive', onPress: () => router.back() },
-      ]
+        {
+          text: 'Yes, Cancel',
+          style: 'destructive',
+          onPress: () => router.back(),
+        },
+      ],
     );
   };
 
   return (
     <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Pay Deposit</Text>
@@ -123,7 +139,9 @@ const handlePayDeposit = async () => {
           </View>
           <Text style={styles.bookingLabel}>Booking</Text>
           <Text style={styles.tradieName}>{tradieName}</Text>
-          <Text style={styles.jobCategory}>{job.category} in {job.area}</Text>
+          <Text style={styles.jobCategory}>
+            {job.category} in {job.area}
+          </Text>
         </View>
 
         <View style={styles.depositCard}>
@@ -133,11 +151,16 @@ const handlePayDeposit = async () => {
 
         <View style={styles.infoSection}>
           <View style={styles.infoItem}>
-            <Ionicons name="shield-checkmark" size={24} color={Colors.success} />
+            <Ionicons
+              name="shield-checkmark"
+              size={24}
+              color={Colors.success}
+            />
             <View style={styles.infoContent}>
               <Text style={styles.infoTitle}>Secure Your Booking</Text>
               <Text style={styles.infoText}>
-                This deposit reserves {tradieName} for your job and helps prevent no-shows.
+                This deposit reserves {tradieName} for your job and helps
+                prevent no-shows.
               </Text>
             </View>
           </View>
@@ -153,7 +176,11 @@ const handlePayDeposit = async () => {
           </View>
 
           <View style={styles.infoItem}>
-            <Ionicons name="chatbubbles-outline" size={24} color={Colors.accent} />
+            <Ionicons
+              name="chatbubbles-outline"
+              size={24}
+              color={Colors.accent}
+            />
             <View style={styles.infoContent}>
               <Text style={styles.infoTitle}>Direct Communication</Text>
               <Text style={styles.infoText}>
@@ -166,8 +193,12 @@ const handlePayDeposit = async () => {
         <View style={styles.breakdown}>
           <Text style={styles.breakdownTitle}>How deposits work</Text>
           <View style={styles.breakdownRow}>
-            <Text style={styles.breakdownLabel}>Deposit (10% of budget, £10-£50)</Text>
-            <Text style={styles.breakdownValue}>£{depositAmount.toFixed(2)}</Text>
+            <Text style={styles.breakdownLabel}>
+              Deposit (10% of budget, £10-£50)
+            </Text>
+            <Text style={styles.breakdownValue}>
+              £{depositAmount.toFixed(2)}
+            </Text>
           </View>
           <View style={styles.breakdownRow}>
             <Text style={styles.breakdownLabel}>Remaining (after quote)</Text>
@@ -178,12 +209,16 @@ const handlePayDeposit = async () => {
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+      <View
+        style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+      >
         <TouchableOpacity style={styles.payButton} onPress={handlePayDeposit}>
           <Ionicons name="lock-closed" size={20} color={Colors.background} />
-          <Text style={styles.payButtonText}>Pay £{depositAmount.toFixed(2)} Deposit</Text>
+          <Text style={styles.payButtonText}>
+            Pay £{depositAmount.toFixed(2)} Deposit
+          </Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
           <Text style={styles.cancelButtonText}>Cancel Booking</Text>
         </TouchableOpacity>
@@ -194,7 +229,6 @@ const handlePayDeposit = async () => {
           <Text style={styles.stripeLogo}>stripe</Text>
         </View>
       </View>
-
     </View>
   );
 }

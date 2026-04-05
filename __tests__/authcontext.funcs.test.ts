@@ -8,7 +8,12 @@ describe('AuthContext helpers', () => {
   });
 
   test('buildNormalizedUser fills defaults and normalizes role', () => {
-    const partial = { id: 'u1', email: 'a@b.com', name: 'A', role: 'tradie' } as any;
+    const partial = {
+      id: 'u1',
+      email: 'a@b.com',
+      name: 'A',
+      role: 'tradie',
+    } as any;
     const user = buildNormalizedUser(partial);
     expect(user.id).toBe('u1');
     expect(user.email).toBe('a@b.com');

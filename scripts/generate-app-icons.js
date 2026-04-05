@@ -11,7 +11,9 @@ const SRC = path.join(__dirname, '..', 'assets', 'icons', 'app-icon.png');
 const OUT = path.join(__dirname, '..', 'assets', 'icons', 'generated');
 if (!fs.existsSync(SRC)) {
   console.log('No source master icon found at', SRC);
-  console.log('Place a 1024x1024 PNG at that path to auto-generate platform icons.');
+  console.log(
+    'Place a 1024x1024 PNG at that path to auto-generate platform icons.',
+  );
   process.exit(0);
 }
 if (!fs.existsSync(OUT)) fs.mkdirSync(OUT, { recursive: true });
@@ -20,7 +22,9 @@ let sharp;
 try {
   sharp = require('sharp');
 } catch (e) {
-  console.log('The `sharp` package is not installed. To generate icons automatically, run:');
+  console.log(
+    'The `sharp` package is not installed. To generate icons automatically, run:',
+  );
   console.log('  npm install --save-dev sharp');
   console.log('Then re-run `node scripts/generate-app-icons.js`');
   process.exit(0);

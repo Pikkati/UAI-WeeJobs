@@ -14,10 +14,17 @@ describe('AuthContext supabase-backed flows', () => {
     // eslint-disable-next-line no-undef
     global.__TEST_SUPABASE__ = {
       auth: {
-        signInWithPassword: jest.fn(async () => ({ data: { user: { id: 'u1', confirmed_at: null } }, error: null })),
+        signInWithPassword: jest.fn(async () => ({
+          data: { user: { id: 'u1', confirmed_at: null } },
+          error: null,
+        })),
         signOut: jest.fn(async () => ({ error: null })),
       },
-      from: jest.fn(() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) })),
+      from: jest.fn(() => ({
+        select: () => ({
+          eq: () => ({ single: async () => ({ data: null, error: null }) }),
+        }),
+      })),
       functions: { invoke: jest.fn(async () => ({ data: null, error: null })) },
     };
 
@@ -36,7 +43,7 @@ describe('AuthContext supabase-backed flows', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -50,7 +57,10 @@ describe('AuthContext supabase-backed flows', () => {
     // eslint-disable-next-line no-undef
     global.__TEST_SUPABASE__ = {
       auth: {
-        signUp: jest.fn(async () => ({ data: { user: { id: 'u2', confirmed_at: null } }, error: null })),
+        signUp: jest.fn(async () => ({
+          data: { user: { id: 'u2', confirmed_at: null } },
+          error: null,
+        })),
       },
       from: jest.fn(() => ({ insert: async () => ({ error: null }) })),
       functions: { invoke: jest.fn(async () => ({ data: null, error: null })) },
@@ -71,7 +81,7 @@ describe('AuthContext supabase-backed flows', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -87,7 +97,11 @@ describe('AuthContext supabase-backed flows', () => {
       auth: {
         resetPasswordForEmail: jest.fn(async () => ({ error: null })),
       },
-      from: jest.fn(() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) })),
+      from: jest.fn(() => ({
+        select: () => ({
+          eq: () => ({ single: async () => ({ data: null, error: null }) }),
+        }),
+      })),
       functions: { invoke: jest.fn(async () => ({ data: null, error: null })) },
     };
 
@@ -106,7 +120,7 @@ describe('AuthContext supabase-backed flows', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {

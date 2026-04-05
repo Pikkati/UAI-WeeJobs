@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity, Switch, ScrollView, Alert } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Switch,
+  ScrollView,
+  Alert,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
@@ -32,20 +40,30 @@ export default function SettingsScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Settings</Text>
         <View style={{ width: 40 }} />
       </View>
 
-      <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.section}>
           <Text style={styles.sectionLabel}>Notifications</Text>
           <View style={styles.card}>
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
-                <Ionicons name="notifications-outline" size={20} color={Colors.textSecondary} />
+                <Ionicons
+                  name="notifications-outline"
+                  size={20}
+                  color={Colors.textSecondary}
+                />
                 <Text style={styles.settingLabel}>Push Notifications</Text>
               </View>
               <Switch
@@ -58,7 +76,11 @@ export default function SettingsScreen() {
             <View style={styles.divider} />
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
-                <Ionicons name="briefcase-outline" size={20} color={Colors.textSecondary} />
+                <Ionicons
+                  name="briefcase-outline"
+                  size={20}
+                  color={Colors.textSecondary}
+                />
                 <Text style={styles.settingLabel}>Job Alerts</Text>
               </View>
               <Switch
@@ -71,7 +93,11 @@ export default function SettingsScreen() {
             <View style={styles.divider} />
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
-                <Ionicons name="chatbubbles-outline" size={20} color={Colors.textSecondary} />
+                <Ionicons
+                  name="chatbubbles-outline"
+                  size={20}
+                  color={Colors.textSecondary}
+                />
                 <Text style={styles.settingLabel}>Message Alerts</Text>
               </View>
               <Switch
@@ -89,7 +115,11 @@ export default function SettingsScreen() {
           <View style={styles.card}>
             <View style={styles.settingRow}>
               <View style={styles.settingInfo}>
-                <Ionicons name="moon-outline" size={20} color={Colors.textSecondary} />
+                <Ionicons
+                  name="moon-outline"
+                  size={20}
+                  color={Colors.textSecondary}
+                />
                 <Text style={styles.settingLabel}>Dark Mode</Text>
               </View>
               <Switch
@@ -123,10 +153,20 @@ export default function SettingsScreen() {
             <View style={styles.card}>
               <View style={styles.settingRow}>
                 <View style={styles.settingInfo}>
-                  <Ionicons name="log-out-outline" size={20} color={Colors.error} />
-                  <Text style={[styles.settingLabel, { color: Colors.error }]}>Logout</Text>
+                  <Ionicons
+                    name="log-out-outline"
+                    size={20}
+                    color={Colors.error}
+                  />
+                  <Text style={[styles.settingLabel, { color: Colors.error }]}>
+                    Logout
+                  </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={18} color={Colors.error} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={18}
+                  color={Colors.error}
+                />
               </View>
             </View>
           </TouchableOpacity>

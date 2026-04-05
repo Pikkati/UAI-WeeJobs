@@ -7,7 +7,9 @@ jest.mock('../context/AuthContext', () => ({
   useAuth: () => ({ user: { name: 'Test User' } }),
 }));
 
-jest.mock('@expo/vector-icons', () => ({ Ionicons: (props) => require('react').createElement('Icon', props) }));
+jest.mock('@expo/vector-icons', () => ({
+  Ionicons: (props) => require('react').createElement('Icon', props),
+}));
 
 jest.mock('../lib/supabase', () => ({
   supabase: {

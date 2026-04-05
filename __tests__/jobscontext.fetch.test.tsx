@@ -9,19 +9,29 @@ import { JobsProvider, useJobs } from '../context/JobsContext';
 (global as any).__TEST_USE_AUTH__ = () => ({ user: { id: 'u1' } });
 
 // Mock AsyncStorage to return cached jobs (ESM-compatible)
-jest.mock('@react-native-async-storage/async-storage', () => ({
-  __esModule: true,
-  default: {
-    getItem: jest.fn(async (k) => JSON.stringify([{ id: 'cached1', title: 'Cached Job' }])),
-    setItem: jest.fn(async () => {}),
-  },
-}), { virtual: true });
+jest.mock(
+  '@react-native-async-storage/async-storage',
+  () => ({
+    __esModule: true,
+    default: {
+      getItem: jest.fn(async (k) =>
+        JSON.stringify([{ id: 'cached1', title: 'Cached Job' }]),
+      ),
+      setItem: jest.fn(async () => {}),
+    },
+  }),
+  { virtual: true },
+);
 
 // Note: tests provide a `global.__TEST_SUPABASE__` override below so we avoid
 // mocking the module shape here. The runtime `lib/supabase` module prefers the
 // global override which produces a stable, chainable test supabase instance.
 // Ensure AuthContext returns the test user
-jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1' } }) }), { virtual: true });
+jest.mock(
+  '../context/AuthContext',
+  () => ({ useAuth: () => ({ user: { id: 'u1' } }) }),
+  { virtual: true },
+);
 
 // Provide a test supabase override (used by lib/supabase when loading)
 // eslint-disable-next-line no-undef
@@ -59,10 +69,13 @@ describe('JobsProvider fetch/caching', () => {
     const utils = render(
       <JobsProvider>
         <Consumer />
-      </JobsProvider>
+      </JobsProvider>,
     );
 
-    await waitFor(() => expect(utils.getByTestId('jobs-count').props.children).toBe(1), { timeout: 2000 });
+    await waitFor(
+      () => expect(utils.getByTestId('jobs-count').props.children).toBe(1),
+      { timeout: 2000 },
+    );
     expect(utils.getByTestId('loading').props.children).toBe('false');
   });
 });

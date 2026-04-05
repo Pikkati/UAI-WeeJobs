@@ -4,7 +4,11 @@ describe('lib supabase test-response map', () => {
   test('setResponse returns seeded rows for table single/select', async () => {
     // eslint-disable-next-line no-undef
     const g: any = typeof global !== 'undefined' ? global : (globalThis as any);
-    if (!g || !g.__TEST_SUPABASE__ || typeof g.__TEST_SUPABASE__.setResponse !== 'function') {
+    if (
+      !g ||
+      !g.__TEST_SUPABASE__ ||
+      typeof g.__TEST_SUPABASE__.setResponse !== 'function'
+    ) {
       // Environment doesn't expose the test supabase helper; skip.
       expect(true).toBe(true);
       return;
@@ -21,7 +25,11 @@ describe('lib supabase test-response map', () => {
 
     // Clearing responses should revert to empty results
     g.__TEST_SUPABASE__.clearResponses();
-    const res2 = await supabase.from('jobs').select('*').eq('id', 'j1').single();
+    const res2 = await supabase
+      .from('jobs')
+      .select('*')
+      .eq('id', 'j1')
+      .single();
     expect(res2).toBeDefined();
     expect(res2.data).toBeNull();
   });

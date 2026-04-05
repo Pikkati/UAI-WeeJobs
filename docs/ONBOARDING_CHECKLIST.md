@@ -77,6 +77,7 @@ npm run test:q
 ---
 
 If you'd like, I can also:
+
 - create `docs/CONTRIBUTOR_ONBOARDING.md` with more formal guidance,
 - add a small in-app onboarding checklist page wired to this doc,
 - or open a PR with this file committed to the current feature branch.

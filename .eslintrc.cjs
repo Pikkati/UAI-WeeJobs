@@ -18,25 +18,30 @@ module.exports = {
       // Native / Expo modules used in the project but not resolvable in Node lint
       'react-native-reanimated',
       'expo-haptics',
-      'expo-blur'
+      'expo-blur',
     ],
     'import/resolver': {
       typescript: {},
     },
   },
   rules: {
-    'import/no-unresolved': ['error', { ignore: [
-      'expo-linear-gradient',
-      'react-native-safe-area-context',
-      '@stripe/stripe-react-native',
-      'expo-status-bar',
-      'expo-web-browser',
-      'expo-image',
-      // Additional native modules
-      'react-native-reanimated',
-      'expo-haptics',
-      'expo-blur'
-    ] }],
+    'import/no-unresolved': [
+      'error',
+      {
+        ignore: [
+          'expo-linear-gradient',
+          'react-native-safe-area-context',
+          '@stripe/stripe-react-native',
+          'expo-status-bar',
+          'expo-web-browser',
+          'expo-image',
+          // Additional native modules
+          'react-native-reanimated',
+          'expo-haptics',
+          'expo-blur',
+        ],
+      },
+    ],
   },
   overrides: [
     {
@@ -50,18 +55,17 @@ module.exports = {
         'react-hooks/globals': 'off',
         'react-hooks/refs': 'off',
         'react-hooks/preserve-manual-memoization': 'off',
-        'import/no-unresolved': 'off'
-      }
+        'import/no-unresolved': 'off',
+      },
     },
     {
       // Mocks are plain JS files that use the `jest` global; enable jest env
       files: ['**/__mocks__/**', '**/*.mock.*'],
       env: { jest: true, node: true },
       rules: {
-        'no-undef': 'off'
-      }
-    }
-    ,
+        'no-undef': 'off',
+      },
+    },
     {
       // Relax some React Hooks rules and certain checks in app and component code
       files: ['app/**', 'components/**', 'components/**/**'],
@@ -69,30 +73,29 @@ module.exports = {
         'react-hooks/refs': 'off',
         'react-hooks/preserve-manual-memoization': 'off',
         'react-hooks/immutability': 'off',
-        'react-hooks/static-components': 'off'
-      }
-    }
-    ,
+        'react-hooks/static-components': 'off',
+      },
+    },
     {
       // Deno-based Supabase functions use remote imports that ESLint (node resolver)
       // cannot resolve; relax import rules for those files.
       files: ['supabase/**'],
       rules: {
         'import/no-unresolved': 'off',
-        'import/first': 'off'
-      }
+        'import/first': 'off',
+      },
     },
     {
       // Node scripts should be linted with Node globals enabled
       files: ['scripts/**'],
-      env: { node: true }
+      env: { node: true },
     },
     {
       // Some custom hooks intentionally set state in an effect during hydration
       files: ['hooks/**'],
       rules: {
-        'react-hooks/set-state-in-effect': 'off'
-      }
-    }
-  ]
+        'react-hooks/set-state-in-effect': 'off',
+      },
+    },
+  ],
 };

@@ -2,8 +2,24 @@ const fs = require('fs');
 const path = require('path');
 
 const candidates = [
-  path.resolve(__dirname, '..', 'android', 'app', 'src', 'main', 'assets', 'index.android.bundle'),
-  path.resolve(__dirname, '..', 'android', 'extracted_app', 'assets', 'index.android.bundle')
+  path.resolve(
+    __dirname,
+    '..',
+    'android',
+    'app',
+    'src',
+    'main',
+    'assets',
+    'index.android.bundle',
+  ),
+  path.resolve(
+    __dirname,
+    '..',
+    'android',
+    'extracted_app',
+    'assets',
+    'index.android.bundle',
+  ),
 ];
 
 let found = null;
@@ -44,18 +60,30 @@ try {
   console.log('FOUND_BUNDLE:', found);
   console.log('KEY_COUNT:', arr.length);
   console.log('FIRST_20:', arr.slice(0, 20));
-  const out = path.resolve(__dirname, '..', 'android', 'extracted_app', 'routes_manifest.json');
+  const out = path.resolve(
+    __dirname,
+    '..',
+    'android',
+    'extracted_app',
+    'routes_manifest.json',
+  );
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, JSON.stringify(arr, null, 2), 'utf8');
   console.log('WROTE:', out);
 } catch (err) {
   // try a JS eval fallback (less safe but runs in this environment)
   try {
-    const arr = (new Function('return ' + arrText))();
+    const arr = new Function('return ' + arrText)();
     console.log('FOUND_BUNDLE (eval):', found);
     console.log('KEY_COUNT:', arr.length);
     console.log('FIRST_20:', arr.slice(0, 20));
-    const out = path.resolve(__dirname, '..', 'android', 'extracted_app', 'routes_manifest.json');
+    const out = path.resolve(
+      __dirname,
+      '..',
+      'android',
+      'extracted_app',
+      'routes_manifest.json',
+    );
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, JSON.stringify(arr, null, 2), 'utf8');
     console.log('WROTE:', out);

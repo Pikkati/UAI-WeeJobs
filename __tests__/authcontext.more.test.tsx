@@ -5,10 +5,18 @@ import { render, waitFor } from '@testing-library/react-native';
 jest.mock('@react-native-async-storage/async-storage', () => ({
   __esModule: true,
   default: {
-    getItem: jest.fn(async (k: string) => (global as any).__asyncStorage?.[k] ?? null),
-    setItem: jest.fn(async (k: string, v: string) => { (global as any).__asyncStorage = (global as any).__asyncStorage || {}; (global as any).__asyncStorage[k] = v; }),
-    removeItem: jest.fn(async (k: string) => { (global as any).__asyncStorage = (global as any).__asyncStorage || {}; delete (global as any).__asyncStorage[k]; }),
-  }
+    getItem: jest.fn(
+      async (k: string) => (global as any).__asyncStorage?.[k] ?? null,
+    ),
+    setItem: jest.fn(async (k: string, v: string) => {
+      (global as any).__asyncStorage = (global as any).__asyncStorage || {};
+      (global as any).__asyncStorage[k] = v;
+    }),
+    removeItem: jest.fn(async (k: string) => {
+      (global as any).__asyncStorage = (global as any).__asyncStorage || {};
+      delete (global as any).__asyncStorage[k];
+    }),
+  },
 }));
 
 describe('AuthProvider additional flows', () => {
@@ -19,8 +27,17 @@ describe('AuthProvider additional flows', () => {
 
   test('signup returns already-registered message on signup error', async () => {
     const { supabase } = require('../lib/supabase');
-    if (!supabase.auth) (supabase as any).auth = { signUp: async () => ({ data: null, error: null }), signOut: async () => ({}) };
-    jest.spyOn(supabase.auth, 'signUp' as any).mockImplementation(async () => ({ data: null, error: { message: 'already registered' } }));
+    if (!supabase.auth)
+      (supabase as any).auth = {
+        signUp: async () => ({ data: null, error: null }),
+        signOut: async () => ({}),
+      };
+    jest
+      .spyOn(supabase.auth, 'signUp' as any)
+      .mockImplementation(async () => ({
+        data: null,
+        error: { message: 'already registered' },
+      }));
 
     const { AuthProvider, useAuth } = require('../context/AuthContext');
 
@@ -36,7 +53,7 @@ describe('AuthProvider additional flows', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -48,8 +65,17 @@ describe('AuthProvider additional flows', () => {
 
   test('signup requires verification when confirmed_at is null', async () => {
     const { supabase } = require('../lib/supabase');
-    if (!supabase.auth) (supabase as any).auth = { signUp: async () => ({ data: null, error: null }), signOut: async () => ({}) };
-    jest.spyOn(supabase.auth, 'signUp' as any).mockImplementation(async () => ({ data: { user: { id: 'u2', confirmed_at: null } }, error: null }));
+    if (!supabase.auth)
+      (supabase as any).auth = {
+        signUp: async () => ({ data: null, error: null }),
+        signOut: async () => ({}),
+      };
+    jest
+      .spyOn(supabase.auth, 'signUp' as any)
+      .mockImplementation(async () => ({
+        data: { user: { id: 'u2', confirmed_at: null } },
+        error: null,
+      }));
 
     const { AuthProvider, useAuth } = require('../context/AuthContext');
 
@@ -65,7 +91,7 @@ describe('AuthProvider additional flows', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -78,7 +104,9 @@ describe('AuthProvider additional flows', () => {
   test('sendPasswordReset calls supabase reset when available', async () => {
     const { supabase } = require('../lib/supabase');
     if (!supabase.auth) (supabase as any).auth = {};
-    (supabase.auth as any).resetPasswordForEmail = jest.fn(async (email: string) => ({ error: null }));
+    (supabase.auth as any).resetPasswordForEmail = jest.fn(
+      async (email: string) => ({ error: null }),
+    );
 
     const { AuthProvider, useAuth } = require('../context/AuthContext');
 
@@ -94,7 +122,7 @@ describe('AuthProvider additional flows', () => {
     render(
       <AuthProvider>
         <Invoker cb={(r: any) => (result = r)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -120,7 +148,7 @@ describe('AuthProvider additional flows', () => {
     render(
       <AuthProvider>
         <Invoker1 cb={(res: any) => (r1 = res)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {
@@ -131,7 +159,7 @@ describe('AuthProvider additional flows', () => {
 
     // Now set env and mock fetch
     (process as any).env.EXPO_PUBLIC_API_BASE = 'https://api.example';
-    global.fetch = jest.fn(async () => ({ ok: true } as any));
+    global.fetch = jest.fn(async () => ({ ok: true }) as any);
 
     function Invoker2({ cb }: any) {
       const { resendVerification } = useAuth();
@@ -145,7 +173,7 @@ describe('AuthProvider additional flows', () => {
     render(
       <AuthProvider>
         <Invoker2 cb={(res: any) => (r2 = res)} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     await waitFor(() => {

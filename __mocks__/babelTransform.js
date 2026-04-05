@@ -4,5 +4,8 @@ try {
   module.exports = require('babel-jest');
 } catch (e) {
   // Re-throw with a clearer message for CI logs.
-  throw new Error('babel-jest is required for Jest transforms. Ensure it is installed.\n' + e.message);
+  throw new Error(
+    'babel-jest is required for Jest transforms. Ensure it is installed.\n' +
+      e.message,
+  );
 }

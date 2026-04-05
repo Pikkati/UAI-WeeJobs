@@ -21,7 +21,13 @@ const mock = {
 mock.StyleSheet = {
   create: (s) => s,
   flatten: (s) => s,
-  absoluteFillObject: { position: 'absolute', left: 0, top: 0, right: 0, bottom: 0 },
+  absoluteFillObject: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+  },
 };
 // Create tiny functional component mocks so tests can access props/defaultProps
 const React = require('react');
@@ -47,22 +53,38 @@ mock.Animated = {
   Value: function (v) {
     const obj = {
       _value: v,
-      setValue(x) { this._value = x; },
+      setValue(x) {
+        this._value = x;
+      },
       // simple interpolate stub used in style transforms
-      interpolate() { return { __isAnimated: true }; },
+      interpolate() {
+        return { __isAnimated: true };
+      },
     };
     return obj;
   },
   // Provide a simple ValueXY used by some screens
   ValueXY: function () {
     const xy = {
-      x: { _value: 0, setValue(v) { this._value = v; } },
-      y: { _value: 0, setValue(v) { this._value = v; } },
+      x: {
+        _value: 0,
+        setValue(v) {
+          this._value = v;
+        },
+      },
+      y: {
+        _value: 0,
+        setValue(v) {
+          this._value = v;
+        },
+      },
       setValue(v) {
         if (v && v.x != null) this.x.setValue(v.x);
         if (v && v.y != null) this.y.setValue(v.y);
       },
-      getLayout() { return {}; },
+      getLayout() {
+        return {};
+      },
     };
     return xy;
   },
@@ -70,9 +92,21 @@ mock.Animated = {
   View: createComponent('AnimatedView', 'View'),
   // createAnimatedComponent should return the underlying host component
   createAnimatedComponent: (Comp) => Comp,
-  spring: (val, cfg) => ({ start: (cb) => { if (typeof cb === 'function') cb(); } }),
-  timing: (val, cfg) => ({ start: (cb) => { if (typeof cb === 'function') cb(); } }),
-  sequence: (arr) => ({ start: (cb) => { if (typeof cb === 'function') cb(); } }),
+  spring: (val, cfg) => ({
+    start: (cb) => {
+      if (typeof cb === 'function') cb();
+    },
+  }),
+  timing: (val, cfg) => ({
+    start: (cb) => {
+      if (typeof cb === 'function') cb();
+    },
+  }),
+  sequence: (arr) => ({
+    start: (cb) => {
+      if (typeof cb === 'function') cb();
+    },
+  }),
 };
 
 // Provide Modal and ActivityIndicator primitives used by some components in tests
@@ -88,7 +122,7 @@ mock.Dimensions = { get: (_key) => ({ width: 375, height: 667 }) };
 // Provide Platform mock so modules that read Platform.OS at import-time don't fail
 mock.Platform = {
   OS: 'ios',
-  select: (obj) => (obj && (obj.ios ?? obj.default ?? obj.android ?? null)),
+  select: (obj) => obj && (obj.ios ?? obj.default ?? obj.android ?? null),
 };
 
 // Export shape that supports CommonJS and ESM default interop used by jest

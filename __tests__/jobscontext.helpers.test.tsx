@@ -12,9 +12,18 @@ function TestInvoker({ cb }: { cb: (res: any) => void }) {
       deposit200: ctx.calculateDeposit('£200'),
       deposit1000: ctx.calculateDeposit('£1000'),
       depositInvalid: ctx.calculateDeposit('no number'),
-      customerBookedHourlyFirst: ctx.getNextActionsByRole('booked', 'customer', 'hourly')[0]?.label,
-      tradieInProgressHourlyFirst: ctx.getNextActionsByRole('in_progress', 'tradesperson', 'hourly')[0]?.label,
-      unknownStatus: ctx.getNextActionsByRole('unknown' as any, 'customer').length,
+      customerBookedHourlyFirst: ctx.getNextActionsByRole(
+        'booked',
+        'customer',
+        'hourly',
+      )[0]?.label,
+      tradieInProgressHourlyFirst: ctx.getNextActionsByRole(
+        'in_progress',
+        'tradesperson',
+        'hourly',
+      )[0]?.label,
+      unknownStatus: ctx.getNextActionsByRole('unknown' as any, 'customer')
+        .length,
     };
     cb(res);
   }, [cb, ctx]);
@@ -31,7 +40,7 @@ describe('JobsContext helpers', () => {
         <JobsProvider>
           <TestInvoker cb={(r) => (result = r)} />
         </JobsProvider>
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     // wait for effects to settle

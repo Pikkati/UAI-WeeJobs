@@ -1,5 +1,4 @@
-PR Checklist
-=============
+# PR Checklist
 
 - [ ] Run `npm run test:ci` locally and confirm coverage meets project thresholds
 - [ ] Ensure no unexpected console output during tests (set `WEEJOBS_DEBUG` to true if debugging)

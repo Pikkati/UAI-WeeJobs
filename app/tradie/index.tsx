@@ -1,5 +1,17 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, TouchableOpacity, ActivityIndicator, Alert, Animated, PanResponder, Modal, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert,
+  Animated,
+  PanResponder,
+  Modal,
+  ScrollView,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // eslint-disable-next-line import/no-unresolved
@@ -14,21 +26,19 @@ import LeadUnlockModal from '../../components/LeadUnlockModal';
 const { width, height } = Dimensions.get('window');
 const SWIPE_THRESHOLD = 120;
 
-function JobDetailModal({ 
-  job, 
-  visible, 
-  onClose, 
+function JobDetailModal({
+  job,
+  visible,
+  onClose,
   onAccept,
   insets,
-}: { 
-  job: Job | null; 
-  visible: boolean; 
+}: {
+  job: Job | null;
+  visible: boolean;
   onClose: () => void;
   onAccept: () => void;
   insets: { top: number; bottom: number };
 }) {
-  
-  
   if (!job) return null;
 
   return (
@@ -43,9 +53,16 @@ function JobDetailModal({
             <View style={{ width: 28 }} />
           </View>
 
-          <ScrollView style={modalStyles.content} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={modalStyles.content}
+            showsVerticalScrollIndicator={false}
+          >
             {job.photos && job.photos.length > 0 && (
-              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={modalStyles.photoScroll}>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={modalStyles.photoScroll}
+              >
                 {job.photos.map((photo, index) => (
                   <Image
                     key={index}
@@ -68,13 +85,21 @@ function JobDetailModal({
 
             <View style={modalStyles.infoCard}>
               <View style={modalStyles.infoRow}>
-                <Ionicons name="person-outline" size={20} color={Colors.accent} />
+                <Ionicons
+                  name="person-outline"
+                  size={20}
+                  color={Colors.accent}
+                />
                 <Text style={modalStyles.infoLabel}>Customer</Text>
                 <Text style={modalStyles.infoValue}>{job.name}</Text>
               </View>
               <View style={modalStyles.divider} />
               <View style={modalStyles.infoRow}>
-                <Ionicons name="location-outline" size={20} color={Colors.accent} />
+                <Ionicons
+                  name="location-outline"
+                  size={20}
+                  color={Colors.accent}
+                />
                 <Text style={modalStyles.infoLabel}>Area</Text>
                 <Text style={modalStyles.infoValue}>{job.area}</Text>
               </View>
@@ -97,7 +122,9 @@ function JobDetailModal({
             {job.description && (
               <View style={modalStyles.descriptionSection}>
                 <Text style={modalStyles.sectionTitle}>Description</Text>
-                <Text style={modalStyles.descriptionText}>{job.description}</Text>
+                <Text style={modalStyles.descriptionText}>
+                  {job.description}
+                </Text>
               </View>
             )}
 
@@ -108,12 +135,20 @@ function JobDetailModal({
             <View style={{ height: 100 }} />
           </ScrollView>
 
-          <View style={[modalStyles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+          <View
+            style={[
+              modalStyles.footer,
+              { paddingBottom: insets.bottom + Spacing.md },
+            ]}
+          >
             <TouchableOpacity style={modalStyles.skipButton} onPress={onClose}>
               <Ionicons name="close" size={24} color={Colors.error} />
               <Text style={modalStyles.skipButtonText}>Skip</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={modalStyles.acceptButton} onPress={onAccept}>
+            <TouchableOpacity
+              style={modalStyles.acceptButton}
+              onPress={onAccept}
+            >
               <Ionicons name="checkmark" size={24} color={Colors.background} />
               <Text style={modalStyles.acceptButtonText}>Accept Job</Text>
             </TouchableOpacity>
@@ -125,14 +160,14 @@ function JobDetailModal({
 }
 
 /* eslint-disable react-hooks/refs */
-function JobCard({ 
-  job, 
-  isTop, 
-  onSwipeLeft, 
+function JobCard({
+  job,
+  isTop,
+  onSwipeLeft,
   onSwipeRight,
   onTap,
-}: { 
-  job: Job; 
+}: {
+  job: Job;
   isTop: boolean;
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
@@ -167,7 +202,7 @@ function JobCard({
           onTap();
           return;
         }
-        
+
         if (gesture.dx > SWIPE_THRESHOLD) {
           Animated.spring(position, {
             toValue: { x: 0, y: 0 },
@@ -186,7 +221,7 @@ function JobCard({
           }).start();
         }
       },
-    })
+    }),
   ).current;
 
   const hasPhoto = job.photos && job.photos.length > 0;
@@ -214,7 +249,7 @@ function JobCard({
           contentFit="cover"
         />
       )}
-      
+
       <Animated.View style={[styles.likeStamp, { opacity: likeOpacity }]}>
         <Text style={styles.stampText}>ACCEPT</Text>
       </Animated.View>
@@ -222,7 +257,9 @@ function JobCard({
         <Text style={[styles.stampText, styles.nopeStampText]}>SKIP</Text>
       </Animated.View>
 
-      <View style={[styles.cardContent, hasPhoto && styles.cardContentWithPhoto]}>
+      <View
+        style={[styles.cardContent, hasPhoto && styles.cardContentWithPhoto]}
+      >
         <View style={styles.cardHeader}>
           <View style={styles.profileAvatar}>
             <Ionicons name="person" size={20} color={Colors.accent} />
@@ -329,17 +366,21 @@ export default function TradieSwipeScreen() {
     if (!pendingJob || !user) return;
 
     try {
-      console.log(isPro ? "PRO auto-interest" : "PAYG unlock paid");
-      
+      console.log(isPro ? 'PRO auto-interest' : 'PAYG unlock paid');
+
       const unlockFeeAmount = isPro ? 0 : 3;
-      const success = await expressInterest(pendingJob.id, !isPro, unlockFeeAmount);
+      const success = await expressInterest(
+        pendingJob.id,
+        !isPro,
+        unlockFeeAmount,
+      );
 
       if (!success) throw new Error('Failed to express interest');
 
       Alert.alert(
-        'Interest Registered!', 
+        'Interest Registered!',
         `You've shown interest in the ${pendingJob.category} job in ${pendingJob.area}. The customer will review your profile and decide.`,
-        [{ text: 'OK' }]
+        [{ text: 'OK' }],
       );
       setJobs((prev) => prev.slice(1));
       setShowUnlockModal(false);
@@ -391,7 +432,11 @@ export default function TradieSwipeScreen() {
 
       {jobs.length === 0 ? (
         <View style={styles.emptyState}>
-          <Ionicons name="briefcase-outline" size={64} color={Colors.textSecondary} />
+          <Ionicons
+            name="briefcase-outline"
+            size={64}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.emptyTitle}>No jobs available</Text>
           <Text style={styles.emptyText}>
             Check back later for new jobs{'\n'}in your area
@@ -404,16 +449,19 @@ export default function TradieSwipeScreen() {
       ) : (
         <>
           <View style={styles.cardsContainer}>
-            {jobs.slice(0, 3).reverse().map((job, index) => (
-              <JobCard
-                key={job.id}
-                job={job}
-                isTop={index === jobs.slice(0, 3).length - 1}
-                onSwipeLeft={handleSwipeLeft}
-                onSwipeRight={handleSwipeRight}
-                onTap={handleTapCard}
-              />
-            ))}
+            {jobs
+              .slice(0, 3)
+              .reverse()
+              .map((job, index) => (
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  isTop={index === jobs.slice(0, 3).length - 1}
+                  onSwipeLeft={handleSwipeLeft}
+                  onSwipeRight={handleSwipeRight}
+                  onTap={handleTapCard}
+                />
+              ))}
           </View>
 
           <View style={styles.buttonsContainer}>
@@ -439,9 +487,7 @@ export default function TradieSwipeScreen() {
             </TouchableOpacity>
           </View>
 
-          <Text style={styles.hint}>
-            Swipe right to accept, left to skip
-          </Text>
+          <Text style={styles.hint}>Swipe right to accept, left to skip</Text>
         </>
       )}
 

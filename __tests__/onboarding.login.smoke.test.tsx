@@ -18,7 +18,9 @@ jest.mock('expo-router', () => ({
 }));
 
 // Mock safe area insets
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }) }));
+jest.mock('react-native-safe-area-context', () => ({
+  useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
+}));
 
 describe('LoginScreen (app/onboarding/login)', () => {
   test('module loads and exports a component', () => {

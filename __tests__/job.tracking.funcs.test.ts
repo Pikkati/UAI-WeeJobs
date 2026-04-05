@@ -1,4 +1,7 @@
-import { getStatusDescription, getCancelRefundMessage } from '../app/job/tracking';
+import {
+  getStatusDescription,
+  getCancelRefundMessage,
+} from '../app/job/tracking';
 
 describe('Job tracking helpers', () => {
   test('getStatusDescription returns human text for known statuses', () => {

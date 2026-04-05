@@ -22,7 +22,10 @@ module.exports = {};
 // Write a marker so we can detect if this preload ran inside containers
 try {
   const fs = require('fs');
-  fs.appendFileSync('./tmp_jest_preload_marker.log', `preload:${new Date().toISOString()}\n`);
+  fs.appendFileSync(
+    './tmp_jest_preload_marker.log',
+    `preload:${new Date().toISOString()}\n`,
+  );
 } catch {
   // ignore
 }
@@ -33,12 +36,13 @@ try {
 try {
   const Module = require('module');
   const origLoad = Module._load;
-  Module._load = function(request, parent, isMain) {
+  Module._load = function (request, parent, isMain) {
     try {
       if (
         request === 'react-native/jest/setup' ||
         request === 'react-native/jest/setup.js' ||
-        (typeof request === 'string' && request.endsWith('/react-native/jest/setup.js'))
+        (typeof request === 'string' &&
+          request.endsWith('/react-native/jest/setup.js'))
       ) {
         // Resolve our wrapper relative to project root
         const wrapper = require.resolve('./__mocks__/rn-jest-setup-wrapper.js');

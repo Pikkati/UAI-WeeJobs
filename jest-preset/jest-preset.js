@@ -26,11 +26,19 @@ const isRNSetup = (v) =>
 const wrapper = '<rootDir>/__mocks__/rn-jest-setup-wrapper.js';
 const localSetup = '<rootDir>/jest-setup.js';
 
-const expoSetup = Array.isArray(preset.setupFiles) ? preset.setupFiles.filter((v) => !isRNSetup(v)) : [];
-const expoAfterEnv = Array.isArray(preset.setupFilesAfterEnv) ? preset.setupFilesAfterEnv.filter((v) => !isRNSetup(v)) : [];
+const expoSetup = Array.isArray(preset.setupFiles)
+  ? preset.setupFiles.filter((v) => !isRNSetup(v))
+  : [];
+const expoAfterEnv = Array.isArray(preset.setupFilesAfterEnv)
+  ? preset.setupFilesAfterEnv.filter((v) => !isRNSetup(v))
+  : [];
 
 // Ensure our wrapper is first, then any remaining expo setup files.
-preset.setupFiles = [wrapper, localSetup, ...expoSetup.filter((v) => v && v !== wrapper && v !== localSetup)];
+preset.setupFiles = [
+  wrapper,
+  localSetup,
+  ...expoSetup.filter((v) => v && v !== wrapper && v !== localSetup),
+];
 preset.setupFilesAfterEnv = [...new Set([...expoAfterEnv])];
 
 // Force the project to use our custom environment so we can prepare

@@ -1,4 +1,11 @@
-import { describe, test, expect, jest, beforeEach, afterEach } from '@jest/globals';
+import {
+  describe,
+  test,
+  expect,
+  jest,
+  beforeEach,
+  afterEach,
+} from '@jest/globals';
 
 describe('Utility and lib function coverage boost', () => {
   test('parseServerError handles null and strings and rate limits', () => {
@@ -6,7 +13,10 @@ describe('Utility and lib function coverage boost', () => {
 
     expect(parseServerError(null)).toEqual({ message: 'Unknown error' });
 
-    const resp429 = { status: 429, headers: { get: (_: string) => '7' } } as any;
+    const resp429 = {
+      status: 429,
+      headers: { get: (_: string) => '7' },
+    } as any;
     const out429 = parseServerError(resp429);
     expect(out429.isRateLimited).toBe(true);
     expect(out429.retryAfterSeconds).toBe(7);
@@ -67,8 +77,10 @@ describe('Utility and lib function coverage boost', () => {
     (global as any).__TEST_SUPABASE__ = {
       auth: {
         name: 'bob',
-        getName() { return (this as any).name; }
-      }
+        getName() {
+          return (this as any).name;
+        },
+      },
     } as any;
     const { getSupabaseClient } = require('../lib/supabase');
     const client = getSupabaseClient();

@@ -19,7 +19,9 @@ function collectFiles(dir) {
 describe('module-load-app-all', () => {
   test('require all app files safely', () => {
     const appDir = path.join(__dirname, '..', 'app');
-    const files = collectFiles(appDir).map((f) => path.relative(path.join(__dirname, '..'), f));
+    const files = collectFiles(appDir).map((f) =>
+      path.relative(path.join(__dirname, '..'), f),
+    );
 
     const errors = [];
     files.forEach((rel) => {
@@ -36,7 +38,10 @@ describe('module-load-app-all', () => {
     // Always pass the test; surface first error for debugging via logs
     if (errors.length > 0) {
       // eslint-disable-next-line no-console
-      console.warn('module-load-app-all: skipped imports due to errors (see first):', errors[0]);
+      console.warn(
+        'module-load-app-all: skipped imports due to errors (see first):',
+        errors[0],
+      );
     }
     expect(true).toBe(true);
   });

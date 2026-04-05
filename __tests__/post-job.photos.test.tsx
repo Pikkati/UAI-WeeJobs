@@ -12,11 +12,17 @@ jest.mock('expo-router', () => ({
 }));
 
 jest.mock('../context/AuthContext', () => ({
-  useAuth: () => ({ user: { id: 'cust1', name: 'Alice', phone: '012345' }, isLoading: false }),
+  useAuth: () => ({
+    user: { id: 'cust1', name: 'Alice', phone: '012345' },
+    isLoading: false,
+  }),
   AuthProvider: ({ children }: any) => children,
 }));
 
-const insertMock = jest.fn(async (payload: any) => ({ data: null, error: null }));
+const insertMock = jest.fn(async (payload: any) => ({
+  data: null,
+  error: null,
+}));
 
 // Use the global test override provided by `lib/supabase` so the component
 // picks up the test client at runtime. This avoids module-mocking edge
@@ -42,7 +48,8 @@ describe('Post job photo handling', () => {
       name: 'Alice',
       phone: '012345',
       title: 'Fix leaking tap',
-      description: 'The kitchen tap has been leaking for a while and needs replacement, please help.',
+      description:
+        'The kitchen tap has been leaking for a while and needs replacement, please help.',
       budget: '60',
       timing: 'This Week',
       category: 'Plumbing',
@@ -50,7 +57,9 @@ describe('Post job photo handling', () => {
       photos: ['file://photo1.jpg', 'file://photo2.jpg'],
     };
 
-    const { getByTestId } = render(<PostJobScreen testInitialValues={initial} />);
+    const { getByTestId } = render(
+      <PostJobScreen testInitialValues={initial} />,
+    );
 
     fireEvent.press(getByTestId('post-job-submit'));
 

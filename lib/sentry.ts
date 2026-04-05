@@ -1,7 +1,13 @@
 // Minimal Sentry initialization for React Native. Reads DSN from env or global.
 try {
-  const proc: any = typeof process !== 'undefined' ? process : (globalThis as any).process || {};
-  const dsn = (proc && proc.env && proc.env.SENTRY_DSN) || (globalThis as any).SENTRY_DSN || '';
+  const proc: any =
+    typeof process !== 'undefined'
+      ? process
+      : (globalThis as any).process || {};
+  const dsn =
+    (proc && proc.env && proc.env.SENTRY_DSN) ||
+    (globalThis as any).SENTRY_DSN ||
+    '';
 
   if (dsn) {
     // Lazy require to avoid test / CI errors when package is not installed

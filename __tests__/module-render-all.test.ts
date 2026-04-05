@@ -3,9 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 // Provide runtime-safe mocks similar to module-load-all
-jest.mock('../lib/supabase', () => ({ supabase: {}, User: null, Review: null }));
+jest.mock('../lib/supabase', () => ({
+  supabase: {},
+  User: null,
+  Review: null,
+}));
 jest.mock('../context/JobsContext', () => ({ useJobs: () => ({ jobs: [] }) }));
-jest.mock('../context/ThemeContext', () => ({ useTheme: () => ({ theme: 'light' }) }));
+jest.mock('../context/ThemeContext', () => ({
+  useTheme: () => ({ theme: 'light' }),
+}));
 
 jest.mock('react-native', () => {
   const React = require('react');
@@ -14,7 +20,8 @@ jest.mock('react-native', () => {
     View: (props) => React.createElement('div', props, props.children),
     Text: (props) => React.createElement('span', props, props.children),
     StyleSheet: { create: (s) => s },
-    TouchableOpacity: (props) => React.createElement('button', props, props.children),
+    TouchableOpacity: (props) =>
+      React.createElement('button', props, props.children),
     TextInput: (props) => React.createElement('input', props),
     Dimensions: { get: () => ({ width: 0, height: 0 }) },
   };
@@ -27,7 +34,7 @@ jest.mock(
     useRouter: () => ({ push: () => {} }),
     useLocalSearchParams: () => ({}),
   }),
-  { virtual: true }
+  { virtual: true },
 );
 
 const { render } = require('@testing-library/react-native');
@@ -46,7 +53,9 @@ function walkDir(dir, fileList = []) {
 const APP_DIR = path.join(__dirname, '..', 'app');
 let files = [];
 try {
-  files = walkDir(APP_DIR).filter((f) => !f.includes('__tests__') && !f.includes('node_modules'));
+  files = walkDir(APP_DIR).filter(
+    (f) => !f.includes('__tests__') && !f.includes('node_modules'),
+  );
 } catch (e) {
   files = [];
 }

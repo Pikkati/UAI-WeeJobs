@@ -1,9 +1,16 @@
-import { getStatusDescription, getCancelRefundMessage } from '../app/job/tracking';
+import {
+  getStatusDescription,
+  getCancelRefundMessage,
+} from '../app/job/tracking';
 
 describe('Job tracking helpers', () => {
   test('getStatusDescription returns expected labels', () => {
-    expect(getStatusDescription('booked')).toBe('Job booked - waiting for tradesperson');
-    expect(getStatusDescription('on_the_way')).toBe('Tradesperson is on the way');
+    expect(getStatusDescription('booked')).toBe(
+      'Job booked - waiting for tradesperson',
+    );
+    expect(getStatusDescription('on_the_way')).toBe(
+      'Tradesperson is on the way',
+    );
     expect(getStatusDescription('completed')).toBe('Job completed!');
     expect(getStatusDescription('unknown' as any)).toBe('');
   });

@@ -1,5 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, ActivityIndicator, RefreshControl } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  RefreshControl,
+} from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { Ionicons } from '@expo/vector-icons';
@@ -50,12 +57,12 @@ export default function AdminDashboard() {
 
       setStats({
         totalJobs: jobs.length,
-        openJobs: jobs.filter(j => j.status === 'open').length,
-        bookedJobs: jobs.filter(j => j.status === 'booked').length,
-        completedJobs: jobs.filter(j => j.status === 'completed').length,
+        openJobs: jobs.filter((j) => j.status === 'open').length,
+        bookedJobs: jobs.filter((j) => j.status === 'booked').length,
+        completedJobs: jobs.filter((j) => j.status === 'completed').length,
         totalUsers: users.length,
-        customers: users.filter(u => u.role === 'customer').length,
-        tradies: users.filter(u => u.role === 'tradesperson').length,
+        customers: users.filter((u) => u.role === 'customer').length,
+        tradies: users.filter((u) => u.role === 'tradesperson').length,
       });
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
@@ -88,7 +95,10 @@ export default function AdminDashboard() {
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + Spacing.md }]}
+      contentContainerStyle={[
+        styles.content,
+        { paddingTop: insets.top + Spacing.md },
+      ]}
       refreshControl={
         <RefreshControl
           refreshing={isRefreshing}
@@ -152,7 +162,8 @@ export default function AdminDashboard() {
       <View style={styles.infoCard}>
         <Ionicons name="information-circle" size={24} color={Colors.accent} />
         <Text style={styles.infoText}>
-          This is a lightweight admin dashboard for the WeeJobs MVP. Full admin functionality will be added in future updates.
+          This is a lightweight admin dashboard for the WeeJobs MVP. Full admin
+          functionality will be added in future updates.
         </Text>
       </View>
     </ScrollView>

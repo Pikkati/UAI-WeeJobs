@@ -1,5 +1,4 @@
-Branch Policy and Protection (UAI-Development)
-=============================================
+# Branch Policy and Protection (UAI-Development)
 
 This repository uses a protected working branch named `UAI-Development` for all active
 development, audits, and dependency/upgrade work. `main` is reserved for stable releases.

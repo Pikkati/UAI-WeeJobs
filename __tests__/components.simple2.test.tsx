@@ -19,7 +19,9 @@ describe('Icon components', () => {
   });
 
   test('renders IconSymbol mapped icon', () => {
-    const utils = render(<IconSymbol name={'chevron.right'} color="#000" /> as any);
+    const utils = render(
+      (<IconSymbol name={'chevron.right'} color="#000" />) as any,
+    );
     expect(utils.toJSON()).toBeTruthy();
   });
 });

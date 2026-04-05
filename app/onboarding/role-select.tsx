@@ -8,7 +8,10 @@ import { Colors, Spacing, BorderRadius } from '../../constants/theme';
 export default function RoleSelectScreen() {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={() => router.push('/onboarding/intro')}>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => router.push('/onboarding/intro')}
+      >
         <Ionicons name="arrow-back" size={24} color={Colors.white} />
       </TouchableOpacity>
 
@@ -17,7 +20,7 @@ export default function RoleSelectScreen() {
         style={styles.logo}
         contentFit="contain"
       />
-      
+
       <Text style={styles.title}>Welcome to WeeJobs</Text>
       <Text style={styles.subtitle}>
         The handyman marketplace for{'\n'}Causeway Coast & Glens
@@ -33,9 +36,15 @@ export default function RoleSelectScreen() {
           </View>
           <View style={styles.roleText}>
             <Text style={styles.roleTitle}>I Need a Job Done</Text>
-            <Text style={styles.roleDescription}>Post jobs and find tradespeople</Text>
+            <Text style={styles.roleDescription}>
+              Post jobs and find tradespeople
+            </Text>
           </View>
-          <Ionicons name="chevron-forward" size={24} color={Colors.textSecondary} />
+          <Ionicons
+            name="chevron-forward"
+            size={24}
+            color={Colors.textSecondary}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -47,9 +56,15 @@ export default function RoleSelectScreen() {
           </View>
           <View style={styles.roleText}>
             <Text style={styles.roleTitle}>I&apos;m a Tradesperson</Text>
-            <Text style={styles.roleDescription}>Find and accept local jobs</Text>
+            <Text style={styles.roleDescription}>
+              Find and accept local jobs
+            </Text>
           </View>
-          <Ionicons name="chevron-forward" size={24} color={Colors.textSecondary} />
+          <Ionicons
+            name="chevron-forward"
+            size={24}
+            color={Colors.textSecondary}
+          />
         </TouchableOpacity>
       </View>
 

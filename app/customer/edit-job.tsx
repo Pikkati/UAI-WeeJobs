@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
-import { AREAS, JOB_CATEGORIES, TIMING_OPTIONS, GARAGE_TIMING_OPTIONS } from '../../constants/data';
+import {
+  AREAS,
+  JOB_CATEGORIES,
+  TIMING_OPTIONS,
+  GARAGE_TIMING_OPTIONS,
+} from '../../constants/data';
 // removed unused useAuth import
 import { supabase, Job } from '../../lib/supabase';
 
@@ -20,19 +34,35 @@ export type EditJobValidationParams = {
   photos: string[];
 };
 
-export function computeBudgetValue(needsQuotation: boolean, budget?: string | null): string | null {
+export function computeBudgetValue(
+  needsQuotation: boolean,
+  budget?: string | null,
+): string | null {
   if (needsQuotation) return 'Need Quotation';
   if (budget && budget.trim() !== '') return `£${budget}`;
   return null;
 }
 
-export function validateEditJobFields(params: EditJobValidationParams): { valid: boolean; title?: string; message?: string } {
-  const { name, phone, area, category, timing, isGarageClearance, photos } = params;
+export function validateEditJobFields(params: EditJobValidationParams): {
+  valid: boolean;
+  title?: string;
+  message?: string;
+} {
+  const { name, phone, area, category, timing, isGarageClearance, photos } =
+    params;
   if (!name || !phone || !area || !category || !timing) {
-    return { valid: false, title: 'Required Fields', message: 'Please fill in all required fields' };
+    return {
+      valid: false,
+      title: 'Required Fields',
+      message: 'Please fill in all required fields',
+    };
   }
   if (isGarageClearance && (!photos || photos.length === 0)) {
-    return { valid: false, title: 'Photo Required', message: 'Please add at least one photo for garage clearance jobs' };
+    return {
+      valid: false,
+      title: 'Photo Required',
+      message: 'Please add at least one photo for garage clearance jobs',
+    };
   }
   return { valid: true };
 }
@@ -117,7 +147,9 @@ export default function EditJobScreen() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isGarageClearance = category === 'Garage Clearance';
-  const timingOptions = isGarageClearance ? GARAGE_TIMING_OPTIONS : TIMING_OPTIONS;
+  const timingOptions = isGarageClearance
+    ? GARAGE_TIMING_OPTIONS
+    : TIMING_OPTIONS;
 
   useEffect(() => {
     const loadJob = async () => {
@@ -194,9 +226,20 @@ export default function EditJobScreen() {
   };
 
   const handleSubmit = async () => {
-    const validation = validateEditJobFields({ name, phone, area, category, timing, isGarageClearance, photos });
+    const validation = validateEditJobFields({
+      name,
+      phone,
+      area,
+      category,
+      timing,
+      isGarageClearance,
+      photos,
+    });
     if (!validation.valid) {
-      Alert.alert(validation.title || 'Required Fields', validation.message || 'Please fill in all required fields');
+      Alert.alert(
+        validation.title || 'Required Fields',
+        validation.message || 'Please fill in all required fields',
+      );
       return;
     }
 
@@ -204,7 +247,7 @@ export default function EditJobScreen() {
 
     try {
       const budgetValue = computeBudgetValue(needsQuotation, budget);
-      
+
       const { error } = await supabase
         .from('jobs')
         .update({
@@ -249,7 +292,10 @@ export default function EditJobScreen() {
       keyboardShouldPersistTaps="handled"
     >
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.title}>Edit Job</Text>
@@ -349,8 +395,12 @@ export default function EditJobScreen() {
             if (!needsQuotation) setBudget('');
           }}
         >
-          <View style={[styles.checkbox, needsQuotation && styles.checkboxChecked]}>
-            {needsQuotation && <Ionicons name="checkmark" size={16} color={Colors.background} />}
+          <View
+            style={[styles.checkbox, needsQuotation && styles.checkboxChecked]}
+          >
+            {needsQuotation && (
+              <Ionicons name="checkmark" size={16} color={Colors.background} />
+            )}
           </View>
           <Text style={styles.quotationText}>Need Quotation</Text>
         </TouchableOpacity>
@@ -395,7 +445,10 @@ export default function EditJobScreen() {
       </View>
 
       <TouchableOpacity
-        style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
+        style={[
+          styles.submitButton,
+          isSubmitting && styles.submitButtonDisabled,
+        ]}
         onPress={handleSubmit}
         disabled={isSubmitting}
       >
@@ -403,7 +456,11 @@ export default function EditJobScreen() {
           <ActivityIndicator color={Colors.background} />
         ) : (
           <>
-            <Ionicons name="checkmark-circle" size={24} color={Colors.background} />
+            <Ionicons
+              name="checkmark-circle"
+              size={24}
+              color={Colors.background}
+            />
             <Text style={styles.submitButtonText}>Save Changes</Text>
           </>
         )}

@@ -45,18 +45,18 @@ export const GARAGE_TIMING_OPTIONS = [
 
 export const CATEGORY_ICONS: Record<string, string> = {
   'General Repairs': 'hammer',
-  'Plumbing': 'water',
-  'Electrical': 'flash',
-  'Carpentry': 'construct',
+  Plumbing: 'water',
+  Electrical: 'flash',
+  Carpentry: 'construct',
   'Painting & Decorating': 'color-palette',
   'Flat Pack Assembly': 'cube',
   'Garden & Outdoor': 'leaf',
   'Christmas Jobs': 'snow',
-  'Tiling': 'grid',
-  'Flooring': 'layers',
+  Tiling: 'grid',
+  Flooring: 'layers',
   'Gutters & Roofing': 'home',
   'Garage Clearance': 'car',
-  'Other': 'ellipsis-horizontal',
+  Other: 'ellipsis-horizontal',
 };
 
 export const TEST_USERS = {

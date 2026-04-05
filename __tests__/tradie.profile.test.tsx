@@ -32,11 +32,13 @@ jest.mock('expo-image', () => ({
 describe('TradieProfileScreen', () => {
   it('renders basic profile info and allows toggling areas', async () => {
     const Screen = require('../app/tradie/profile').default;
-      const { getByText, getByPlaceholderText, getAllByText } = render(<Screen />);
+    const { getByText, getByPlaceholderText, getAllByText } = render(
+      <Screen />,
+    );
 
     // Basic user info
     expect(getByText('Profile')).toBeTruthy();
-      const johns = getAllByText('John');
+    const johns = getAllByText('John');
     expect(johns.length).toBeGreaterThanOrEqual(1);
 
     // Open area picker and assert we're in the picker state
@@ -49,6 +51,8 @@ describe('TradieProfileScreen', () => {
 
     // Save areas and expect the picker to close (UI state change)
     fireEvent.press(getByText('Save Service Areas'));
-    await waitFor(() => expect(getByText('Select areas you cover')).toBeTruthy());
+    await waitFor(() =>
+      expect(getByText('Select areas you cover')).toBeTruthy(),
+    );
   });
 });

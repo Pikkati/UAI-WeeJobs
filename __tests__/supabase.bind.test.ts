@@ -11,7 +11,11 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 jest.mock('@supabase/supabase-js', () => ({
   createClient: jest.fn(() => ({
     from: jest.fn(),
-    auth: { signUp: jest.fn(), signInWithPassword: jest.fn(), signOut: jest.fn() },
+    auth: {
+      signUp: jest.fn(),
+      signInWithPassword: jest.fn(),
+      signOut: jest.fn(),
+    },
     functions: { invoke: jest.fn() },
   })),
 }));
@@ -29,8 +33,22 @@ describe('supabase wrapper proxy and binding', () => {
   });
 
   test('delegates exported calls to global.__TEST_SUPABASE__ when provided', async () => {
-    const signInMock = jest.fn(async () => ({ data: { user: { id: 'u1', confirmed_at: 'now' } }, error: null }));
-    const fromMock = jest.fn().mockImplementation(() => ({ select: () => ({ eq: () => ({ single: async () => ({ data: { id: 'u1', email: 't@t.com', name: 'T', role: 'customer' }, error: null }) }) }) }));
+    const signInMock = jest.fn(async () => ({
+      data: { user: { id: 'u1', confirmed_at: 'now' } },
+      error: null,
+    }));
+    const fromMock = jest
+      .fn()
+      .mockImplementation(() => ({
+        select: () => ({
+          eq: () => ({
+            single: async () => ({
+              data: { id: 'u1', email: 't@t.com', name: 'T', role: 'customer' },
+              error: null,
+            }),
+          }),
+        }),
+      }));
 
     // Provide a stable test container like jest-setup does in CI
     // eslint-disable-next-line no-undef
@@ -42,7 +60,10 @@ describe('supabase wrapper proxy and binding', () => {
 
     const { supabase } = require('../lib/supabase');
 
-    const res = await supabase.auth.signInWithPassword({ email: 't@t.com', password: 'pw' });
+    const res = await supabase.auth.signInWithPassword({
+      email: 't@t.com',
+      password: 'pw',
+    });
 
     expect(signInMock).toHaveBeenCalled();
     expect(res).toBeDefined();
@@ -60,7 +81,15 @@ describe('supabase wrapper proxy and binding', () => {
     };
 
     // eslint-disable-next-line no-undef
-    global.__TEST_SUPABASE__ = { auth, from: () => ({ select: () => ({ eq: () => ({ single: async () => ({ data: null, error: null }) }) }) }), functions: { invoke: jest.fn() } };
+    global.__TEST_SUPABASE__ = {
+      auth,
+      from: () => ({
+        select: () => ({
+          eq: () => ({ single: async () => ({ data: null, error: null }) }),
+        }),
+      }),
+      functions: { invoke: jest.fn() },
+    };
 
     const { getSupabaseClient } = require('../lib/supabase');
     const client = getSupabaseClient();

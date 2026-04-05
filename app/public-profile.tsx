@@ -37,7 +37,13 @@ const MOCK_PROFILE: User = {
   pricing_default: 'fixed',
   hourly_rate: 35,
   bio: 'Experienced tradesperson based on the Causeway Coast with over 10 years in the trade. I pride myself on quality workmanship, arriving on time, and leaving your home spotless. No job is too small.',
-  areas_covered: ['Portrush', 'Portstewart', 'Coleraine', 'Bushmills', 'Ballymoney'],
+  areas_covered: [
+    'Portrush',
+    'Portstewart',
+    'Coleraine',
+    'Bushmills',
+    'Ballymoney',
+  ],
   portfolio_photos: [],
   created_at: '2023-06-15T10:00:00Z',
   updated_at: new Date().toISOString(),
@@ -89,7 +95,13 @@ function StarDisplay({ rating, size = 14 }: { rating: number; size?: number }) {
       {[...Array(5)].map((_, i) => (
         <Ionicons
           key={i}
-          name={i < full ? 'star' : i === full && half ? 'star-half' : 'star-outline'}
+          name={
+            i < full
+              ? 'star'
+              : i === full && half
+                ? 'star-half'
+                : 'star-outline'
+          }
           size={size}
           color={Colors.accent}
         />
@@ -99,17 +111,27 @@ function StarDisplay({ rating, size = 14 }: { rating: number; size?: number }) {
 }
 
 export function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+  return new Date(dateStr).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  });
 }
 
 export function formatMemberSince(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  return new Date(dateStr).toLocaleDateString('en-GB', {
+    month: 'long',
+    year: 'numeric',
+  });
 }
 
 // ─── Main screen ─────────────────────────────────────────────────────────────
 
 export default function PublicProfileScreen() {
-  const { tradieId, jobId } = useLocalSearchParams<{ tradieId: string; jobId?: string }>();
+  const { tradieId, jobId } = useLocalSearchParams<{
+    tradieId: string;
+    jobId?: string;
+  }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { selectTradesman } = useJobs();
@@ -124,11 +146,7 @@ export default function PublicProfileScreen() {
       setIsLoading(true);
       try {
         const [profileResult, reviewsResult] = await Promise.all([
-          supabase
-            .from('users')
-            .select('*')
-            .eq('id', tradieId)
-            .single(),
+          supabase.from('users').select('*').eq('id', tradieId).single(),
           supabase
             .from('reviews')
             .select('*, reviewer:reviewer_id(name)')
@@ -163,7 +181,9 @@ export default function PublicProfileScreen() {
     setIsSelecting(true);
     try {
       await selectTradesman(jobId, tradieId, 'fixed');
-      router.push(`/job/pay-deposit?jobId=${jobId}&tradieId=${tradieId}` as any);
+      router.push(
+        `/job/pay-deposit?jobId=${jobId}&tradieId=${tradieId}` as any,
+      );
     } catch (error) {
       console.error('Error selecting tradesman:', error);
     } finally {
@@ -173,7 +193,9 @@ export default function PublicProfileScreen() {
 
   if (isLoading) {
     return (
-      <View style={[styles.container, styles.centered, { paddingTop: insets.top }]}>
+      <View
+        style={[styles.container, styles.centered, { paddingTop: insets.top }]}
+      >
         <ActivityIndicator size="large" color={Colors.accent} />
       </View>
     );
@@ -189,7 +211,10 @@ export default function PublicProfileScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Tradesperson Profile</Text>
@@ -198,7 +223,10 @@ export default function PublicProfileScreen() {
 
       <ScrollView
         style={styles.scroll}
-        contentContainerStyle={[styles.scrollContent, { paddingBottom: jobId ? 100 : 40 }]}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: jobId ? 100 : 40 },
+        ]}
         showsVerticalScrollIndicator={false}
       >
         {/* ── Hero Card ─────────────────────────────────────── */}
@@ -212,32 +240,45 @@ export default function PublicProfileScreen() {
           <View style={styles.heroContent}>
             <View style={styles.nameBadgeRow}>
               <Text style={styles.name}>{profile.name}</Text>
-              {profile.is_verified_pro && <VerifiedProBadge size="small" showText={false} />}
+              {profile.is_verified_pro && (
+                <VerifiedProBadge size="small" showText={false} />
+              )}
             </View>
 
             <View style={styles.ratingRow}>
               <StarDisplay rating={rating} size={16} />
               <Text style={styles.ratingText}>
                 {rating.toFixed(1)}
-                <Text style={styles.reviewCount}>  ({reviewCount} review{reviewCount !== 1 ? 's' : ''})</Text>
+                <Text style={styles.reviewCount}>
+                  {' '}
+                  ({reviewCount} review{reviewCount !== 1 ? 's' : ''})
+                </Text>
               </Text>
             </View>
 
             <View style={styles.badgeRow}>
-              <View style={[
-                styles.planBadge,
-                profile.subscription_plan === 'pro' && styles.proBadge,
-              ]}>
-                <Text style={[
-                  styles.planText,
-                  profile.subscription_plan === 'pro' && styles.proText,
-                ]}>
+              <View
+                style={[
+                  styles.planBadge,
+                  profile.subscription_plan === 'pro' && styles.proBadge,
+                ]}
+              >
+                <Text
+                  style={[
+                    styles.planText,
+                    profile.subscription_plan === 'pro' && styles.proText,
+                  ]}
+                >
                   {profile.subscription_plan === 'pro' ? 'PRO' : 'PAYG'}
                 </Text>
               </View>
               {profile.area && (
                 <View style={styles.locationBadge}>
-                  <Ionicons name="location-outline" size={12} color={Colors.textSecondary} />
+                  <Ionicons
+                    name="location-outline"
+                    size={12}
+                    color={Colors.textSecondary}
+                  />
                   <Text style={styles.locationText}>{profile.area}</Text>
                 </View>
               )}
@@ -247,7 +288,9 @@ export default function PublicProfileScreen() {
           {/* Stats strip */}
           <View style={styles.statsStrip}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{profile.jobs_completed ?? 0}</Text>
+              <Text style={styles.statValue}>
+                {profile.jobs_completed ?? 0}
+              </Text>
               <Text style={styles.statLabel}>Jobs Done</Text>
             </View>
             <View style={styles.statDivider} />
@@ -257,7 +300,9 @@ export default function PublicProfileScreen() {
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{formatMemberSince(profile.created_at)}</Text>
+              <Text style={styles.statValue}>
+                {formatMemberSince(profile.created_at)}
+              </Text>
               <Text style={styles.statLabel}>Member Since</Text>
             </View>
           </View>
@@ -294,8 +339,14 @@ export default function PublicProfileScreen() {
             <View style={styles.chipsRow}>
               {profile.areas_covered.map((area, i) => (
                 <View key={i} style={[styles.chip, styles.areaChip]}>
-                  <Ionicons name="location-outline" size={12} color={Colors.textSecondary} />
-                  <Text style={[styles.chipText, styles.areaChipText]}>{area}</Text>
+                  <Ionicons
+                    name="location-outline"
+                    size={12}
+                    color={Colors.textSecondary}
+                  />
+                  <Text style={[styles.chipText, styles.areaChipText]}>
+                    {area}
+                  </Text>
                 </View>
               ))}
             </View>
@@ -309,14 +360,18 @@ export default function PublicProfileScreen() {
             <View style={styles.pricingRow}>
               <View style={styles.pricingIconBox}>
                 <Ionicons
-                  name={profile.pricing_default === 'hourly' ? 'time' : 'pricetag'}
+                  name={
+                    profile.pricing_default === 'hourly' ? 'time' : 'pricetag'
+                  }
                   size={22}
                   color={Colors.accent}
                 />
               </View>
               <View style={styles.pricingInfo}>
                 <Text style={styles.pricingTitle}>
-                  {profile.pricing_default === 'hourly' ? 'Hourly Rate' : 'Fixed Price'}
+                  {profile.pricing_default === 'hourly'
+                    ? 'Hourly Rate'
+                    : 'Fixed Price'}
                 </Text>
                 <Text style={styles.pricingDesc}>
                   {profile.pricing_default === 'hourly'
@@ -336,36 +391,52 @@ export default function PublicProfileScreen() {
           {portfolioPhotos.length > 0 ? (
             <View style={styles.portfolioGrid}>
               {portfolioPhotos.map((uri, i) => (
-                <View key={i} style={[styles.portfolioCell, { width: PORTFOLIO_SIZE, height: PORTFOLIO_SIZE }]}>
-                  <Image source={{ uri }} style={styles.portfolioImage} resizeMode="cover" />
+                <View
+                  key={i}
+                  style={[
+                    styles.portfolioCell,
+                    { width: PORTFOLIO_SIZE, height: PORTFOLIO_SIZE },
+                  ]}
+                >
+                  <Image
+                    source={{ uri }}
+                    style={styles.portfolioImage}
+                    resizeMode="cover"
+                  />
                 </View>
               ))}
             </View>
           ) : (
             <View style={styles.emptyPortfolio}>
               <Ionicons name="images-outline" size={32} color={Colors.border} />
-              <Text style={styles.emptyPortfolioText}>No portfolio photos yet</Text>
+              <Text style={styles.emptyPortfolioText}>
+                No portfolio photos yet
+              </Text>
             </View>
           )}
         </View>
 
         {/* ── Reviews ───────────────────────────────────────── */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>
-            Reviews ({reviewCount})
-          </Text>
+          <Text style={styles.sectionTitle}>Reviews ({reviewCount})</Text>
           {reviews.length > 0 ? (
             reviews.map((review) => (
               <View key={review.id} style={styles.reviewCard}>
                 <View style={styles.reviewHeader}>
                   <View style={styles.reviewerAvatar}>
-                    <Ionicons name="person" size={16} color={Colors.textSecondary} />
+                    <Ionicons
+                      name="person"
+                      size={16}
+                      color={Colors.textSecondary}
+                    />
                   </View>
                   <View style={styles.reviewerInfo}>
                     <Text style={styles.reviewerName}>
                       {review.reviewer?.name ?? 'Verified Customer'}
                     </Text>
-                    <Text style={styles.reviewDate}>{formatDate(review.created_at)}</Text>
+                    <Text style={styles.reviewDate}>
+                      {formatDate(review.created_at)}
+                    </Text>
                   </View>
                   <StarDisplay rating={review.rating} size={13} />
                 </View>
@@ -385,9 +456,14 @@ export default function PublicProfileScreen() {
 
       {/* ── Select & Book footer ──────────────────────────── */}
       {jobId && (
-        <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
+        <View
+          style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+        >
           <TouchableOpacity
-            style={[styles.bookButton, isSelecting && styles.bookButtonDisabled]}
+            style={[
+              styles.bookButton,
+              isSelecting && styles.bookButtonDisabled,
+            ]}
             onPress={handleSelectAndBook}
             disabled={isSelecting}
           >
@@ -395,7 +471,11 @@ export default function PublicProfileScreen() {
               <ActivityIndicator color={Colors.white} size="small" />
             ) : (
               <>
-                <Ionicons name="checkmark-circle" size={22} color={Colors.white} />
+                <Ionicons
+                  name="checkmark-circle"
+                  size={22}
+                  color={Colors.white}
+                />
                 <Text style={styles.bookButtonText}>Select & Book</Text>
               </>
             )}

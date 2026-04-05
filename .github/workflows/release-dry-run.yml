@@ -3,7 +3,7 @@ name: Release Dry Run
 on:
   workflow_dispatch: {}
   push:
-    branches: [ UAI-Development ]
+    branches: [UAI-Development]
 
 jobs:
   semantic-release-dry-run:

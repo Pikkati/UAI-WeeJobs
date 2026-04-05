@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -11,7 +17,7 @@ export default function ReceiptScreen() {
   const insets = useSafeAreaInsets();
   const { jobs } = useJobs();
 
-  const job = jobs.find(j => j.id === jobId);
+  const job = jobs.find((j) => j.id === jobId);
 
   if (!job) {
     return (
@@ -28,7 +34,10 @@ export default function ReceiptScreen() {
   return (
     <View style={[styles.container, { paddingTop: insets.top + Spacing.md }]}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="close" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Receipt</Text>
@@ -41,9 +50,7 @@ export default function ReceiptScreen() {
         </View>
 
         <Text style={styles.successTitle}>Payment Complete!</Text>
-        <Text style={styles.successSubtitle}>
-          Thank you for using WeeJobs
-        </Text>
+        <Text style={styles.successSubtitle}>Thank you for using WeeJobs</Text>
 
         <View style={styles.receiptCard}>
           <View style={styles.receiptHeader}>
@@ -61,7 +68,9 @@ export default function ReceiptScreen() {
 
           <View style={styles.receiptSection}>
             <Text style={styles.receiptLabel}>Job Reference</Text>
-            <Text style={styles.receiptValue}>{job.id.slice(0, 8).toUpperCase()}</Text>
+            <Text style={styles.receiptValue}>
+              {job.id.slice(0, 8).toUpperCase()}
+            </Text>
           </View>
 
           <View style={styles.receiptSection}>
@@ -78,12 +87,16 @@ export default function ReceiptScreen() {
 
           <View style={styles.receiptRow}>
             <Text style={styles.receiptItemLabel}>Deposit</Text>
-            <Text style={styles.receiptItemValue}>£{depositPaid.toFixed(2)}</Text>
+            <Text style={styles.receiptItemValue}>
+              £{depositPaid.toFixed(2)}
+            </Text>
           </View>
 
           <View style={styles.receiptRow}>
             <Text style={styles.receiptItemLabel}>Final Payment</Text>
-            <Text style={styles.receiptItemValue}>£{finalPayment.toFixed(2)}</Text>
+            <Text style={styles.receiptItemValue}>
+              £{finalPayment.toFixed(2)}
+            </Text>
           </View>
 
           <View style={styles.receiptDivider} />
@@ -97,16 +110,19 @@ export default function ReceiptScreen() {
         <View style={styles.nextSteps}>
           <Ionicons name="information-circle" size={20} color={Colors.accent} />
           <Text style={styles.nextStepsText}>
-            Once the tradesperson confirms the job is complete, you&apos;ll receive a notification to leave a review.
+            Once the tradesperson confirms the job is complete, you&apos;ll
+            receive a notification to leave a review.
           </Text>
         </View>
 
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
-        <TouchableOpacity 
-          style={styles.homeButton} 
+      <View
+        style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+      >
+        <TouchableOpacity
+          style={styles.homeButton}
           onPress={() => router.push('/customer')}
         >
           <Ionicons name="home" size={20} color={Colors.background} />

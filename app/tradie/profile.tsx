@@ -22,12 +22,15 @@ const { width } = Dimensions.get('window');
 const PHOTO_SIZE = (width - Spacing.xl * 2 - Spacing.sm) / 3;
 
 export default function TradieProfileScreen() {
-  
   const { user, logout, refreshUser } = useAuth();
 
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
-  const [pricingType, setPricingType] = useState(user?.pricing_default || 'fixed');
-  const [hourlyRate, setHourlyRate] = useState(user?.hourly_rate?.toString() || '');
+  const [pricingType, setPricingType] = useState(
+    user?.pricing_default || 'fixed',
+  );
+  const [hourlyRate, setHourlyRate] = useState(
+    user?.hourly_rate?.toString() || '',
+  );
   const [isSavingPricing, setIsSavingPricing] = useState(false);
 
   // Bio
@@ -35,12 +38,16 @@ export default function TradieProfileScreen() {
   const [isSavingBio, setIsSavingBio] = useState(false);
 
   // Areas covered
-  const [areasCovered, setAreasCovered] = useState<string[]>(user?.areas_covered || []);
+  const [areasCovered, setAreasCovered] = useState<string[]>(
+    user?.areas_covered || [],
+  );
   const [showAreaPicker, setShowAreaPicker] = useState(false);
   const [isSavingAreas, setIsSavingAreas] = useState(false);
 
   // Portfolio photos
-  const [portfolioPhotos, setPortfolioPhotos] = useState<string[]>(user?.portfolio_photos || []);
+  const [portfolioPhotos, setPortfolioPhotos] = useState<string[]>(
+    user?.portfolio_photos || [],
+  );
   const [isSavingPhotos, setIsSavingPhotos] = useState(false);
 
   // ── Profile photo ─────────────────────────────────────────────────────────
@@ -116,7 +123,7 @@ export default function TradieProfileScreen() {
 
   const toggleArea = (area: string) => {
     setAreasCovered((prev) =>
-      prev.includes(area) ? prev.filter((a) => a !== area) : [...prev, area]
+      prev.includes(area) ? prev.filter((a) => a !== area) : [...prev, area],
     );
   };
 
@@ -125,7 +132,9 @@ export default function TradieProfileScreen() {
     try {
       await supabase
         .from('users')
-        .update({ areas_covered: areasCovered.length > 0 ? areasCovered : null })
+        .update({
+          areas_covered: areasCovered.length > 0 ? areasCovered : null,
+        })
         .eq('id', user?.id);
       await refreshUser();
       setShowAreaPicker(false);
@@ -218,7 +227,11 @@ export default function TradieProfileScreen() {
 
       {/* ── Avatar Card ─────────────────────────────────────── */}
       <View style={styles.profileCard}>
-        <TouchableOpacity style={styles.avatarWrap} onPress={handleProfilePhotoPress} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.avatarWrap}
+          onPress={handleProfilePhotoPress}
+          activeOpacity={0.8}
+        >
           {profilePhoto ? (
             <Image source={{ uri: profilePhoto }} style={styles.avatarImage} />
           ) : (
@@ -242,19 +255,31 @@ export default function TradieProfileScreen() {
         <Text style={styles.sectionTitle}>Account Details</Text>
         <View style={styles.infoCard}>
           <View style={styles.infoRow}>
-            <Ionicons name="person-outline" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="person-outline"
+              size={20}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoLabel}>Name</Text>
             <Text style={styles.infoValue}>{user?.name}</Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.infoRow}>
-            <Ionicons name="call-outline" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="call-outline"
+              size={20}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoLabel}>Phone</Text>
             <Text style={styles.infoValue}>{user?.phone || 'Not set'}</Text>
           </View>
           <View style={styles.divider} />
           <View style={styles.infoRow}>
-            <Ionicons name="location-outline" size={20} color={Colors.textSecondary} />
+            <Ionicons
+              name="location-outline"
+              size={20}
+              color={Colors.textSecondary}
+            />
             <Text style={styles.infoLabel}>Service Area</Text>
             <Text style={styles.infoValue}>{user?.area || 'Not set'}</Text>
           </View>
@@ -266,7 +291,8 @@ export default function TradieProfileScreen() {
         <Text style={styles.sectionTitle}>About You</Text>
         <View style={styles.bioCard}>
           <Text style={styles.bioHint}>
-            Introduce yourself to customers. Mention your experience, qualifications, and what makes you stand out.
+            Introduce yourself to customers. Mention your experience,
+            qualifications, and what makes you stand out.
           </Text>
           <TextInput
             style={styles.bioInput}
@@ -282,11 +308,16 @@ export default function TradieProfileScreen() {
           <View style={styles.bioFooter}>
             <Text style={styles.charCount}>{bio.length}/400</Text>
             <TouchableOpacity
-              style={[styles.saveSmallButton, isSavingBio && styles.saveButtonDisabled]}
+              style={[
+                styles.saveSmallButton,
+                isSavingBio && styles.saveButtonDisabled,
+              ]}
               onPress={handleBioSave}
               disabled={isSavingBio}
             >
-              <Text style={styles.saveSmallText}>{isSavingBio ? 'Saving…' : 'Save Bio'}</Text>
+              <Text style={styles.saveSmallText}>
+                {isSavingBio ? 'Saving…' : 'Save Bio'}
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -333,7 +364,11 @@ export default function TradieProfileScreen() {
           style={styles.addAreaButton}
           onPress={() => setShowAreaPicker(!showAreaPicker)}
         >
-          <Ionicons name={showAreaPicker ? 'chevron-up' : 'add-circle-outline'} size={18} color={Colors.accent} />
+          <Ionicons
+            name={showAreaPicker ? 'chevron-up' : 'add-circle-outline'}
+            size={18}
+            color={Colors.accent}
+          />
           <Text style={styles.addAreaText}>
             {showAreaPicker ? 'Done selecting' : 'Select areas you cover'}
           </Text>
@@ -346,22 +381,42 @@ export default function TradieProfileScreen() {
               return (
                 <TouchableOpacity
                   key={area}
-                  style={[styles.areaPickerItem, selected && styles.areaPickerItemSelected]}
+                  style={[
+                    styles.areaPickerItem,
+                    selected && styles.areaPickerItemSelected,
+                  ]}
                   onPress={() => toggleArea(area)}
                 >
-                  <Text style={[styles.areaPickerText, selected && styles.areaPickerTextSelected]}>
+                  <Text
+                    style={[
+                      styles.areaPickerText,
+                      selected && styles.areaPickerTextSelected,
+                    ]}
+                  >
                     {area}
                   </Text>
-                  {selected && <Ionicons name="checkmark" size={16} color={Colors.accent} />}
+                  {selected && (
+                    <Ionicons
+                      name="checkmark"
+                      size={16}
+                      color={Colors.accent}
+                    />
+                  )}
                 </TouchableOpacity>
               );
             })}
             <TouchableOpacity
-              style={[styles.saveSmallButton, { marginTop: Spacing.sm }, isSavingAreas && styles.saveButtonDisabled]}
+              style={[
+                styles.saveSmallButton,
+                { marginTop: Spacing.sm },
+                isSavingAreas && styles.saveButtonDisabled,
+              ]}
               onPress={handleAreasSave}
               disabled={isSavingAreas}
             >
-              <Text style={styles.saveSmallText}>{isSavingAreas ? 'Saving…' : 'Save Service Areas'}</Text>
+              <Text style={styles.saveSmallText}>
+                {isSavingAreas ? 'Saving…' : 'Save Service Areas'}
+              </Text>
             </TouchableOpacity>
           </View>
         )}
@@ -378,11 +433,18 @@ export default function TradieProfileScreen() {
           {portfolioPhotos.map((uri, i) => (
             <TouchableOpacity
               key={i}
-              style={[styles.portfolioCell, { width: PHOTO_SIZE, height: PHOTO_SIZE }]}
+              style={[
+                styles.portfolioCell,
+                { width: PHOTO_SIZE, height: PHOTO_SIZE },
+              ]}
               onLongPress={() => handleRemovePhoto(i)}
               activeOpacity={0.85}
             >
-              <Image source={{ uri }} style={styles.portfolioImage} resizeMode="cover" />
+              <Image
+                source={{ uri }}
+                style={styles.portfolioImage}
+                resizeMode="cover"
+              />
               <TouchableOpacity
                 style={styles.removePhotoButton}
                 onPress={() => handleRemovePhoto(i)}
@@ -394,7 +456,10 @@ export default function TradieProfileScreen() {
 
           {portfolioPhotos.length < 12 && (
             <TouchableOpacity
-              style={[styles.addPhotoCell, { width: PHOTO_SIZE, height: PHOTO_SIZE }]}
+              style={[
+                styles.addPhotoCell,
+                { width: PHOTO_SIZE, height: PHOTO_SIZE },
+              ]}
               onPress={handleAddPhoto}
               disabled={isSavingPhotos}
             >
@@ -416,7 +481,8 @@ export default function TradieProfileScreen() {
         <Text style={styles.sectionTitle}>Pricing Preference</Text>
         <View style={styles.pricingCard}>
           <Text style={styles.pricingDescription}>
-            Choose how you prefer to price your work. This will be applied to new jobs you accept.
+            Choose how you prefer to price your work. This will be applied to
+            new jobs you accept.
           </Text>
 
           <View style={styles.pricingOptions}>
@@ -431,16 +497,26 @@ export default function TradieProfileScreen() {
               <Ionicons
                 name="pricetag"
                 size={24}
-                color={pricingType === 'fixed' ? Colors.background : Colors.accent}
+                color={
+                  pricingType === 'fixed' ? Colors.background : Colors.accent
+                }
               />
-              <Text style={[
-                styles.pricingOptionTitle,
-                pricingType === 'fixed' && styles.pricingOptionTitleSelected,
-              ]}>Fixed Price</Text>
-              <Text style={[
-                styles.pricingOptionDesc,
-                pricingType === 'fixed' && styles.pricingOptionDescSelected,
-              ]}>Send a binding quote before starting work</Text>
+              <Text
+                style={[
+                  styles.pricingOptionTitle,
+                  pricingType === 'fixed' && styles.pricingOptionTitleSelected,
+                ]}
+              >
+                Fixed Price
+              </Text>
+              <Text
+                style={[
+                  styles.pricingOptionDesc,
+                  pricingType === 'fixed' && styles.pricingOptionDescSelected,
+                ]}
+              >
+                Send a binding quote before starting work
+              </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -454,16 +530,26 @@ export default function TradieProfileScreen() {
               <Ionicons
                 name="time"
                 size={24}
-                color={pricingType === 'hourly' ? Colors.background : Colors.accent}
+                color={
+                  pricingType === 'hourly' ? Colors.background : Colors.accent
+                }
               />
-              <Text style={[
-                styles.pricingOptionTitle,
-                pricingType === 'hourly' && styles.pricingOptionTitleSelected,
-              ]}>Hourly Rate</Text>
-              <Text style={[
-                styles.pricingOptionDesc,
-                pricingType === 'hourly' && styles.pricingOptionDescSelected,
-              ]}>Send an estimate first, invoice after work</Text>
+              <Text
+                style={[
+                  styles.pricingOptionTitle,
+                  pricingType === 'hourly' && styles.pricingOptionTitleSelected,
+                ]}
+              >
+                Hourly Rate
+              </Text>
+              <Text
+                style={[
+                  styles.pricingOptionDesc,
+                  pricingType === 'hourly' && styles.pricingOptionDescSelected,
+                ]}
+              >
+                Send an estimate first, invoice after work
+              </Text>
             </TouchableOpacity>
           </View>
 
@@ -508,11 +594,17 @@ export default function TradieProfileScreen() {
               <Text style={styles.planBadgeText}>PAYG</Text>
             </View>
             <Text style={styles.planTitle}>Pay As You Go</Text>
-            <Text style={styles.planSubtitle}>Upgrade to PRO for unlimited leads</Text>
+            <Text style={styles.planSubtitle}>
+              Upgrade to PRO for unlimited leads
+            </Text>
           </View>
           <View style={styles.changePlanButton}>
             <Text style={styles.changePlanText}>Change Plan</Text>
-            <Ionicons name="chevron-forward" size={16} color={Colors.background} />
+            <Ionicons
+              name="chevron-forward"
+              size={16}
+              color={Colors.background}
+            />
           </View>
         </TouchableOpacity>
       </View>
@@ -521,14 +613,30 @@ export default function TradieProfileScreen() {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Legal</Text>
         <TouchableOpacity style={styles.linkItem}>
-          <Ionicons name="document-text-outline" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="document-text-outline"
+            size={20}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.linkText}>Terms of Service</Text>
-          <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="chevron-forward"
+            size={20}
+            color={Colors.textSecondary}
+          />
         </TouchableOpacity>
         <TouchableOpacity style={styles.linkItem}>
-          <Ionicons name="shield-outline" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="shield-outline"
+            size={20}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.linkText}>Privacy Policy</Text>
-          <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} />
+          <Ionicons
+            name="chevron-forward"
+            size={20}
+            color={Colors.textSecondary}
+          />
         </TouchableOpacity>
       </View>
 

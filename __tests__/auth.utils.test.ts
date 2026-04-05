@@ -8,7 +8,11 @@ describe('AuthContext utilities', () => {
   });
 
   test('buildNormalizedUser fills defaults and normalizes role', () => {
-    const u = buildNormalizedUser({ id: 'x', email: 'a@b', role: 'tradie' } as any);
+    const u = buildNormalizedUser({
+      id: 'x',
+      email: 'a@b',
+      role: 'tradie',
+    } as any);
     expect(u.id).toBe('x');
     expect(u.email).toBe('a@b');
     expect(u.role).toBe('tradesperson');

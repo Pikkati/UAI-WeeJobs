@@ -1,5 +1,13 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, RefreshControl, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+  ActivityIndicator,
+} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
@@ -13,7 +21,6 @@ type Conversation = {
 };
 
 export default function TradieMessagesScreen() {
-  
   const { user } = useAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -78,7 +85,10 @@ export default function TradieMessagesScreen() {
   };
 
   const renderConversation = ({ item }: { item: Conversation }) => (
-    <TouchableOpacity style={styles.conversationCard} onPress={() => openChat(item)}>
+    <TouchableOpacity
+      style={styles.conversationCard}
+      onPress={() => openChat(item)}
+    >
       <View style={styles.avatar}>
         <Ionicons name="person" size={24} color={Colors.accent} />
       </View>
@@ -91,12 +101,19 @@ export default function TradieMessagesScreen() {
               : new Date(item.job.updated_at).toLocaleDateString()}
           </Text>
         </View>
-        <Text style={styles.jobCategory}>{item.job.category} - {item.job.area}</Text>
+        <Text style={styles.jobCategory}>
+          {item.job.category} - {item.job.area}
+        </Text>
         <Text style={styles.lastMessage} numberOfLines={1}>
           {item.lastMessage?.content || 'No messages yet - tap to start!'}
         </Text>
       </View>
-      <Ionicons name="chevron-forward" size={20} color={Colors.textSecondary} style={styles.chevron} />
+      <Ionicons
+        name="chevron-forward"
+        size={20}
+        color={Colors.textSecondary}
+        style={styles.chevron}
+      />
     </TouchableOpacity>
   );
 
@@ -114,7 +131,11 @@ export default function TradieMessagesScreen() {
 
       {conversations.length === 0 ? (
         <View style={styles.emptyState}>
-          <Ionicons name="chatbubbles-outline" size={64} color={Colors.textSecondary} />
+          <Ionicons
+            name="chatbubbles-outline"
+            size={64}
+            color={Colors.textSecondary}
+          />
           <Text style={styles.emptyTitle}>No messages yet</Text>
           <Text style={styles.emptyText}>
             Accept a job to start chatting{'\n'}with customers

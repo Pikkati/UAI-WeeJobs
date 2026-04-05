@@ -1,17 +1,20 @@
 # WeeJobs - Mobile Handyman Marketplace
 
 ## Overview
+
 WeeJobs is a mobile-first handyman marketplace app for the Causeway Coast & Glens, Northern Ireland. It connects local customers with local tradespeople for small to medium jobs.
 
 **Tagline:** "No Job Too Wee" — no task is too small.
 
 ## Tech Stack
+
 - **Framework:** Expo (React Native)
 - **Language:** TypeScript
 - **Database:** Supabase (Postgres)
 - **Styling:** Custom theme with black (#000000) background, white text, and blue accent (#2563EB) from logo
 
 ## Project Structure
+
 ```
 app/
 ├── _layout.tsx          # Root layout with AuthProvider & JobsProvider
@@ -69,11 +72,13 @@ lib/
 ```
 
 ## Test Accounts
+
 - **Customer:** sarah@weejobs.test / password123
 - **Tradesperson:** john@weejobs.test / password123
 - **Admin:** admin@weejobs.test / password123
 
 ## Key Features
+
 1. **Customers:** Post jobs, choose tradesperson, pay deposits, approve quotes, leave reviews
 2. **Tradespeople:** Express interest in jobs (swipe), send quotes/estimates, complete work
 3. **Monetization:** PAYG (£2-5 per lead unlock) or PRO (£49/month unlimited)
@@ -81,15 +86,18 @@ lib/
 5. **Dual Pricing Model:** Fixed price quotes OR hourly rate invoices
 
 ## Dual Pricing Model
+
 Tradespeople can choose their preferred pricing style in their profile:
 
 ### Fixed Price Flow
+
 1. Tradie arrives, inspects job
 2. Tradie sends **binding quote** (fixed price)
 3. Customer **approves quote** to confirm
 4. Work completed, customer pays final balance
 
 ### Hourly Rate Flow
+
 1. Tradie sends **estimate** (provisional - hours x rate + materials)
 2. Customer **acknowledges estimate** (not binding)
 3. Work completed
@@ -98,24 +106,30 @@ Tradespeople can choose their preferred pricing style in their profile:
 6. Customer pays invoice
 
 ## Monetization Model
+
 - **PAYG (Pay As You Go):** £2-5 per lead unlock + 10% commission fee
 - **PRO Subscription:** £49/month for unlimited lead unlocks, verified badge
 
 ## Environment Variables Required
+
 - `EXPO_PUBLIC_SUPABASE_URL` - Supabase project URL
 - `EXPO_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key
 
 ## Database Tables
+
 - `users` - id, email, name, role, phone, area, trade_categories
 - `jobs` - id, customer_id, tradie_id, name, phone, email, area, category, description, timing, photos, status, is_garage_clearance
 - `messages` - id, job_id, sender_id, receiver_id, content, read
 
 ## Supabase Setup Files
+
 Located in `supabase/` folder:
+
 - `schema.sql` - Production schema with proper RLS security policies
 - `schema-dev.sql` - Development schema with permissive policies for testing
 
 ### Marketplace Job Flow
+
 1. **Customer posts job:** Creates row in `jobs` with `status='open'`
 2. **Tradies express interest:** Creates row in `job_interests`, job moves to `pending_customer_choice`
 3. **Customer chooses tradesperson:** Selects from 1-3 interested tradies
@@ -129,6 +143,7 @@ Located in `supabase/` folder:
 11. **Customer leaves review:** 1-5 star rating + comment
 
 ### Job Status Values
+
 **Fixed Price Flow:**
 `open` → `pending_customer_choice` → `booked` → `on_the_way` → `in_progress` → `awaiting_quote_approval` → `awaiting_final_payment` → `paid` → `awaiting_confirmation` → `completed`
 
@@ -136,10 +151,12 @@ Located in `supabase/` folder:
 `open` → `pending_customer_choice` → `booked` → `on_the_way` → `estimate_acknowledged` → `in_progress` → `awaiting_invoice_payment` → `paid` → `awaiting_confirmation` → `completed`
 
 ### Database Tables
+
 - `job_interests` - tracks tradesperson interest in jobs
 - `reviews` - customer/tradie reviews after job completion
 
 ## Recent Changes
+
 - Initial MVP build (January 2026)
 - Created complete app structure with all screens
 - Implemented Tinder-style job swiping for tradespeople
@@ -180,6 +197,7 @@ Located in `supabase/` folder:
   - Tab bars now use blue active tint instead of gold
 
 ## User Preferences
+
 - Black background with blue accent from logo
 - White text, clean modern aesthetic
 - Bold, italic headings

@@ -20,7 +20,10 @@ describe('supabase fallback merge behavior', () => {
     // that previously caused the internal container to lose the `.from`
     // helper.
     // eslint-disable-next-line no-undef
-    (global as any).__TEST_SUPABASE__ = { auth: { signUp: jest.fn() }, functions: {} };
+    (global as any).__TEST_SUPABASE__ = {
+      auth: { signUp: jest.fn() },
+      functions: {},
+    };
 
     const client = getSupabaseClient();
     expect(typeof client.from).toBe('function');

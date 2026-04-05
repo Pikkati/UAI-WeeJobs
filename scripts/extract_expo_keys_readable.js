@@ -2,8 +2,24 @@ const fs = require('fs');
 const path = require('path');
 
 const candidates = [
-  path.resolve(__dirname, '..', 'android', 'app', 'src', 'main', 'assets', 'index.android.bundle'),
-  path.resolve(__dirname, '..', 'android', 'extracted_app', 'assets', 'index.android.bundle')
+  path.resolve(
+    __dirname,
+    '..',
+    'android',
+    'app',
+    'src',
+    'main',
+    'assets',
+    'index.android.bundle',
+  ),
+  path.resolve(
+    __dirname,
+    '..',
+    'android',
+    'extracted_app',
+    'assets',
+    'index.android.bundle',
+  ),
 ];
 
 let bundlePath = null;
@@ -36,13 +52,26 @@ function findArrayTextFromNeedle(str, needle) {
   for (; i < str.length; i++) {
     const ch = str[i];
     if (inString) {
-      if (ch === '\\') { i++; continue; }
-      if (ch === quote) { inString = false; quote = null; }
+      if (ch === '\\') {
+        i++;
+        continue;
+      }
+      if (ch === quote) {
+        inString = false;
+        quote = null;
+      }
       continue;
     }
-    if (ch === '"' || ch === "'") { inString = true; quote = ch; continue; }
+    if (ch === '"' || ch === "'") {
+      inString = true;
+      quote = ch;
+      continue;
+    }
     if (ch === '[') depth++;
-    if (ch === ']') { depth--; if (depth === 0) return str.slice(arrStart, i + 1); }
+    if (ch === ']') {
+      depth--;
+      if (depth === 0) return str.slice(arrStart, i + 1);
+    }
   }
   return null;
 }
@@ -51,7 +80,10 @@ const needles = ['globalThis.__EXPO_ROUTER_KEYS', '__EXPO_ROUTER_KEYS'];
 let arrayText = null;
 for (const n of needles) {
   const t = findArrayTextFromNeedle(content, n);
-  if (t) { arrayText = t; break; }
+  if (t) {
+    arrayText = t;
+    break;
+  }
 }
 
 if (!arrayText) {
@@ -66,9 +98,15 @@ try {
 } catch (e) {
   // fallback to JS eval (less safe) to handle non-JSON but JS-literal arrays
   try {
-    arr = (new Function('return ' + arrayText))();
+    arr = new Function('return ' + arrayText)();
   } catch (e2) {
-    const out = path.resolve(__dirname, '..', 'android', 'extracted_app', 'routes_manifest.raw.txt');
+    const out = path.resolve(
+      __dirname,
+      '..',
+      'android',
+      'extracted_app',
+      'routes_manifest.raw.txt',
+    );
     fs.mkdirSync(path.dirname(out), { recursive: true });
     fs.writeFileSync(out, arrayText, 'utf8');
     console.error('PARSE_FAILED; raw array written to', out, e2 && e2.message);
@@ -76,7 +114,13 @@ try {
   }
 }
 
-const outPath = path.resolve(__dirname, '..', 'android', 'extracted_app', 'routes_manifest.json');
+const outPath = path.resolve(
+  __dirname,
+  '..',
+  'android',
+  'extracted_app',
+  'routes_manifest.json',
+);
 fs.mkdirSync(path.dirname(outPath), { recursive: true });
 fs.writeFileSync(outPath, JSON.stringify(arr, null, 2), 'utf8');
 console.log('WROTE:', outPath);

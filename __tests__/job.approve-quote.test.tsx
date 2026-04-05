@@ -11,11 +11,15 @@ jest.mock('../context/JobsContext', () => ({
   useJobs: () => mockJobModule,
 }));
 
-jest.mock('expo-router', () => ({
-  useLocalSearchParams: jest.fn(),
-  router: { push: jest.fn(), back: jest.fn(), replace: jest.fn() },
-  useRouter: () => ({ push: jest.fn(), back: jest.fn(), replace: jest.fn() }),
-}), { virtual: true });
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: jest.fn(),
+    router: { push: jest.fn(), back: jest.fn(), replace: jest.fn() },
+    useRouter: () => ({ push: jest.fn(), back: jest.fn(), replace: jest.fn() }),
+  }),
+  { virtual: true },
+);
 
 describe('ApproveQuoteScreen', () => {
   beforeEach(() => {
@@ -28,15 +32,17 @@ describe('ApproveQuoteScreen', () => {
     const expo = require('expo-router');
     expo.useLocalSearchParams.mockReturnValue({ jobId: 'j1' });
 
-    mockJobModule.jobs = [{
-      id: 'j1',
-      quote_total: 100,
-      quote_labour: 50,
-      quote_materials: 50,
-      deposit_amount: 25,
-      pricing_type: 'fixed',
-      quote_notes: 'Test note',
-    }];
+    mockJobModule.jobs = [
+      {
+        id: 'j1',
+        quote_total: 100,
+        quote_labour: 50,
+        quote_materials: 50,
+        deposit_amount: 25,
+        pricing_type: 'fixed',
+        quote_notes: 'Test note',
+      },
+    ];
 
     const ApproveQuote = require('../app/job/approve-quote').default;
     const { getByText } = render(<ApproveQuote />);
@@ -51,17 +57,22 @@ describe('ApproveQuoteScreen', () => {
 
   it('renders estimate mode and shows estimate header and values', () => {
     const expo = require('expo-router');
-    expo.useLocalSearchParams.mockReturnValue({ jobId: 'j2', mode: 'estimate' });
+    expo.useLocalSearchParams.mockReturnValue({
+      jobId: 'j2',
+      mode: 'estimate',
+    });
 
-    mockJobModule.jobs = [{
-      id: 'j2',
-      estimate_hours: 2,
-      estimate_hourly_rate: 30,
-      estimate_materials: 10,
-      estimate_total: 70,
-      pricing_type: 'hourly',
-      estimate_notes: 'Estimate note',
-    }];
+    mockJobModule.jobs = [
+      {
+        id: 'j2',
+        estimate_hours: 2,
+        estimate_hourly_rate: 30,
+        estimate_materials: 10,
+        estimate_total: 70,
+        pricing_type: 'hourly',
+        estimate_notes: 'Estimate note',
+      },
+    ];
 
     const ApproveQuote = require('../app/job/approve-quote').default;
     const { getByText } = render(<ApproveQuote />);

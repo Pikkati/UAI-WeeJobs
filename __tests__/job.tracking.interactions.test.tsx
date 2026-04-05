@@ -25,28 +25,48 @@ const mockJob = {
 
 const actions = [
   { action: 'message', label: 'Message', variant: 'primary' },
-  { action: 'start_navigation', label: 'Start navigation', variant: 'secondary' },
+  {
+    action: 'start_navigation',
+    label: 'Start navigation',
+    variant: 'secondary',
+  },
 ];
 
-jest.mock('expo-router', () => ({
-  useLocalSearchParams: () => ({ jobId: 'job1' }),
-  useRouter: () => ({ push: mockPush, back: mockBack }),
-}), { virtual: true });
-
-jest.mock('react-native-safe-area-context', () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }), { virtual: true });
-
-jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: { id: 'u1', role: 'customer' } }) }), { virtual: true });
-
-jest.mock('../context/JobsContext', () => ({
-  useJobs: () => ({
-    jobs: [mockJob],
-    getNextActionsByRole: () => actions,
-    markOnTheWay: mockMarkOnTheWay,
-    markArrived: mockMarkArrived,
-    confirmCompletion: mockConfirmCompletion,
-    cancelJob: mockCancelJob,
+jest.mock(
+  'expo-router',
+  () => ({
+    useLocalSearchParams: () => ({ jobId: 'job1' }),
+    useRouter: () => ({ push: mockPush, back: mockBack }),
   }),
-}), { virtual: true });
+  { virtual: true },
+);
+
+jest.mock(
+  'react-native-safe-area-context',
+  () => ({ useSafeAreaInsets: () => ({ top: 0, bottom: 0 }) }),
+  { virtual: true },
+);
+
+jest.mock(
+  '../context/AuthContext',
+  () => ({ useAuth: () => ({ user: { id: 'u1', role: 'customer' } }) }),
+  { virtual: true },
+);
+
+jest.mock(
+  '../context/JobsContext',
+  () => ({
+    useJobs: () => ({
+      jobs: [mockJob],
+      getNextActionsByRole: () => actions,
+      markOnTheWay: mockMarkOnTheWay,
+      markArrived: mockMarkArrived,
+      confirmCompletion: mockConfirmCompletion,
+      cancelJob: mockCancelJob,
+    }),
+  }),
+  { virtual: true },
+);
 
 // Provide a test-time fallback so useJobs() works even if JobsContext was
 // imported earlier by other tests. Cleaned up in afterEach to avoid leaking.
@@ -63,7 +83,12 @@ jest.mock('../context/JobsContext', () => ({
   expressInterest: async () => false,
   closeApplications: async () => false,
   selectTradesman: async () => false,
-  payDeposit: async () => ({ paymentIntent: '', ephemeralKey: '', customer: '', merchantDisplayName: 'WeeJobs' }),
+  payDeposit: async () => ({
+    paymentIntent: '',
+    ephemeralKey: '',
+    customer: '',
+    merchantDisplayName: 'WeeJobs',
+  }),
   sendEstimate: async () => false,
   acknowledgeEstimate: async () => false,
   sendQuote: async () => false,
@@ -109,4 +134,3 @@ describe('JobTrackingScreen interactions', () => {
     });
   });
 });
-

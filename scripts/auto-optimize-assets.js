@@ -29,7 +29,9 @@ async function optimizeFile(filePath, maxSize) {
   try {
     sharp = require('sharp');
   } catch (err) {
-    console.error('sharp is not installed. Run `npm ci` before running this script.');
+    console.error(
+      'sharp is not installed. Run `npm ci` before running this script.',
+    );
     process.exitCode = 2;
     return { changed: false };
   }
@@ -40,7 +42,8 @@ async function optimizeFile(filePath, maxSize) {
     const ext = path.extname(filePath).toLowerCase();
     let pipeline = image;
     const MAX_WIDTH = 1600;
-    if (meta.width && meta.width > MAX_WIDTH) pipeline = pipeline.resize({ width: MAX_WIDTH });
+    if (meta.width && meta.width > MAX_WIDTH)
+      pipeline = pipeline.resize({ width: MAX_WIDTH });
 
     const tmp = `${filePath}.opt`;
     if (ext === '.png') {
@@ -56,11 +59,19 @@ async function optimizeFile(filePath, maxSize) {
     const newStat = fs.statSync(tmp);
     if (newStat.size < stat.size) {
       const backupDir = path.join(path.dirname(filePath), 'optimized-backup');
-      if (!fs.existsSync(backupDir)) fs.mkdirSync(backupDir, { recursive: true });
+      if (!fs.existsSync(backupDir))
+        fs.mkdirSync(backupDir, { recursive: true });
       const backupPath = path.join(backupDir, path.basename(filePath));
       fs.copyFileSync(filePath, backupPath);
       fs.renameSync(tmp, filePath);
-      console.log('Optimized:', path.relative(process.cwd(), filePath), '->', bytesToHuman(newStat.size), 'from', bytesToHuman(stat.size));
+      console.log(
+        'Optimized:',
+        path.relative(process.cwd(), filePath),
+        '->',
+        bytesToHuman(newStat.size),
+        'from',
+        bytesToHuman(stat.size),
+      );
       return { changed: true };
     }
 
@@ -69,14 +80,20 @@ async function optimizeFile(filePath, maxSize) {
     console.log('No improvement for', path.relative(process.cwd(), filePath));
     return { changed: false };
   } catch (err) {
-    console.error('Failed to optimize', filePath, err && err.message ? err.message : err);
+    console.error(
+      'Failed to optimize',
+      filePath,
+      err && err.message ? err.message : err,
+    );
     return { changed: false };
   }
 }
 
 async function main() {
   const argv = process.argv.slice(2);
-  const dirArg = argv.find((a) => !a.startsWith('--')) || path.join(__dirname, '..', 'assets', 'images');
+  const dirArg =
+    argv.find((a) => !a.startsWith('--')) ||
+    path.join(__dirname, '..', 'assets', 'images');
   const maxIdx = argv.indexOf('--max');
   const maxSize = maxIdx >= 0 ? Number(argv[maxIdx + 1]) : 500 * 1024;
 

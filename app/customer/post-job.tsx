@@ -1,12 +1,26 @@
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 // eslint-disable-next-line import/no-unresolved
 import { Image } from 'expo-image';
 import { Colors, Spacing, BorderRadius } from '../../constants/theme';
-import { AREAS, JOB_CATEGORIES, TIMING_OPTIONS, GARAGE_TIMING_OPTIONS } from '../../constants/data';
+import {
+  AREAS,
+  JOB_CATEGORIES,
+  TIMING_OPTIONS,
+  GARAGE_TIMING_OPTIONS,
+} from '../../constants/data';
 import { useAuth } from '../../context/AuthContext';
 import { supabase } from '../../lib/supabase';
 
@@ -78,25 +92,57 @@ function Dropdown({
   );
 }
 
-export default function PostJobScreen({ testInitialValues }: { testInitialValues?: Partial<{ name: string; phone: string; email: string; area: string; category: string; title: string; description: string; timing: string; budget: string; needsQuotation: boolean; photos: string[]; }> } = {}) {
-  const { category: preselectedCategory } = useLocalSearchParams<{ category: string }>();
+export default function PostJobScreen({
+  testInitialValues,
+}: {
+  testInitialValues?: Partial<{
+    name: string;
+    phone: string;
+    email: string;
+    area: string;
+    category: string;
+    title: string;
+    description: string;
+    timing: string;
+    budget: string;
+    needsQuotation: boolean;
+    photos: string[];
+  }>;
+} = {}) {
+  const { category: preselectedCategory } = useLocalSearchParams<{
+    category: string;
+  }>();
   const { user: _user } = useAuth();
 
   // Initialize state from `testInitialValues` when provided to avoid
   // a race between `useEffect` and immediate user interactions in tests.
-  const [name, setName] = useState<string>(testInitialValues?.name ?? _user?.name ?? '');
-  const [phone, setPhone] = useState<string>(testInitialValues?.phone ?? _user?.phone ?? '');
+  const [name, setName] = useState<string>(
+    testInitialValues?.name ?? _user?.name ?? '',
+  );
+  const [phone, setPhone] = useState<string>(
+    testInitialValues?.phone ?? _user?.phone ?? '',
+  );
   const [email, setEmail] = useState<string>(testInitialValues?.email ?? '');
-  const [area, setArea] = useState<string>(testInitialValues?.area ?? _user?.area ?? '');
-  const [category, setCategory] = useState<string>(testInitialValues?.category ?? preselectedCategory ?? '');
+  const [area, setArea] = useState<string>(
+    testInitialValues?.area ?? _user?.area ?? '',
+  );
+  const [category, setCategory] = useState<string>(
+    testInitialValues?.category ?? preselectedCategory ?? '',
+  );
   const [title, setTitle] = useState<string>(testInitialValues?.title ?? '');
-  const [description, setDescription] = useState<string>(testInitialValues?.description ?? '');
+  const [description, setDescription] = useState<string>(
+    testInitialValues?.description ?? '',
+  );
   const [timing, setTiming] = useState<string>(testInitialValues?.timing ?? '');
   const [budget, setBudget] = useState<string>(testInitialValues?.budget ?? '');
   const [needsQuotation, setNeedsQuotation] = useState<boolean>(
-    typeof testInitialValues?.needsQuotation === 'boolean' ? (testInitialValues as any).needsQuotation : false,
+    typeof testInitialValues?.needsQuotation === 'boolean'
+      ? (testInitialValues as any).needsQuotation
+      : false,
   );
-  const [photos, setPhotos] = useState<string[]>(testInitialValues?.photos ?? []);
+  const [photos, setPhotos] = useState<string[]>(
+    testInitialValues?.photos ?? [],
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{
     title?: string;
@@ -110,21 +156,34 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
   // Test helper: allow injecting initial form state for deterministic tests
   useEffect(() => {
     if (!testInitialValues) return;
-    if (typeof testInitialValues.name === 'string') setName(testInitialValues.name);
-    if (typeof testInitialValues.phone === 'string') setPhone(testInitialValues.phone);
-    if (typeof testInitialValues.email === 'string') setEmail(testInitialValues.email);
-    if (typeof testInitialValues.area === 'string') setArea(testInitialValues.area);
-    if (typeof testInitialValues.category === 'string') setCategory(testInitialValues.category);
-    if (typeof testInitialValues.title === 'string') setTitle(testInitialValues.title);
-    if (typeof testInitialValues.description === 'string') setDescription(testInitialValues.description);
-    if (typeof testInitialValues.timing === 'string') setTiming(testInitialValues.timing);
-    if (typeof testInitialValues.needsQuotation === 'boolean') setNeedsQuotation(testInitialValues.needsQuotation);
-    if (typeof testInitialValues.budget === 'string') setBudget(testInitialValues.budget);
-    if (Array.isArray(testInitialValues.photos)) setPhotos(testInitialValues.photos as string[]);
+    if (typeof testInitialValues.name === 'string')
+      setName(testInitialValues.name);
+    if (typeof testInitialValues.phone === 'string')
+      setPhone(testInitialValues.phone);
+    if (typeof testInitialValues.email === 'string')
+      setEmail(testInitialValues.email);
+    if (typeof testInitialValues.area === 'string')
+      setArea(testInitialValues.area);
+    if (typeof testInitialValues.category === 'string')
+      setCategory(testInitialValues.category);
+    if (typeof testInitialValues.title === 'string')
+      setTitle(testInitialValues.title);
+    if (typeof testInitialValues.description === 'string')
+      setDescription(testInitialValues.description);
+    if (typeof testInitialValues.timing === 'string')
+      setTiming(testInitialValues.timing);
+    if (typeof testInitialValues.needsQuotation === 'boolean')
+      setNeedsQuotation(testInitialValues.needsQuotation);
+    if (typeof testInitialValues.budget === 'string')
+      setBudget(testInitialValues.budget);
+    if (Array.isArray(testInitialValues.photos))
+      setPhotos(testInitialValues.photos as string[]);
   }, [testInitialValues]);
 
   const isGarageClearance = category === 'Garage Clearance';
-  const timingOptions = isGarageClearance ? GARAGE_TIMING_OPTIONS : TIMING_OPTIONS;
+  const timingOptions = isGarageClearance
+    ? GARAGE_TIMING_OPTIONS
+    : TIMING_OPTIONS;
 
   useEffect(() => {
     if (preselectedCategory) {
@@ -173,7 +232,8 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
     }
     if (!needsQuotation) {
       if (!budget) {
-        newErrors.budget = 'Please enter a budget amount or select "Need Quotation"';
+        newErrors.budget =
+          'Please enter a budget amount or select "Need Quotation"';
       } else if (parseFloat(budget) < 10) {
         newErrors.budget = 'Budget must be at least £10';
       }
@@ -183,7 +243,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
 
   const handleSubmit = async () => {
     if (!name || !phone) {
-      Alert.alert('Required Fields', 'Please fill in your name and phone number');
+      Alert.alert(
+        'Required Fields',
+        'Please fill in your name and phone number',
+      );
       return;
     }
 
@@ -194,7 +257,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
     }
 
     if (isGarageClearance && photos.length === 0) {
-      Alert.alert('Photo Required', 'Please add at least one photo for garage clearance jobs');
+      Alert.alert(
+        'Photo Required',
+        'Please add at least one photo for garage clearance jobs',
+      );
       return;
     }
 
@@ -211,14 +277,27 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
       // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       const runtimeLib = require('../../lib/supabase');
       // eslint-disable-next-line no-console
-      console.log('DEBUG(handleSubmit) runtimeLib.supabase.from === supabase.from', !!runtimeLib && !!runtimeLib.supabase && runtimeLib.supabase.from === (supabase as any).from);
+      console.log(
+        'DEBUG(handleSubmit) runtimeLib.supabase.from === supabase.from',
+        !!runtimeLib &&
+          !!runtimeLib.supabase &&
+          runtimeLib.supabase.from === (supabase as any).from,
+      );
       const _fromRes: any = (supabase as any).from('jobs');
       // eslint-disable-next-line no-console
-      console.log('DEBUG(handleSubmit) fromRes keys:', _fromRes && Object.keys(_fromRes || {}));
+      console.log(
+        'DEBUG(handleSubmit) fromRes keys:',
+        _fromRes && Object.keys(_fromRes || {}),
+      );
       if (!_fromRes || typeof _fromRes.insert !== 'function') {
         // eslint-disable-next-line no-console
-        console.error('DEBUG(handleSubmit) supabase.from did not return object with insert', _fromRes);
-        throw new Error('supabase.from did not return an insert-capable object');
+        console.error(
+          'DEBUG(handleSubmit) supabase.from did not return object with insert',
+          _fromRes,
+        );
+        throw new Error(
+          'supabase.from did not return an insert-capable object',
+        );
       }
 
       const insertResult = await _fromRes.insert({
@@ -236,7 +315,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
         status: 'open',
         is_garage_clearance: isGarageClearance,
       });
-      const error = insertResult && (insertResult.error || (insertResult as any).message) ? (insertResult.error || (insertResult as any).message) : null;
+      const error =
+        insertResult && (insertResult.error || (insertResult as any).message)
+          ? insertResult.error || (insertResult as any).message
+          : null;
       if (error) {
         // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
         const sentry = require('../../lib/sentry');
@@ -245,15 +327,18 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
       }
 
       Alert.alert('Success', 'Your job has been posted!', [
-          { text: 'OK', onPress: () => {
-          try {
-            if (router && typeof (router as any).push === 'function') {
-              (router as any).push('/customer/jobs');
+        {
+          text: 'OK',
+          onPress: () => {
+            try {
+              if (router && typeof (router as any).push === 'function') {
+                (router as any).push('/customer/jobs');
+              }
+            } catch {
+              // swallow navigation errors during tests
             }
-          } catch {
-            // swallow navigation errors during tests
-          }
-        } },
+          },
+        },
       ]);
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
@@ -326,7 +411,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
         <TextInput
           style={[styles.input, !!errors.title && styles.inputError]}
           value={title}
-          onChangeText={(v) => { setTitle(v); setErrors((e) => ({ ...e, title: undefined })); }}
+          onChangeText={(v) => {
+            setTitle(v);
+            setErrors((e) => ({ ...e, title: undefined }));
+          }}
           placeholder="e.g. Fix leaking kitchen tap"
           placeholderTextColor={Colors.textSecondary}
         />
@@ -337,7 +425,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
         label="Area *"
         options={AREAS}
         value={area}
-        onChange={(v) => { setArea(v); setErrors((e) => ({ ...e, area: undefined })); }}
+        onChange={(v) => {
+          setArea(v);
+          setErrors((e) => ({ ...e, area: undefined }));
+        }}
         placeholder="Select your area"
         error={errors.area}
       />
@@ -346,7 +437,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
         label="Job Category *"
         options={JOB_CATEGORIES}
         value={category}
-        onChange={(v) => { setCategory(v); setErrors((e) => ({ ...e, category: undefined })); }}
+        onChange={(v) => {
+          setCategory(v);
+          setErrors((e) => ({ ...e, category: undefined }));
+        }}
         placeholder="Select job category"
         error={errors.category}
       />
@@ -354,23 +448,35 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
       <View style={styles.fieldContainer}>
         <Text style={styles.label}>Description *</Text>
         <TextInput
-          style={[styles.input, styles.textArea, !!errors.description && styles.inputError]}
+          style={[
+            styles.input,
+            styles.textArea,
+            !!errors.description && styles.inputError,
+          ]}
           value={description}
-          onChangeText={(v) => { setDescription(v); setErrors((e) => ({ ...e, description: undefined })); }}
+          onChangeText={(v) => {
+            setDescription(v);
+            setErrors((e) => ({ ...e, description: undefined }));
+          }}
           placeholder="Describe the job in detail (at least 30 characters)..."
           placeholderTextColor={Colors.textSecondary}
           multiline
           numberOfLines={4}
           textAlignVertical="top"
         />
-        {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
+        {errors.description && (
+          <Text style={styles.errorText}>{errors.description}</Text>
+        )}
       </View>
 
       <Dropdown
         label="When do you need this? *"
         options={timingOptions}
         value={timing}
-        onChange={(v) => { setTiming(v); setErrors((e) => ({ ...e, timing: undefined })); }}
+        onChange={(v) => {
+          setTiming(v);
+          setErrors((e) => ({ ...e, timing: undefined }));
+        }}
         placeholder="Select timing"
         error={errors.timing}
       />
@@ -385,18 +491,30 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
             setErrors((e) => ({ ...e, budget: undefined }));
           }}
         >
-          <View style={[styles.checkbox, needsQuotation && styles.checkboxChecked]}>
-            {needsQuotation && <Ionicons name="checkmark" size={16} color={Colors.background} />}
+          <View
+            style={[styles.checkbox, needsQuotation && styles.checkboxChecked]}
+          >
+            {needsQuotation && (
+              <Ionicons name="checkmark" size={16} color={Colors.background} />
+            )}
           </View>
           <Text style={styles.quotationText}>Need Quotation</Text>
         </TouchableOpacity>
         {!needsQuotation && (
-          <View style={[styles.budgetInputContainer, !!errors.budget && styles.inputError]}>
+          <View
+            style={[
+              styles.budgetInputContainer,
+              !!errors.budget && styles.inputError,
+            ]}
+          >
             <Text style={styles.currencySymbol}>£</Text>
             <TextInput
               style={styles.budgetInput}
               value={budget}
-              onChangeText={(v) => { setBudget(v); setErrors((e) => ({ ...e, budget: undefined })); }}
+              onChangeText={(v) => {
+                setBudget(v);
+                setErrors((e) => ({ ...e, budget: undefined }));
+              }}
               placeholder="Enter your budget (min £10)"
               placeholderTextColor={Colors.textSecondary}
               keyboardType="numeric"
@@ -433,7 +551,10 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
 
       <TouchableOpacity
         testID="post-job-submit"
-        style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
+        style={[
+          styles.submitButton,
+          isSubmitting && styles.submitButtonDisabled,
+        ]}
         onPress={handleSubmit}
         disabled={isSubmitting}
       >
@@ -441,7 +562,11 @@ export default function PostJobScreen({ testInitialValues }: { testInitialValues
           <ActivityIndicator color={Colors.background} />
         ) : (
           <>
-            <Ionicons name="checkmark-circle" size={24} color={Colors.background} />
+            <Ionicons
+              name="checkmark-circle"
+              size={24}
+              color={Colors.background}
+            />
             <Text style={styles.submitButtonText}>Post Job</Text>
           </>
         )}

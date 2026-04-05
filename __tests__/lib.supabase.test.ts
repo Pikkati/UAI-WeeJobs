@@ -1,8 +1,12 @@
 describe('lib/supabase fallback client', () => {
   test('provides a minimal mock client when env vars missing', async () => {
     const hasProcess = typeof process !== 'undefined' && process && process.env;
-    const oldUrl = hasProcess ? (process.env as any).EXPO_PUBLIC_SUPABASE_URL : undefined;
-    const oldKey = hasProcess ? (process.env as any).EXPO_PUBLIC_SUPABASE_ANON_KEY : undefined;
+    const oldUrl = hasProcess
+      ? (process.env as any).EXPO_PUBLIC_SUPABASE_URL
+      : undefined;
+    const oldKey = hasProcess
+      ? (process.env as any).EXPO_PUBLIC_SUPABASE_ANON_KEY
+      : undefined;
     try {
       if (hasProcess) {
         delete (process.env as any).EXPO_PUBLIC_SUPABASE_URL;
@@ -20,8 +24,10 @@ describe('lib/supabase fallback client', () => {
       expect(res).toHaveProperty('error');
     } finally {
       if (hasProcess) {
-        if (oldUrl !== undefined) (process.env as any).EXPO_PUBLIC_SUPABASE_URL = oldUrl;
-        if (oldKey !== undefined) (process.env as any).EXPO_PUBLIC_SUPABASE_ANON_KEY = oldKey;
+        if (oldUrl !== undefined)
+          (process.env as any).EXPO_PUBLIC_SUPABASE_URL = oldUrl;
+        if (oldKey !== undefined)
+          (process.env as any).EXPO_PUBLIC_SUPABASE_ANON_KEY = oldKey;
       }
     }
   });

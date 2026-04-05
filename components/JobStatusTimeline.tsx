@@ -39,15 +39,23 @@ interface JobStatusTimelineProps {
   currentStatus: JobStatus;
 }
 
-export default function JobStatusTimeline({ currentStatus }: JobStatusTimelineProps) {
+export default function JobStatusTimeline({
+  currentStatus,
+}: JobStatusTimelineProps) {
   const currentIndex = STATUS_ORDER.indexOf(currentStatus);
 
-  const getStepStatus = (stepKey: JobStatus): 'completed' | 'current' | 'pending' => {
+  const getStepStatus = (
+    stepKey: JobStatus,
+  ): 'completed' | 'current' | 'pending' => {
     const stepIndex = STATUS_ORDER.indexOf(stepKey);
     if (stepIndex < currentIndex) return 'completed';
-    if (stepIndex === currentIndex || 
-        (stepKey === 'awaiting_quote_approval' && currentStatus === 'awaiting_final_payment') ||
-        (stepKey === 'paid' && (currentStatus === 'awaiting_confirmation' || currentStatus === 'paid'))) {
+    if (
+      stepIndex === currentIndex ||
+      (stepKey === 'awaiting_quote_approval' &&
+        currentStatus === 'awaiting_final_payment') ||
+      (stepKey === 'paid' &&
+        (currentStatus === 'awaiting_confirmation' || currentStatus === 'paid'))
+    ) {
       return 'current';
     }
     return 'pending';
@@ -62,34 +70,48 @@ export default function JobStatusTimeline({ currentStatus }: JobStatusTimelinePr
         return (
           <View key={step.key} style={styles.stepWrapper}>
             <View style={styles.stepContainer}>
-              <View style={[
-                styles.iconCircle,
-                status === 'completed' && styles.iconCircleCompleted,
-                status === 'current' && styles.iconCircleCurrent,
-              ]}>
+              <View
+                style={[
+                  styles.iconCircle,
+                  status === 'completed' && styles.iconCircleCompleted,
+                  status === 'current' && styles.iconCircleCurrent,
+                ]}
+              >
                 {status === 'completed' ? (
-                  <Ionicons name="checkmark" size={16} color={Colors.background} />
+                  <Ionicons
+                    name="checkmark"
+                    size={16}
+                    color={Colors.background}
+                  />
                 ) : (
-                  <Ionicons 
-                    name={step.icon} 
-                    size={16} 
-                    color={status === 'current' ? Colors.background : Colors.textSecondary} 
+                  <Ionicons
+                    name={step.icon}
+                    size={16}
+                    color={
+                      status === 'current'
+                        ? Colors.background
+                        : Colors.textSecondary
+                    }
                   />
                 )}
               </View>
-              <Text style={[
-                styles.stepLabel,
-                status === 'current' && styles.stepLabelCurrent,
-                status === 'completed' && styles.stepLabelCompleted,
-              ]}>
+              <Text
+                style={[
+                  styles.stepLabel,
+                  status === 'current' && styles.stepLabelCurrent,
+                  status === 'completed' && styles.stepLabelCompleted,
+                ]}
+              >
                 {step.label}
               </Text>
             </View>
             {!isLast && (
-              <View style={[
-                styles.connector,
-                status === 'completed' && styles.connectorCompleted,
-              ]} />
+              <View
+                style={[
+                  styles.connector,
+                  status === 'completed' && styles.connectorCompleted,
+                ]}
+              />
             )}
           </View>
         );

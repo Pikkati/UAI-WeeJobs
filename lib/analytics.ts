@@ -4,7 +4,10 @@ export type AnalyticsEvent = {
 };
 
 export async function track(name: string, properties?: Record<string, any>) {
-  const ANALYTICS_ENDPOINT = (typeof process !== 'undefined' && (process.env as any)?.ANALYTICS_ENDPOINT) || '';
+  const ANALYTICS_ENDPOINT =
+    (typeof process !== 'undefined' &&
+      (process.env as any)?.ANALYTICS_ENDPOINT) ||
+    '';
   const event = { name, properties: properties || {} };
   try {
     if (ANALYTICS_ENDPOINT) {

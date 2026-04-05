@@ -1,4 +1,7 @@
-import { computeBudgetValue, validateEditJobFields } from '../app/customer/edit-job';
+import {
+  computeBudgetValue,
+  validateEditJobFields,
+} from '../app/customer/edit-job';
 
 describe('EditJob helpers', () => {
   test('computeBudgetValue returns Need Quotation when requested', () => {

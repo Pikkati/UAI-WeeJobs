@@ -38,6 +38,7 @@
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
     "@types/react": "^19.2.14",
+    "@types/react-native": "^0.72.8",
     "@typescript-eslint/eslint-plugin": "^8.57.2",
     "@typescript-eslint/parser": "^8.57.2",
     "babel-preset-expo": "^55.0.13",
@@ -57,7 +58,7 @@
     "semantic-release": "^25.0.3",
     "sharp": "^0.32.1",
     "svgo": "^3.1.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.9.3"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx,jsx}": [

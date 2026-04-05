@@ -9,7 +9,9 @@ process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY = 'test-anon-key';
 
 jest.mock('../lib/supabase', () => ({
   supabase: {
-    from: () => ({ insert: async () => ({ data: null, error: { message: 'db failure' } }) }),
+    from: () => ({
+      insert: async () => ({ data: null, error: { message: 'db failure' } }),
+    }),
   },
 }));
 
@@ -25,7 +27,8 @@ describe('PostJobScreen — API error handling', () => {
       name: 'Test User',
       phone: '0123456789',
       title: 'Valid title more than ten chars',
-      description: 'This description is long enough to satisfy validation requirements.',
+      description:
+        'This description is long enough to satisfy validation requirements.',
       budget: '50',
       timing: 'This Week',
       category: 'Plumbing',
@@ -35,7 +38,7 @@ describe('PostJobScreen — API error handling', () => {
     const { getByTestId } = render(
       <AuthProvider>
         <PostJobScreen testInitialValues={initial} />
-      </AuthProvider>
+      </AuthProvider>,
     );
 
     const { Alert } = require('react-native');
@@ -44,7 +47,10 @@ describe('PostJobScreen — API error handling', () => {
     fireEvent.press(getByTestId('post-job-submit'));
 
     await waitFor(() => {
-      expect(Alert.alert).toHaveBeenCalledWith('Error', 'Failed to post job. Please try again.');
+      expect(Alert.alert).toHaveBeenCalledWith(
+        'Error',
+        'Failed to post job. Please try again.',
+      );
     });
   });
 });

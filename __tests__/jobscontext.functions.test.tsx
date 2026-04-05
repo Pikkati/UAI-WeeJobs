@@ -4,24 +4,39 @@ import { render, waitFor } from '@testing-library/react-native';
 import { JobsProvider, useJobs } from '../context/JobsContext';
 
 // Ensure AuthContext returns no user so JobsProvider doesn't call fetchJobs
-jest.mock('../context/AuthContext', () => ({ useAuth: () => ({ user: null }) }));
+jest.mock('../context/AuthContext', () => ({
+  useAuth: () => ({ user: null }),
+}));
 
 // Provide a lightweight virtual mock for ../lib/supabase to avoid creating a real client
-jest.mock('../lib/supabase', () => {
-  const noopResult = Promise.resolve({ data: [], error: null });
-  const chainable = () => ({ select: () => ({ order: () => noopResult, eq: () => noopResult, in: () => noopResult, single: () => noopResult }), update: () => noopResult, insert: () => noopResult });
-  return {
-    supabase: {
-      from: chainable,
-      functions: { invoke: async () => ({ data: null, error: null }) },
-    },
-    Job: undefined,
-    JobStatus: undefined,
-    JobInterest: undefined,
-    Quote: undefined,
-    PricingType: undefined,
-  };
-}, { virtual: true });
+jest.mock(
+  '../lib/supabase',
+  () => {
+    const noopResult = Promise.resolve({ data: [], error: null });
+    const chainable = () => ({
+      select: () => ({
+        order: () => noopResult,
+        eq: () => noopResult,
+        in: () => noopResult,
+        single: () => noopResult,
+      }),
+      update: () => noopResult,
+      insert: () => noopResult,
+    });
+    return {
+      supabase: {
+        from: chainable,
+        functions: { invoke: async () => ({ data: null, error: null }) },
+      },
+      Job: undefined,
+      JobStatus: undefined,
+      JobInterest: undefined,
+      Quote: undefined,
+      PricingType: undefined,
+    };
+  },
+  { virtual: true },
+);
 
 let captured: any = {};
 
@@ -43,7 +58,7 @@ describe('JobsContext functions (pure behavior)', () => {
     render(
       <JobsProvider>
         <TestConsumer />
-      </JobsProvider>
+      </JobsProvider>,
     );
 
     // Allow effects to run and settle
@@ -55,9 +70,19 @@ describe('JobsContext functions (pure behavior)', () => {
     expect(captured.depositLarge).toBe(50);
 
     expect(Array.isArray(captured.getNextCustomer)).toBeTruthy();
-    expect(captured.getNextCustomer.some((b: any) => b.action === 'track_job' || b.action === 'choose_tradesperson')).toBeTruthy();
+    expect(
+      captured.getNextCustomer.some(
+        (b: any) =>
+          b.action === 'track_job' || b.action === 'choose_tradesperson',
+      ),
+    ).toBeTruthy();
 
     expect(Array.isArray(captured.getNextTrades)).toBeTruthy();
-    expect(captured.getNextTrades.some((b: any) => b.action === 'send_estimate' || b.action === 'start_navigation')).toBeTruthy();
+    expect(
+      captured.getNextTrades.some(
+        (b: any) =>
+          b.action === 'send_estimate' || b.action === 'start_navigation',
+      ),
+    ).toBeTruthy();
   });
 });

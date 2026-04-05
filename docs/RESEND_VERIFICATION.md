@@ -21,18 +21,22 @@ import { createClient } from '@supabase/supabase-js';
 const SUPABASE_URL = process.env.SUPABASE_URL!;
 const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY!; // keep this secret
 
-const supabaseAdmin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, { auth: { persistSession: false } });
+const supabaseAdmin = createClient(SUPABASE_URL, SERVICE_ROLE_KEY, {
+  auth: { persistSession: false },
+});
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+  if (req.method !== 'POST')
+    return res.status(405).json({ error: 'Method not allowed' });
   const { email } = req.body || {};
   if (!email) return res.status(400).json({ error: 'Missing email' });
 
   try {
     // Find user
-    const { data: users, error: listErr } = await supabaseAdmin.auth.admin.listUsers({ email });
+    const { data: users, error: listErr } =
+      await supabaseAdmin.auth.admin.listUsers({ email });
     if (listErr) throw listErr;
-    const user = users?.find(u => u.email === email);
+    const user = users?.find((u) => u.email === email);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
     // Option A: Use Supabase admin API to generate a signup/verification link and email it via your SMTP provider.

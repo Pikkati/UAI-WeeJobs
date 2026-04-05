@@ -1,5 +1,15 @@
 import { useState, useMemo } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -10,15 +20,18 @@ import { useAuth } from '../../context/AuthContext';
 type Mode = 'quote' | 'estimate' | 'invoice';
 
 export default function SendQuoteScreen() {
-  const { jobId, mode: modeParam } = useLocalSearchParams<{ jobId: string; mode?: string }>();
+  const { jobId, mode: modeParam } = useLocalSearchParams<{
+    jobId: string;
+    mode?: string;
+  }>();
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { jobs, sendQuote, sendEstimate, sendInvoice } = useJobs();
   const { user } = useAuth();
-  
-  const job = jobs.find(j => j.id === jobId);
+
+  const job = jobs.find((j) => j.id === jobId);
   const isHourly = job?.pricing_type === 'hourly';
-  
+
   const mode: Mode = useMemo(() => {
     if (modeParam === 'estimate') return 'estimate';
     if (modeParam === 'invoice') return 'invoice';
@@ -30,34 +43,39 @@ export default function SendQuoteScreen() {
 
   const [hours, setHours] = useState(job?.estimate_hours?.toString() || '');
   const [hourlyRate, setHourlyRate] = useState(
-    job?.estimate_hourly_rate?.toString() || user?.hourly_rate?.toString() || ''
+    job?.estimate_hourly_rate?.toString() ||
+      user?.hourly_rate?.toString() ||
+      '',
   );
   const [labour, setLabour] = useState('');
   const [materials, setMaterials] = useState(
-    job?.estimate_materials?.toString() || ''
+    job?.estimate_materials?.toString() || '',
   );
   const [notes, setNotes] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const hoursAmount = parseFloat(hours) || 0;
   const hourlyRateAmount = parseFloat(hourlyRate) || 0;
-  const labourAmount = mode === 'quote' 
-    ? (parseFloat(labour) || 0) 
-    : hoursAmount * hourlyRateAmount;
+  const labourAmount =
+    mode === 'quote' ? parseFloat(labour) || 0 : hoursAmount * hourlyRateAmount;
   const materialsAmount = parseFloat(materials) || 0;
   const total = labourAmount + materialsAmount;
 
   const estimateTotal = job?.estimate_total || 0;
-  const variance = mode === 'invoice' && estimateTotal > 0 
-    ? ((total - estimateTotal) / estimateTotal) * 100 
-    : 0;
+  const variance =
+    mode === 'invoice' && estimateTotal > 0
+      ? ((total - estimateTotal) / estimateTotal) * 100
+      : 0;
   const hasHighVariance = Math.abs(variance) > 20;
 
   const getTitle = () => {
     switch (mode) {
-      case 'estimate': return 'Send Estimate';
-      case 'invoice': return 'Send Invoice';
-      default: return 'Send Quote';
+      case 'estimate':
+        return 'Send Estimate';
+      case 'invoice':
+        return 'Send Invoice';
+      default:
+        return 'Send Quote';
     }
   };
 
@@ -84,8 +102,8 @@ export default function SendQuoteScreen() {
         `Your invoice is ${variance > 0 ? 'higher' : 'lower'} than the estimate by ${Math.abs(variance).toFixed(0)}%. Are you sure you want to send this invoice?`,
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'Send Anyway', onPress: () => submitForm() }
-        ]
+          { text: 'Send Anyway', onPress: () => submitForm() },
+        ],
       );
       return;
     }
@@ -111,7 +129,7 @@ export default function SendQuoteScreen() {
             Alert.alert(
               'Estimate Sent!',
               'The customer will review your estimate and acknowledge it before you proceed.',
-              [{ text: 'OK', onPress: () => router.back() }]
+              [{ text: 'OK', onPress: () => router.back() }],
             );
           }
           break;
@@ -128,7 +146,7 @@ export default function SendQuoteScreen() {
             Alert.alert(
               'Invoice Sent!',
               'The customer will review and pay your invoice.',
-              [{ text: 'OK', onPress: () => router.back() }]
+              [{ text: 'OK', onPress: () => router.back() }],
             );
           }
           break;
@@ -144,7 +162,7 @@ export default function SendQuoteScreen() {
             Alert.alert(
               'Quote Sent!',
               'The customer will review your quote and approve or request changes.',
-              [{ text: 'OK', onPress: () => router.back() }]
+              [{ text: 'OK', onPress: () => router.back() }],
             );
           }
           break;
@@ -170,12 +188,15 @@ export default function SendQuoteScreen() {
   }
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
+    <KeyboardAvoidingView
+      style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <View style={[styles.header, { paddingTop: insets.top + Spacing.md }]}>
-        <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+        <TouchableOpacity
+          onPress={() => router.back()}
+          style={styles.backButton}
+        >
           <Ionicons name="arrow-back" size={24} color={Colors.white} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>{getTitle()}</Text>
@@ -185,10 +206,16 @@ export default function SendQuoteScreen() {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.jobInfo}>
           <View style={styles.modeBadge}>
-            <Ionicons 
-              name={mode === 'quote' ? 'document-text' : mode === 'estimate' ? 'calculator' : 'receipt'} 
-              size={16} 
-              color={Colors.background} 
+            <Ionicons
+              name={
+                mode === 'quote'
+                  ? 'document-text'
+                  : mode === 'estimate'
+                    ? 'calculator'
+                    : 'receipt'
+              }
+              size={16}
+              color={Colors.background}
             />
             <Text style={styles.modeBadgeText}>
               {mode === 'quote' ? 'Fixed Price' : 'Hourly Rate'}
@@ -219,10 +246,17 @@ export default function SendQuoteScreen() {
             <>
               <View style={styles.inputGroup}>
                 <Text style={styles.label}>
-                  {mode === 'estimate' ? 'Estimated Hours' : 'Actual Hours Worked'}
+                  {mode === 'estimate'
+                    ? 'Estimated Hours'
+                    : 'Actual Hours Worked'}
                 </Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="time-outline" size={20} color={Colors.accent} style={{ marginLeft: Spacing.md }} />
+                  <Ionicons
+                    name="time-outline"
+                    size={20}
+                    color={Colors.accent}
+                    style={{ marginLeft: Spacing.md }}
+                  />
                   <TextInput
                     style={styles.input}
                     value={hours}
@@ -253,7 +287,8 @@ export default function SendQuoteScreen() {
 
               <View style={styles.labourCalc}>
                 <Text style={styles.labourCalcText}>
-                  Labour: {hoursAmount} hrs x £{hourlyRateAmount.toFixed(2)} = £{labourAmount.toFixed(2)}
+                  Labour: {hoursAmount} hrs x £{hourlyRateAmount.toFixed(2)} = £
+                  {labourAmount.toFixed(2)}
                 </Text>
               </View>
             </>
@@ -280,9 +315,11 @@ export default function SendQuoteScreen() {
               style={[styles.input, styles.textArea]}
               value={notes}
               onChangeText={setNotes}
-              placeholder={mode === 'invoice' 
-                ? "Describe the work completed..." 
-                : "Add any notes about the work..."}
+              placeholder={
+                mode === 'invoice'
+                  ? 'Describe the work completed...'
+                  : 'Add any notes about the work...'
+              }
               placeholderTextColor={Colors.textSecondary}
               multiline
               numberOfLines={4}
@@ -293,22 +330,39 @@ export default function SendQuoteScreen() {
 
         <View style={styles.totalContainer}>
           <Text style={styles.totalLabel}>
-            {mode === 'estimate' ? 'Estimated Total' : mode === 'invoice' ? 'Invoice Total' : 'Quote Total'}
+            {mode === 'estimate'
+              ? 'Estimated Total'
+              : mode === 'invoice'
+                ? 'Invoice Total'
+                : 'Quote Total'}
           </Text>
           <Text style={styles.totalAmount}>£{total.toFixed(2)}</Text>
         </View>
 
         {mode === 'invoice' && estimateTotal > 0 && (
-          <View style={[styles.varianceContainer, hasHighVariance && styles.varianceWarning]}>
-            <Ionicons 
-              name={hasHighVariance ? 'warning' : 'information-circle'} 
-              size={20} 
-              color={hasHighVariance ? Colors.warning : Colors.textSecondary} 
+          <View
+            style={[
+              styles.varianceContainer,
+              hasHighVariance && styles.varianceWarning,
+            ]}
+          >
+            <Ionicons
+              name={hasHighVariance ? 'warning' : 'information-circle'}
+              size={20}
+              color={hasHighVariance ? Colors.warning : Colors.textSecondary}
             />
             <View style={styles.varianceText}>
-              <Text style={styles.varianceLabel}>Original Estimate: £{estimateTotal.toFixed(2)}</Text>
-              <Text style={[styles.varianceValue, hasHighVariance && styles.varianceValueWarning]}>
-                {variance > 0 ? '+' : ''}{variance.toFixed(0)}% from estimate
+              <Text style={styles.varianceLabel}>
+                Original Estimate: £{estimateTotal.toFixed(2)}
+              </Text>
+              <Text
+                style={[
+                  styles.varianceValue,
+                  hasHighVariance && styles.varianceValueWarning,
+                ]}
+              >
+                {variance > 0 ? '+' : ''}
+                {variance.toFixed(0)}% from estimate
               </Text>
             </View>
           </View>
@@ -317,11 +371,15 @@ export default function SendQuoteScreen() {
         <View style={styles.breakdown}>
           <View style={styles.breakdownRow}>
             <Text style={styles.breakdownLabel}>Labour</Text>
-            <Text style={styles.breakdownValue}>£{labourAmount.toFixed(2)}</Text>
+            <Text style={styles.breakdownValue}>
+              £{labourAmount.toFixed(2)}
+            </Text>
           </View>
           <View style={styles.breakdownRow}>
             <Text style={styles.breakdownLabel}>Materials</Text>
-            <Text style={styles.breakdownValue}>£{materialsAmount.toFixed(2)}</Text>
+            <Text style={styles.breakdownValue}>
+              £{materialsAmount.toFixed(2)}
+            </Text>
           </View>
           {mode !== 'estimate' && job.deposit_paid && job.deposit_amount && (
             <>
@@ -345,15 +403,19 @@ export default function SendQuoteScreen() {
         <View style={{ height: 100 }} />
       </ScrollView>
 
-      <View style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}>
-        <TouchableOpacity 
-          style={[styles.sendButton, total <= 0 && styles.buttonDisabled]} 
+      <View
+        style={[styles.footer, { paddingBottom: insets.bottom + Spacing.md }]}
+      >
+        <TouchableOpacity
+          style={[styles.sendButton, total <= 0 && styles.buttonDisabled]}
           onPress={handleSubmit}
           disabled={total <= 0 || isSubmitting}
         >
           <Ionicons name="send" size={20} color={Colors.background} />
           <Text style={styles.sendButtonText}>
-            {isSubmitting ? 'Sending...' : `Send ${mode === 'quote' ? 'Quote' : mode === 'estimate' ? 'Estimate' : 'Invoice'}`}
+            {isSubmitting
+              ? 'Sending...'
+              : `Send ${mode === 'quote' ? 'Quote' : mode === 'estimate' ? 'Estimate' : 'Invoice'}`}
           </Text>
         </TouchableOpacity>
       </View>

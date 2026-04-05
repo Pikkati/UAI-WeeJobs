@@ -25,7 +25,8 @@ describe('PostJob validation', () => {
       name: 'Alice',
       phone: '0123456789',
       title: 'short',
-      description: 'This description is long enough to pass the description validation.',
+      description:
+        'This description is long enough to pass the description validation.',
       budget: '50',
       timing: 'This Week',
       category: 'Plumbing',
@@ -35,7 +36,7 @@ describe('PostJob validation', () => {
     const { getByTestId, getByText } = render(
       <AuthProvider>
         <PostJobScreen testInitialValues={initial} />
-      </AuthProvider>
+      </AuthProvider>,
     );
     fireEvent.press(getByTestId('post-job-submit'));
 
@@ -59,12 +60,14 @@ describe('PostJob validation', () => {
     const { getByTestId, getByText } = render(
       <AuthProvider>
         <PostJobScreen testInitialValues={initial} />
-      </AuthProvider>
+      </AuthProvider>,
     );
     fireEvent.press(getByTestId('post-job-submit'));
 
     await waitFor(() => {
-      expect(getByText('Description must be at least 30 characters')).toBeTruthy();
+      expect(
+        getByText('Description must be at least 30 characters'),
+      ).toBeTruthy();
     });
   });
 });
