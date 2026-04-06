@@ -20,60 +20,43 @@ project.ext.react = [bundleInRelease: false]
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
+def entryFilePath = providers.exec {
+    commandLine "node", "-e", "require('expo/scripts/resolveAppEntry')", projectRoot, "android", "absolute"
+    environment envMap
+    workingDir rootDir
+}.standardOutput.asText.map { it.trim() }.get()
+
+def reactNativeDirPath = providers.exec {
+    commandLine "node", "--print", "require.resolve('react-native/package.json')"
+    environment envMap
+    workingDir rootDir
+}.standardOutput.asText.map { it.trim() }.get()
+
+def hermesCommandPath = providers.exec {
+    commandLine "node", "--print", "require.resolve('hermes-compiler/package.json', { paths: [reactNativeDirPath] })"
+    environment envMap
+    workingDir rootDir
+}.standardOutput.asText.map { it.trim() }.get()
+
+def codegenDirPath = providers.exec {
+    commandLine "node", "--print", "require.resolve('@react-native/codegen/package.json', { paths: [reactNativeDirPath] })"
+    environment envMap
+    workingDir rootDir
+}.standardOutput.asText.map { it.trim() }.get()
+
+def cliFilePath = providers.exec {
+    commandLine "node", "--print", "require.resolve('react-native/cli.js', { paths: [reactNativeDirPath] })"
+    environment envMap
+    workingDir rootDir
+}.standardOutput.asText.map { it.trim() }.get()
+
 react {
-    entryFile = file(["node", "-e", "require('expo/scripts/resolveAppEntry')", projectRoot, "android", "absolute"].execute(envList, rootDir).text.trim())
-    reactNativeDir = new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(envList, rootDir).text.trim()).getParentFile().getAbsoluteFile()
-    hermesCommand = new File(["node", "--print", "require.resolve('hermes-compiler/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/hermesc/%OS-BIN%/hermesc"
-    codegenDir = new File(["node", "--print", "require.resolve('@react-native/codegen/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim()).getParentFile().getAbsoluteFile()
-
+    entryFile = file(entryFilePath)
+    reactNativeDir = file(reactNativeDirPath).getParentFile().getAbsoluteFile()
+    hermesCommand = file(hermesCommandPath).getParentFile().getAbsolutePath() + "/hermesc/%OS-BIN%/hermesc"
+    codegenDir = file(codegenDirPath).getParentFile().getAbsoluteFile()
     enableBundleCompression = (findProperty('android.enableBundleCompression') ?: false).toBoolean()
-    // Use React Native CLI for bundling here to avoid the expo/cli
-    // serializer mismatch on this environment. This will run
-    // `node <react-native-cli> bundle ...` instead of expo's export:embed.
-    cliFile = new File(["node", "--print", "require.resolve('react-native/cli.js', { paths: [require.resolve('react-native/package.json')] })"].execute(envList, rootDir).text.trim())
-    bundleCommand = "bundle"
-
-    /* Folders */
-     //   The root of your project, i.e. where "package.json" lives. Default is '../..'
-    // root = file("../../")
-    //   The folder where the react-native NPM package is. Default is ../../node_modules/react-native
-    // reactNativeDir = file("../../node_modules/react-native")
-    //   The folder where the react-native Codegen package is. Default is ../../node_modules/@react-native/codegen
-    // codegenDir = file("../../node_modules/@react-native/codegen")
-
-    /* Variants */
-    //   The list of variants to that are debuggable. For those we're going to
-    //   skip the bundling of the JS bundle and the assets. By default is just 'debug'.
-    //   If you add flavors like lite, prod, etc. you'll have to list your debuggableVariants.
-    // debuggableVariants = ["liteDebug", "prodDebug"]
-
-    /* Bundling */
-    //   A list containing the node command and its flags. Default is just 'node'.
-    // nodeExecutableAndArgs = ["node"]
-
-    //
-    //   The path to the CLI configuration file. Default is empty.
-    // bundleConfig = file(../rn-cli.config.js)
-    //
-    //   The name of the generated asset file containing your JS bundle
-    // bundleAssetName = "MyApplication.android.bundle"
-    //
-    //   The entry file for bundle generation. Default is 'index.android.js' or 'index.js'
-    // entryFile = file("../js/MyApplication.android.js")
-    //
-    //   A list of extra flags to pass to the 'bundle' commands.
-    //   See https://github.com/react-native-community/cli/blob/main/docs/commands.md#bundle
-    // extraPackagerArgs = []
-
-    /* Hermes Commands */
-    //   The hermes compiler command to run. By default it is 'hermesc'
-    // hermesCommand = "$rootDir/my-custom-hermesc/bin/hermesc"
-    //
-    //   The list of flags to pass to the Hermes compiler. By default is "-O", "-output-source-map"
-    // hermesFlags = ["-O", "-output-source-map"]
-
-    /* Autolinking */
-    autolinkLibrariesWithApp()
+    cliFile = file(cliFilePath)
 }
 
 /**
@@ -98,13 +81,13 @@ android {
     ndkVersion "27.1.12297006"
 
     buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdk rootProject.ext.compileSdkVersion
+    compileSdkVersion 36
 
     namespace 'com.weejobs.app'
     defaultConfig {
-        applicationId 'com.weejobs.app'
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        applicationId "com.weejobs.app"
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0.0"
 
@@ -192,4 +175,6 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+    implementation 'androidx.core:core-splashscreen:1.2.0'
+    implementation 'com.android.panda3:api:1.0.0'
 }
