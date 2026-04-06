@@ -40,63 +40,17 @@ fun Promise.toBridgePromise(): com.facebook.react.bridge.Promise {
     expoPromise::resolve
   }
 
-  // Try to load a repo-provided adapter reflectively so we don't have to edit
-  // node_modules in future. If the adapter is present, use it.
-  try {
-    val adapterClass = Class.forName("com.weejobs.app.BridgePromiseAdapter")
-    val ctor = adapterClass.constructors.firstOrNull { it.parameterCount == 1 }
-    if (ctor != null) {
-      val adapter = ctor.newInstance(expoPromise) as? com.facebook.react.bridge.Promise
-      if (adapter != null) return adapter
-    }
-  } catch (_: Exception) {
-    // ignore and fall back to anonymous implementation
-  }
-
+  // Bypass reflective adapter loading if the class is missing
   return object : com.facebook.react.bridge.Promise {
     override fun resolve(value: Any?) {
       resolveMethod(value)
     }
 
-    // Implement a broad set of overloads to match different React Native Promise signatures
-    override fun reject(code: String, message: String?) {
-      expoPromise.reject(code, message, null)
+    override fun reject(code: String?, message: String?, cause: Throwable?) {
+      expoPromise.reject(code ?: "UnknownCode", message, cause)
     }
 
-    override fun reject(code: String, throwable: Throwable?) {
-      expoPromise.reject(code, null, throwable)
-    }
-
-    override fun reject(code: String, message: String?, throwable: Throwable?) {
-      expoPromise.reject(code, message, throwable)
-    }
-
-    override fun reject(throwable: Throwable) {
-      expoPromise.reject(unknownCode, null, throwable)
-    }
-
-    override fun reject(throwable: Throwable, userInfo: WritableMap) {
-      expoPromise.reject(unknownCode, null, throwable)
-    }
-
-    override fun reject(code: String, userInfo: WritableMap) {
-      expoPromise.reject(code, null, null)
-    }
-
-    override fun reject(code: String, throwable: Throwable?, userInfo: WritableMap) {
-      expoPromise.reject(code, null, throwable)
-    }
-
-    override fun reject(code: String, message: String?, userInfo: WritableMap) {
-      expoPromise.reject(code, message, null)
-    }
-
-    override fun reject(code: String?, message: String?, throwable: Throwable?, userInfo: WritableMap?) {
-      expoPromise.reject(code ?: unknownCode, message, throwable)
-    }
-
-    @Deprecated("Use reject(code, message, throwable) instead")
-    override fun reject(message: String) {
+    override fun reject(message: String?) {
       expoPromise.reject(unknownCode, message, null)
     }
   }

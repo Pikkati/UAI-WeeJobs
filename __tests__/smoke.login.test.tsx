@@ -9,11 +9,14 @@ jest.mock('react-native-safe-area-context', () => ({
   useSafeAreaInsets: () => ({ top: 0, bottom: 0, left: 0, right: 0 }),
 }));
 
-jest.mock('expo-router', () => ({
-  useLocalSearchParams: () => ({}),
-  useRouter: () => ({ push: jest.fn(), back: jest.fn() }),
-  router: { replace: jest.fn(), push: jest.fn(), back: jest.fn() },
-}));
+jest.mock('expo-router', () => {
+  const replaceMock = jest.fn();
+  return {
+    useLocalSearchParams: () => ({}),
+    useRouter: () => ({ push: jest.fn(), back: jest.fn(), replace: replaceMock }),
+    router: { replace: replaceMock, push: jest.fn(), back: jest.fn() },
+  };
+});
 
 jest.mock('../context/AuthContext', () => {
   const lm = jest.fn();

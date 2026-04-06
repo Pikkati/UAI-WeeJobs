@@ -54,7 +54,7 @@ task installDebugAndRun {
 configurations.all {
     resolutionStrategy.eachDependency { details ->
         if (details.requested.group == 'org.jetbrains.kotlin') {
-            details.useVersion '1.8.0' // Replace with the required version
+            details.useVersion '1.9.10' // Updated to match expo-modules-core requirements
         }
     }
 }
